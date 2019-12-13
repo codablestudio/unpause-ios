@@ -5,14 +5,13 @@
 //  Created by Krešimir Baković on 11/12/2019.
 //  Copyright © 2019 Krešimir Baković. All rights reserved.
 //
-
 import UIKit
 
+@available(iOS 13.0, *)
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
-
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         if let windowScene = scene as? UIWindowScene {
             let newWindow = UIWindow(windowScene: windowScene)
@@ -54,4 +53,3 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
 }
-
