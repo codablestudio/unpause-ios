@@ -60,15 +60,28 @@ class LoginViewController: UIViewController {
         scrollView.keyboardDismissMode = .onDrag
         emailTextField.returnKeyType = .next
         passwordTextField.returnKeyType = .go
-        
-        
     }
-        
+    
     private func hideNavigationBar() {
         navigationController?.navigationBar.isHidden = true
     }
     
     private func render() {
+        configureScrollViewAndContainerView()
+        renderLogo()
+        renderEmailTextFieldAndEmailSeparator()
+        renderPasswordTextFieldAndPasswordSeparator()
+        renderForgotPasswordButtonAndSignInWithGoogleButton()
+        renderLoginButtonAndNewHereLabel()
+        renderRegisterButton()
+    }
+}
+
+// MARK: - UI rendering
+
+private extension LoginViewController {
+    
+    func configureScrollViewAndContainerView() {
         view.backgroundColor = .white
         
         view.addSubview(scrollView)
@@ -85,103 +98,8 @@ class LoginViewController: UIViewController {
             make.top.left.right.bottom.equalToSuperview()
             make.width.equalTo(UIScreen.main.bounds.width)
         }
-        
-        renderLogo()
-        
-        containerView.addSubview(emailTextField)
-        emailTextField.snp.makeConstraints { (make) in
-            make.top.equalTo(titleDesriptionLabel.snp.bottom).offset(85)
-            make.left.equalToSuperview().offset(65)
-            make.right.equalToSuperview().inset(65)
-        }
-        emailTextField.placeholder = "Enter email"
-        emailTextField.autocorrectionType = .no
-        
-        containerView.addSubview(emailSeparator)
-        emailSeparator.snp.makeConstraints { (make) in
-            make.height.equalTo(1)
-            make.top.equalTo(emailTextField.snp.bottom).offset(7)
-            make.left.equalToSuperview().offset(55)
-            make.right.equalToSuperview().inset(55)
-        }
-        emailSeparator.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
-        
-        containerView.addSubview(passwordTextField)
-        passwordTextField.snp.makeConstraints { (make) in
-            make.top.equalTo(emailSeparator.snp.bottom).offset(50)
-            make.left.equalToSuperview().offset(65)
-            make.right.equalToSuperview().inset(65)
-        }
-        passwordTextField.placeholder = "Enter password"
-        passwordTextField.autocorrectionType = .no
-        
-        containerView.addSubview(passwordSeparator)
-        passwordSeparator.snp.makeConstraints { (make) in
-            make.height.equalTo(1)
-            make.top.equalTo(passwordTextField.snp.bottom).offset(7)
-            make.left.equalToSuperview().offset(55)
-            make.right.equalToSuperview().inset(55)
-        }
-        passwordSeparator.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
-        
-        containerView.addSubview(forgotPasswordButton)
-        forgotPasswordButton.snp.makeConstraints { (make) in
-            make.height.equalTo(20)
-            make.top.equalTo(passwordSeparator.snp.bottom).offset(10)
-            make.left.equalToSuperview().offset(62)
-        }
-        forgotPasswordButton.setTitle("Forgot password?", for: .normal)
-        forgotPasswordButton.titleLabel?.font = forgotPasswordButton.titleLabel?.font.withSize(13)
-        forgotPasswordButton.setTitleColor(#colorLiteral(red: 0.9450980392, green: 0.4745098039, blue: 0.2078431373, alpha: 1), for: .normal)
-        
-        containerView.addSubview(signInWithGoogleButton)
-        signInWithGoogleButton.snp.makeConstraints { (make) in
-            make.top.equalTo(forgotPasswordButton.snp.bottom).offset(20)
-            make.left.equalToSuperview().offset(110)
-            make.right.equalToSuperview().inset(110)
-            make.centerX.equalToSuperview()
-        }
-        signInWithGoogleButton.setTitle("Sign in with Google", for: .normal)
-        signInWithGoogleButton.titleLabel?.font = signInWithGoogleButton.titleLabel?.font.withSize(15)
-        signInWithGoogleButton.backgroundColor = #colorLiteral(red: 0.9450980392, green: 0.4745098039, blue: 0.2078431373, alpha: 1)
-        signInWithGoogleButton.layer.cornerRadius = 5
-        signInWithGoogleButton.titleEdgeInsets = UIEdgeInsets(top: 4, left: 7, bottom: 4, right: 7)
-        
-        containerView.addSubview(loginButton)
-        loginButton.snp.makeConstraints { (make) in
-            make.top.equalTo(signInWithGoogleButton.snp.bottom).offset(75)
-            make.left.equalToSuperview().offset(55)
-            make.right.equalToSuperview().inset(55)
-            make.height.equalTo(40)
-        }
-        loginButton.setTitle("Login", for: .normal)
-        loginButton.backgroundColor = #colorLiteral(red: 0.9450980392, green: 0.4745098039, blue: 0.2078431373, alpha: 1)
-        loginButton.layer.cornerRadius = 5
-        
-        containerView.addSubview(newHereLabel)
-        newHereLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(loginButton.snp.bottom).offset(32)
-            make.centerX.equalToSuperview()
-        }
-        newHereLabel.text = "New here?"
-        newHereLabel.font = newHereLabel.font.withSize(14)
-        newHereLabel.textColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
-        
-        containerView.addSubview(registerButton)
-        registerButton.snp.makeConstraints { (make) in
-            make.top.equalTo(newHereLabel.snp.bottom).offset(2)
-            make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview()
-            make.height.equalTo(20)
-        }
-        let underlinedText = NSAttributedString(string: "Register now", attributes:
-            [.underlineStyle: NSUnderlineStyle.single.rawValue, NSAttributedString.Key.foregroundColor : UIColor.orange])
-        registerButton.setAttributedTitle(underlinedText, for: .normal)
     }
-}
-
-// MARK: - UI rendering
-private extension LoginViewController {
+    
     func renderLogo() {
         containerView.addSubview(titleStackView)
         titleStackView.snp.makeConstraints { (make) in
@@ -210,5 +128,105 @@ private extension LoginViewController {
         titleDesriptionLabel.text = "Enjoy managing your workitime"
         titleDesriptionLabel.font = titleDesriptionLabel.font.withSize(13)
         titleDesriptionLabel.textColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+    }
+    
+    func renderEmailTextFieldAndEmailSeparator() {
+        containerView.addSubview(emailTextField)
+        emailTextField.snp.makeConstraints { (make) in
+            make.top.equalTo(titleDesriptionLabel.snp.bottom).offset(85)
+            make.left.equalToSuperview().offset(65)
+            make.right.equalToSuperview().inset(65)
+        }
+        emailTextField.placeholder = "Enter email"
+        emailTextField.autocorrectionType = .no
+        
+        containerView.addSubview(emailSeparator)
+        emailSeparator.snp.makeConstraints { (make) in
+            make.height.equalTo(1)
+            make.top.equalTo(emailTextField.snp.bottom).offset(7)
+            make.left.equalToSuperview().offset(55)
+            make.right.equalToSuperview().inset(55)
+        }
+        emailSeparator.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+    }
+    
+    func renderPasswordTextFieldAndPasswordSeparator() {
+        containerView.addSubview(passwordTextField)
+        passwordTextField.snp.makeConstraints { (make) in
+            make.top.equalTo(emailSeparator.snp.bottom).offset(50)
+            make.left.equalToSuperview().offset(65)
+            make.right.equalToSuperview().inset(65)
+        }
+        passwordTextField.placeholder = "Enter password"
+        passwordTextField.autocorrectionType = .no
+        
+        containerView.addSubview(passwordSeparator)
+        passwordSeparator.snp.makeConstraints { (make) in
+            make.height.equalTo(1)
+            make.top.equalTo(passwordTextField.snp.bottom).offset(7)
+            make.left.equalToSuperview().offset(55)
+            make.right.equalToSuperview().inset(55)
+        }
+        passwordSeparator.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+    }
+    
+    func renderForgotPasswordButtonAndSignInWithGoogleButton() {
+        containerView.addSubview(forgotPasswordButton)
+        forgotPasswordButton.snp.makeConstraints { (make) in
+            make.height.equalTo(20)
+            make.top.equalTo(passwordSeparator.snp.bottom).offset(10)
+            make.left.equalToSuperview().offset(62)
+        }
+        forgotPasswordButton.setTitle("Forgot password?", for: .normal)
+        forgotPasswordButton.titleLabel?.font = forgotPasswordButton.titleLabel?.font.withSize(13)
+        forgotPasswordButton.setTitleColor(#colorLiteral(red: 0.9450980392, green: 0.4745098039, blue: 0.2078431373, alpha: 1), for: .normal)
+        
+        containerView.addSubview(signInWithGoogleButton)
+        signInWithGoogleButton.snp.makeConstraints { (make) in
+            make.top.equalTo(forgotPasswordButton.snp.bottom).offset(20)
+            make.left.equalToSuperview().offset(110)
+            make.right.equalToSuperview().inset(110)
+            make.centerX.equalToSuperview()
+        }
+        signInWithGoogleButton.setTitle("Sign in with Google", for: .normal)
+        signInWithGoogleButton.titleLabel?.font = signInWithGoogleButton.titleLabel?.font.withSize(15)
+        signInWithGoogleButton.backgroundColor = #colorLiteral(red: 0.9450980392, green: 0.4745098039, blue: 0.2078431373, alpha: 1)
+        signInWithGoogleButton.layer.cornerRadius = 5
+        signInWithGoogleButton.titleEdgeInsets = UIEdgeInsets(top: 4, left: 7, bottom: 4, right: 7)
+    }
+    
+    func renderLoginButtonAndNewHereLabel() {
+        containerView.addSubview(loginButton)
+        loginButton.snp.makeConstraints { (make) in
+            make.top.equalTo(signInWithGoogleButton.snp.bottom).offset(75)
+            make.left.equalToSuperview().offset(55)
+            make.right.equalToSuperview().inset(55)
+            make.height.equalTo(40)
+        }
+        loginButton.setTitle("Login", for: .normal)
+        loginButton.backgroundColor = #colorLiteral(red: 0.9450980392, green: 0.4745098039, blue: 0.2078431373, alpha: 1)
+        loginButton.layer.cornerRadius = 5
+        
+        containerView.addSubview(newHereLabel)
+        newHereLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(loginButton.snp.bottom).offset(32)
+            make.centerX.equalToSuperview()
+        }
+        newHereLabel.text = "New here?"
+        newHereLabel.font = newHereLabel.font.withSize(14)
+        newHereLabel.textColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+    }
+    
+    func renderRegisterButton() {
+        containerView.addSubview(registerButton)
+        registerButton.snp.makeConstraints { (make) in
+            make.top.equalTo(newHereLabel.snp.bottom).offset(2)
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.height.equalTo(20)
+        }
+        let underlinedText = NSAttributedString(string: "Register now", attributes:
+            [.underlineStyle: NSUnderlineStyle.single.rawValue, NSAttributedString.Key.foregroundColor : UIColor.orange])
+        registerButton.setAttributedTitle(underlinedText, for: .normal)
     }
 }
