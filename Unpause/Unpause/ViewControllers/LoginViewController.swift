@@ -12,6 +12,7 @@ import RxSwift
 import RxKeyboard
 
 class LoginViewController: UIViewController {
+    
     private let disposeBag = DisposeBag()
     
     private let loginViewModel: LoginViewModel
@@ -57,9 +58,10 @@ class LoginViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        scrollView.keyboardDismissMode = .onDrag
-        emailTextField.returnKeyType = .next
-        passwordTextField.returnKeyType = .go
+        emailTextField.rx.text.bind(to: loginViewModel.textInEmailTextField)
+            .disposed(by: disposeBag)
+        passwordTextField.rx.text.bind(to: loginViewModel.textInPasswordTextField)
+        .disposed(by: disposeBag)
     }
     
     private func hideNavigationBar() {
@@ -92,6 +94,7 @@ private extension LoginViewController {
             make.bottomMargin.equalToSuperview()
         }
         scrollView.alwaysBounceVertical = true
+        scrollView.keyboardDismissMode = .onDrag
         
         scrollView.addSubview(containerView)
         containerView.snp.makeConstraints { (make) in
@@ -139,6 +142,7 @@ private extension LoginViewController {
         }
         emailTextField.placeholder = "Enter email"
         emailTextField.autocorrectionType = .no
+        emailTextField.returnKeyType = .next
         
         containerView.addSubview(emailSeparator)
         emailSeparator.snp.makeConstraints { (make) in
@@ -158,7 +162,9 @@ private extension LoginViewController {
             make.right.equalToSuperview().inset(65)
         }
         passwordTextField.placeholder = "Enter password"
+        passwordTextField.isSecureTextEntry = true
         passwordTextField.autocorrectionType = .no
+        passwordTextField.returnKeyType = .go
         
         containerView.addSubview(passwordSeparator)
         passwordSeparator.snp.makeConstraints { (make) in

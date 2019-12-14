@@ -7,7 +7,23 @@
 //
 
 import Foundation
+import RxSwift
 
 class LoginViewModel {
     
+    let disposeBag = DisposeBag()
+    
+    var textInEmailTextField = PublishSubject<String?>()
+    var textInPasswordTextField = PublishSubject<String?>()
+    
+    init() {
+        textInEmailTextField.subscribe(onNext: { (newValue) in
+        print("\(newValue!)")
+        }).disposed(by: disposeBag)
+        
+        textInPasswordTextField.subscribe(onNext: { (newValue) in
+            print("\(newValue!)")
+            
+            }).disposed(by: disposeBag)
+    }
 }
