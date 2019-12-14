@@ -60,8 +60,12 @@ class LoginViewController: UIViewController {
         
         emailTextField.rx.text.bind(to: loginViewModel.textInEmailTextField)
             .disposed(by: disposeBag)
+        
         passwordTextField.rx.text.bind(to: loginViewModel.textInPasswordTextField)
         .disposed(by: disposeBag)
+        
+        loginButton.rx.tap.bind(to: loginViewModel.logInButtonTapped)
+            .disposed(by: disposeBag)
     }
     
     private func hideNavigationBar() {
@@ -141,6 +145,7 @@ private extension LoginViewController {
             make.right.equalToSuperview().inset(65)
         }
         emailTextField.placeholder = "Enter email"
+        emailTextField.autocapitalizationType = .none
         emailTextField.autocorrectionType = .no
         emailTextField.returnKeyType = .next
         
@@ -163,6 +168,7 @@ private extension LoginViewController {
         }
         passwordTextField.placeholder = "Enter password"
         passwordTextField.isSecureTextEntry = true
+        passwordTextField.autocapitalizationType = .none
         passwordTextField.autocorrectionType = .no
         passwordTextField.returnKeyType = .go
         
