@@ -44,10 +44,11 @@ class RegisterViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         render()
+        setUpObservables()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -66,6 +67,17 @@ class RegisterViewController: UIViewController {
         renderEmailTextFieldAndEmailSeparator()
         renderNewPasswordTextFieldAndPasswordSeparator()
         renderRegisterButton()
+    }
+    
+    private func setUpObservables() {
+        firstNameTextField.rx.text.bind(to: registerViewModel.textInFirstNameTextFieldChanges)
+            .disposed(by: disposeBag)
+        lastNameTextField.rx.text.bind(to: registerViewModel.textInLastNameTextFieldChanges)
+            .disposed(by: disposeBag)
+        emailTextField.rx.text.bind(to: registerViewModel.textInEmailTextFieldChanges)
+            .disposed(by: disposeBag)
+        newPasswordTextField.rx.text.bind(to: registerViewModel.textInNewPasswordTextFieldChanges)
+            .disposed(by: disposeBag)
     }
 }
 

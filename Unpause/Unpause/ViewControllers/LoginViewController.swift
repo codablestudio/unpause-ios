@@ -74,8 +74,8 @@ class LoginViewController: UIViewController {
         
         registerButton.rx.tap.subscribe(onNext: { [weak self] _ in
             self?.present(RegisterViewController(registerViewModel: RegisterViewModel()), animated: true)
-//            self?.cordinator.navigateTo(uiViewController: RegisterViewController(registerViewModel: RegisterViewModel()))
-            }).disposed(by: disposeBag)
+            //            self?.cordinator.navigateTo(uiViewController: RegisterViewController(registerViewModel: RegisterViewModel()))
+        }).disposed(by: disposeBag)
     }
     
     private func hideNavigationBar() {
