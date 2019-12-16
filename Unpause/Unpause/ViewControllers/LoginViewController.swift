@@ -14,8 +14,8 @@ import RxKeyboard
 class LoginViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
-    
     private let loginViewModel: LoginViewModel
+    
     private let scrollView = UIScrollView()
     private let containerView = UIView()
     
@@ -35,6 +35,8 @@ class LoginViewController: UIViewController {
     private let newHereLabel = UILabel()
     private let registerButton = UIButton()
     
+    var cordinator = Cordinator()
+    
     init(loginViewModel: LoginViewModel) {
         self.loginViewModel = loginViewModel
         super.init(nibName: nil, bundle: nil)
@@ -46,9 +48,12 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        hideNavigationBar()
         render()
         setupObservables()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        hideNavigationBar()
     }
     
     private func setupObservables() {
@@ -58,18 +63,23 @@ class LoginViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        emailTextField.rx.text.bind(to: loginViewModel.textInEmailTextField)
+        emailTextField.rx.text.bind(to: loginViewModel.textInEmailTextFieldChanges)
             .disposed(by: disposeBag)
         
-        passwordTextField.rx.text.bind(to: loginViewModel.textInPasswordTextField)
-        .disposed(by: disposeBag)
+        passwordTextField.rx.text.bind(to: loginViewModel.textInPasswordTextFieldChanges)
+            .disposed(by: disposeBag)
         
         loginButton.rx.tap.bind(to: loginViewModel.logInButtonTapped)
             .disposed(by: disposeBag)
+        
+        registerButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            self?.present(RegisterViewController(registerViewModel: RegisterViewModel()), animated: true)
+//            self?.cordinator.navigateTo(uiViewController: RegisterViewController(registerViewModel: RegisterViewModel()))
+            }).disposed(by: disposeBag)
     }
     
     private func hideNavigationBar() {
-        navigationController?.navigationBar.isHidden = true
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     private func render() {

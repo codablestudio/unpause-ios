@@ -11,41 +11,44 @@ import RxSwift
 
 class LoginViewModel {
     
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
+    private var textInEmailTextField: String?
+    private var textInPasswordTextField: String?
     
-    var textInEmailTextField = PublishSubject<String?>()
-    var textInPasswordTextField = PublishSubject<String?>()
+    var textInEmailTextFieldChanges = PublishSubject<String?>()
+    var textInPasswordTextFieldChanges = PublishSubject<String?>()
     var forgotPasswordButtonTapped = PublishSubject<Void>()
     var signInWithGoogleButtonTapped = PublishSubject<Void>()
     var logInButtonTapped = PublishSubject<Void>()
     var registerNowButtonTapped = PublishSubject<Void>()
-    
     
     init() {
         setUpObservables()
     }
     
     private func setUpObservables() {
-        textInEmailTextField.subscribe(onNext: { (newValue) in
+        textInEmailTextFieldChanges.subscribe(onNext: { [weak self] (newValue) in
+            self?.textInEmailTextField = newValue
         }).disposed(by: disposeBag)
         
-        textInPasswordTextField.subscribe(onNext: { (newValue) in
-            }).disposed(by: disposeBag)
+        textInPasswordTextFieldChanges.subscribe(onNext: { [weak self] (newValue) in
+            self?.textInPasswordTextField = newValue
+        }).disposed(by: disposeBag)
         
-        forgotPasswordButtonTapped.subscribe(onNext: { _ in
-        // TODO: Do networking for forgot password
+        forgotPasswordButtonTapped.subscribe(onNext: { newValue in
+            // TODO: Do networking for forgot password
         }).disposed(by: disposeBag)
         
         signInWithGoogleButtonTapped.subscribe(onNext: { _ in
             // TODO: Do networking for sign in with Google
-            }).disposed(by: disposeBag)
+        }).disposed(by: disposeBag)
         
-        logInButtonTapped.subscribe(onNext: { (newValue) in
+        logInButtonTapped.subscribe(onNext: { _ in
             // TODO: Do networking for log in
-            }).disposed(by: disposeBag)
+        }).disposed(by: disposeBag)
         
         registerNowButtonTapped.subscribe(onNext: { _ in
-        // TODO: Do networking for register now
+            // TODO: Do networking for register now
         }).disposed(by: disposeBag)
     }
 }

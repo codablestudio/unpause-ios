@@ -9,5 +9,10 @@ target 'Unpause' do
     pod 'RxSwift', '~> 5'
     pod 'RxCocoa', '~> 5'
     pod 'SnapKit', '~> 5.0.0'
+    pod 'Firebase/Core'
+    pod 'Firebase/Firestore'
+    pod 'Firebase/Analytics'
+    pod 'Firebase/Auth'
+    pod 'GoogleSignIn'
     pod 'RxKeyboard'
 end
