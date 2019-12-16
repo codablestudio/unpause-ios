@@ -61,8 +61,15 @@ class RegisterViewController: UIViewController {
     private func render() {
         configureScrollViewAndContainerView()
         renderRegistrationLabel()
+        renderFirstNameTextFieldAndFirstNameSeparator()
+        renderLastNameTextFieldAndLastNameSeparator()
+        renderEmailTextFieldAndEmailSeparator()
+        renderNewPasswordTextFieldAndPasswordSeparator()
+        renderRegisterButton()
     }
 }
+
+// MARK: - UI rendering
 
 private extension RegisterViewController {
     
@@ -70,7 +77,6 @@ private extension RegisterViewController {
         view.backgroundColor = .white
         
         view.addSubview(scrollView)
-        
         scrollView.snp.makeConstraints { (make) in
             make.topMargin.equalToSuperview()
             make.left.right.equalToSuperview()
@@ -94,7 +100,9 @@ private extension RegisterViewController {
         }
         registrationLabel.text = "Registration"
         registrationLabel.font = UIFont.boldSystemFont(ofSize: 30)
-        
+    }
+    
+    func renderFirstNameTextFieldAndFirstNameSeparator() {
         containerView.addSubview(firstNameTextField)
         firstNameTextField.snp.makeConstraints { (make) in
             make.top.equalTo(registrationLabel.snp.bottom).offset(40)
@@ -102,6 +110,8 @@ private extension RegisterViewController {
             make.right.equalToSuperview().inset(50)
         }
         firstNameTextField.placeholder = "Enter first name"
+        firstNameTextField.autocorrectionType = .no
+        firstNameTextField.autocapitalizationType = .words
         
         containerView.addSubview(firstNameSeparator)
         firstNameSeparator.snp.makeConstraints { (make) in
@@ -111,6 +121,84 @@ private extension RegisterViewController {
             make.height.equalTo(1)
         }
         firstNameSeparator.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+    }
+    
+    func renderLastNameTextFieldAndLastNameSeparator() {
+        containerView.addSubview(lastNameTextField)
+        lastNameTextField.snp.makeConstraints { (make) in
+            make.top.equalTo(firstNameSeparator.snp.bottom).offset(35)
+            make.left.equalToSuperview().offset(50)
+            make.right.equalToSuperview().inset(50)
+        }
+        lastNameTextField.placeholder = "Enter last name"
+        lastNameTextField.autocorrectionType = .no
+        lastNameTextField.autocapitalizationType = .words
         
+        containerView.addSubview(lastNameSeparator)
+        lastNameSeparator.snp.makeConstraints { (make) in
+            make.top.equalTo(lastNameTextField.snp.bottom).offset(7)
+            make.left.equalToSuperview().offset(42)
+            make.right.equalToSuperview().inset(42)
+            make.height.equalTo(1)
+        }
+        lastNameSeparator.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+    }
+    
+    func renderEmailTextFieldAndEmailSeparator() {
+        containerView.addSubview(emailTextField)
+        emailTextField.snp.makeConstraints { (make) in
+            make.top.equalTo(lastNameSeparator.snp.bottom).offset(35)
+            make.left.equalToSuperview().offset(50)
+            make.right.equalToSuperview().inset(50)
+        }
+        emailTextField.placeholder = "Enter email"
+        emailTextField.autocorrectionType = .no
+        emailTextField.autocapitalizationType = .none
+        
+        
+        containerView.addSubview(emailSeparator)
+        emailSeparator.snp.makeConstraints { (make) in
+            make.top.equalTo(emailTextField.snp.bottom).offset(7)
+            make.left.equalToSuperview().offset(42)
+            make.right.equalToSuperview().inset(42)
+            make.height.equalTo(1)
+        }
+        emailSeparator.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+    }
+    
+    func renderNewPasswordTextFieldAndPasswordSeparator() {
+        containerView.addSubview(newPasswordTextField)
+        newPasswordTextField.snp.makeConstraints { (make) in
+            make.top.equalTo(emailSeparator.snp.bottom).offset(35)
+            make.left.equalToSuperview().offset(50)
+            make.right.equalToSuperview().inset(50)
+        }
+        newPasswordTextField.placeholder = "Enter new password"
+        newPasswordTextField.autocorrectionType = .no
+        newPasswordTextField.autocapitalizationType = .none
+        newPasswordTextField.isSecureTextEntry = true
+        
+        containerView.addSubview(newPasswordSeparator)
+        newPasswordSeparator.snp.makeConstraints { (make) in
+            make.top.equalTo(newPasswordTextField.snp.bottom).offset(7)
+            make.left.equalToSuperview().offset(42)
+            make.right.equalToSuperview().inset(42)
+            make.height.equalTo(1)
+        }
+        newPasswordSeparator.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+    }
+    
+    func renderRegisterButton() {
+        containerView.addSubview(registerButton)
+        registerButton.snp.makeConstraints { (make) in
+            make.top.equalTo(newPasswordSeparator).offset(30)
+            make.left.equalToSuperview().offset(42)
+            make.right.equalToSuperview().inset(42)
+            make.bottom.equalToSuperview()
+            make.height.equalTo(40)
+        }
+        registerButton.setTitle("Register", for: .normal)
+        registerButton.backgroundColor = #colorLiteral(red: 0.9450980392, green: 0.4745098039, blue: 0.2078431373, alpha: 1)
+        registerButton.layer.cornerRadius = 5
     }
 }
