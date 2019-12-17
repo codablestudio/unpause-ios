@@ -72,12 +72,32 @@ class RegisterViewController: UIViewController {
     private func setUpObservables() {
         firstNameTextField.rx.text.bind(to: registerViewModel.textInFirstNameTextFieldChanges)
             .disposed(by: disposeBag)
+        
         lastNameTextField.rx.text.bind(to: registerViewModel.textInLastNameTextFieldChanges)
             .disposed(by: disposeBag)
+        
         emailTextField.rx.text.bind(to: registerViewModel.textInEmailTextFieldChanges)
             .disposed(by: disposeBag)
+        
         newPasswordTextField.rx.text.bind(to: registerViewModel.textInNewPasswordTextFieldChanges)
             .disposed(by: disposeBag)
+        
+        registerButton.rx.tap.bind(to: registerViewModel.registerButtonTapped)
+            .disposed(by: disposeBag)
+        
+        registerViewModel.someFieldsAreEmpty.subscribe(onNext: { [weak self] (errorDescription) in
+            if errorDescription {
+                self?.showAlert(title: "Empty fields", message: "Please fill in all required fields", actionTitle: "OK")
+            } else {
+                self?.dismiss(animated: true, completion: nil)
+            }
+            }).disposed(by: disposeBag)
+    }
+    
+    private func showAlert(title: String, message: String, actionTitle: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: actionTitle, style: .default, handler: nil))
+        self.present(alert, animated: true)
     }
 }
 

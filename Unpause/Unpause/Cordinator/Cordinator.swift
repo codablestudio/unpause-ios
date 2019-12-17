@@ -9,9 +9,11 @@
 import Foundation
 import UIKit
 
-class Cordinator: UIViewController {
+class Cordinator {
     
-    func navigateTo(uiViewController: UIViewController) {
-        navigationController?.pushViewController(uiViewController, animated: true)
+    func presentRegistrationViewController(from: UIViewController) {
+        let registerViewModel = RegisterViewModel()
+        let registerViewController = RegisterViewController(registerViewModel: registerViewModel)
+        from.present(registerViewController, animated: true, completion: nil)
     }
 }

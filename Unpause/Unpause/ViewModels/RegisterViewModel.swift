@@ -12,6 +12,7 @@ import RxSwift
 class RegisterViewModel {
     
     private let disposeBag = DisposeBag()
+    private let networking = Networking()
     
     private var textInFirstNameTextField: String?
     private var textInLastNameTextField: String?
@@ -22,6 +23,8 @@ class RegisterViewModel {
     var textInLastNameTextFieldChanges = PublishSubject<String?>()
     var textInEmailTextFieldChanges = PublishSubject<String?>()
     var textInNewPasswordTextFieldChanges = PublishSubject<String?>()
+    var registerButtonTapped = PublishSubject<Void>()
+    var someFieldsAreEmpty = PublishSubject<Bool>()
     
     init() {
         setUpObservables()
@@ -42,6 +45,21 @@ class RegisterViewModel {
         
         textInNewPasswordTextFieldChanges.subscribe(onNext: { [weak self] (newValue) in
             self?.textInNewPasswordTextField = newValue
+        }).disposed(by: disposeBag)
+        
+        registerButtonTapped.subscribe(onNext: { [weak self] _ in
+            guard let firstName = self?.textInFirstNameTextField,
+                let lastName = self?.textInLastNameTextField,
+                let email = self?.textInEmailTextField,
+                let password = self?.textInNewPasswordTextField,
+                !firstName.isEmpty,
+                !lastName.isEmpty,
+                !email.isEmpty,
+                !password.isEmpty else {
+                    self?.someFieldsAreEmpty.onNext(true)
+                    return
+            }
+            self?.networking.registerUserWith(firstName: firstName, lastName: lastName, email: email, password: password)
         }).disposed(by: disposeBag)
     }
 }

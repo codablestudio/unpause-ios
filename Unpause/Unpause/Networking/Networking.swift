@@ -9,13 +9,19 @@
 import Foundation
 import Firebase
 import FirebaseFirestore
+import RxSwift
 
 class Networking {
     
     private let dataBaseReference = Firestore.firestore()
     
-    func a() {
-        dataBaseReference.collection("Kreso").addDocument(data: ["year" : 2019])
+    func registerUserWith(firstName: String, lastName: String, email: String, password: String) {
+        Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
+            if error != nil {
+                print("Some error occurred \(error.debugDescription)")
+            } else {
+                print("User was successfully added.")
+            }
+        }
     }
-    
 }

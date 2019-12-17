@@ -73,8 +73,10 @@ class LoginViewController: UIViewController {
             .disposed(by: disposeBag)
         
         registerButton.rx.tap.subscribe(onNext: { [weak self] _ in
-            self?.present(RegisterViewController(registerViewModel: RegisterViewModel()), animated: true)
-            //            self?.cordinator.navigateTo(uiViewController: RegisterViewController(registerViewModel: RegisterViewModel()))
+            guard let `self` = self else {
+                return
+            }
+            self.cordinator.presentRegistrationViewController(from: self)
         }).disposed(by: disposeBag)
     }
     
