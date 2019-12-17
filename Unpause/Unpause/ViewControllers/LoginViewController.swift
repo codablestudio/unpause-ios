@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 import RxSwift
 import RxKeyboard
+import RxGesture
 
 class LoginViewController: UIViewController {
     
@@ -35,7 +36,7 @@ class LoginViewController: UIViewController {
     private let newHereLabel = UILabel()
     private let registerButton = UIButton()
     
-    var cordinator = Cordinator()
+    private var cordinator = Cordinator()
     
     init(loginViewModel: LoginViewModel) {
         self.loginViewModel = loginViewModel
@@ -50,19 +51,26 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         render()
         setupObservables()
+        addGestureRecognizer()
+        setUpTextFields()
+        setUpKeyboard()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         hideNavigationBar()
     }
     
+    private func render() {
+        configureScrollViewAndContainerView()
+        renderLogo()
+        renderEmailTextFieldAndEmailSeparator()
+        renderPasswordTextFieldAndPasswordSeparator()
+        renderForgotPasswordButtonAndSignInWithGoogleButton()
+        renderLoginButtonAndNewHereLabel()
+        renderRegisterButton()
+    }
+    
     private func setupObservables() {
-        RxKeyboard.instance.visibleHeight
-            .drive(onNext: { [scrollView] keyboardVisibleHeight in
-                scrollView.contentInset.bottom = keyboardVisibleHeight
-            })
-            .disposed(by: disposeBag)
-        
         emailTextField.rx.text.bind(to: loginViewModel.textInEmailTextFieldChanges)
             .disposed(by: disposeBag)
         
@@ -80,18 +88,30 @@ class LoginViewController: UIViewController {
         }).disposed(by: disposeBag)
     }
     
-    private func hideNavigationBar() {
-        navigationController?.setNavigationBarHidden(true, animated: true)
+    private func addGestureRecognizer() {
+        view.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] (tapGesture) in
+            self?.view.endEditing(true)
+        }).disposed(by: disposeBag)
     }
     
-    private func render() {
-        configureScrollViewAndContainerView()
-        renderLogo()
-        renderEmailTextFieldAndEmailSeparator()
-        renderPasswordTextFieldAndPasswordSeparator()
-        renderForgotPasswordButtonAndSignInWithGoogleButton()
-        renderLoginButtonAndNewHereLabel()
-        renderRegisterButton()
+    private func setUpTextFields() {
+        emailTextField.setNextResponder(passwordTextField, disposeBag: disposeBag)
+        passwordTextField.resignWhenFinished(disposeBag)
+    }
+    
+    private func setUpKeyboard() {
+        RxKeyboard.instance.visibleHeight.drive(onNext: { [weak self] (keyboardVisibleHeight) in
+            self?.registerButton.snp.remakeConstraints { (make) in
+                make.top.equalTo((self?.newHereLabel.snp.bottom)!).offset(2)
+                make.centerX.equalToSuperview()
+                make.bottom.equalToSuperview().inset(keyboardVisibleHeight)
+                make.height.equalTo(20)
+            }
+        }).disposed(by: disposeBag)
+    }
+    
+    private func hideNavigationBar() {
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
 }
 
@@ -110,7 +130,6 @@ private extension LoginViewController {
             make.bottomMargin.equalToSuperview()
         }
         scrollView.alwaysBounceVertical = true
-        scrollView.keyboardDismissMode = .onDrag
         
         scrollView.addSubview(containerView)
         containerView.snp.makeConstraints { (make) in

@@ -39,6 +39,7 @@
 		C16A2EF123A77B1200CBA43F /* Cordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16A2EF023A77B1200CBA43F /* Cordinator.swift */; };
 		C16A2EF323A784A700CBA43F /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16A2EF223A784A700CBA43F /* RegisterViewController.swift */; };
 		C16A2EF523A7853800CBA43F /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16A2EF423A7853800CBA43F /* RegisterViewModel.swift */; };
+		C1C41B7623A9594F009288CA /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C41B7523A9594F009288CA /* UITextField+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,6 +78,7 @@
 		C16A2EF023A77B1200CBA43F /* Cordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cordinator.swift; sourceTree = "<group>"; };
 		C16A2EF223A784A700CBA43F /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		C16A2EF423A7853800CBA43F /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		C1C41B7523A9594F009288CA /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		DE3FC3210F1CDFC45FF7DBE1 /* Pods_Unpause.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Unpause.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F56D7C9D8CB0DE7FF265F229 /* Pods-Unpause.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Unpause.debug.xcconfig"; path = "Target Support Files/Pods-Unpause/Pods-Unpause.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -137,6 +139,7 @@
 				C10F78D023A3D79200783476 /* UIStackView+Extension.swift */,
 				C10F78D123A3D79200783476 /* UIScrollView+Extension.swift */,
 				C10F78D223A3D79200783476 /* CGSize+Extension.swift */,
+				C1C41B7523A9594F009288CA /* UITextField+Extension.swift */,
 				C10F78D323A3D79200783476 /* Rx */,
 				C10F78D523A3D79200783476 /* CGFloat+Extension.swift */,
 				C10F78D623A3D79200783476 /* Array+Extension.swift */,
@@ -392,6 +395,7 @@
 				C10F78EB23A3DD9A00783476 /* SceneDelegate.swift in Sources */,
 				C10F78E823A3D79200783476 /* CGFloat+Extension.swift in Sources */,
 				C10F78E123A3D79200783476 /* UIViewController+Extension.swift in Sources */,
+				C1C41B7623A9594F009288CA /* UITextField+Extension.swift in Sources */,
 				C10F78DD23A3D79200783476 /* UIButton+Extension.swift in Sources */,
 				C10F78E423A3D79200783476 /* UIStackView+Extension.swift in Sources */,
 				C10F78D823A3D79200783476 /* UIImageView+Extension.swift in Sources */,

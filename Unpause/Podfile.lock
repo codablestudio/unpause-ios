@@ -292,6 +292,9 @@ PODS:
   - RxCocoa (5.0.1):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
+  - RxGesture (3.0.1):
+    - RxCocoa (~> 5.0)
+    - RxSwift (~> 5.0)
   - RxKeyboard (1.0.0):
     - RxCocoa (~> 5.0)
     - RxSwift (~> 5.0)
@@ -299,6 +302,7 @@ PODS:
     - RxSwift (~> 5)
   - RxSwift (5.0.1)
   - SnapKit (5.0.1)
+  - SVProgressHUD (2.2.5)
 
 DEPENDENCIES:
   - Firebase/Analytics
@@ -307,9 +311,11 @@ DEPENDENCIES:
   - Firebase/Firestore
   - GoogleSignIn
   - RxCocoa (~> 5)
+  - RxGesture
   - RxKeyboard
   - RxSwift (~> 5)
   - SnapKit (~> 5.0.0)
+  - SVProgressHUD
 
 SPEC REPOS:
   trunk:
@@ -337,10 +343,12 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - RxCocoa
+    - RxGesture
     - RxKeyboard
     - RxRelay
     - RxSwift
     - SnapKit
+    - SVProgressHUD
 
 SPEC CHECKSUMS:
   abseil: 18063d773f5366ff8736a050fe035a28f635fd27
@@ -367,11 +375,13 @@ SPEC CHECKSUMS:
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   RxCocoa: e741b9749968e8a143e2b787f1dfbff2b63d0a5c
+  RxGesture: a3f8dd6adf078110ed5e1c9c30d09d705a09852e
   RxKeyboard: 6683c4344304a00f943c158bd8a43ce5469c82a7
   RxRelay: 89d54507f4fd4d969e6ec1d4bd7f3673640b4640
   RxSwift: e2dc62b366a3adf6a0be44ba9f405efd4c94e0c4
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: bc244da0c7ef2819057c285331fe3d1c41d78145
+PODFILE CHECKSUM: c5a5a034b9a9706527c1677929ad3f9ff43b6176
 
 COCOAPODS: 1.8.4

@@ -10,6 +10,8 @@ import UIKit
 import SnapKit
 import RxSwift
 import RxKeyboard
+import SVProgressHUD
+import RxGesture
 
 class RegisterViewController: UIViewController {
     
@@ -49,14 +51,13 @@ class RegisterViewController: UIViewController {
         super.viewDidLoad()
         render()
         setUpObservables()
+        addGestureRecognizer()
+        setUpTextFields()
+        setUpKeyboard()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         hideNavigationBar()
-    }
-    
-    private func hideNavigationBar() {
-        navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     private func render() {
@@ -85,19 +86,48 @@ class RegisterViewController: UIViewController {
         registerButton.rx.tap.bind(to: registerViewModel.registerButtonTapped)
             .disposed(by: disposeBag)
         
-        registerViewModel.someFieldsAreEmpty.subscribe(onNext: { [weak self] (errorDescription) in
-            if errorDescription {
+        registerViewModel.someFieldsAreEmpty.subscribe(onNext: { [weak self] (fieldsAreEmpty) in
+            if fieldsAreEmpty {
                 self?.showAlert(title: "Empty fields", message: "Please fill in all required fields", actionTitle: "OK")
             } else {
                 self?.dismiss(animated: true, completion: nil)
             }
-            }).disposed(by: disposeBag)
+        }).disposed(by: disposeBag)
+    }
+    
+    private func addGestureRecognizer() {
+        view.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] (tapGesture) in
+            self?.view.endEditing(true)
+        }).disposed(by: disposeBag)
+    }
+    
+    private func setUpTextFields() {
+        firstNameTextField.setNextResponder(lastNameTextField, disposeBag: disposeBag)
+        lastNameTextField.setNextResponder(emailTextField, disposeBag: disposeBag)
+        emailTextField.setNextResponder(newPasswordTextField, disposeBag: disposeBag)
+        newPasswordTextField.resignWhenFinished(disposeBag)
+    }
+    
+    private func setUpKeyboard() {
+        RxKeyboard.instance.visibleHeight.drive(onNext: { [weak self] (keyboardVisibleHeight) in
+            self?.registerButton.snp.remakeConstraints { (make) in
+                make.top.equalTo((self?.newPasswordSeparator)!).offset(30)
+                make.left.equalToSuperview().offset(42)
+                make.right.equalToSuperview().inset(42)
+                make.bottom.equalToSuperview().inset(keyboardVisibleHeight)
+                make.height.equalTo(40)
+            }
+        }).disposed(by: disposeBag)
     }
     
     private func showAlert(title: String, message: String, actionTitle: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: actionTitle, style: .default, handler: nil))
         self.present(alert, animated: true)
+    }
+    
+    private func hideNavigationBar() {
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
 }
 
@@ -115,7 +145,6 @@ private extension RegisterViewController {
             make.bottomMargin.equalToSuperview()
         }
         scrollView.alwaysBounceVertical = true
-        scrollView.keyboardDismissMode = .onDrag
         
         scrollView.addSubview(containerView)
         containerView.snp.makeConstraints { (make) in

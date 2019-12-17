@@ -59,7 +59,11 @@ class RegisterViewModel {
                     self?.someFieldsAreEmpty.onNext(true)
                     return
             }
-            self?.networking.registerUserWith(firstName: firstName, lastName: lastName, email: email, password: password)
+            self?.networking.registerUserWith(firstName: firstName,
+                                              lastName: lastName,
+                                              email: email,
+                                              password: password)
+            self?.someFieldsAreEmpty.onNext(false)
         }).disposed(by: disposeBag)
     }
 }

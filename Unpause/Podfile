@@ -15,4 +15,6 @@ target 'Unpause' do
     pod 'Firebase/Auth'
     pod 'GoogleSignIn'
     pod 'RxKeyboard'
+    pod 'SVProgressHUD'
+    pod "RxGesture"
 end
