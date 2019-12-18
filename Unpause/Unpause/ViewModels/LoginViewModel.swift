@@ -26,7 +26,8 @@ class LoginViewModel {
     var logInButtonTapped = PublishSubject<Void>()
     var registerNowButtonTapped = PublishSubject<Void>()
     var pushToHomeViewController = PublishSubject<Bool>()
-    var someFieldsAreEmpty = PublishSubject<Bool>()
+    var loggedInUserEmail = PublishSubject<String>()
+    var error = PublishSubject<Error>()
     
     init() {
         setUpObservables()
@@ -51,21 +52,17 @@ class LoginViewModel {
         
         logInButtonTapped.subscribe(onNext: { [weak self] _ in
             guard let email = self?.textInEmailTextField,
-                let password = self?.textInPasswordTextField,
-                !email.isEmpty,
-                !password.isEmpty else {
-                    self?.someFieldsAreEmpty.onNext(true)
+                let password = self?.textInPasswordTextField else {
                     return
             }
-            Auth.auth().rx.signIn(withEmail: email, password: password).subscribe(onNext: { (authDataResult) in
+            Auth.auth().rx.signIn(withEmail: email, password: password).subscribe(onNext: { [weak self] (authDataResult) in
+                guard let email = authDataResult.user.email else { return }
+                self?.loggedInUserEmail.onNext(email)
                 self?.pushToHomeViewController.onNext(true)
             }, onError: { error in
+                self?.error.onNext(error)
                 print("\(error)")
             }).disposed(by: self!.disposeBag)
             }).disposed(by: disposeBag)
-        
-        registerNowButtonTapped.subscribe(onNext: { _ in
-            // TODO: Do networking for register now
-        }).disposed(by: disposeBag)
     }
 }

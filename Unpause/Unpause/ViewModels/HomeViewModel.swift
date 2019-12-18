@@ -10,9 +10,9 @@ import Foundation
 
 class HomeViewModel {
     
-    private let email: String
+    private let signedInUserEmail: String
     
-    init(email: String) {
-        self.email = email
+    init(signedInUserEmail: String) {
+        self.signedInUserEmail = signedInUserEmail
     }
 }

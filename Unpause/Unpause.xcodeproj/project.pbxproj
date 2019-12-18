@@ -29,7 +29,6 @@
 		C10F78E923A3D79200783476 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10F78D623A3D79200783476 /* Array+Extension.swift */; };
 		C10F78EB23A3DD9A00783476 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10F78EA23A3DD9A00783476 /* SceneDelegate.swift */; };
 		C12D289823A536BC004BC57A /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12D289723A536BC004BC57A /* Networking.swift */; };
-		C1392D0E23A8FE5800D47B1F /* ServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1392D0D23A8FE5800D47B1F /* ServerResponse.swift */; };
 		C146991223A112F100A84818 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C146991123A112F100A84818 /* AppDelegate.swift */; };
 		C146991B23A112F200A84818 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C146991A23A112F200A84818 /* Assets.xcassets */; };
 		C146991E23A112F200A84818 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C146991C23A112F200A84818 /* LaunchScreen.storyboard */; };
@@ -42,7 +41,6 @@
 		C1C41B7623A9594F009288CA /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C41B7523A9594F009288CA /* UITextField+Extension.swift */; };
 		C1FBC46D23AA51E100579913 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBC46C23AA51E100579913 /* HomeViewController.swift */; };
 		C1FBC46F23AA521C00579913 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBC46E23AA521C00579913 /* HomeViewModel.swift */; };
-		C1FBC47123AA584600579913 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBC47023AA584600579913 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,7 +67,6 @@
 		C10F78D623A3D79200783476 /* Array+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		C10F78EA23A3DD9A00783476 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		C12D289723A536BC004BC57A /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
-		C1392D0D23A8FE5800D47B1F /* ServerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerResponse.swift; sourceTree = "<group>"; };
 		C146990E23A112F100A84818 /* Unpause.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Unpause.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C146991123A112F100A84818 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C146991A23A112F200A84818 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -84,7 +81,6 @@
 		C1C41B7523A9594F009288CA /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		C1FBC46C23AA51E100579913 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		C1FBC46E23AA521C00579913 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
-		C1FBC47023AA584600579913 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		DE3FC3210F1CDFC45FF7DBE1 /* Pods_Unpause.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Unpause.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F56D7C9D8CB0DE7FF265F229 /* Pods-Unpause.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Unpause.debug.xcconfig"; path = "Target Support Files/Pods-Unpause/Pods-Unpause.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -230,8 +226,6 @@
 		C146992823A117C400A84818 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				C1392D0D23A8FE5800D47B1F /* ServerResponse.swift */,
-				C1FBC47023AA584600579913 /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -397,7 +391,6 @@
 				C16A2EF123A77B1200CBA43F /* Cordinator.swift in Sources */,
 				C10F78DB23A3D79200783476 /* UILabel+Extension.swift in Sources */,
 				C10F78DA23A3D79200783476 /* UIColor+Extension.swift in Sources */,
-				C1FBC47123AA584600579913 /* User.swift in Sources */,
 				C12D289823A536BC004BC57A /* Networking.swift in Sources */,
 				C1FBC46D23AA51E100579913 /* HomeViewController.swift in Sources */,
 				C10F78E923A3D79200783476 /* Array+Extension.swift in Sources */,
@@ -421,7 +414,6 @@
 				C146992C23A11D5200A84818 /* LoginViewController.swift in Sources */,
 				C10F78DE23A3D79200783476 /* ObservableType+Extension.swift in Sources */,
 				C16A2EF323A784A700CBA43F /* RegisterViewController.swift in Sources */,
-				C1392D0E23A8FE5800D47B1F /* ServerResponse.swift in Sources */,
 				C146991223A112F100A84818 /* AppDelegate.swift in Sources */,
 				C1FBC46F23AA521C00579913 /* HomeViewModel.swift in Sources */,
 				C10F78E723A3D79200783476 /* UIButton+Rx.swift in Sources */,

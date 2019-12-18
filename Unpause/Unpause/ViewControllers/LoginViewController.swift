@@ -37,6 +37,7 @@ class LoginViewController: UIViewController {
     private let registerButton = UIButton()
     
     private var cordinator = Cordinator()
+    private var loggedInUserEmail: String?
     
     init(loginViewModel: LoginViewModel) {
         self.loginViewModel = loginViewModel
@@ -87,20 +88,24 @@ class LoginViewController: UIViewController {
             self.cordinator.presentRegistrationViewController(from: self)
         }).disposed(by: disposeBag)
         
-        loginViewModel.someFieldsAreEmpty.subscribe(onNext: { [weak self] (fieldsAreEmpty) in
-            if fieldsAreEmpty {
-                    self?.showAlert(title: "Empty fields", message: "Please fill in all required fields", actionTitle: "OK")
-                } else {
-                    self?.dismiss(animated: true, completion: nil)
-                }
+        loginViewModel.loggedInUserEmail.subscribe(onNext: { [weak self] (loggedInUserEmail) in
+            self?.loggedInUserEmail = loggedInUserEmail
             }).disposed(by: disposeBag)
         
-        loginViewModel.pushToHomeViewController.subscribe(onNext: { (push) in
-            if push {
-                self.cordinator.navigateToHomeViewController(from: self, email: self.emailTextField.text!)
-                
-                // ISPRAVI OVOOOOO
+        loginViewModel.pushToHomeViewController.subscribe(onNext: { [weak self] (push) in
+            guard let `self` = self else {
+                return
             }
+            if push {
+                guard let loggedInUserEmail = self.loggedInUserEmail else {
+                    return
+                }
+                self.cordinator.navigateToHomeViewController(from: self, email: loggedInUserEmail)
+            }
+            }).disposed(by: disposeBag)
+        
+        loginViewModel.error.subscribe(onNext: { [weak self] (error) in
+            self?.showAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
             }).disposed(by: disposeBag)
     }
     

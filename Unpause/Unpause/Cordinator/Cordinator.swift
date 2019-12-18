@@ -18,9 +18,10 @@ class Cordinator {
     }
     
     func navigateToHomeViewController(from: UIViewController, email: String) {
-        let homeViewController = HomeViewController(homeViewModel: HomeViewModel(email: email))
+        let homeViewController = HomeViewController(homeViewModel: HomeViewModel(signedInUserEmail: email))
         let tabBarViewController = UITabBarController()
         tabBarViewController.setViewControllers([homeViewController], animated: true)
         from.navigationController?.pushViewController(tabBarViewController, animated: true)
+        print("\(email)")
     }
 }
