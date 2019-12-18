@@ -94,6 +94,14 @@ class LoginViewController: UIViewController {
                     self?.dismiss(animated: true, completion: nil)
                 }
             }).disposed(by: disposeBag)
+        
+        loginViewModel.pushToHomeViewController.subscribe(onNext: { (push) in
+            if push {
+                self.cordinator.navigateToHomeViewController(from: self, email: self.emailTextField.text!)
+                
+                // ISPRAVI OVOOOOO
+            }
+            }).disposed(by: disposeBag)
     }
     
     private func addGestureRecognizer() {

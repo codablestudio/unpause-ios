@@ -17,4 +17,10 @@ target 'Unpause' do
     pod 'RxKeyboard'
     pod 'SVProgressHUD'
     pod "RxGesture"
+    pod 'RxFirebase/Firestore'
+    pod 'RxFirebase/RemoteConfig'
+    pod 'RxFirebase/Database'
+    pod 'RxFirebase/Storage'
+    pod 'RxFirebase/Auth'
+    pod 'RxFirebase/Functions'
 end

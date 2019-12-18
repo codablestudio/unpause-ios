@@ -16,4 +16,11 @@ class Cordinator {
         let registerViewController = RegisterViewController(registerViewModel: registerViewModel)
         from.present(registerViewController, animated: true, completion: nil)
     }
+    
+    func navigateToHomeViewController(from: UIViewController, email: String) {
+        let homeViewController = HomeViewController(homeViewModel: HomeViewModel(email: email))
+        let tabBarViewController = UITabBarController()
+        tabBarViewController.setViewControllers([homeViewController], animated: true)
+        from.navigationController?.pushViewController(tabBarViewController, animated: true)
+    }
 }

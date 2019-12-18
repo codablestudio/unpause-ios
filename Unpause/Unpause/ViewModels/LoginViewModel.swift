@@ -8,11 +8,14 @@
 
 import Foundation
 import RxSwift
+import RxFirebase
+import FirebaseAuth
 
 class LoginViewModel {
     
     private let disposeBag = DisposeBag()
     private let networking = Networking()
+    
     private var textInEmailTextField: String?
     private var textInPasswordTextField: String?
     
@@ -22,6 +25,7 @@ class LoginViewModel {
     var signInWithGoogleButtonTapped = PublishSubject<Void>()
     var logInButtonTapped = PublishSubject<Void>()
     var registerNowButtonTapped = PublishSubject<Void>()
+    var pushToHomeViewController = PublishSubject<Bool>()
     var someFieldsAreEmpty = PublishSubject<Bool>()
     
     init() {
@@ -53,8 +57,12 @@ class LoginViewModel {
                     self?.someFieldsAreEmpty.onNext(true)
                     return
             }
-            self?.networking.signInUserWith(email: email, password: password)
-        }).disposed(by: disposeBag)
+            Auth.auth().rx.signIn(withEmail: email, password: password).subscribe(onNext: { (authDataResult) in
+                self?.pushToHomeViewController.onNext(true)
+            }, onError: { error in
+                print("\(error)")
+            }).disposed(by: self!.disposeBag)
+            }).disposed(by: disposeBag)
         
         registerNowButtonTapped.subscribe(onNext: { _ in
             // TODO: Do networking for register now
