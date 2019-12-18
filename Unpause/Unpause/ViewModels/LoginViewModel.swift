@@ -12,6 +12,7 @@ import RxSwift
 class LoginViewModel {
     
     private let disposeBag = DisposeBag()
+    private let networking = Networking()
     private var textInEmailTextField: String?
     private var textInPasswordTextField: String?
     
@@ -21,6 +22,7 @@ class LoginViewModel {
     var signInWithGoogleButtonTapped = PublishSubject<Void>()
     var logInButtonTapped = PublishSubject<Void>()
     var registerNowButtonTapped = PublishSubject<Void>()
+    var someFieldsAreEmpty = PublishSubject<Bool>()
     
     init() {
         setUpObservables()
@@ -35,7 +37,7 @@ class LoginViewModel {
             self?.textInPasswordTextField = newValue
         }).disposed(by: disposeBag)
         
-        forgotPasswordButtonTapped.subscribe(onNext: { newValue in
+        forgotPasswordButtonTapped.subscribe(onNext: { _ in
             // TODO: Do networking for forgot password
         }).disposed(by: disposeBag)
         
@@ -43,8 +45,15 @@ class LoginViewModel {
             // TODO: Do networking for sign in with Google
         }).disposed(by: disposeBag)
         
-        logInButtonTapped.subscribe(onNext: { _ in
-            // TODO: Do networking for log in
+        logInButtonTapped.subscribe(onNext: { [weak self] _ in
+            guard let email = self?.textInEmailTextField,
+                let password = self?.textInPasswordTextField,
+                !email.isEmpty,
+                !password.isEmpty else {
+                    self?.someFieldsAreEmpty.onNext(true)
+                    return
+            }
+            self?.networking.signInUserWith(email: email, password: password)
         }).disposed(by: disposeBag)
         
         registerNowButtonTapped.subscribe(onNext: { _ in

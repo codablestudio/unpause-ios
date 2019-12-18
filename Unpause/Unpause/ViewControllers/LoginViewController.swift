@@ -86,6 +86,14 @@ class LoginViewController: UIViewController {
             }
             self.cordinator.presentRegistrationViewController(from: self)
         }).disposed(by: disposeBag)
+        
+        loginViewModel.someFieldsAreEmpty.subscribe(onNext: { [weak self] (fieldsAreEmpty) in
+            if fieldsAreEmpty {
+                    self?.showAlert(title: "Empty fields", message: "Please fill in all required fields", actionTitle: "OK")
+                } else {
+                    self?.dismiss(animated: true, completion: nil)
+                }
+            }).disposed(by: disposeBag)
     }
     
     private func addGestureRecognizer() {
@@ -112,6 +120,12 @@ class LoginViewController: UIViewController {
     
     private func hideNavigationBar() {
         navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
+    private func showAlert(title: String, message: String, actionTitle: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: actionTitle, style: .default, handler: nil))
+        self.present(alert, animated: true)
     }
 }
 
