@@ -1,20 +1,20 @@
 //
-//  HomeViewController.swift
+//  SettingsViewController.swift
 //  Unpause
 //
-//  Created by Krešimir Baković on 18/12/2019.
+//  Created by Krešimir Baković on 19/12/2019.
 //  Copyright © 2019 Krešimir Baković. All rights reserved.
 //
 
 import UIKit
 
-class HomeViewController: UIViewController {
+class SettingsViewController: UIViewController {
+
+    private let settingsViewModel: SettingsViewModel
     
-    private let homeViewModel: HomeViewModel
     
-    
-    init(homeViewModel: HomeViewModel) {
-        self.homeViewModel = homeViewModel
+    init(settingsViewModel: SettingsViewModel) {
+        self.settingsViewModel = settingsViewModel
         super.init(nibName: nil, bundle: nil)
     }
     

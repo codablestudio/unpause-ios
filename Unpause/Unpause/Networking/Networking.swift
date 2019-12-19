@@ -30,18 +30,17 @@ class Networking {
                 "lastName": "\(lastName)"])
     }
     
-    // NA OVAJ NACIN SAM MISLIO IMPLEMENTIRATI SIGN IN ALI NISAM USPIO :/
-    
-//    func signInUserWith(email: String, password: String) -> Observable<String?> {
-//        var returnedEmail: String?
+//    func signInUserWith(email: String, password: String) -> Observable<FirebaseResponseObject> {
+//        var responseFromFirebase = FirebaseResponseObject(authDataResult: nil, error: nil)
 //        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
 //            if error != nil {
+//                responseFromFirebase.error = error
 //                print("Some error occurred \(error.debugDescription)")
 //            } else {
+//                responseFromFirebase = FirebaseResponseObject(authDataResult: authResult, error: nil)
 //                print("User was successfully signed in.")
-//                returnedEmail = authResult?.user.email
 //            }
 //        }
-//        return Observable.just(returnedEmail)
+//        return Observable.just(responseFromFirebase)
 //    }
 }

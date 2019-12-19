@@ -1,20 +1,20 @@
 //
-//  HomeViewController.swift
+//  ActivityViewController.swift
 //  Unpause
 //
-//  Created by Krešimir Baković on 18/12/2019.
+//  Created by Krešimir Baković on 19/12/2019.
 //  Copyright © 2019 Krešimir Baković. All rights reserved.
 //
 
 import UIKit
 
-class HomeViewController: UIViewController {
+class ActivityViewController: UIViewController {
+
+    private let activityViewModel: ActivityViewModel
     
-    private let homeViewModel: HomeViewModel
     
-    
-    init(homeViewModel: HomeViewModel) {
-        self.homeViewModel = homeViewModel
+    init(activityViewModel: ActivityViewModel) {
+        self.activityViewModel = activityViewModel
         super.init(nibName: nil, bundle: nil)
     }
     

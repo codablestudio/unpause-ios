@@ -29,13 +29,18 @@
 		C10F78E923A3D79200783476 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10F78D623A3D79200783476 /* Array+Extension.swift */; };
 		C10F78EB23A3DD9A00783476 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10F78EA23A3DD9A00783476 /* SceneDelegate.swift */; };
 		C12D289823A536BC004BC57A /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12D289723A536BC004BC57A /* Networking.swift */; };
+		C13C412023AB93D600B674E9 /* FirebaseResponseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C411F23AB93D600B674E9 /* FirebaseResponseObject.swift */; };
+		C13C412223ABBC4100B674E9 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C412123ABBC4100B674E9 /* ActivityViewController.swift */; };
+		C13C412423ABBC5400B674E9 /* ActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C412323ABBC5400B674E9 /* ActivityViewModel.swift */; };
+		C13C412623ABBC7000B674E9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C412523ABBC7000B674E9 /* SettingsViewController.swift */; };
+		C13C412823ABBC8900B674E9 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C412723ABBC8900B674E9 /* SettingsViewModel.swift */; };
 		C146991223A112F100A84818 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C146991123A112F100A84818 /* AppDelegate.swift */; };
 		C146991B23A112F200A84818 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C146991A23A112F200A84818 /* Assets.xcassets */; };
 		C146991E23A112F200A84818 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C146991C23A112F200A84818 /* LaunchScreen.storyboard */; };
 		C146992C23A11D5200A84818 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C146992B23A11D5200A84818 /* LoginViewController.swift */; };
 		C146992E23A11DBE00A84818 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C146992D23A11DBE00A84818 /* LoginViewModel.swift */; };
 		C1480A6023A7672D00437772 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C1480A5F23A7672D00437772 /* GoogleService-Info.plist */; };
-		C16A2EF123A77B1200CBA43F /* Cordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16A2EF023A77B1200CBA43F /* Cordinator.swift */; };
+		C16A2EF123A77B1200CBA43F /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16A2EF023A77B1200CBA43F /* Coordinator.swift */; };
 		C16A2EF323A784A700CBA43F /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16A2EF223A784A700CBA43F /* RegisterViewController.swift */; };
 		C16A2EF523A7853800CBA43F /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16A2EF423A7853800CBA43F /* RegisterViewModel.swift */; };
 		C1C41B7623A9594F009288CA /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C41B7523A9594F009288CA /* UITextField+Extension.swift */; };
@@ -67,6 +72,11 @@
 		C10F78D623A3D79200783476 /* Array+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		C10F78EA23A3DD9A00783476 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		C12D289723A536BC004BC57A /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		C13C411F23AB93D600B674E9 /* FirebaseResponseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseResponseObject.swift; sourceTree = "<group>"; };
+		C13C412123ABBC4100B674E9 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
+		C13C412323ABBC5400B674E9 /* ActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewModel.swift; sourceTree = "<group>"; };
+		C13C412523ABBC7000B674E9 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		C13C412723ABBC8900B674E9 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		C146990E23A112F100A84818 /* Unpause.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Unpause.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C146991123A112F100A84818 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C146991A23A112F200A84818 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -75,7 +85,7 @@
 		C146992B23A11D5200A84818 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C146992D23A11DBE00A84818 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		C1480A5F23A7672D00437772 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		C16A2EF023A77B1200CBA43F /* Cordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cordinator.swift; sourceTree = "<group>"; };
+		C16A2EF023A77B1200CBA43F /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		C16A2EF223A784A700CBA43F /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		C16A2EF423A7853800CBA43F /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		C1C41B7523A9594F009288CA /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
@@ -179,7 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				C146992A23A1181300A84818 /* Networking */,
-				C146992923A1180100A84818 /* Cordinator */,
+				C146992923A1180100A84818 /* Coordinator */,
 				C146992823A117C400A84818 /* Models */,
 				C146992723A117B400A84818 /* ViewControllers */,
 				C146992623A117A600A84818 /* ViewModels */,
@@ -209,6 +219,8 @@
 				C146992D23A11DBE00A84818 /* LoginViewModel.swift */,
 				C16A2EF423A7853800CBA43F /* RegisterViewModel.swift */,
 				C1FBC46E23AA521C00579913 /* HomeViewModel.swift */,
+				C13C412323ABBC5400B674E9 /* ActivityViewModel.swift */,
+				C13C412723ABBC8900B674E9 /* SettingsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -219,6 +231,8 @@
 				C146992B23A11D5200A84818 /* LoginViewController.swift */,
 				C16A2EF223A784A700CBA43F /* RegisterViewController.swift */,
 				C1FBC46C23AA51E100579913 /* HomeViewController.swift */,
+				C13C412123ABBC4100B674E9 /* ActivityViewController.swift */,
+				C13C412523ABBC7000B674E9 /* SettingsViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -226,16 +240,17 @@
 		C146992823A117C400A84818 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C13C411F23AB93D600B674E9 /* FirebaseResponseObject.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
 		};
-		C146992923A1180100A84818 /* Cordinator */ = {
+		C146992923A1180100A84818 /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
-				C16A2EF023A77B1200CBA43F /* Cordinator.swift */,
+				C16A2EF023A77B1200CBA43F /* Coordinator.swift */,
 			);
-			path = Cordinator;
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 		C146992A23A1181300A84818 /* Networking */ = {
@@ -388,11 +403,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				C10F78E023A3D79200783476 /* UIImage+Extension.swift in Sources */,
-				C16A2EF123A77B1200CBA43F /* Cordinator.swift in Sources */,
+				C16A2EF123A77B1200CBA43F /* Coordinator.swift in Sources */,
 				C10F78DB23A3D79200783476 /* UILabel+Extension.swift in Sources */,
+				C13C412223ABBC4100B674E9 /* ActivityViewController.swift in Sources */,
 				C10F78DA23A3D79200783476 /* UIColor+Extension.swift in Sources */,
 				C12D289823A536BC004BC57A /* Networking.swift in Sources */,
 				C1FBC46D23AA51E100579913 /* HomeViewController.swift in Sources */,
+				C13C412023AB93D600B674E9 /* FirebaseResponseObject.swift in Sources */,
 				C10F78E923A3D79200783476 /* Array+Extension.swift in Sources */,
 				C10F78E323A3D79200783476 /* Bool+Extension.swift in Sources */,
 				C10F78D923A3D79200783476 /* UIFont+Extension.swift in Sources */,
@@ -405,6 +422,7 @@
 				C10F78D823A3D79200783476 /* UIImageView+Extension.swift in Sources */,
 				C10F78D723A3D79200783476 /* ActivityIndicator.swift in Sources */,
 				C10F78DF23A3D79200783476 /* UIView+Extension.swift in Sources */,
+				C13C412823ABBC8900B674E9 /* SettingsViewModel.swift in Sources */,
 				C16A2EF523A7853800CBA43F /* RegisterViewModel.swift in Sources */,
 				C146992E23A11DBE00A84818 /* LoginViewModel.swift in Sources */,
 				C10F78DC23A3D79200783476 /* Thread+Extension.swift in Sources */,
@@ -414,6 +432,8 @@
 				C146992C23A11D5200A84818 /* LoginViewController.swift in Sources */,
 				C10F78DE23A3D79200783476 /* ObservableType+Extension.swift in Sources */,
 				C16A2EF323A784A700CBA43F /* RegisterViewController.swift in Sources */,
+				C13C412623ABBC7000B674E9 /* SettingsViewController.swift in Sources */,
+				C13C412423ABBC5400B674E9 /* ActivityViewModel.swift in Sources */,
 				C146991223A112F100A84818 /* AppDelegate.swift in Sources */,
 				C1FBC46F23AA521C00579913 /* HomeViewModel.swift in Sources */,
 				C10F78E723A3D79200783476 /* UIButton+Rx.swift in Sources */,

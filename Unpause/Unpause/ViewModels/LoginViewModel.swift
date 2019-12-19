@@ -28,6 +28,7 @@ class LoginViewModel {
     var pushToHomeViewController = PublishSubject<Bool>()
     var loggedInUserEmail = PublishSubject<String>()
     var error = PublishSubject<Error>()
+    var responseFromFirebase: Observable<FirebaseResponseObject>?
     
     init() {
         setUpObservables()
@@ -50,6 +51,13 @@ class LoginViewModel {
             // TODO: Do networking for sign in with Google
         }).disposed(by: disposeBag)
         
+        responseFromFirebase?.subscribe(onNext: { (authdDataResult) in
+            print("AFFAFFA")
+            if authdDataResult.authDataResult != nil {
+                print("\((authdDataResult.authDataResult?.user.email)!)")
+            }
+            }).disposed(by: disposeBag)
+        
         logInButtonTapped.subscribe(onNext: { [weak self] _ in
             guard let email = self?.textInEmailTextField,
                 let password = self?.textInPasswordTextField else {
@@ -63,6 +71,11 @@ class LoginViewModel {
                 self?.error.onNext(error)
                 print("\(error)")
             }).disposed(by: self!.disposeBag)
+            
+            
+//            self?.responseFromFirebase = self?.networking.signInUserWith(email: email, password: password)
             }).disposed(by: disposeBag)
+            
+            
     }
 }

@@ -36,7 +36,7 @@ class LoginViewController: UIViewController {
     private let newHereLabel = UILabel()
     private let registerButton = UIButton()
     
-    private var cordinator = Cordinator()
+    private var coordinator = Coordinator()
     private var loggedInUserEmail: String?
     
     init(loginViewModel: LoginViewModel) {
@@ -85,7 +85,7 @@ class LoginViewController: UIViewController {
             guard let `self` = self else {
                 return
             }
-            self.cordinator.presentRegistrationViewController(from: self)
+            self.coordinator.presentRegistrationViewController(from: self)
         }).disposed(by: disposeBag)
         
         loginViewModel.loggedInUserEmail.subscribe(onNext: { [weak self] (loggedInUserEmail) in
@@ -100,7 +100,7 @@ class LoginViewController: UIViewController {
                 guard let loggedInUserEmail = self.loggedInUserEmail else {
                     return
                 }
-                self.cordinator.navigateToHomeViewController(from: self, email: loggedInUserEmail)
+                self.coordinator.navigateToHomeViewController(from: self, email: loggedInUserEmail)
             }
             }).disposed(by: disposeBag)
         
