@@ -25,9 +25,14 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         render()
+        showTitleInNavigationBar()
     }
     
     private func render() {
         view.backgroundColor = .white
+    }
+    
+    private func showTitleInNavigationBar() {
+        self.title = "Settings"
     }
 }
