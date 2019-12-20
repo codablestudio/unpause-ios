@@ -10,11 +10,6 @@ import UIKit
 
 class SettingsButton: UIButton {
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setUpButton()
-    }
-    
     init(title: String) {
         super.init(frame: .zero)
         setTitle(title, for: .normal)

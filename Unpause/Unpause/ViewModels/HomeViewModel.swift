@@ -23,6 +23,7 @@ class HomeViewModel {
     
     private func setUpObservables() {
         checkInButtonTapped.subscribe(onNext: { _ in
+            print("Check in")
             // TODO: Do check in for user
         }).disposed(by: disposeBag)
     }
