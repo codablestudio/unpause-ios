@@ -37,6 +37,8 @@ class RegisterViewController: UIViewController {
     
     private let registerButton = UIButton()
     
+    private let closeButton = UIButton()
+    
     
     init(registerViewModel: RegisterViewModel) {
         self.registerViewModel = registerViewModel
@@ -68,6 +70,7 @@ class RegisterViewController: UIViewController {
         renderEmailTextFieldAndEmailSeparator()
         renderNewPasswordTextFieldAndPasswordSeparator()
         renderRegisterButton()
+        renderCloseButton()
     }
     
     private func setUpObservables() {
@@ -93,6 +96,10 @@ class RegisterViewController: UIViewController {
                 self?.dismiss(animated: true, completion: nil)
             }
         }).disposed(by: disposeBag)
+        
+        closeButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            self?.dismiss(animated: true, completion: nil)
+            }).disposed(by: disposeBag)
     }
     
     private func addGestureRecognizer() {
@@ -261,5 +268,14 @@ private extension RegisterViewController {
         registerButton.setTitle("Register", for: .normal)
         registerButton.backgroundColor = #colorLiteral(red: 0.9450980392, green: 0.4745098039, blue: 0.2078431373, alpha: 1)
         registerButton.layer.cornerRadius = 5
+    }
+    
+    func renderCloseButton() {
+        containerView.addSubview(closeButton)
+        closeButton.snp.makeConstraints { (make) in
+            make.top.equalToSuperview().offset(25)
+            make.left.equalToSuperview().offset(15)
+        }
+        closeButton.setImage(UIImage(named: "close_25x25"), for: .normal)
     }
 }

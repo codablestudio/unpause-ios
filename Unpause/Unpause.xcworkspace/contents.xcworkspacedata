@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/kresimir_bakovic/Codable Studio/unpause-ios/Unpause/Unpause/Supporting Files/Colors.xcassets">
-   </FileRef>
-   <FileRef
       location = "group:Unpause.xcodeproj">
    </FileRef>
    <FileRef
