@@ -23,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         newWindow.rootViewController = navigationController
         self.window = newWindow
         self.window?.makeKeyAndVisible()
+        UITabBar.appearance().tintColor = #colorLiteral(red: 0.9450980392, green: 0.4745098039, blue: 0.2078431373, alpha: 1)
+        UITabBar.appearance().backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         return true
     }
     
