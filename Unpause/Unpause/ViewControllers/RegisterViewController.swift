@@ -99,7 +99,7 @@ class RegisterViewController: UIViewController {
         
         closeButton.rx.tap.subscribe(onNext: { [weak self] _ in
             self?.dismiss(animated: true, completion: nil)
-            }).disposed(by: disposeBag)
+        }).disposed(by: disposeBag)
     }
     
     private func addGestureRecognizer() {

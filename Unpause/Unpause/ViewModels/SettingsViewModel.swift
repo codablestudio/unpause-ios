@@ -7,7 +7,34 @@
 //
 
 import Foundation
+import RxSwift
 
 class SettingsViewModel {
     
+    private let disposeBag = DisposeBag()
+    
+    var changePersonalInfoButtonTapped = PublishSubject<Void>()
+    var changePasswordButtonTapped = PublishSubject<Void>()
+    var logOutButtonTapped = PublishSubject<Void>()
+    
+    init() {
+        setUpObservables()
+    }
+    
+    private func setUpObservables() {
+        changePersonalInfoButtonTapped.subscribe(onNext: { _ in
+            // TODO: Make everything to change personal info
+            print("Change personal info")
+        }).disposed(by: disposeBag)
+        
+        changePasswordButtonTapped.subscribe(onNext: { _ in
+            // TODO: Make everything to provide user funcionality to change password
+            print("Change password")
+        }).disposed(by: disposeBag)
+        
+        logOutButtonTapped.subscribe(onNext: { _ in
+            // TODO: Log out user
+            print("Log out")
+        }).disposed(by: disposeBag)
+    }
 }

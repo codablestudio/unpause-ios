@@ -12,8 +12,8 @@ import FirebaseAuth
 struct FirebaseResponseObject {
     var authDataResult: AuthDataResult?
     var error: Error?
-//    enum Response {
-//        case AuthDataResult(AuthDataResult)
-//        case Error(Error)
-//    }
+    //    enum Response {
+    //        case AuthDataResult(AuthDataResult)
+    //        case Error(Error)
+    //    }
 }

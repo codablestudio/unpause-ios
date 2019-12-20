@@ -30,17 +30,17 @@ class Networking {
                 "lastName": "\(lastName)"])
     }
     
-//    func signInUserWith(email: String, password: String) -> Observable<FirebaseResponseObject> {
-//        var responseFromFirebase = FirebaseResponseObject(authDataResult: nil, error: nil)
-//        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
-//            if error != nil {
-//                responseFromFirebase.error = error
-//                print("Some error occurred \(error.debugDescription)")
-//            } else {
-//                responseFromFirebase = FirebaseResponseObject(authDataResult: authResult, error: nil)
-//                print("User was successfully signed in.")
-//            }
-//        }
-//        return Observable.just(responseFromFirebase)
-//    }
+    //    func signInUserWith(email: String, password: String) -> Observable<FirebaseResponseObject> {
+    //        var responseFromFirebase = FirebaseResponseObject(authDataResult: nil, error: nil)
+    //        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+    //            if error != nil {
+    //                responseFromFirebase.error = error
+    //                print("Some error occurred \(error.debugDescription)")
+    //            } else {
+    //                responseFromFirebase = FirebaseResponseObject(authDataResult: authResult, error: nil)
+    //                print("User was successfully signed in.")
+    //            }
+    //        }
+    //        return Observable.just(responseFromFirebase)
+    //    }
 }

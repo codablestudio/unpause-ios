@@ -24,6 +24,6 @@ class HomeViewModel {
     private func setUpObservables() {
         checkInButtonTapped.subscribe(onNext: { _ in
             // TODO: Do check in for user
-            }).disposed(by: disposeBag)
+        }).disposed(by: disposeBag)
     }
 }

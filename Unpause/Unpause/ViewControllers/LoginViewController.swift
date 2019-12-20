@@ -90,7 +90,7 @@ class LoginViewController: UIViewController {
         
         loginViewModel.loggedInUserEmail.subscribe(onNext: { [weak self] (loggedInUserEmail) in
             self?.loggedInUserEmail = loggedInUserEmail
-            }).disposed(by: disposeBag)
+        }).disposed(by: disposeBag)
         
         loginViewModel.pushToHomeViewController.subscribe(onNext: { [weak self] (push) in
             guard let `self` = self else {
@@ -102,11 +102,11 @@ class LoginViewController: UIViewController {
                 }
                 self.coordinator.navigateToHomeViewController(from: self, email: loggedInUserEmail)
             }
-            }).disposed(by: disposeBag)
+        }).disposed(by: disposeBag)
         
         loginViewModel.error.subscribe(onNext: { [weak self] (error) in
             self?.showAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
-            }).disposed(by: disposeBag)
+        }).disposed(by: disposeBag)
     }
     
     private func addGestureRecognizer() {

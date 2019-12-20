@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B2B29F715C80199B18013F95 /* Pods_Unpause.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE3FC3210F1CDFC45FF7DBE1 /* Pods_Unpause.framework */; };
 		C102D7BA23ACCFB4000B9E80 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C102D7B923ACCFB4000B9E80 /* Colors.xcassets */; };
+		C102D7BF23AD0063000B9E80 /* SettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C102D7BE23AD0063000B9E80 /* SettingsButton.swift */; };
 		C10F78D723A3D79200783476 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10F78C223A3D79200783476 /* ActivityIndicator.swift */; };
 		C10F78D823A3D79200783476 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10F78C423A3D79200783476 /* UIImageView+Extension.swift */; };
 		C10F78D923A3D79200783476 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10F78C523A3D79200783476 /* UIFont+Extension.swift */; };
@@ -52,6 +53,7 @@
 /* Begin PBXFileReference section */
 		7A22B2694C577AAD4753E790 /* Pods-Unpause.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Unpause.release.xcconfig"; path = "Target Support Files/Pods-Unpause/Pods-Unpause.release.xcconfig"; sourceTree = "<group>"; };
 		C102D7B923ACCFB4000B9E80 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		C102D7BE23AD0063000B9E80 /* SettingsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsButton.swift; sourceTree = "<group>"; };
 		C10F78BF23A3D50000783476 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Colors.xcassets; path = "/Users/kresimir_bakovic/Codable Studio/unpause-ios/Unpause/Unpause/Supporting Files/Colors.xcassets"; sourceTree = "<absolute>"; };
 		C10F78C223A3D79200783476 /* ActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		C10F78C423A3D79200783476 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
@@ -116,6 +118,14 @@
 				7A22B2694C577AAD4753E790 /* Pods-Unpause.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		C102D7BD23ACFE5C000B9E80 /* CustomUIElements */ = {
+			isa = PBXGroup;
+			children = (
+				C102D7BE23AD0063000B9E80 /* SettingsButton.swift */,
+			);
+			path = CustomUIElements;
 			sourceTree = "<group>";
 		};
 		C10F78C023A3D79200783476 /* Library */ = {
@@ -191,6 +201,7 @@
 		C146991023A112F100A84818 /* Unpause */ = {
 			isa = PBXGroup;
 			children = (
+				C102D7BD23ACFE5C000B9E80 /* CustomUIElements */,
 				C146992A23A1181300A84818 /* Networking */,
 				C146992923A1180100A84818 /* Coordinator */,
 				C146992823A117C400A84818 /* Models */,
@@ -426,6 +437,7 @@
 				C10F78D823A3D79200783476 /* UIImageView+Extension.swift in Sources */,
 				C10F78D723A3D79200783476 /* ActivityIndicator.swift in Sources */,
 				C10F78DF23A3D79200783476 /* UIView+Extension.swift in Sources */,
+				C102D7BF23AD0063000B9E80 /* SettingsButton.swift in Sources */,
 				C13C412823ABBC8900B674E9 /* SettingsViewModel.swift in Sources */,
 				C16A2EF523A7853800CBA43F /* RegisterViewModel.swift in Sources */,
 				C146992E23A11DBE00A84818 /* LoginViewModel.swift in Sources */,

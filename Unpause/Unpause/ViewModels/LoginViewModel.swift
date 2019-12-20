@@ -56,7 +56,7 @@ class LoginViewModel {
             if authdDataResult.authDataResult != nil {
                 print("\((authdDataResult.authDataResult?.user.email)!)")
             }
-            }).disposed(by: disposeBag)
+        }).disposed(by: disposeBag)
         
         logInButtonTapped.subscribe(onNext: { [weak self] _ in
             guard let email = self?.textInEmailTextField,
@@ -67,15 +67,15 @@ class LoginViewModel {
                 guard let email = authDataResult.user.email else { return }
                 self?.loggedInUserEmail.onNext(email)
                 self?.pushToHomeViewController.onNext(true)
-            }, onError: { error in
-                self?.error.onNext(error)
-                print("\(error)")
+                }, onError: { error in
+                    self?.error.onNext(error)
+                    print("\(error)")
             }).disposed(by: self!.disposeBag)
             
             
-//            self?.responseFromFirebase = self?.networking.signInUserWith(email: email, password: password)
-            }).disposed(by: disposeBag)
-            
-            
+            //            self?.responseFromFirebase = self?.networking.signInUserWith(email: email, password: password)
+        }).disposed(by: disposeBag)
+        
+        
     }
 }
