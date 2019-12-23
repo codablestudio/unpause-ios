@@ -11,33 +11,22 @@ import UIKit
 
 class Coordinator {
     
-    func presentRegistrationViewController(from: UIViewController) {
-        let registerViewModel = RegisterViewModel()
-        let registerViewController = RegisterViewController(registerViewModel: registerViewModel)
-        from.present(registerViewController, animated: true, completion: nil)
-    }
+    var window: UIWindow!
     
-    func navigateToHomeViewController(from: UIViewController) {
-        let homeViewController = HomeViewController(homeViewModel: HomeViewModel())
-        let homeNavigationController = UINavigationController(rootViewController: homeViewController)
+    static let shared = Coordinator()
+    
+    private init() {}
+    
+    func start(_ window: UIWindow) {
+        self.window = window
         
-        let activityViewController = ActivityViewController(activityViewModel: ActivityViewModel())
-        let activityNavigationController = UINavigationController(rootViewController: activityViewController)
-        
-        let settingsViewController = SettingsViewController(settingsViewModel: SettingsViewModel())
-        let settingsNavigationController = UINavigationController(rootViewController: settingsViewController)
-        
-        let tabBarViewController = UITabBarController()
-        tabBarViewController.setViewControllers([homeNavigationController,
-                                                 activityNavigationController,
-                                                 settingsNavigationController],
-                                                 animated: true)
-        tabBarViewController.selectedViewController = homeNavigationController
-        
-        homeNavigationController.tabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "home_25x25_unselected"), selectedImage: UIImage(named: "home_25x25_selected"))
-        activityNavigationController.tabBarItem = UITabBarItem(title: "Activity", image: UIImage(named: "activity_25x25_unselected"), selectedImage: UIImage(named: "activity_25x25_selected"))
-        settingsNavigationController.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(named: "settings_25x25_unselected"), selectedImage: UIImage(named: "settings_25x25_selected"))
-        
-        from.navigationController?.pushViewController(tabBarViewController, animated: true)
+        if SessionManager.shared.userLoggedIn() {
+            showTabbar()
+        } else {
+            showLoginScreen()
+//            let loginViewController = LoginViewController(loginViewModel: LoginViewModel())
+//            let navigationController = UINavigationController(rootViewController: loginViewController)
+//            newWindow.rootViewController = navigationController
+        }
     }
 }

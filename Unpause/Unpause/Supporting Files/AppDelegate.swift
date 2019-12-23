@@ -18,9 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
         let newWindow = UIWindow(frame: UIScreen.main.bounds)
-        let loginViewController = LoginViewController(loginViewModel: LoginViewModel())
-        let navigationController = UINavigationController(rootViewController: loginViewController)
-        newWindow.rootViewController = navigationController
+        Coordinator.shared.start(newWindow)
         self.window = newWindow
         self.window?.makeKeyAndVisible()
         UITabBar.appearance().tintColor = #colorLiteral(red: 0.9450980392, green: 0.4745098039, blue: 0.2078431373, alpha: 1)

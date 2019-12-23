@@ -23,6 +23,6 @@ class SettingsButton: UIButton {
     
     func setUpButton() {
         layer.cornerRadius = 5
-        backgroundColor = #colorLiteral(red: 0.9450980392, green: 0.4745098039, blue: 0.2078431373, alpha: 1)
+        backgroundColor = UIColor(named: "orange")
     }
 }

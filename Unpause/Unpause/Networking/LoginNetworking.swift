@@ -1,5 +1,5 @@
 //
-//  Networking.swift
+//  LoginNetworking.swift
 //  Unpause
 //
 //  Created by Krešimir Baković on 14/12/2019.
@@ -12,7 +12,7 @@ import FirebaseFirestore
 import RxSwift
 import RxFirebase
 
-class Networking {
+class LoginNetworking {
     
     private let dataBaseReference = Firestore.firestore()
     
@@ -30,17 +30,18 @@ class Networking {
                 "lastName": "\(lastName)"])
     }
     
-    //    func signInUserWith(email: String, password: String) -> Observable<FirebaseResponseObject> {
-    //        var responseFromFirebase = FirebaseResponseObject(authDataResult: nil, error: nil)
-    //        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
-    //            if error != nil {
-    //                responseFromFirebase.error = error
-    //                print("Some error occurred \(error.debugDescription)")
-    //            } else {
-    //                responseFromFirebase = FirebaseResponseObject(authDataResult: authResult, error: nil)
-    //                print("User was successfully signed in.")
-    //            }
-    //        }
-    //        return Observable.just(responseFromFirebase)
-    //    }
+    func signInUserWith(email: String, password: String) -> Observable<FirebaseResponseObject> {
+        Auth.auth().rx.signIn(withEmail: email, password: password)
+            .flatMapLatest({ authDataResult -> Observable<FirebaseResponseObject> in
+                if let email = authDataResult.user.email {
+                    print("logged in email: \(email)")
+                    return Observable.just(FirebaseResponseObject.authDataResult(authDataResult))
+                } else {
+                    return Observable.just(FirebaseResponseObject.error(UnpauseError.defaultError))
+                }
+            })
+            .catchError({ error -> Observable<FirebaseResponseObject> in
+                return Observable.just(FirebaseResponseObject.error(error))
+            })
+    }
 }

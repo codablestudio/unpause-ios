@@ -143,7 +143,7 @@ class RegisterViewController: UIViewController {
 private extension RegisterViewController {
     
     func configureScrollViewAndContainerView() {
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "white")
         
         view.addSubview(scrollView)
         scrollView.snp.makeConstraints { (make) in
@@ -188,7 +188,7 @@ private extension RegisterViewController {
             make.right.equalToSuperview().inset(42)
             make.height.equalTo(1)
         }
-        firstNameSeparator.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        firstNameSeparator.backgroundColor = UIColor(named: "lightGray")
     }
     
     func renderLastNameTextFieldAndLastNameSeparator() {
@@ -209,7 +209,7 @@ private extension RegisterViewController {
             make.right.equalToSuperview().inset(42)
             make.height.equalTo(1)
         }
-        lastNameSeparator.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        lastNameSeparator.backgroundColor = UIColor(named: "lightGray")
     }
     
     func renderEmailTextFieldAndEmailSeparator() {
@@ -231,7 +231,7 @@ private extension RegisterViewController {
             make.right.equalToSuperview().inset(42)
             make.height.equalTo(1)
         }
-        emailSeparator.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        emailSeparator.backgroundColor = UIColor(named: "lightGray")
     }
     
     func renderNewPasswordTextFieldAndPasswordSeparator() {
@@ -253,7 +253,7 @@ private extension RegisterViewController {
             make.right.equalToSuperview().inset(42)
             make.height.equalTo(1)
         }
-        newPasswordSeparator.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        newPasswordSeparator.backgroundColor = UIColor(named: "lightGray")
     }
     
     func renderRegisterButton() {
@@ -266,7 +266,7 @@ private extension RegisterViewController {
             make.height.equalTo(40)
         }
         registerButton.setTitle("Register", for: .normal)
-        registerButton.backgroundColor = #colorLiteral(red: 0.9450980392, green: 0.4745098039, blue: 0.2078431373, alpha: 1)
+        registerButton.backgroundColor = UIColor(named: "orange")
         registerButton.layer.cornerRadius = 5
     }
     

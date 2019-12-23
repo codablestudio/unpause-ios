@@ -9,11 +9,7 @@
 import Foundation
 import FirebaseAuth
 
-struct FirebaseResponseObject {
-    var authDataResult: AuthDataResult?
-    var error: Error?
-    //    enum Response {
-    //        case AuthDataResult(AuthDataResult)
-    //        case Error(Error)
-    //    }
+enum FirebaseResponseObject {
+    case authDataResult(AuthDataResult)
+    case error(Error)
 }

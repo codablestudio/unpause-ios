@@ -36,8 +36,6 @@ class LoginViewController: UIViewController {
     private let newHereLabel = UILabel()
     private let registerButton = UIButton()
     
-    private var coordinator = Coordinator()
-    
     init(loginViewModel: LoginViewModel) {
         self.loginViewModel = loginViewModel
         super.init(nibName: nil, bundle: nil)
@@ -84,21 +82,26 @@ class LoginViewController: UIViewController {
             guard let `self` = self else {
                 return
             }
-            self.coordinator.presentRegistrationViewController(from: self)
+            Coordinator.shared.presentRegistrationViewController(from: self)
         }).disposed(by: disposeBag)
         
-        loginViewModel.pushToHomeViewController.subscribe(onNext: { [weak self] (push) in
-            guard let `self` = self else {
-                return
-            }
-            if push {
-                self.coordinator.navigateToHomeViewController(from: self)
-            }
-        }).disposed(by: disposeBag)
+        loginViewModel.error
+            .subscribe(onNext: { [weak self] (error) in
+                self?.showAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
+            }).disposed(by: disposeBag)
         
-        loginViewModel.error.subscribe(onNext: { [weak self] (error) in
-            self?.showAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
-        }).disposed(by: disposeBag)
+        loginViewModel.loginRequest
+            .subscribe(onNext: { [weak self] loginResult in
+                guard let `self` = self else { return }
+                
+                switch loginResult {
+                case .authDataResult(let authDataResult):
+                    print("success \(authDataResult)")
+                    Coordinator.shared.navigateToHomeViewController(from: self)
+                case .error(let error):
+                    self.showAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
+                }
+            }).disposed(by: disposeBag)
     }
     
     private func addGestureRecognizer() {
@@ -139,7 +142,7 @@ class LoginViewController: UIViewController {
 private extension LoginViewController {
     
     func configureScrollViewAndContainerView() {
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "white")
         
         view.addSubview(scrollView)
         
@@ -175,7 +178,7 @@ private extension LoginViewController {
         titleStackView.addArrangedSubview(unpauseTitleLabel)
         unpauseTitleLabel.text = "Unpause"
         unpauseTitleLabel.font = UIFont.boldSystemFont(ofSize: 30)
-        unpauseTitleLabel.textColor = #colorLiteral(red: 0.9450980392, green: 0.4745098039, blue: 0.2078431373, alpha: 1)
+        unpauseTitleLabel.textColor = UIColor(named: "orange")
         
         containerView.addSubview(titleDesriptionLabel)
         titleDesriptionLabel.snp.makeConstraints { (make) in
@@ -184,7 +187,7 @@ private extension LoginViewController {
         }
         titleDesriptionLabel.text = "Enjoy managing your workitime"
         titleDesriptionLabel.font = titleDesriptionLabel.font.withSize(13)
-        titleDesriptionLabel.textColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        titleDesriptionLabel.textColor = UIColor(named: "darkGray")
     }
     
     func renderEmailTextFieldAndEmailSeparator() {
@@ -206,7 +209,7 @@ private extension LoginViewController {
             make.left.equalToSuperview().offset(55)
             make.right.equalToSuperview().inset(55)
         }
-        emailSeparator.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        emailSeparator.backgroundColor = UIColor(named: "lightGray")
     }
     
     func renderPasswordTextFieldAndPasswordSeparator() {
@@ -229,7 +232,7 @@ private extension LoginViewController {
             make.left.equalToSuperview().offset(55)
             make.right.equalToSuperview().inset(55)
         }
-        passwordSeparator.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        passwordSeparator.backgroundColor = UIColor(named: "lightGray")
     }
     
     func renderForgotPasswordButtonAndSignInWithGoogleButton() {
@@ -241,7 +244,7 @@ private extension LoginViewController {
         }
         forgotPasswordButton.setTitle("Forgot password?", for: .normal)
         forgotPasswordButton.titleLabel?.font = forgotPasswordButton.titleLabel?.font.withSize(13)
-        forgotPasswordButton.setTitleColor(#colorLiteral(red: 0.9450980392, green: 0.4745098039, blue: 0.2078431373, alpha: 1), for: .normal)
+        forgotPasswordButton.setTitleColor(UIColor(named: "orange"), for: .normal)
         
         containerView.addSubview(signInWithGoogleButton)
         signInWithGoogleButton.snp.makeConstraints { (make) in
@@ -252,7 +255,7 @@ private extension LoginViewController {
         }
         signInWithGoogleButton.setTitle("Sign in with Google", for: .normal)
         signInWithGoogleButton.titleLabel?.font = signInWithGoogleButton.titleLabel?.font.withSize(15)
-        signInWithGoogleButton.backgroundColor = #colorLiteral(red: 0.9450980392, green: 0.4745098039, blue: 0.2078431373, alpha: 1)
+        signInWithGoogleButton.backgroundColor = UIColor(named: "orange")
         signInWithGoogleButton.layer.cornerRadius = 5
         signInWithGoogleButton.titleEdgeInsets = UIEdgeInsets(top: 4, left: 7, bottom: 4, right: 7)
     }
@@ -266,7 +269,7 @@ private extension LoginViewController {
             make.height.equalTo(40)
         }
         loginButton.setTitle("Login", for: .normal)
-        loginButton.backgroundColor = #colorLiteral(red: 0.9450980392, green: 0.4745098039, blue: 0.2078431373, alpha: 1)
+        loginButton.backgroundColor = UIColor(named: "orange")
         loginButton.layer.cornerRadius = 5
         
         containerView.addSubview(newHereLabel)
@@ -276,7 +279,7 @@ private extension LoginViewController {
         }
         newHereLabel.text = "New here?"
         newHereLabel.font = newHereLabel.font.withSize(14)
-        newHereLabel.textColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        newHereLabel.textColor = UIColor(named: "darkGray")
     }
     
     func renderRegisterButton() {

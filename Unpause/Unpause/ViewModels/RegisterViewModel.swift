@@ -12,7 +12,7 @@ import RxSwift
 class RegisterViewModel {
     
     private let disposeBag = DisposeBag()
-    private let networking = Networking()
+    private let networking = LoginNetworking()
     
     private var textInFirstNameTextField: String?
     private var textInLastNameTextField: String?
