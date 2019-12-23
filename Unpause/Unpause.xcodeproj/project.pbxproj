@@ -31,6 +31,7 @@
 		C10F78E923A3D79200783476 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10F78D623A3D79200783476 /* Array+Extension.swift */; };
 		C10F78EB23A3DD9A00783476 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10F78EA23A3DD9A00783476 /* SceneDelegate.swift */; };
 		C12D289823A536BC004BC57A /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12D289723A536BC004BC57A /* Networking.swift */; };
+		C13105E723B0ADF200A509D9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13105E623B0ADF200A509D9 /* User.swift */; };
 		C13C412023AB93D600B674E9 /* FirebaseResponseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C411F23AB93D600B674E9 /* FirebaseResponseObject.swift */; };
 		C13C412223ABBC4100B674E9 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C412123ABBC4100B674E9 /* ActivityViewController.swift */; };
 		C13C412423ABBC5400B674E9 /* ActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C412323ABBC5400B674E9 /* ActivityViewModel.swift */; };
@@ -76,6 +77,7 @@
 		C10F78D623A3D79200783476 /* Array+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		C10F78EA23A3DD9A00783476 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		C12D289723A536BC004BC57A /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		C13105E623B0ADF200A509D9 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C13C411F23AB93D600B674E9 /* FirebaseResponseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseResponseObject.swift; sourceTree = "<group>"; };
 		C13C412123ABBC4100B674E9 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		C13C412323ABBC5400B674E9 /* ActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewModel.swift; sourceTree = "<group>"; };
@@ -211,6 +213,7 @@
 				C10F78C023A3D79200783476 /* Library */,
 				C146991F23A112F200A84818 /* Info.plist */,
 				C1480A5F23A7672D00437772 /* GoogleService-Info.plist */,
+				C13105E623B0ADF200A509D9 /* User.swift */,
 			);
 			path = Unpause;
 			sourceTree = "<group>";
@@ -440,6 +443,7 @@
 				C102D7BF23AD0063000B9E80 /* SettingsButton.swift in Sources */,
 				C13C412823ABBC8900B674E9 /* SettingsViewModel.swift in Sources */,
 				C16A2EF523A7853800CBA43F /* RegisterViewModel.swift in Sources */,
+				C13105E723B0ADF200A509D9 /* User.swift in Sources */,
 				C146992E23A11DBE00A84818 /* LoginViewModel.swift in Sources */,
 				C10F78DC23A3D79200783476 /* Thread+Extension.swift in Sources */,
 				C10F78E623A3D79200783476 /* CGSize+Extension.swift in Sources */,

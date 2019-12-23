@@ -26,7 +26,6 @@ class LoginViewModel {
     var logInButtonTapped = PublishSubject<Void>()
     var registerNowButtonTapped = PublishSubject<Void>()
     var pushToHomeViewController = PublishSubject<Bool>()
-    var loggedInUserEmail = PublishSubject<String>()
     var error = PublishSubject<Error>()
     var responseFromFirebase: Observable<FirebaseResponseObject>?
     
@@ -52,7 +51,6 @@ class LoginViewModel {
         }).disposed(by: disposeBag)
         
         responseFromFirebase?.subscribe(onNext: { (authdDataResult) in
-            print("AFFAFFA")
             if authdDataResult.authDataResult != nil {
                 print("\((authdDataResult.authDataResult?.user.email)!)")
             }
@@ -65,15 +63,14 @@ class LoginViewModel {
             }
             Auth.auth().rx.signIn(withEmail: email, password: password).subscribe(onNext: { [weak self] (authDataResult) in
                 guard let email = authDataResult.user.email else { return }
-                self?.loggedInUserEmail.onNext(email)
                 self?.pushToHomeViewController.onNext(true)
+                User.sharedInstance.email = email
                 }, onError: { error in
                     self?.error.onNext(error)
                     print("\(error)")
             }).disposed(by: self!.disposeBag)
             
-            
-            //            self?.responseFromFirebase = self?.networking.signInUserWith(email: email, password: password)
+            // self?.responseFromFirebase = self?.networking.signInUserWith(email: email, password: password)
         }).disposed(by: disposeBag)
         
         

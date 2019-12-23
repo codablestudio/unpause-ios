@@ -37,7 +37,6 @@ class LoginViewController: UIViewController {
     private let registerButton = UIButton()
     
     private var coordinator = Coordinator()
-    private var loggedInUserEmail: String?
     
     init(loginViewModel: LoginViewModel) {
         self.loginViewModel = loginViewModel
@@ -88,19 +87,12 @@ class LoginViewController: UIViewController {
             self.coordinator.presentRegistrationViewController(from: self)
         }).disposed(by: disposeBag)
         
-        loginViewModel.loggedInUserEmail.subscribe(onNext: { [weak self] (loggedInUserEmail) in
-            self?.loggedInUserEmail = loggedInUserEmail
-        }).disposed(by: disposeBag)
-        
         loginViewModel.pushToHomeViewController.subscribe(onNext: { [weak self] (push) in
             guard let `self` = self else {
                 return
             }
             if push {
-                guard let loggedInUserEmail = self.loggedInUserEmail else {
-                    return
-                }
-                self.coordinator.navigateToHomeViewController(from: self, email: loggedInUserEmail)
+                self.coordinator.navigateToHomeViewController(from: self)
             }
         }).disposed(by: disposeBag)
         

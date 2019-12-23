@@ -17,8 +17,8 @@ class Coordinator {
         from.present(registerViewController, animated: true, completion: nil)
     }
     
-    func navigateToHomeViewController(from: UIViewController, email: String) {
-        let homeViewController = HomeViewController(homeViewModel: HomeViewModel(signedInUserEmail: email))
+    func navigateToHomeViewController(from: UIViewController) {
+        let homeViewController = HomeViewController(homeViewModel: HomeViewModel())
         let homeNavigationController = UINavigationController(rootViewController: homeViewController)
         
         let activityViewController = ActivityViewController(activityViewModel: ActivityViewModel())
@@ -39,6 +39,5 @@ class Coordinator {
         settingsNavigationController.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(named: "settings_25x25_unselected"), selectedImage: UIImage(named: "settings_25x25_selected"))
         
         from.navigationController?.pushViewController(tabBarViewController, animated: true)
-        print("\(email)")
     }
 }

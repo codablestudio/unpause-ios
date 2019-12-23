@@ -12,12 +12,10 @@ import RxSwift
 class HomeViewModel {
     
     private let disposeBag = DisposeBag()
-    private let signedInUserEmail: String
     
     var checkInButtonTapped = PublishSubject<Void>()
     
-    init(signedInUserEmail: String) {
-        self.signedInUserEmail = signedInUserEmail
+    init() {
         setUpObservables()
     }
     
