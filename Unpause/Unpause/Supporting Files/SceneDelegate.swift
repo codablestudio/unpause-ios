@@ -15,9 +15,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         if let windowScene = scene as? UIWindowScene {
             let newWindow = UIWindow(windowScene: windowScene)
-            let loginViewController = LoginViewController(loginViewModel: LoginViewModel())
-            let navigationController = UINavigationController(rootViewController: loginViewController)
-            newWindow.rootViewController = navigationController
+            Coordinator.shared.start(newWindow)
             self.window = newWindow
             self.window?.makeKeyAndVisible()
         }

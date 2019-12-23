@@ -11,8 +11,18 @@ import RxSwift
 import RxFirebase
 import FirebaseAuth
 
-class LoginViewModel {
+protocol LoginViewModelProtocol {
+    var textInEmailTextFieldChanges: PublishSubject<String?> { get }
+    var textInPasswordTextFieldChanges: PublishSubject<String?>  { get }
+    var forgotPasswordButtonTapped: PublishSubject<Void>  { get }
+    var signInWithGoogleButtonTapped: PublishSubject<Void>  { get }
+    var logInButtonTapped: PublishSubject<Void>  { get }
+    var registerNowButtonTapped: PublishSubject<Void>  { get }
     
+    var loginRequest: Observable<FirebaseResponseObject>! { get }
+}
+    
+class LoginViewModel: LoginViewModelProtocol {
     private let disposeBag = DisposeBag()
     private let networking = LoginNetworking()
     
@@ -25,8 +35,6 @@ class LoginViewModel {
     var signInWithGoogleButtonTapped = PublishSubject<Void>()
     var logInButtonTapped = PublishSubject<Void>()
     var registerNowButtonTapped = PublishSubject<Void>()
-    var error = PublishSubject<Error>()
-    var responseFromFirebase: Observable<FirebaseResponseObject>?
     
     var loginRequest: Observable<FirebaseResponseObject>!
     

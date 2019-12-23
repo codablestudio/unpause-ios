@@ -13,9 +13,7 @@ import UIKit
 
 extension Coordinator {
     
-    func showLoginScreen() {
-        
-    }
+    
     
     func presentRegistrationViewController(from: UIViewController) {
         let registerViewModel = RegisterViewModel()

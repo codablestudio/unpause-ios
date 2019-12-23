@@ -21,12 +21,24 @@ class Coordinator {
         self.window = window
         
         if SessionManager.shared.userLoggedIn() {
-            showTabbar()
+            startTabbar()
         } else {
-            showLoginScreen()
-//            let loginViewController = LoginViewController(loginViewModel: LoginViewModel())
-//            let navigationController = UINavigationController(rootViewController: loginViewController)
-//            newWindow.rootViewController = navigationController
+            startAuth()
         }
+    }
+    
+    func logOut() {
+        startAuth()
+    }
+    
+    private func startAuth() {
+        let loginViewController = LoginViewController(loginViewModel: LoginViewModel())
+        let navigationController = UINavigationController(rootViewController: loginViewController)
+        window.rootViewController = navigationController
+    }
+    
+    private func startTabbar() {
+        let customTabBarController = CustomTabBarController()
+        window.rootViewController = customTabBarController
     }
 }

@@ -11,9 +11,7 @@ import UIKit
 
 extension Coordinator {
     
-    func showTabbar() {
-        
-    }
+    
     
     func navigateToHomeViewController(from: UIViewController) {
         let customTabBarController = CustomTabBarController()

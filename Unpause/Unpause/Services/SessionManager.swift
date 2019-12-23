@@ -9,11 +9,19 @@
 import Foundation
 
 class SessionManager {
+    private let currentUserKey = "currentUserKey"
     static var shared = SessionManager()
     
     var currentUser: User?
     
-    private init() {}
+    private init() {
+        let userDefaults = UserDefaults.standard
+        
+        if let data = userDefaults.data(forKey: currentUserKey),
+            let user = NSKeyedUnarchiver.unarchiveObject(with: data) as? User {
+            currentUser = user
+        }
+    }
 }
 
 // MARK: Login / Logout
@@ -21,10 +29,15 @@ class SessionManager {
 extension SessionManager {
     func logIn(_ user: User) {
         currentUser = user
+        
+        let userDefaults = UserDefaults.standard
+        let data = NSKeyedArchiver.archivedData(withRootObject: currentUser as Any)
+        userDefaults.set(data, forKey: currentUserKey)
     }
     
     func logOut() {
         currentUser = nil
+        UserDefaults.standard.removeObject(forKey: currentUserKey)
     }
     
     func userLoggedIn() -> Bool {

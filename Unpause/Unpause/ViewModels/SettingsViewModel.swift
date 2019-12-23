@@ -33,8 +33,8 @@ class SettingsViewModel {
         }).disposed(by: disposeBag)
         
         logOutButtonTapped.subscribe(onNext: { _ in
-            // TODO: Log out user
-            print("Log out")
+            SessionManager.shared.logOut()
+            Coordinator.shared.logOut()
         }).disposed(by: disposeBag)
     }
 }

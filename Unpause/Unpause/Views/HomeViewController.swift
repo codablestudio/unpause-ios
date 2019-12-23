@@ -115,7 +115,6 @@ private extension HomeViewController {
             make.left.equalTo(emailLabel.snp.right).offset(7)
             make.right.equalToSuperview()
         }
-        // TODO: Fill up this field with users data
         userEmailLabel.text = SessionManager.shared.currentUser?.email ?? "No user"
         userEmailLabel.textColor = UIColor(named: "lightGray")
     }

@@ -15,7 +15,7 @@ import RxGesture
 class LoginViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
-    private let loginViewModel: LoginViewModel
+    private let loginViewModel: LoginViewModelProtocol
     
     private let scrollView = UIScrollView()
     private let containerView = UIView()
@@ -36,7 +36,7 @@ class LoginViewController: UIViewController {
     private let newHereLabel = UILabel()
     private let registerButton = UIButton()
     
-    init(loginViewModel: LoginViewModel) {
+    init(loginViewModel: LoginViewModelProtocol) {
         self.loginViewModel = loginViewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -69,26 +69,22 @@ class LoginViewController: UIViewController {
     }
     
     private func setupObservables() {
-        emailTextField.rx.text.bind(to: loginViewModel.textInEmailTextFieldChanges)
+        emailTextField.rx.text
+            .bind(to: loginViewModel.textInEmailTextFieldChanges)
             .disposed(by: disposeBag)
         
-        passwordTextField.rx.text.bind(to: loginViewModel.textInPasswordTextFieldChanges)
+        passwordTextField.rx.text
+            .bind(to: loginViewModel.textInPasswordTextFieldChanges)
             .disposed(by: disposeBag)
         
-        loginButton.rx.tap.bind(to: loginViewModel.logInButtonTapped)
+        loginButton.rx.tap
+            .bind(to: loginViewModel.logInButtonTapped)
             .disposed(by: disposeBag)
         
         registerButton.rx.tap.subscribe(onNext: { [weak self] _ in
-            guard let `self` = self else {
-                return
-            }
+            guard let `self` = self else { return }
             Coordinator.shared.presentRegistrationViewController(from: self)
         }).disposed(by: disposeBag)
-        
-        loginViewModel.error
-            .subscribe(onNext: { [weak self] (error) in
-                self?.showAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
-            }).disposed(by: disposeBag)
         
         loginViewModel.loginRequest
             .subscribe(onNext: { [weak self] loginResult in
