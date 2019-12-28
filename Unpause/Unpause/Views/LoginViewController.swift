@@ -11,6 +11,7 @@ import SnapKit
 import RxSwift
 import RxKeyboard
 import RxGesture
+import SVProgressHUD
 
 class LoginViewController: UIViewController {
     
@@ -81,6 +82,10 @@ class LoginViewController: UIViewController {
             .bind(to: loginViewModel.logInButtonTapped)
             .disposed(by: disposeBag)
         
+        loginButton.rx.tap.subscribe(onNext: { _ in
+            SVProgressHUD.show()
+            }).disposed(by: disposeBag)
+        
         registerButton.rx.tap.subscribe(onNext: { [weak self] _ in
             guard let `self` = self else { return }
             Coordinator.shared.presentRegistrationViewController(from: self)
@@ -94,7 +99,9 @@ class LoginViewController: UIViewController {
                 case .authDataResult(let authDataResult):
                     print("success \(authDataResult)")
                     Coordinator.shared.navigateToHomeViewController(from: self)
+                    SVProgressHUD.dismiss()
                 case .error(let error):
+                    SVProgressHUD.dismiss()
                     self.showAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)

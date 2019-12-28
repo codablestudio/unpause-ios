@@ -32,7 +32,7 @@ class LoginNetworking {
     
     func signInUserWith(email: String, password: String) -> Observable<FirebaseResponseObject> {
         Auth.auth().rx.signIn(withEmail: email, password: password)
-            .flatMapLatest({[weak self] authDataResult -> Observable<FirebaseResponseObject> in
+            .flatMapLatest({ [weak self] authDataResult -> Observable<FirebaseResponseObject> in
                 if let email = authDataResult.user.email {
                     print("logged in email: \(email)")
 //                    let a = self?.dataBaseReference.collection("users").document(email).rx.getDocument().do(onNext: { (document) in

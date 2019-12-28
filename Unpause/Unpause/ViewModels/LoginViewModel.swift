@@ -12,6 +12,7 @@ import RxFirebase
 import FirebaseAuth
 
 protocol LoginViewModelProtocol {
+    
     var textInEmailTextFieldChanges: PublishSubject<String?> { get }
     var textInPasswordTextFieldChanges: PublishSubject<String?>  { get }
     var forgotPasswordButtonTapped: PublishSubject<Void>  { get }
@@ -23,8 +24,9 @@ protocol LoginViewModelProtocol {
 }
     
 class LoginViewModel: LoginViewModelProtocol {
+    
     private let disposeBag = DisposeBag()
-    private let networking = LoginNetworking()
+    private let loginNetworking = LoginNetworking()
     
     private var textInEmailTextField: String?
     private var textInPasswordTextField: String?
@@ -48,7 +50,7 @@ class LoginViewModel: LoginViewModelProtocol {
                 let email = self.textInEmailTextField ?? ""
                 let password = self.textInPasswordTextField ?? ""
                 
-                return self.networking.signInUserWith(email: email, password: password)
+                return self.loginNetworking.signInUserWith(email: email, password: password)
             })
             .do(onNext: { response in
                 switch response {

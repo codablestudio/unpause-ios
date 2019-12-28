@@ -21,8 +21,6 @@ class SettingsViewController: UIViewController {
     private let changePasswordButton = OrangeButton(title: "Change password")
     private let logOutButton = OrangeButton(title: "Log out")
     
-    
-    
     init(settingsViewModel: SettingsViewModel) {
         self.settingsViewModel = settingsViewModel
         super.init(nibName: nil, bundle: nil)
