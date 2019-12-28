@@ -11,8 +11,6 @@ import UIKit
 
 extension Coordinator {
     
-    
-    
     func navigateToHomeViewController(from: UIViewController) {
         let customTabBarController = CustomTabBarController()
         from.navigationController?.pushViewController(customTabBarController, animated: true)

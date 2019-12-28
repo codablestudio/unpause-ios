@@ -17,9 +17,9 @@ class SettingsViewController: UIViewController {
     
     private let scrollView = UIScrollView()
     private let containerView = UIView()
-    private let changePersonalInfoButton = SettingsButton(title: "Change personal info")
-    private let changePasswordButton = SettingsButton(title: "Change password")
-    private let logOutButton = SettingsButton(title: "Log out")
+    private let changePersonalInfoButton = OrangeButton(title: "Change personal info")
+    private let changePasswordButton = OrangeButton(title: "Change password")
+    private let logOutButton = OrangeButton(title: "Log out")
     
     
     

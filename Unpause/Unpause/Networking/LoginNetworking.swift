@@ -35,10 +35,10 @@ class LoginNetworking {
             .flatMapLatest({[weak self] authDataResult -> Observable<FirebaseResponseObject> in
                 if let email = authDataResult.user.email {
                     print("logged in email: \(email)")
-                    let a = self?.dataBaseReference.collection("users").document(email).rx.getDocument().do(onNext: { (document) in
-                        print("AAAAA: \(document.data())")
-                    })
-                    print("Ovo je mali a:\(a)")
+//                    let a = self?.dataBaseReference.collection("users").document(email).rx.getDocument().do(onNext: { (document) in
+//                        print("AAAAA: \(document.data())")
+//                    })
+//                    print("Ovo je mali a:\(a)")
                     return Observable.just(FirebaseResponseObject.authDataResult(authDataResult))
                 } else {
                     return Observable.just(FirebaseResponseObject.error(UnpauseError.defaultError))

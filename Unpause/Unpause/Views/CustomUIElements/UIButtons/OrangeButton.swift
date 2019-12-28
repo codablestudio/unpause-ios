@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingsButton: UIButton {
+class OrangeButton: UIButton {
     
     init(title: String) {
         super.init(frame: .zero)
