@@ -32,6 +32,7 @@
 		C10F78EB23A3DD9A00783476 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10F78EA23A3DD9A00783476 /* SceneDelegate.swift */; };
 		C12D289823A536BC004BC57A /* LoginNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12D289723A536BC004BC57A /* LoginNetworking.swift */; };
 		C13105E723B0ADF200A509D9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13105E623B0ADF200A509D9 /* User.swift */; };
+		C137F48223B8B6AC00358E30 /* RegisterNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C137F48123B8B6AC00358E30 /* RegisterNetworking.swift */; };
 		C13C412023AB93D600B674E9 /* FirebaseResponseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C411F23AB93D600B674E9 /* FirebaseResponseObject.swift */; };
 		C13C412223ABBC4100B674E9 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C412123ABBC4100B674E9 /* ActivityViewController.swift */; };
 		C13C412423ABBC5400B674E9 /* ActivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C412323ABBC5400B674E9 /* ActivityViewModel.swift */; };
@@ -83,6 +84,7 @@
 		C10F78EA23A3DD9A00783476 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		C12D289723A536BC004BC57A /* LoginNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginNetworking.swift; sourceTree = "<group>"; };
 		C13105E623B0ADF200A509D9 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		C137F48123B8B6AC00358E30 /* RegisterNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterNetworking.swift; sourceTree = "<group>"; };
 		C13C411F23AB93D600B674E9 /* FirebaseResponseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseResponseObject.swift; sourceTree = "<group>"; };
 		C13C412123ABBC4100B674E9 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		C13C412323ABBC5400B674E9 /* ActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewModel.swift; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 			isa = PBXGroup;
 			children = (
 				C12D289723A536BC004BC57A /* LoginNetworking.swift */,
+				C137F48123B8B6AC00358E30 /* RegisterNetworking.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -453,6 +456,7 @@
 			files = (
 				C198B8F623B0D57C00FBD3C6 /* UnpauseError.swift in Sources */,
 				C10F78E023A3D79200783476 /* UIImage+Extension.swift in Sources */,
+				C137F48223B8B6AC00358E30 /* RegisterNetworking.swift in Sources */,
 				C16A2EF123A77B1200CBA43F /* Coordinator.swift in Sources */,
 				C10F78DB23A3D79200783476 /* UILabel+Extension.swift in Sources */,
 				C13C412223ABBC4100B674E9 /* ActivityViewController.swift in Sources */,

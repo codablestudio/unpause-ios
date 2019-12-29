@@ -97,7 +97,7 @@ class LoginViewController: UIViewController {
                 
                 switch loginResult {
                 case .authDataResult(let authDataResult):
-                    print("success \(authDataResult)")
+                    print("Success: \(authDataResult)")
                     Coordinator.shared.navigateToHomeViewController(from: self)
                     SVProgressHUD.dismiss()
                 case .error(let error):

@@ -89,13 +89,23 @@ class RegisterViewController: UIViewController {
         registerButton.rx.tap.bind(to: registerViewModel.registerButtonTapped)
             .disposed(by: disposeBag)
         
-        registerViewModel.someFieldsAreEmpty.subscribe(onNext: { [weak self] (fieldsAreEmpty) in
-            if fieldsAreEmpty {
-                self?.showAlert(title: "Empty fields", message: "Please fill in all required fields", actionTitle: "OK")
-            } else {
+        registerButton.rx.tap.subscribe(onNext: { _ in
+            SVProgressHUD.show()
+            }).disposed(by: disposeBag)
+        
+        registerViewModel.registerResponse.subscribe(onNext: { [weak self] (firebaseResponseObject) in
+            switch firebaseResponseObject {
+            case .authDataResult(let authDataResult):
+                print("\(authDataResult.user.email!)")
+                SVProgressHUD.dismiss()
+                SVProgressHUD.showSuccess(withStatus: "Success")
+                SVProgressHUD.dismiss(withDelay: 0.3)
                 self?.dismiss(animated: true, completion: nil)
+            case .error(let error):
+                SVProgressHUD.dismiss()
+                self?.showAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
             }
-        }).disposed(by: disposeBag)
+            }).disposed(by: disposeBag)
         
         closeButton.rx.tap.subscribe(onNext: { [weak self] _ in
             self?.dismiss(animated: true, completion: nil)

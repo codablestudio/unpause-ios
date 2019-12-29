@@ -12,7 +12,7 @@ import RxSwift
 class RegisterViewModel {
     
     private let disposeBag = DisposeBag()
-    private let networking = LoginNetworking()
+    private let registerNetworking = RegisterNetworking()
     
     private var textInFirstNameTextField: String?
     private var textInLastNameTextField: String?
@@ -24,7 +24,8 @@ class RegisterViewModel {
     var textInEmailTextFieldChanges = PublishSubject<String?>()
     var textInNewPasswordTextFieldChanges = PublishSubject<String?>()
     var registerButtonTapped = PublishSubject<Void>()
-    var someFieldsAreEmpty = PublishSubject<Bool>()
+    
+    var registerResponse: Observable<FirebaseResponseObject>!
     
     init() {
         setUpObservables()
@@ -47,23 +48,19 @@ class RegisterViewModel {
             self?.textInNewPasswordTextField = newValue
         }).disposed(by: disposeBag)
         
-        registerButtonTapped.subscribe(onNext: { [weak self] _ in
-            guard let firstName = self?.textInFirstNameTextField,
-                let lastName = self?.textInLastNameTextField,
-                let email = self?.textInEmailTextField,
-                let password = self?.textInNewPasswordTextField,
-                !firstName.isEmpty,
-                !lastName.isEmpty,
-                !email.isEmpty,
-                !password.isEmpty else {
-                    self?.someFieldsAreEmpty.onNext(true)
-                    return
-            }
-            self?.networking.registerUserWith(firstName: firstName,
-                                              lastName: lastName,
-                                              email: email,
-                                              password: password)
-            self?.someFieldsAreEmpty.onNext(false)
-        }).disposed(by: disposeBag)
+        registerResponse = registerButtonTapped
+            .flatMapLatest({ [weak self] _ -> Observable<FirebaseResponseObject> in
+            guard let `self` = self else { return Observable.empty() }
+                
+            let firstName = self.textInFirstNameTextField ?? ""
+            let lastName = self.textInLastNameTextField ?? ""
+            let email = self.textInEmailTextField ?? ""
+            let password = self.textInNewPasswordTextField ?? ""
+                
+            return self.registerNetworking.registerUserWith(firstName: firstName,
+            lastName: lastName,
+            email: email,
+            password: password)
+        })
     }
 }
