@@ -84,20 +84,18 @@ class LoginViewController: UIViewController {
         
         loginButton.rx.tap.subscribe(onNext: { _ in
             SVProgressHUD.show()
-            }).disposed(by: disposeBag)
+        }).disposed(by: disposeBag)
         
         registerButton.rx.tap.subscribe(onNext: { [weak self] _ in
             guard let `self` = self else { return }
             Coordinator.shared.presentRegistrationViewController(from: self)
         }).disposed(by: disposeBag)
         
-        loginViewModel.loginRequest
-            .subscribe(onNext: { [weak self] loginResult in
+        loginViewModel.loginDocument
+            .subscribe(onNext: { [weak self] (firebaseDocumentResponseObject) in
                 guard let `self` = self else { return }
-                
-                switch loginResult {
-                case .authDataResult(let authDataResult):
-                    print("Success: \(authDataResult)")
+                switch firebaseDocumentResponseObject {
+                case .documentSnapshot( _):
                     Coordinator.shared.navigateToHomeViewController(from: self)
                     SVProgressHUD.dismiss()
                 case .error(let error):

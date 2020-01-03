@@ -22,9 +22,10 @@ class RegisterNetworking {
             .flatMapLatest { [weak self] (authDataResult) -> Observable<FirebaseResponseObject> in
                 if authDataResult.user.email != nil {
                     self?.dataBaseReference.collection("users")
-                    .document("\(email)")
-                    .setData(["firstName": "\(firstName)",
-                        "lastName": "\(lastName)"])
+                        .document("\(email)")
+                        .setData(["firstName": "\(firstName)",
+                            "lastName": "\(lastName)",
+                            "email": "\(email)"])
                     return Observable.just(FirebaseResponseObject.authDataResult(authDataResult))
                 } else {
                     return Observable.just(FirebaseResponseObject.error(UnpauseError.defaultError))

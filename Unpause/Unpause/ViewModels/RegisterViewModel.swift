@@ -50,17 +50,17 @@ class RegisterViewModel {
         
         registerResponse = registerButtonTapped
             .flatMapLatest({ [weak self] _ -> Observable<FirebaseResponseObject> in
-            guard let `self` = self else { return Observable.empty() }
+                guard let `self` = self else { return Observable.empty() }
                 
-            let firstName = self.textInFirstNameTextField ?? ""
-            let lastName = self.textInLastNameTextField ?? ""
-            let email = self.textInEmailTextField ?? ""
-            let password = self.textInNewPasswordTextField ?? ""
+                let firstName = self.textInFirstNameTextField ?? ""
+                let lastName = self.textInLastNameTextField ?? ""
+                let email = self.textInEmailTextField ?? ""
+                let password = self.textInNewPasswordTextField ?? ""
                 
-            return self.registerNetworking.registerUserWith(firstName: firstName,
-            lastName: lastName,
-            email: email,
-            password: password)
-        })
+                return self.registerNetworking.registerUserWith(firstName: firstName,
+                                                                lastName: lastName,
+                                                                email: email,
+                                                                password: password)
+            })
     }
 }

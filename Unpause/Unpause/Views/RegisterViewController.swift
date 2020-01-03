@@ -91,7 +91,7 @@ class RegisterViewController: UIViewController {
         
         registerButton.rx.tap.subscribe(onNext: { _ in
             SVProgressHUD.show()
-            }).disposed(by: disposeBag)
+        }).disposed(by: disposeBag)
         
         registerViewModel.registerResponse.subscribe(onNext: { [weak self] (firebaseResponseObject) in
             switch firebaseResponseObject {
@@ -105,7 +105,7 @@ class RegisterViewController: UIViewController {
                 SVProgressHUD.dismiss()
                 self?.showAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
             }
-            }).disposed(by: disposeBag)
+        }).disposed(by: disposeBag)
         
         closeButton.rx.tap.subscribe(onNext: { [weak self] _ in
             self?.dismiss(animated: true, completion: nil)

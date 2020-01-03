@@ -19,11 +19,8 @@ class LoginNetworking {
     func signInUserWith(email: String, password: String) -> Observable<FirebaseResponseObject> {
         Auth.auth().rx.signIn(withEmail: email, password: password)
             .flatMapLatest({ authDataResult -> Observable<FirebaseResponseObject> in
-                if email == authDataResult.user.email {
-//                    let a = self?.dataBaseReference.collection("users").document(email).rx.getDocument().do(onNext: { (document) in
-//                        print("AAAAA: \(document.data())")
-//                    })
-//                    print("Ovo je mali a:\(a)")
+                if let email = authDataResult.user.email {
+                    print("\(email)")
                     return Observable.just(FirebaseResponseObject.authDataResult(authDataResult))
                 } else {
                     return Observable.just(FirebaseResponseObject.error(UnpauseError.defaultError))
@@ -32,5 +29,22 @@ class LoginNetworking {
             .catchError({ error -> Observable<FirebaseResponseObject> in
                 return Observable.just(FirebaseResponseObject.error(error))
             })
+    }
+    
+    func getInfoFromUserWitha(firebaseResponseObject: FirebaseResponseObject) -> Observable<FirebaseDocumentResponseObject> {
+        var email = ""
+        switch firebaseResponseObject {
+        case .authDataResult(let authDataResult):
+            email = authDataResult.user.email!
+        case .error(let error):
+            return Observable.just(FirebaseDocumentResponseObject.error(error))
+        }
+        return dataBaseReference.collection("users").document(email).rx.getDocument()
+            .flatMapLatest({ (document) -> Observable<FirebaseDocumentResponseObject> in
+                return Observable.just(FirebaseDocumentResponseObject.documentSnapshot(document))
+            })
+            .catchError { (error) -> Observable<FirebaseDocumentResponseObject> in
+                return Observable.just(FirebaseDocumentResponseObject.error(error))
+        }
     }
 }

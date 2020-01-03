@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import RxFirebase
 import FirebaseAuth
+import FirebaseFirestore
 
 protocol LoginViewModelProtocol {
     
@@ -21,8 +22,9 @@ protocol LoginViewModelProtocol {
     var registerNowButtonTapped: PublishSubject<Void>  { get }
     
     var loginRequest: Observable<FirebaseResponseObject>! { get }
+    var loginDocument: Observable<FirebaseDocumentResponseObject>! { get }
 }
-    
+
 class LoginViewModel: LoginViewModelProtocol {
     
     private let disposeBag = DisposeBag()
@@ -39,11 +41,12 @@ class LoginViewModel: LoginViewModelProtocol {
     var registerNowButtonTapped = PublishSubject<Void>()
     
     var loginRequest: Observable<FirebaseResponseObject>!
+    var loginDocument: Observable<FirebaseDocumentResponseObject>!
     
     init() {
         setUpObservables()
         
-        loginRequest = logInButtonTapped
+        loginDocument = logInButtonTapped
             .flatMapLatest({ [weak self] _ -> Observable<FirebaseResponseObject> in
                 guard let `self` = self else { return Observable.empty() }
                 
@@ -52,14 +55,18 @@ class LoginViewModel: LoginViewModelProtocol {
                 
                 return self.loginNetworking.signInUserWith(email: email, password: password)
             })
-            .do(onNext: { response in
-                switch response {
-                case .authDataResult(let authDataResult):
-                    if let email = authDataResult.user.email {
-                        let newUser = User()
-                        newUser.email = email
-                        SessionManager.shared.logIn(newUser)
-                    }
+            .flatMapLatest({ [weak self] (firebaseResponseObject) -> Observable<FirebaseDocumentResponseObject> in
+                guard let `self` = self else { return Observable.empty() }
+                return self.loginNetworking.getInfoFromUserWitha(firebaseResponseObject: firebaseResponseObject)
+            })
+            .do(onNext: { (firebaseDocumentResponseObject) in
+                switch firebaseDocumentResponseObject {
+                case .documentSnapshot(let document):
+                    let newUser = User()
+                    newUser.firstName = document.get("firstName") as? String
+                    newUser.lastName = document.get("lastName") as? String
+                    newUser.email = document.get("email") as? String
+                    SessionManager.shared.logIn(newUser)
                 default: break
                 }
             })

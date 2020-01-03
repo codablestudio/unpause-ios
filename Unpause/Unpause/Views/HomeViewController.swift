@@ -30,7 +30,6 @@ class HomeViewController: UIViewController {
     
     private let checkInButton = UIButton()
     
-    
     init(homeViewModel: HomeViewModel) {
         self.homeViewModel = homeViewModel
         super.init(nibName: nil, bundle: nil)
@@ -134,8 +133,7 @@ private extension HomeViewController {
             make.left.equalTo(firstNameLabel.snp.right).offset(7)
             make.right.equalToSuperview()
         }
-        // TODO: Fill up this field with users data
-        userFirstNameLabel.text = "Kresimir"
+        userFirstNameLabel.text = SessionManager.shared.currentUser?.firstName ?? "No first name"
         userFirstNameLabel.textColor = UIColor(named: "lightGray")
     }
     
@@ -154,8 +152,7 @@ private extension HomeViewController {
             make.left.equalTo(lastNameLabel.snp.right).offset(7)
             make.right.equalToSuperview()
         }
-        // TODO: Fill up this field with users data
-        userLastNameLabel.text = "Bakovic"
+        userLastNameLabel.text = SessionManager.shared.currentUser?.lastName ?? "No last name"
         userLastNameLabel.textColor = UIColor(named: "lightGray")
     }
     
