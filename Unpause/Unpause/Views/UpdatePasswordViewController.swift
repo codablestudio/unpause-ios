@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import RxSwift
 
 class UpdatePasswordViewController: UIViewController {
     
+    private let disposeBag = DisposeBag()
     private let updatePasswordViewModel: UpdatePasswordViewModel
     
     private let scrollView = UIScrollView()
@@ -23,6 +25,8 @@ class UpdatePasswordViewController: UIViewController {
     
     private let updatePasswordButton = OrangeButton(title: "Update password")
     
+    private let closeButton = UIButton()
+    
     init(updatePasswordViewModel: UpdatePasswordViewModel) {
         self.updatePasswordViewModel = updatePasswordViewModel
         super.init(nibName: nil, bundle: nil)
@@ -35,6 +39,7 @@ class UpdatePasswordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         render()
+        setUpObservables()
     }
     
     private func render() {
@@ -42,6 +47,14 @@ class UpdatePasswordViewController: UIViewController {
         renderCurrentPasswordAndCurrentPasswordSeparator()
         renderNewPasswordAndNewPasswordSeparator()
         renderUpdatePasswordButton()
+        renderCloseButton()
+    }
+    
+    private func setUpObservables() {
+        closeButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else { return }
+            self.dismiss(animated: true)
+            }).disposed(by: disposeBag)
     }
 }
 
@@ -117,5 +130,14 @@ private extension UpdatePasswordViewController {
             make.right.equalToSuperview().inset(33)
             make.bottom.equalToSuperview()
         }
+    }
+    
+    func renderCloseButton() {
+        containerView.addSubview(closeButton)
+        closeButton.snp.makeConstraints { (make) in
+            make.top.equalToSuperview().offset(25)
+            make.left.equalToSuperview().offset(15)
+        }
+        closeButton.setImage(UIImage(named: "close_25x25"), for: .normal)
     }
 }
