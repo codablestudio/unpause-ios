@@ -30,6 +30,8 @@
 		C10F78E823A3D79200783476 /* CGFloat+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10F78D523A3D79200783476 /* CGFloat+Extension.swift */; };
 		C10F78E923A3D79200783476 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10F78D623A3D79200783476 /* Array+Extension.swift */; };
 		C10F78EB23A3DD9A00783476 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10F78EA23A3DD9A00783476 /* SceneDelegate.swift */; };
+		C110AE2823C34E420066C394 /* UpdatePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C110AE2723C34E420066C394 /* UpdatePasswordViewController.swift */; };
+		C110AE2A23C34E770066C394 /* UpdatePasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C110AE2923C34E770066C394 /* UpdatePasswordViewModel.swift */; };
 		C12D289823A536BC004BC57A /* LoginNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12D289723A536BC004BC57A /* LoginNetworking.swift */; };
 		C13105E723B0ADF200A509D9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13105E623B0ADF200A509D9 /* User.swift */; };
 		C137F48223B8B6AC00358E30 /* RegisterNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C137F48123B8B6AC00358E30 /* RegisterNetworking.swift */; };
@@ -83,6 +85,8 @@
 		C10F78D523A3D79200783476 /* CGFloat+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extension.swift"; sourceTree = "<group>"; };
 		C10F78D623A3D79200783476 /* Array+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		C10F78EA23A3DD9A00783476 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		C110AE2723C34E420066C394 /* UpdatePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePasswordViewController.swift; sourceTree = "<group>"; };
+		C110AE2923C34E770066C394 /* UpdatePasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePasswordViewModel.swift; sourceTree = "<group>"; };
 		C12D289723A536BC004BC57A /* LoginNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginNetworking.swift; sourceTree = "<group>"; };
 		C13105E623B0ADF200A509D9 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C137F48123B8B6AC00358E30 /* RegisterNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterNetworking.swift; sourceTree = "<group>"; };
@@ -259,6 +263,7 @@
 				C1FBC46E23AA521C00579913 /* HomeViewModel.swift */,
 				C13C412323ABBC5400B674E9 /* ActivityViewModel.swift */,
 				C13C412723ABBC8900B674E9 /* SettingsViewModel.swift */,
+				C110AE2923C34E770066C394 /* UpdatePasswordViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -272,6 +277,7 @@
 				C13C412123ABBC4100B674E9 /* ActivityViewController.swift */,
 				C13C412523ABBC7000B674E9 /* SettingsViewController.swift */,
 				C198B8F323B0CFC100FBD3C6 /* CustomTabBarController.swift */,
+				C110AE2723C34E420066C394 /* UpdatePasswordViewController.swift */,
 				C102D7BD23ACFE5C000B9E80 /* CustomUIElements */,
 			);
 			path = Views;
@@ -459,6 +465,7 @@
 			files = (
 				C198B8F623B0D57C00FBD3C6 /* UnpauseError.swift in Sources */,
 				C10F78E023A3D79200783476 /* UIImage+Extension.swift in Sources */,
+				C110AE2823C34E420066C394 /* UpdatePasswordViewController.swift in Sources */,
 				C137F48223B8B6AC00358E30 /* RegisterNetworking.swift in Sources */,
 				C16A2EF123A77B1200CBA43F /* Coordinator.swift in Sources */,
 				C10F78DB23A3D79200783476 /* UILabel+Extension.swift in Sources */,
@@ -486,6 +493,7 @@
 				C16A2EF523A7853800CBA43F /* RegisterViewModel.swift in Sources */,
 				C13105E723B0ADF200A509D9 /* User.swift in Sources */,
 				C146992E23A11DBE00A84818 /* LoginViewModel.swift in Sources */,
+				C110AE2A23C34E770066C394 /* UpdatePasswordViewModel.swift in Sources */,
 				C10F78DC23A3D79200783476 /* Thread+Extension.swift in Sources */,
 				C10F78E623A3D79200783476 /* CGSize+Extension.swift in Sources */,
 				C10F78E523A3D79200783476 /* UIScrollView+Extension.swift in Sources */,

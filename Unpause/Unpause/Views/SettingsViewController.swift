@@ -45,14 +45,12 @@ class SettingsViewController: UIViewController {
     }
     
     private func setUpObservables() {
-        changePersonalInfoButton.rx.tap.bind(to: settingsViewModel.changePersonalInfoButtonTapped)
-            .disposed(by: disposeBag)
-        
-        changePasswordButton.rx.tap.bind(to: settingsViewModel.changePasswordButtonTapped)
-            .disposed(by: disposeBag)
-        
         logOutButton.rx.tap.bind(to: settingsViewModel.logOutButtonTapped)
             .disposed(by: disposeBag)
+        
+        changePasswordButton.rx.tap.subscribe(onNext: { _ in
+            Coordinator.shared.presentUpdatePasswordViewController(from: self)
+            }).disposed(by: disposeBag)
     }
     
     private func showTitleInNavigationBar() {
