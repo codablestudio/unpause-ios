@@ -9,10 +9,7 @@
 import Foundation
 import UIKit
 
-// AUTH
-
 extension Coordinator {
-    
     func presentRegistrationViewController(from: UIViewController) {
         let registerViewModel = RegisterViewModel()
         let registerViewController = RegisterViewController(registerViewModel: registerViewModel)

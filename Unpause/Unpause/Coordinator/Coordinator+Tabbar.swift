@@ -10,15 +10,8 @@ import Foundation
 import UIKit
 
 extension Coordinator {
-    
     func navigateToHomeViewController(from: UIViewController) {
         let customTabBarController = CustomTabBarController()
         from.navigationController?.pushViewController(customTabBarController, animated: true)
-    }
-    
-    func presentUpdatePasswordViewController(from: UIViewController) {
-        let updatePasswordViewModel = UpdatePasswordViewModel()
-        let updatePasswordViewController = UpdatePasswordViewController(updatePasswordViewModel: updatePasswordViewModel)
-        from.present(updatePasswordViewController, animated: true)
     }
 }

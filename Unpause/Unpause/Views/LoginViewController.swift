@@ -13,7 +13,6 @@ import RxKeyboard
 import RxGesture
 import SVProgressHUD
 
-
 class LoginViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
