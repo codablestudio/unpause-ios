@@ -35,7 +35,7 @@ class CustomTabBarController: UITabBarController {
         activityNavigationController.tabBarItem = UITabBarItem(title: "Activity", image: UIImage(named: "activity_25x25_unselected"), selectedImage: UIImage(named: "activity_25x25_selected"))
         settingsNavigationController.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(named: "settings_25x25_unselected"), selectedImage: UIImage(named: "settings_25x25_selected"))
         
-        UITabBar.appearance().tintColor = #colorLiteral(red: 0.9450980392, green: 0.4745098039, blue: 0.2078431373, alpha: 1)
-        UITabBar.appearance().backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        UITabBar.appearance().tintColor = UIColor.orange
+        UITabBar.appearance().backgroundColor = UIColor.white
     }
 }

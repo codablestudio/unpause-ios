@@ -56,6 +56,7 @@ class LoginViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         hideNavigationBar()
     }
     
@@ -97,11 +98,10 @@ class LoginViewController: UIViewController {
                 switch firebaseDocumentResponseObject {
                 case .documentSnapshot( _):
                     Coordinator.shared.navigateToHomeViewController(from: self)
-                    SVProgressHUD.dismiss()
                 case .error(let error):
-                    SVProgressHUD.dismiss()
                     self.showAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
                 }
+                SVProgressHUD.dismiss()
             }).disposed(by: disposeBag)
     }
     
@@ -143,7 +143,7 @@ class LoginViewController: UIViewController {
 private extension LoginViewController {
     
     func configureScrollViewAndContainerView() {
-        view.backgroundColor = UIColor(named: "white")
+        view.backgroundColor = UIColor.white
         
         view.addSubview(scrollView)
         
@@ -179,7 +179,7 @@ private extension LoginViewController {
         titleStackView.addArrangedSubview(unpauseTitleLabel)
         unpauseTitleLabel.text = "Unpause"
         unpauseTitleLabel.font = UIFont.boldSystemFont(ofSize: 30)
-        unpauseTitleLabel.textColor = UIColor(named: "orange")
+        unpauseTitleLabel.textColor = UIColor.orange
         
         containerView.addSubview(titleDesriptionLabel)
         titleDesriptionLabel.snp.makeConstraints { (make) in
@@ -188,7 +188,7 @@ private extension LoginViewController {
         }
         titleDesriptionLabel.text = "Enjoy managing your workitime"
         titleDesriptionLabel.font = titleDesriptionLabel.font.withSize(13)
-        titleDesriptionLabel.textColor = UIColor(named: "darkGray")
+        titleDesriptionLabel.textColor = UIColor.darkGray
     }
     
     func renderEmailTextFieldAndEmailSeparator() {
@@ -210,7 +210,7 @@ private extension LoginViewController {
             make.left.equalToSuperview().offset(55)
             make.right.equalToSuperview().inset(55)
         }
-        emailSeparator.backgroundColor = UIColor(named: "lightGray")
+        emailSeparator.backgroundColor = UIColor.lightGray
     }
     
     func renderPasswordTextFieldAndPasswordSeparator() {
@@ -233,7 +233,7 @@ private extension LoginViewController {
             make.left.equalToSuperview().offset(55)
             make.right.equalToSuperview().inset(55)
         }
-        passwordSeparator.backgroundColor = UIColor(named: "lightGray")
+        passwordSeparator.backgroundColor = UIColor.lightGray
     }
     
     func renderForgotPasswordButtonAndSignInWithGoogleButton() {
@@ -245,7 +245,7 @@ private extension LoginViewController {
         }
         forgotPasswordButton.setTitle("Forgot password?", for: .normal)
         forgotPasswordButton.titleLabel?.font = forgotPasswordButton.titleLabel?.font.withSize(13)
-        forgotPasswordButton.setTitleColor(UIColor(named: "orange"), for: .normal)
+        forgotPasswordButton.setTitleColor(UIColor.orange, for: .normal)
         
         containerView.addSubview(signInWithGoogleButton)
         signInWithGoogleButton.snp.makeConstraints { (make) in
@@ -256,7 +256,7 @@ private extension LoginViewController {
         }
         signInWithGoogleButton.setTitle("Sign in with Google", for: .normal)
         signInWithGoogleButton.titleLabel?.font = signInWithGoogleButton.titleLabel?.font.withSize(15)
-        signInWithGoogleButton.backgroundColor = UIColor(named: "orange")
+        signInWithGoogleButton.backgroundColor = UIColor.orange
         signInWithGoogleButton.layer.cornerRadius = 5
         signInWithGoogleButton.titleEdgeInsets = UIEdgeInsets(top: 4, left: 7, bottom: 4, right: 7)
     }
@@ -270,7 +270,7 @@ private extension LoginViewController {
             make.height.equalTo(40)
         }
         loginButton.setTitle("Login", for: .normal)
-        loginButton.backgroundColor = UIColor(named: "orange")
+        loginButton.backgroundColor = UIColor.orange
         loginButton.layer.cornerRadius = 5
         
         containerView.addSubview(newHereLabel)
@@ -280,7 +280,7 @@ private extension LoginViewController {
         }
         newHereLabel.text = "New here?"
         newHereLabel.font = newHereLabel.font.withSize(14)
-        newHereLabel.textColor = UIColor(named: "darkGray")
+        newHereLabel.textColor = UIColor.darkGray
     }
     
     func renderRegisterButton() {

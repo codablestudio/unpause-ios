@@ -35,7 +35,7 @@ class UpdatePasswordViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         render()
@@ -54,7 +54,7 @@ class UpdatePasswordViewController: UIViewController {
         closeButton.rx.tap.subscribe(onNext: { [weak self] _ in
             guard let `self` = self else { return }
             self.dismiss(animated: true)
-            }).disposed(by: disposeBag)
+        }).disposed(by: disposeBag)
     }
 }
 
@@ -63,7 +63,7 @@ class UpdatePasswordViewController: UIViewController {
 private extension UpdatePasswordViewController {
     
     func configureScrollViewAndContainerView() {
-        view.backgroundColor = UIColor(named: "white")
+        view.backgroundColor = UIColor.white
         
         view.addSubview(scrollView)
         scrollView.snp.makeConstraints { (make) in
@@ -98,7 +98,7 @@ private extension UpdatePasswordViewController {
             make.right.equalToSuperview().inset(33)
             make.height.equalTo(1)
         }
-        currentPasswordSeparator.backgroundColor = UIColor(named: "lightGray")
+        currentPasswordSeparator.backgroundColor = UIColor.lightGray
     }
     
     func renderNewPasswordAndNewPasswordSeparator() {
@@ -119,7 +119,7 @@ private extension UpdatePasswordViewController {
             make.right.equalToSuperview().inset(33)
             make.height.equalTo(1)
         }
-        newPasswordSeparator.backgroundColor = UIColor(named: "lightGray")
+        newPasswordSeparator.backgroundColor = UIColor.lightGray
     }
     
     func renderUpdatePasswordButton() {

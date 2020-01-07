@@ -153,7 +153,7 @@ class RegisterViewController: UIViewController {
 private extension RegisterViewController {
     
     func configureScrollViewAndContainerView() {
-        view.backgroundColor = UIColor(named: "white")
+        view.backgroundColor = UIColor.white
         
         view.addSubview(scrollView)
         scrollView.snp.makeConstraints { (make) in
@@ -198,7 +198,7 @@ private extension RegisterViewController {
             make.right.equalToSuperview().inset(42)
             make.height.equalTo(1)
         }
-        firstNameSeparator.backgroundColor = UIColor(named: "lightGray")
+        firstNameSeparator.backgroundColor = UIColor.lightGray
     }
     
     func renderLastNameTextFieldAndLastNameSeparator() {
@@ -219,7 +219,7 @@ private extension RegisterViewController {
             make.right.equalToSuperview().inset(42)
             make.height.equalTo(1)
         }
-        lastNameSeparator.backgroundColor = UIColor(named: "lightGray")
+        lastNameSeparator.backgroundColor = UIColor.lightGray
     }
     
     func renderEmailTextFieldAndEmailSeparator() {
@@ -241,7 +241,7 @@ private extension RegisterViewController {
             make.right.equalToSuperview().inset(42)
             make.height.equalTo(1)
         }
-        emailSeparator.backgroundColor = UIColor(named: "lightGray")
+        emailSeparator.backgroundColor = UIColor.lightGray
     }
     
     func renderNewPasswordTextFieldAndPasswordSeparator() {
@@ -263,7 +263,7 @@ private extension RegisterViewController {
             make.right.equalToSuperview().inset(42)
             make.height.equalTo(1)
         }
-        newPasswordSeparator.backgroundColor = UIColor(named: "lightGray")
+        newPasswordSeparator.backgroundColor = UIColor.lightGray
     }
     
     func renderRegisterButton() {
@@ -276,7 +276,7 @@ private extension RegisterViewController {
             make.height.equalTo(40)
         }
         registerButton.setTitle("Register", for: .normal)
-        registerButton.backgroundColor = UIColor(named: "orange")
+        registerButton.backgroundColor = UIColor.orange
         registerButton.layer.cornerRadius = 5
     }
     

@@ -69,7 +69,7 @@ class HomeViewController: UIViewController {
 
 private extension HomeViewController {
     func configureScrollViewAndContainerView() {
-        view.backgroundColor = UIColor(named: "white")
+        view.backgroundColor = UIColor.white
         
         view.addSubview(scrollView)
         
@@ -106,7 +106,7 @@ private extension HomeViewController {
             make.left.equalToSuperview().offset(40)
         }
         emailLabel.text = "Email:"
-        emailLabel.textColor = UIColor(named: "lightGray")
+        emailLabel.textColor = UIColor.lightGray
         
         containerView.addSubview(userEmailLabel)
         userEmailLabel.snp.makeConstraints { (make) in
@@ -115,7 +115,7 @@ private extension HomeViewController {
             make.right.equalToSuperview()
         }
         userEmailLabel.text = SessionManager.shared.currentUser?.email ?? "No user"
-        userEmailLabel.textColor = UIColor(named: "lightGray")
+        userEmailLabel.textColor = UIColor.lightGray
     }
     
     func renderFirstNameLabelAndUserFirstNameLabel() {
@@ -125,7 +125,7 @@ private extension HomeViewController {
             make.left.equalToSuperview().offset(40)
         }
         firstNameLabel.text = "First name:"
-        firstNameLabel.textColor = UIColor(named: "lightGray")
+        firstNameLabel.textColor = UIColor.lightGray
         
         containerView.addSubview(userFirstNameLabel)
         userFirstNameLabel.snp.makeConstraints { (make) in
@@ -134,7 +134,7 @@ private extension HomeViewController {
             make.right.equalToSuperview()
         }
         userFirstNameLabel.text = SessionManager.shared.currentUser?.firstName ?? "No first name"
-        userFirstNameLabel.textColor = UIColor(named: "lightGray")
+        userFirstNameLabel.textColor = UIColor.lightGray
     }
     
     func renderLastNameLabelAndUserLastNameLabel() {
@@ -144,7 +144,7 @@ private extension HomeViewController {
             make.left.equalToSuperview().offset(40)
         }
         lastNameLabel.text = "Last name:"
-        lastNameLabel.textColor = UIColor(named: "lightGray")
+        lastNameLabel.textColor = UIColor.lightGray
         
         containerView.addSubview(userLastNameLabel)
         userLastNameLabel.snp.makeConstraints { (make) in
@@ -153,7 +153,7 @@ private extension HomeViewController {
             make.right.equalToSuperview()
         }
         userLastNameLabel.text = SessionManager.shared.currentUser?.lastName ?? "No last name"
-        userLastNameLabel.textColor = UIColor(named: "lightGray")
+        userLastNameLabel.textColor = UIColor.lightGray
     }
     
     func renderCheckInButton() {
@@ -165,7 +165,7 @@ private extension HomeViewController {
             make.width.equalTo(140)
             make.bottom.equalToSuperview()
         }
-        checkInButton.backgroundColor = UIColor(named: "orange")
+        checkInButton.backgroundColor = UIColor.orange
         checkInButton.layer.cornerRadius = 70
         checkInButton.setTitle("Check in", for: .normal)
         checkInButton.titleLabel?.font = checkInButton.titleLabel?.font.withSize(25)

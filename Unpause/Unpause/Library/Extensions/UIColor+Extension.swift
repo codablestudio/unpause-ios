@@ -10,8 +10,25 @@ import UIKit
 
 extension UIColor {
     
-    static var kreso: UIColor {
-        return UIColor(named: "kreso") ?? .red
+    static var white: UIColor {
+        return UIColor(named: "white") ?? UIColor.fallbackColor("white")
+    }
+    
+    static var orange: UIColor {
+        return UIColor(named: "orange") ?? UIColor.fallbackColor("orange")
+    }
+    
+    static var darkGray: UIColor {
+        return UIColor(named: "darkGray") ?? UIColor.fallbackColor("darkGray")
+    }
+    
+    static var lightGray: UIColor {
+        return UIColor(named: "lightGray") ?? UIColor.fallbackColor("lightGray")
+    }
+    
+    static func fallbackColor(_ forColor: String) -> UIColor {
+        print("fallbackColor \(forColor)")
+        return .red
     }
 }
 

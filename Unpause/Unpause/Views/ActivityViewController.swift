@@ -29,7 +29,7 @@ class ActivityViewController: UIViewController {
     }
     
     private func render() {
-        view.backgroundColor = UIColor(named: "white")
+        view.backgroundColor = UIColor.white
     }
     
     private func showTitleInNavigationBar() {
