@@ -13,4 +13,3 @@ enum FirebaseDocumentResponseObject {
     case documentSnapshot(DocumentSnapshot)
     case error(Error)
 }
-

@@ -59,15 +59,18 @@ class LoginViewModel: LoginViewModelProtocol {
                 guard let `self` = self else { return Observable.empty() }
                 return self.loginNetworking.getInfoFromUserWitha(firebaseResponseObject: firebaseResponseObject)
             })
-            .do(onNext: { (firebaseDocumentResponseObject) in
-                switch firebaseDocumentResponseObject {
+            .map({ firebaseResponse -> FirebaseDocumentResponseObject in
+                switch firebaseResponse {
                 case .documentSnapshot(let document):
-                    let newUser = User()
-                    newUser.firstName = document.get("firstName") as? String
-                    newUser.lastName = document.get("lastName") as? String
-                    newUser.email = document.get("email") as? String
-                    SessionManager.shared.logIn(newUser)
-                default: break
+                    do {
+                        let newUser = try UserFactory.createUser(from: document)
+                            SessionManager.shared.logIn(newUser)
+                    } catch(let error) {
+                        return FirebaseDocumentResponseObject.error(error)
+                    }
+                    return firebaseResponse
+                default:
+                    return firebaseResponse
                 }
             })
     }
