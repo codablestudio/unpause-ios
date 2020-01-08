@@ -50,12 +50,12 @@ class SettingsViewController: UIViewController {
         
         changePasswordButton.rx.tap.subscribe(onNext: { [weak self] _ in
             guard let `self` = self else { return }
-            Coordinator.shared.presentUpdatePasswordViewController(from: self)
+            Coordinator.shared.presentChangePasswordViewController(from: self)
             }).disposed(by: disposeBag)
         
         changePersonalInfoButton.rx.tap.subscribe(onNext: { [weak self] _ in
             guard let `self` = self else { return }
-            Coordinator.shared.presentUpdatePersonalInfoViewController(from: self)
+            Coordinator.shared.presentChangePersonalInfoViewController(from: self)
             }).disposed(by: disposeBag)
     }
     

@@ -31,9 +31,17 @@ class CustomTabBarController: UITabBarController {
                                                  animated: true)
         self.selectedViewController = homeNavigationController
         
-        homeNavigationController.tabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "home_25x25_unselected"), selectedImage: UIImage(named: "home_25x25_selected"))
-        activityNavigationController.tabBarItem = UITabBarItem(title: "Activity", image: UIImage(named: "activity_25x25_unselected"), selectedImage: UIImage(named: "activity_25x25_selected"))
-        settingsNavigationController.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(named: "settings_25x25_unselected"), selectedImage: UIImage(named: "settings_25x25_selected"))
+        homeNavigationController.tabBarItem = UITabBarItem(title: "Home",
+                                                           image: UIImage(named: "home_25x25_unselected"),
+                                                           selectedImage: UIImage(named: "home_25x25_selected"))
+        
+        activityNavigationController.tabBarItem = UITabBarItem(title: "Activity",
+                                                               image: UIImage(named: "activity_25x25_unselected"),
+                                                               selectedImage: UIImage(named: "activity_25x25_selected"))
+        
+        settingsNavigationController.tabBarItem = UITabBarItem(title: "Settings",
+                                                               image: UIImage(named: "settings_25x25_unselected"),
+                                                               selectedImage: UIImage(named: "settings_25x25_selected"))
         
         UITabBar.appearance().tintColor = UIColor.orange
         UITabBar.appearance().backgroundColor = UIColor.white

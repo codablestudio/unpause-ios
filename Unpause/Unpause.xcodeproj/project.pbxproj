@@ -36,6 +36,7 @@
 		C13105E723B0ADF200A509D9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13105E623B0ADF200A509D9 /* User.swift */; };
 		C137F48223B8B6AC00358E30 /* RegisterNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C137F48123B8B6AC00358E30 /* RegisterNetworking.swift */; };
 		C138411223C5C58100A347F9 /* UserFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C138411123C5C58100A347F9 /* UserFactory.swift */; };
+		C138411423C5DA3E00A347F9 /* UpdatePersonalInfoNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C138411323C5DA3E00A347F9 /* UpdatePersonalInfoNetworking.swift */; };
 		C13B4B1223BF8A62006E1E0E /* FirebaseDocumentResponeObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13B4B1123BF8A62006E1E0E /* FirebaseDocumentResponeObject.swift */; };
 		C13C412023AB93D600B674E9 /* FirebaseResponseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C411F23AB93D600B674E9 /* FirebaseResponseObject.swift */; };
 		C13C412223ABBC4100B674E9 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C412123ABBC4100B674E9 /* ActivityViewController.swift */; };
@@ -95,6 +96,7 @@
 		C13105E623B0ADF200A509D9 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C137F48123B8B6AC00358E30 /* RegisterNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterNetworking.swift; sourceTree = "<group>"; };
 		C138411123C5C58100A347F9 /* UserFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFactory.swift; sourceTree = "<group>"; };
+		C138411323C5DA3E00A347F9 /* UpdatePersonalInfoNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePersonalInfoNetworking.swift; sourceTree = "<group>"; };
 		C13B4B1123BF8A62006E1E0E /* FirebaseDocumentResponeObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDocumentResponeObject.swift; sourceTree = "<group>"; };
 		C13C411F23AB93D600B674E9 /* FirebaseResponseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseResponseObject.swift; sourceTree = "<group>"; };
 		C13C412123ABBC4100B674E9 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
@@ -321,6 +323,7 @@
 			children = (
 				C12D289723A536BC004BC57A /* LoginNetworking.swift */,
 				C137F48123B8B6AC00358E30 /* RegisterNetworking.swift */,
+				C138411323C5DA3E00A347F9 /* UpdatePersonalInfoNetworking.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -518,6 +521,7 @@
 				C198B8F423B0CFC100FBD3C6 /* CustomTabBarController.swift in Sources */,
 				C146992C23A11D5200A84818 /* LoginViewController.swift in Sources */,
 				C10F78DE23A3D79200783476 /* ObservableType+Extension.swift in Sources */,
+				C138411423C5DA3E00A347F9 /* UpdatePersonalInfoNetworking.swift in Sources */,
 				C138411223C5C58100A347F9 /* UserFactory.swift in Sources */,
 				C16A2EF323A784A700CBA43F /* RegisterViewController.swift in Sources */,
 				C13C412623ABBC7000B674E9 /* SettingsViewController.swift in Sources */,
