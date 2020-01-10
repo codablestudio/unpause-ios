@@ -15,22 +15,28 @@ class UpdatePersonalInfoNetworking {
     
     private let dataBaseReference = Firestore.firestore()
     
-    func updateUserWith(newFirstName: String?, newLastName: String?) -> Observable<Void> {
-        if let currentUserEmail = SessionManager.shared.currentUser?.email,
+    func updateUserWith(newFirstName: String?, newLastName: String?) -> Observable<UpdateResponse> {
+        guard let currentUserEmail = SessionManager.shared.currentUser?.email,
             let newFirstName = newFirstName,
             let newLastName = newLastName,
             !newLastName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
-            !newFirstName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            let response = dataBaseReference.collection("users")
-                .document(currentUserEmail)
-                .rx
-                .updateData([
-                    "firstName": newFirstName,
-                    "lastName": newLastName,
-                ])
-            return response
-        } else {
-            return Observable.empty()
+            !newFirstName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+                return Observable.empty()
+        }
+        
+        let response = dataBaseReference.collection("users")
+            .document(currentUserEmail)
+            .rx
+            .updateData([
+                "firstName": newFirstName,
+                "lastName": newLastName,
+            ])
+        
+        return response.flatMapLatest { _ -> Observable<UpdateResponse> in
+            return Observable.just(UpdateResponse.success)
+        }
+        .catchError { (error) -> Observable<UpdateResponse> in
+            return Observable.just(UpdateResponse.error(error))
         }
     }
 }

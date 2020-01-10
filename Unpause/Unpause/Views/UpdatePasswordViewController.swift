@@ -137,6 +137,7 @@ private extension UpdatePasswordViewController {
         currentPasswordTextField.placeholder = "Enter current password"
         currentPasswordTextField.autocorrectionType = .no
         currentPasswordTextField.autocapitalizationType = .none
+        currentPasswordTextField.isSecureTextEntry = true
         
         containerView.addSubview(currentPasswordSeparator)
         currentPasswordSeparator.snp.makeConstraints { (make) in
@@ -158,6 +159,7 @@ private extension UpdatePasswordViewController {
         newPasswordTextField.placeholder = "Enter new password"
         newPasswordTextField.autocorrectionType = .no
         newPasswordTextField.autocapitalizationType = .none
+        newPasswordTextField.isSecureTextEntry = true
         
         containerView.addSubview(newPasswordSeparator)
         newPasswordSeparator.snp.makeConstraints { (make) in

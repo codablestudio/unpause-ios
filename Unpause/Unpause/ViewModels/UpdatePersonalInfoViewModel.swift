@@ -21,7 +21,7 @@ class UpdatePersonalInfoViewModel {
     var textInNewLastNameTextFieldChanges = PublishSubject<String?>()
     var updateInfoButtonTapped = PublishSubject<Void>()
     
-    var updateInfoResponse: Observable<Void>!
+    var updateInfoResponse: Observable<UpdateResponse>!
     
     init() {
         setUpObservables()
@@ -31,15 +31,15 @@ class UpdatePersonalInfoViewModel {
         textInNewFirstNameTextFieldChanges.subscribe(onNext: { [weak self] (text) in
             guard let `self` = self else { return }
             self.textInNewFirstNameTextField = text
-            }).disposed(by: disposeBag)
+        }).disposed(by: disposeBag)
         
         textInNewLastNameTextFieldChanges.subscribe(onNext: { [weak self] (text) in
             guard let `self` = self else { return }
             self.textInNewLastNameTextField = text
-            }).disposed(by: disposeBag)
+        }).disposed(by: disposeBag)
         
         updateInfoResponse = updateInfoButtonTapped
-            .flatMapLatest({ [weak self] _ -> Observable<Void> in
+            .flatMapLatest({ [weak self] _ -> Observable<UpdateResponse> in
                 guard let `self` = self else { return Observable.empty() }
                 return self.updatePersonalInfoNetworking.updateUserWith(newFirstName: self.textInNewFirstNameTextField, newLastName: self.textInNewLastNameTextField)
             })

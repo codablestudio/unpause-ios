@@ -1,5 +1,5 @@
 //
-//  UpdatePasswordResponse.swift
+//  UpdateResponse.swift
 //  Unpause
 //
 //  Created by Krešimir Baković on 10/01/2020.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum UpdatePasswordResponse {
+enum UpdateResponse: Error {
     case success
     case error(Error)
 }

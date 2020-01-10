@@ -36,7 +36,7 @@ class UpdatePersonalInfoViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         render()
@@ -76,18 +76,20 @@ class UpdatePersonalInfoViewController: UIViewController {
             } else {
                 self.showAlert(title: "Error", message: "Please fill empty fields.", actionTitle: "OK")
             }
-            }).disposed(by: disposeBag)
+        }).disposed(by: disposeBag)
         
         updatePersonalInfoViewModel.updateInfoResponse
-            .subscribe(onNext: { [weak self] _ in
+            .subscribe(onNext: { [weak self] response in
                 guard let `self` = self else { return }
-                SVProgressHUD.showSuccess(withStatus: "Info updated successfully")
-                SVProgressHUD.dismiss(withDelay: 0.6)
-                self.dismiss(animated: true)
-            }, onError: { [weak self] (error) in
-                guard let `self` = self else { return }
-                SVProgressHUD.dismiss()
-                self.showAlert(title: "Error", message: error.localizedDescription, actionTitle: "OK")
+                switch response {
+                case .success:
+                    SVProgressHUD.showSuccess(withStatus: "Info updated successfully")
+                    SVProgressHUD.dismiss(withDelay: 0.6)
+                    self.dismiss(animated: true)
+                case .error(let error):
+                    SVProgressHUD.dismiss()
+                    self.showAlert(title: "Error", message: error.localizedDescription, actionTitle: "OK")
+                }
             }).disposed(by: disposeBag)
     }
     

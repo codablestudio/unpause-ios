@@ -21,7 +21,7 @@ class UpdatePasswordViewModel {
     private var textInCurrentPasswordTextField: String?
     private var textInNewPasswordTextField: String?
     
-    var updatePasswordResponse: Observable<UpdatePasswordResponse>!
+    var updatePasswordResponse: Observable<UpdateResponse>!
     
     
     init() {
@@ -31,14 +31,14 @@ class UpdatePasswordViewModel {
     private func setUpObservables() {
         textInCurrentPasswordTextFieldChanges.subscribe(onNext: { [weak self] (text) in
             self?.textInCurrentPasswordTextField = text
-            }).disposed(by: disposeBag)
+        }).disposed(by: disposeBag)
         
         textInNewPasswordTextFieldChanges.subscribe(onNext: { [weak self] (text) in
             self?.textInNewPasswordTextField = text
         }).disposed(by: disposeBag)
         
         updatePasswordResponse = updatePasswordButtonTapped
-            .flatMapLatest({ [weak self] _ -> Observable<UpdatePasswordResponse> in
+            .flatMapLatest({ [weak self] _ -> Observable<UpdateResponse> in
                 guard let `self` = self else { return Observable.empty() }
                 return self.updatePasswordNetworking.updateCurrentUserPassword(with: self.textInCurrentPasswordTextField, with: self.textInNewPasswordTextField)
             })
