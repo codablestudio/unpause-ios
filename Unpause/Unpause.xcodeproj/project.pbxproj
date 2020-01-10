@@ -34,6 +34,8 @@
 		C110AE2A23C34E770066C394 /* UpdatePasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C110AE2923C34E770066C394 /* UpdatePasswordViewModel.swift */; };
 		C12D289823A536BC004BC57A /* LoginNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12D289723A536BC004BC57A /* LoginNetworking.swift */; };
 		C13105E723B0ADF200A509D9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13105E623B0ADF200A509D9 /* User.swift */; };
+		C133DE5223C871A90096F5B2 /* UpdatePasswordNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C133DE5123C871A90096F5B2 /* UpdatePasswordNetworking.swift */; };
+		C133DE5423C89F2A0096F5B2 /* UpdatePasswordResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C133DE5323C89F2A0096F5B2 /* UpdatePasswordResponse.swift */; };
 		C137F48223B8B6AC00358E30 /* RegisterNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C137F48123B8B6AC00358E30 /* RegisterNetworking.swift */; };
 		C138411223C5C58100A347F9 /* UserFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C138411123C5C58100A347F9 /* UserFactory.swift */; };
 		C138411423C5DA3E00A347F9 /* UpdatePersonalInfoNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C138411323C5DA3E00A347F9 /* UpdatePersonalInfoNetworking.swift */; };
@@ -94,6 +96,8 @@
 		C110AE2923C34E770066C394 /* UpdatePasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePasswordViewModel.swift; sourceTree = "<group>"; };
 		C12D289723A536BC004BC57A /* LoginNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginNetworking.swift; sourceTree = "<group>"; };
 		C13105E623B0ADF200A509D9 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		C133DE5123C871A90096F5B2 /* UpdatePasswordNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePasswordNetworking.swift; sourceTree = "<group>"; };
+		C133DE5323C89F2A0096F5B2 /* UpdatePasswordResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePasswordResponse.swift; sourceTree = "<group>"; };
 		C137F48123B8B6AC00358E30 /* RegisterNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterNetworking.swift; sourceTree = "<group>"; };
 		C138411123C5C58100A347F9 /* UserFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFactory.swift; sourceTree = "<group>"; };
 		C138411323C5DA3E00A347F9 /* UpdatePersonalInfoNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePersonalInfoNetworking.swift; sourceTree = "<group>"; };
@@ -303,6 +307,7 @@
 				C13C411F23AB93D600B674E9 /* FirebaseResponseObject.swift */,
 				C198B8F523B0D57C00FBD3C6 /* UnpauseError.swift */,
 				C13B4B1123BF8A62006E1E0E /* FirebaseDocumentResponeObject.swift */,
+				C133DE5323C89F2A0096F5B2 /* UpdatePasswordResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -324,6 +329,7 @@
 				C12D289723A536BC004BC57A /* LoginNetworking.swift */,
 				C137F48123B8B6AC00358E30 /* RegisterNetworking.swift */,
 				C138411323C5DA3E00A347F9 /* UpdatePersonalInfoNetworking.swift */,
+				C133DE5123C871A90096F5B2 /* UpdatePasswordNetworking.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -499,6 +505,7 @@
 				C1FF2A8C23C4B14200ACCF29 /* UpdatePersonalInfoViewModel.swift in Sources */,
 				C10F78E123A3D79200783476 /* UIViewController+Extension.swift in Sources */,
 				C1C41B7623A9594F009288CA /* UITextField+Extension.swift in Sources */,
+				C133DE5423C89F2A0096F5B2 /* UpdatePasswordResponse.swift in Sources */,
 				C10F78DD23A3D79200783476 /* UIButton+Extension.swift in Sources */,
 				C10F78E423A3D79200783476 /* UIStackView+Extension.swift in Sources */,
 				C10F78D823A3D79200783476 /* UIImageView+Extension.swift in Sources */,
@@ -529,6 +536,7 @@
 				C146991223A112F100A84818 /* AppDelegate.swift in Sources */,
 				C1FBC46F23AA521C00579913 /* HomeViewModel.swift in Sources */,
 				C10F78E723A3D79200783476 /* UIButton+Rx.swift in Sources */,
+				C133DE5223C871A90096F5B2 /* UpdatePasswordNetworking.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

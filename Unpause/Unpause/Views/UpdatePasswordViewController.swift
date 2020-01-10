@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import SVProgressHUD
 
 class UpdatePasswordViewController: UIViewController {
     
@@ -51,10 +52,56 @@ class UpdatePasswordViewController: UIViewController {
     }
     
     private func setUpObservables() {
+        currentPasswordTextField.rx.text
+            .bind(to: updatePasswordViewModel.textInCurrentPasswordTextFieldChanges)
+            .disposed(by: disposeBag)
+        
+        newPasswordTextField.rx.text
+            .bind(to: updatePasswordViewModel.textInNewPasswordTextFieldChanges)
+            .disposed(by: disposeBag)
+        
+        updatePasswordButton.rx.tap
+            .bind(to: updatePasswordViewModel.updatePasswordButtonTapped)
+            .disposed(by: disposeBag)
+        
+        updatePasswordButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                if let currentPassword = self.currentPasswordTextField.text,
+                    let newPassword = self.newPasswordTextField.text,
+                    !currentPassword.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
+                    !newPassword.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                    SVProgressHUD.show()
+                } else {
+                    self.showAlert(title: "Error", message: "Please fill empty fields.", actionTitle: "OK")
+                }
+            }).disposed(by: disposeBag)
+        
+        updatePasswordViewModel.updatePasswordResponse
+            .subscribe(onNext: { [weak self] response in
+                guard let `self` = self else { return }
+                switch response {
+                case .success:
+                    SVProgressHUD.showSuccess(withStatus: "Password updated successfully")
+                    SVProgressHUD.dismiss(withDelay: 0.6)
+                    self.dismiss(animated: true)
+                case .error(let error):
+                    SVProgressHUD.dismiss()
+                    self.showAlert(title: "Error", message: error.localizedDescription, actionTitle: "OK")
+                }
+            })
+            .disposed(by: disposeBag)
+        
         closeButton.rx.tap.subscribe(onNext: { [weak self] _ in
             guard let `self` = self else { return }
             self.dismiss(animated: true)
         }).disposed(by: disposeBag)
+    }
+    
+    private func showAlert(title: String, message: String, actionTitle: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: actionTitle, style: .default, handler: nil))
+        self.present(alert, animated: true)
     }
 }
 

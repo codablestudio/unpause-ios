@@ -78,11 +78,16 @@ class UpdatePersonalInfoViewController: UIViewController {
             }
             }).disposed(by: disposeBag)
         
-        updatePersonalInfoViewModel.updateInfoResponse.subscribe(onNext: { [weak self] _ in
-            guard let `self` = self else { return }
-            SVProgressHUD.showSuccess(withStatus: "Info updated successfully")
-            SVProgressHUD.dismiss(withDelay: 0.6)
-            self.dismiss(animated: true)
+        updatePersonalInfoViewModel.updateInfoResponse
+            .subscribe(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                SVProgressHUD.showSuccess(withStatus: "Info updated successfully")
+                SVProgressHUD.dismiss(withDelay: 0.6)
+                self.dismiss(animated: true)
+            }, onError: { [weak self] (error) in
+                guard let `self` = self else { return }
+                SVProgressHUD.dismiss()
+                self.showAlert(title: "Error", message: error.localizedDescription, actionTitle: "OK")
             }).disposed(by: disposeBag)
     }
     
