@@ -202,6 +202,7 @@ private extension LoginViewController {
         emailTextField.autocapitalizationType = .none
         emailTextField.autocorrectionType = .no
         emailTextField.returnKeyType = .next
+        emailTextField.keyboardType = .emailAddress
         
         containerView.addSubview(emailSeparator)
         emailSeparator.snp.makeConstraints { (make) in

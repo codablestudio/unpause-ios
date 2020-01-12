@@ -41,6 +41,8 @@ class UpdatePasswordViewController: UIViewController {
         super.viewDidLoad()
         render()
         setUpObservables()
+        setUpTextFields()
+        addGestureRecognizer()
     }
     
     private func render() {
@@ -102,6 +104,17 @@ class UpdatePasswordViewController: UIViewController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: actionTitle, style: .default, handler: nil))
         self.present(alert, animated: true)
+    }
+    
+    private func setUpTextFields() {
+        currentPasswordTextField.setNextResponder(newPasswordTextField, disposeBag: disposeBag)
+        newPasswordTextField.resignWhenFinished(disposeBag)
+    }
+    
+    private func addGestureRecognizer() {
+        view.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] (tapGesture) in
+            self?.view.endEditing(true)
+        }).disposed(by: disposeBag)
     }
 }
 
