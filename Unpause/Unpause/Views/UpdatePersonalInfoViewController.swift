@@ -54,30 +54,26 @@ class UpdatePersonalInfoViewController: UIViewController {
     }
     
     private func setUpObservables() {
-        newFirstNameTextField.rx.text.bind(to: updatePersonalInfoViewModel.textInNewFirstNameTextFieldChanges)
+        newFirstNameTextField.rx.text
+            .startWith(newFirstNameTextField.text)
+            .bind(to: updatePersonalInfoViewModel.textInNewFirstNameTextFieldChanges)
             .disposed(by: disposeBag)
         
-        newLastNameTextField.rx.text.bind(to: updatePersonalInfoViewModel.textInNewLastNameTextFieldChanges)
+        newLastNameTextField.rx.text
+            .startWith(newLastNameTextField.text)
+            .bind(to: updatePersonalInfoViewModel.textInNewLastNameTextFieldChanges)
             .disposed(by: disposeBag)
         
-        updateInfoButton.rx.tap.bind(to: updatePersonalInfoViewModel.updateInfoButtonTapped)
+        updateInfoButton.rx.tap
+            .do(onNext: { _ in
+                SVProgressHUD.dismiss()
+            })
+            .bind(to: updatePersonalInfoViewModel.updateInfoButtonTapped)
             .disposed(by: disposeBag)
         
         closeButton.rx.tap.subscribe(onNext: { [weak self] _ in
             guard let `self` = self else { return }
             self.dismiss(animated: true)
-        }).disposed(by: disposeBag)
-        
-        updateInfoButton.rx.tap.subscribe(onNext: { [weak self] _ in
-            guard let `self` = self else { return }
-            if let newFirstName = self.newFirstNameTextField.text,
-                let newLastName = self.newLastNameTextField.text,
-                !newFirstName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
-                !newLastName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                SVProgressHUD.show()
-            } else {
-                self.showAlert(title: "Error", message: "Please fill empty fields.", actionTitle: "OK")
-            }
         }).disposed(by: disposeBag)
         
         updatePersonalInfoViewModel.updateInfoResponse
@@ -89,8 +85,12 @@ class UpdatePersonalInfoViewController: UIViewController {
                     SVProgressHUD.dismiss(withDelay: 0.6)
                     self.dismiss(animated: true)
                 case .error(let error):
+                    if let error = error as? UnpauseError, error == UnpauseError.emptyError {
+                        self.showAlert(title: "Error", message: "Please fill empty fields.", actionTitle: "OK")
+                    } else {
+                        self.showAlert(title: "Error", message: error.localizedDescription, actionTitle: "OK")
+                    }
                     SVProgressHUD.dismiss()
-                    self.showAlert(title: "Error", message: error.localizedDescription, actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)
     }
@@ -145,6 +145,7 @@ private extension UpdatePersonalInfoViewController {
         newFirstNameTextField.placeholder = "Enter new first name"
         newFirstNameTextField.autocorrectionType = .no
         newFirstNameTextField.autocapitalizationType = .words
+        newFirstNameTextField.text = SessionManager.shared.currentUser?.firstName
         
         containerView.addSubview(newFirstNameSeparator)
         newFirstNameSeparator.snp.makeConstraints { (make) in
@@ -166,6 +167,7 @@ private extension UpdatePersonalInfoViewController {
         newLastNameTextField.placeholder = "Enter new last name"
         newLastNameTextField.autocorrectionType = .no
         newLastNameTextField.autocapitalizationType = .words
+        newLastNameTextField.text = SessionManager.shared.currentUser?.lastName
         
         containerView.addSubview(newLastNameSeparator)
         newLastNameSeparator.snp.makeConstraints { (make) in

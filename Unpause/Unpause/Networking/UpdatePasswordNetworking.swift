@@ -15,14 +15,14 @@ class UpdatePasswordNetworking {
     
     private let dataBaseReference = Auth.auth()
     
-    func updateCurrentUserPassword(with oldPassword: String?,with newPassword: String?) -> Observable<UpdateResponse> {
+    func updateCurrentUserPassword(_ oldPassword: String?, with newPassword: String?) -> Observable<UpdateResponse> {
         guard let email = SessionManager.shared.currentUser?.email,
             let oldPassword = oldPassword,
             let newPassword = newPassword,
             let user = dataBaseReference.currentUser,
             !oldPassword.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
             !newPassword.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-                return Observable.empty()
+                return Observable.just(UpdateResponse.error(UnpauseError.emptyError))
         }
         
         let credential = EmailAuthProvider.credential(withEmail: email, password: oldPassword)

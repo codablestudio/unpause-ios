@@ -21,7 +21,7 @@ class UpdatePersonalInfoNetworking {
             let newLastName = newLastName,
             !newLastName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
             !newFirstName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-                return Observable.empty()
+                return Observable.just(UpdateResponse.error(UnpauseError.emptyError))
         }
         
         let response = dataBaseReference.collection("users")

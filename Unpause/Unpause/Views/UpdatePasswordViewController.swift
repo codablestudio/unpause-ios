@@ -63,22 +63,12 @@ class UpdatePasswordViewController: UIViewController {
             .disposed(by: disposeBag)
         
         updatePasswordButton.rx.tap
+            .do(onNext: { _ in
+                SVProgressHUD.show()
+            })
             .bind(to: updatePasswordViewModel.updatePasswordButtonTapped)
             .disposed(by: disposeBag)
-        
-        updatePasswordButton.rx.tap
-            .subscribe(onNext: { [weak self] _ in
-                guard let `self` = self else { return }
-                if let currentPassword = self.currentPasswordTextField.text,
-                    let newPassword = self.newPasswordTextField.text,
-                    !currentPassword.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
-                    !newPassword.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                    SVProgressHUD.show()
-                } else {
-                    self.showAlert(title: "Error", message: "Please fill empty fields.", actionTitle: "OK")
-                }
-            }).disposed(by: disposeBag)
-        
+
         updatePasswordViewModel.updatePasswordResponse
             .subscribe(onNext: { [weak self] response in
                 guard let `self` = self else { return }
@@ -88,8 +78,12 @@ class UpdatePasswordViewController: UIViewController {
                     SVProgressHUD.dismiss(withDelay: 0.6)
                     self.dismiss(animated: true)
                 case .error(let error):
+                    if let error = error as? UnpauseError, error == UnpauseError.emptyError {
+                        self.showAlert(title: "Error", message: "Please fill empty fields.", actionTitle: "OK")
+                    } else {
+                        self.showAlert(title: "Error", message: error.localizedDescription, actionTitle: "OK")
+                    }
                     SVProgressHUD.dismiss()
-                    self.showAlert(title: "Error", message: error.localizedDescription, actionTitle: "OK")
                 }
             })
             .disposed(by: disposeBag)
