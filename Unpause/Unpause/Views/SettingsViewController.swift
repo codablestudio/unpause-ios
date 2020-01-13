@@ -48,8 +48,14 @@ class SettingsViewController: UIViewController {
         logOutButton.rx.tap.bind(to: settingsViewModel.logOutButtonTapped)
             .disposed(by: disposeBag)
         
-        changePasswordButton.rx.tap.subscribe(onNext: { _ in
-            Coordinator.shared.presentUpdatePasswordViewController(from: self)
+        changePasswordButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else { return }
+            Coordinator.shared.presentChangePasswordViewController(from: self)
+            }).disposed(by: disposeBag)
+        
+        changePersonalInfoButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else { return }
+            Coordinator.shared.presentChangePersonalInfoViewController(from: self)
             }).disposed(by: disposeBag)
     }
     

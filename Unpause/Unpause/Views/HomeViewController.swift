@@ -46,6 +46,11 @@ class HomeViewController: UIViewController {
         showTitleInNavigationBar()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        displayFreshUserData()
+    }
+    
     private func render() {
         configureScrollViewAndContainerView()
         renderSignedInLabel()
@@ -62,6 +67,11 @@ class HomeViewController: UIViewController {
     
     private func showTitleInNavigationBar() {
         self.title = "Home"
+    }
+    
+    private func displayFreshUserData() {
+        userFirstNameLabel.text = SessionManager.shared.currentUser?.firstName
+        userLastNameLabel.text = SessionManager.shared.currentUser?.lastName
     }
 }
 

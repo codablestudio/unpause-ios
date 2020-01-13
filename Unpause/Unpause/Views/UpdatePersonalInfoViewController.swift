@@ -1,8 +1,8 @@
 //
-//  UpdatePasswordViewController.swift
+//  UpdatePersonalInfoViewController.swift
 //  Unpause
 //
-//  Created by Krešimir Baković on 06/01/2020.
+//  Created by Krešimir Baković on 07/01/2020.
 //  Copyright © 2020 Krešimir Baković. All rights reserved.
 //
 
@@ -10,26 +10,26 @@ import UIKit
 import RxSwift
 import SVProgressHUD
 
-class UpdatePasswordViewController: UIViewController {
+class UpdatePersonalInfoViewController: UIViewController {
     
+    private let updatePersonalInfoViewModel: UpdatePersonalInfoViewModel
     private let disposeBag = DisposeBag()
-    private let updatePasswordViewModel: UpdatePasswordViewModel
     
     private let scrollView = UIScrollView()
     private let containerView = UIView()
     
-    private let currentPasswordTextField = UITextField()
-    private let currentPasswordSeparator = UIView()
+    private let newFirstNameTextField = UITextField()
+    private let newFirstNameSeparator = UIView()
     
-    private let newPasswordTextField = UITextField()
-    private let newPasswordSeparator = UIView()
+    private let newLastNameTextField = UITextField()
+    private let newLastNameSeparator = UIView()
     
-    private let updatePasswordButton = OrangeButton(title: "Update password")
+    private let updateInfoButton = OrangeButton(title: "Update info")
     
     private let closeButton = UIButton()
     
-    init(updatePasswordViewModel: UpdatePasswordViewModel) {
-        self.updatePasswordViewModel = updatePasswordViewModel
+    init(updatePersonalInfoViewModel: UpdatePersonalInfoViewModel) {
+        self.updatePersonalInfoViewModel = updatePersonalInfoViewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -47,34 +47,41 @@ class UpdatePasswordViewController: UIViewController {
     
     private func render() {
         configureScrollViewAndContainerView()
-        renderCurrentPasswordAndCurrentPasswordSeparator()
-        renderNewPasswordAndNewPasswordSeparator()
-        renderUpdatePasswordButton()
+        renderNewFirstNameTextFieldAndNewFirstNameSeparator()
+        renderNewLastNameTextFieldAndNewLastNameSeparator()
+        renderUpdateInfoButton()
         renderCloseButton()
     }
     
     private func setUpObservables() {
-        currentPasswordTextField.rx.text
-            .bind(to: updatePasswordViewModel.textInCurrentPasswordTextFieldChanges)
+        newFirstNameTextField.rx.text
+            .startWith(newFirstNameTextField.text)
+            .bind(to: updatePersonalInfoViewModel.textInNewFirstNameTextFieldChanges)
             .disposed(by: disposeBag)
         
-        newPasswordTextField.rx.text
-            .bind(to: updatePasswordViewModel.textInNewPasswordTextFieldChanges)
+        newLastNameTextField.rx.text
+            .startWith(newLastNameTextField.text)
+            .bind(to: updatePersonalInfoViewModel.textInNewLastNameTextFieldChanges)
             .disposed(by: disposeBag)
         
-        updatePasswordButton.rx.tap
+        updateInfoButton.rx.tap
             .do(onNext: { _ in
-                SVProgressHUD.show()
+                SVProgressHUD.dismiss()
             })
-            .bind(to: updatePasswordViewModel.updatePasswordButtonTapped)
+            .bind(to: updatePersonalInfoViewModel.updateInfoButtonTapped)
             .disposed(by: disposeBag)
-
-        updatePasswordViewModel.updatePasswordResponse
+        
+        closeButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else { return }
+            self.dismiss(animated: true)
+        }).disposed(by: disposeBag)
+        
+        updatePersonalInfoViewModel.updateInfoResponse
             .subscribe(onNext: { [weak self] response in
                 guard let `self` = self else { return }
                 switch response {
                 case .success:
-                    SVProgressHUD.showSuccess(withStatus: "Password updated successfully")
+                    SVProgressHUD.showSuccess(withStatus: "Info updated successfully")
                     SVProgressHUD.dismiss(withDelay: 0.6)
                     self.dismiss(animated: true)
                 case .error(let error):
@@ -85,13 +92,7 @@ class UpdatePasswordViewController: UIViewController {
                     }
                     SVProgressHUD.dismiss()
                 }
-            })
-            .disposed(by: disposeBag)
-        
-        closeButton.rx.tap.subscribe(onNext: { [weak self] _ in
-            guard let `self` = self else { return }
-            self.dismiss(animated: true)
-        }).disposed(by: disposeBag)
+            }).disposed(by: disposeBag)
     }
     
     private func showAlert(title: String, message: String, actionTitle: String) {
@@ -101,8 +102,8 @@ class UpdatePasswordViewController: UIViewController {
     }
     
     private func setUpTextFields() {
-        currentPasswordTextField.setNextResponder(newPasswordTextField, disposeBag: disposeBag)
-        newPasswordTextField.resignWhenFinished(disposeBag)
+        newFirstNameTextField.setNextResponder(newLastNameTextField, disposeBag: disposeBag)
+        newLastNameTextField.resignWhenFinished(disposeBag)
     }
     
     private func addGestureRecognizer() {
@@ -114,7 +115,7 @@ class UpdatePasswordViewController: UIViewController {
 
 // MARK: - UI rendering
 
-private extension UpdatePasswordViewController {
+private extension UpdatePersonalInfoViewController {
     
     func configureScrollViewAndContainerView() {
         view.backgroundColor = UIColor.white
@@ -134,54 +135,54 @@ private extension UpdatePasswordViewController {
         }
     }
     
-    func renderCurrentPasswordAndCurrentPasswordSeparator() {
-        containerView.addSubview(currentPasswordTextField)
-        currentPasswordTextField.snp.makeConstraints { (make) in
+    func renderNewFirstNameTextFieldAndNewFirstNameSeparator() {
+        containerView.addSubview(newFirstNameTextField)
+        newFirstNameTextField.snp.makeConstraints { (make) in
             make.top.equalToSuperview().offset(260)
             make.left.equalToSuperview().offset(35)
             make.right.equalToSuperview().inset(35)
         }
-        currentPasswordTextField.placeholder = "Enter current password"
-        currentPasswordTextField.autocorrectionType = .no
-        currentPasswordTextField.autocapitalizationType = .none
-        currentPasswordTextField.isSecureTextEntry = true
+        newFirstNameTextField.placeholder = "Enter new first name"
+        newFirstNameTextField.autocorrectionType = .no
+        newFirstNameTextField.autocapitalizationType = .words
+        newFirstNameTextField.text = SessionManager.shared.currentUser?.firstName
         
-        containerView.addSubview(currentPasswordSeparator)
-        currentPasswordSeparator.snp.makeConstraints { (make) in
-            make.top.equalTo(currentPasswordTextField.snp.bottom).offset(5)
+        containerView.addSubview(newFirstNameSeparator)
+        newFirstNameSeparator.snp.makeConstraints { (make) in
+            make.top.equalTo(newFirstNameTextField.snp.bottom).offset(5)
             make.left.equalToSuperview().offset(33)
             make.right.equalToSuperview().inset(33)
             make.height.equalTo(1)
         }
-        currentPasswordSeparator.backgroundColor = UIColor.lightGray
+        newFirstNameSeparator.backgroundColor = UIColor.lightGray
     }
     
-    func renderNewPasswordAndNewPasswordSeparator() {
-        containerView.addSubview(newPasswordTextField)
-        newPasswordTextField.snp.makeConstraints { (make) in
-            make.top.equalTo(currentPasswordSeparator.snp.bottom).offset(25)
+    func renderNewLastNameTextFieldAndNewLastNameSeparator() {
+        containerView.addSubview(newLastNameTextField)
+        newLastNameTextField.snp.makeConstraints { (make) in
+            make.top.equalTo(newFirstNameSeparator.snp.bottom).offset(25)
             make.left.equalToSuperview().offset(35)
             make.right.equalToSuperview().inset(35)
         }
-        newPasswordTextField.placeholder = "Enter new password"
-        newPasswordTextField.autocorrectionType = .no
-        newPasswordTextField.autocapitalizationType = .none
-        newPasswordTextField.isSecureTextEntry = true
+        newLastNameTextField.placeholder = "Enter new last name"
+        newLastNameTextField.autocorrectionType = .no
+        newLastNameTextField.autocapitalizationType = .words
+        newLastNameTextField.text = SessionManager.shared.currentUser?.lastName
         
-        containerView.addSubview(newPasswordSeparator)
-        newPasswordSeparator.snp.makeConstraints { (make) in
-            make.top.equalTo(newPasswordTextField.snp.bottom).offset(5)
+        containerView.addSubview(newLastNameSeparator)
+        newLastNameSeparator.snp.makeConstraints { (make) in
+            make.top.equalTo(newLastNameTextField.snp.bottom).offset(5)
             make.left.equalToSuperview().offset(33)
             make.right.equalToSuperview().inset(33)
             make.height.equalTo(1)
         }
-        newPasswordSeparator.backgroundColor = UIColor.lightGray
+        newLastNameSeparator.backgroundColor = UIColor.lightGray
     }
     
-    func renderUpdatePasswordButton() {
-        containerView.addSubview(updatePasswordButton)
-        updatePasswordButton.snp.makeConstraints { (make) in
-            make.top.equalTo(newPasswordSeparator.snp.bottom).offset(70)
+    func renderUpdateInfoButton() {
+        containerView.addSubview(updateInfoButton)
+        updateInfoButton.snp.makeConstraints { (make) in
+            make.top.equalTo(newLastNameSeparator.snp.bottom).offset(70)
             make.left.equalToSuperview().offset(33)
             make.right.equalToSuperview().inset(33)
             make.bottom.equalToSuperview()

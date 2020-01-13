@@ -34,7 +34,11 @@
 		C110AE2A23C34E770066C394 /* UpdatePasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C110AE2923C34E770066C394 /* UpdatePasswordViewModel.swift */; };
 		C12D289823A536BC004BC57A /* LoginNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12D289723A536BC004BC57A /* LoginNetworking.swift */; };
 		C13105E723B0ADF200A509D9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13105E623B0ADF200A509D9 /* User.swift */; };
+		C133DE5223C871A90096F5B2 /* UpdatePasswordNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C133DE5123C871A90096F5B2 /* UpdatePasswordNetworking.swift */; };
+		C133DE5423C89F2A0096F5B2 /* UpdateResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C133DE5323C89F2A0096F5B2 /* UpdateResponse.swift */; };
 		C137F48223B8B6AC00358E30 /* RegisterNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C137F48123B8B6AC00358E30 /* RegisterNetworking.swift */; };
+		C138411223C5C58100A347F9 /* UserFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C138411123C5C58100A347F9 /* UserFactory.swift */; };
+		C138411423C5DA3E00A347F9 /* UpdatePersonalInfoNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C138411323C5DA3E00A347F9 /* UpdatePersonalInfoNetworking.swift */; };
 		C13B4B1223BF8A62006E1E0E /* FirebaseDocumentResponeObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13B4B1123BF8A62006E1E0E /* FirebaseDocumentResponeObject.swift */; };
 		C13C412023AB93D600B674E9 /* FirebaseResponseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C411F23AB93D600B674E9 /* FirebaseResponseObject.swift */; };
 		C13C412223ABBC4100B674E9 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C412123ABBC4100B674E9 /* ActivityViewController.swift */; };
@@ -58,6 +62,9 @@
 		C1C41B7623A9594F009288CA /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C41B7523A9594F009288CA /* UITextField+Extension.swift */; };
 		C1FBC46D23AA51E100579913 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBC46C23AA51E100579913 /* HomeViewController.swift */; };
 		C1FBC46F23AA521C00579913 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBC46E23AA521C00579913 /* HomeViewModel.swift */; };
+		C1FF2A8A23C4B0E500ACCF29 /* UpdatePersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FF2A8923C4B0E500ACCF29 /* UpdatePersonalInfoViewController.swift */; };
+		C1FF2A8C23C4B14200ACCF29 /* UpdatePersonalInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FF2A8B23C4B14200ACCF29 /* UpdatePersonalInfoViewModel.swift */; };
+		C1FF2A8E23C4B3EA00ACCF29 /* Coordinator+Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FF2A8D23C4B3EA00ACCF29 /* Coordinator+Settings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -89,7 +96,11 @@
 		C110AE2923C34E770066C394 /* UpdatePasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePasswordViewModel.swift; sourceTree = "<group>"; };
 		C12D289723A536BC004BC57A /* LoginNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginNetworking.swift; sourceTree = "<group>"; };
 		C13105E623B0ADF200A509D9 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		C133DE5123C871A90096F5B2 /* UpdatePasswordNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePasswordNetworking.swift; sourceTree = "<group>"; };
+		C133DE5323C89F2A0096F5B2 /* UpdateResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateResponse.swift; sourceTree = "<group>"; };
 		C137F48123B8B6AC00358E30 /* RegisterNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterNetworking.swift; sourceTree = "<group>"; };
+		C138411123C5C58100A347F9 /* UserFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFactory.swift; sourceTree = "<group>"; };
+		C138411323C5DA3E00A347F9 /* UpdatePersonalInfoNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePersonalInfoNetworking.swift; sourceTree = "<group>"; };
 		C13B4B1123BF8A62006E1E0E /* FirebaseDocumentResponeObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDocumentResponeObject.swift; sourceTree = "<group>"; };
 		C13C411F23AB93D600B674E9 /* FirebaseResponseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseResponseObject.swift; sourceTree = "<group>"; };
 		C13C412123ABBC4100B674E9 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
@@ -115,6 +126,9 @@
 		C1C41B7523A9594F009288CA /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		C1FBC46C23AA51E100579913 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		C1FBC46E23AA521C00579913 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		C1FF2A8923C4B0E500ACCF29 /* UpdatePersonalInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePersonalInfoViewController.swift; sourceTree = "<group>"; };
+		C1FF2A8B23C4B14200ACCF29 /* UpdatePersonalInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePersonalInfoViewModel.swift; sourceTree = "<group>"; };
+		C1FF2A8D23C4B3EA00ACCF29 /* Coordinator+Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinator+Settings.swift"; sourceTree = "<group>"; };
 		DE3FC3210F1CDFC45FF7DBE1 /* Pods_Unpause.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Unpause.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F56D7C9D8CB0DE7FF265F229 /* Pods-Unpause.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Unpause.debug.xcconfig"; path = "Target Support Files/Pods-Unpause/Pods-Unpause.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -203,6 +217,7 @@
 			isa = PBXGroup;
 			children = (
 				C1B0B2B223B0BF9700CE5D05 /* SessionManager.swift */,
+				C138411123C5C58100A347F9 /* UserFactory.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -264,6 +279,7 @@
 				C13C412323ABBC5400B674E9 /* ActivityViewModel.swift */,
 				C13C412723ABBC8900B674E9 /* SettingsViewModel.swift */,
 				C110AE2923C34E770066C394 /* UpdatePasswordViewModel.swift */,
+				C1FF2A8B23C4B14200ACCF29 /* UpdatePersonalInfoViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -278,6 +294,7 @@
 				C13C412523ABBC7000B674E9 /* SettingsViewController.swift */,
 				C198B8F323B0CFC100FBD3C6 /* CustomTabBarController.swift */,
 				C110AE2723C34E420066C394 /* UpdatePasswordViewController.swift */,
+				C1FF2A8923C4B0E500ACCF29 /* UpdatePersonalInfoViewController.swift */,
 				C102D7BD23ACFE5C000B9E80 /* CustomUIElements */,
 			);
 			path = Views;
@@ -290,6 +307,7 @@
 				C13C411F23AB93D600B674E9 /* FirebaseResponseObject.swift */,
 				C198B8F523B0D57C00FBD3C6 /* UnpauseError.swift */,
 				C13B4B1123BF8A62006E1E0E /* FirebaseDocumentResponeObject.swift */,
+				C133DE5323C89F2A0096F5B2 /* UpdateResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -300,6 +318,7 @@
 				C16A2EF023A77B1200CBA43F /* Coordinator.swift */,
 				C198B8EE23B0CACA00FBD3C6 /* Coordinator+Auth.swift */,
 				C198B8F023B0CB4C00FBD3C6 /* Coordinator+Tabbar.swift */,
+				C1FF2A8D23C4B3EA00ACCF29 /* Coordinator+Settings.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -309,6 +328,8 @@
 			children = (
 				C12D289723A536BC004BC57A /* LoginNetworking.swift */,
 				C137F48123B8B6AC00358E30 /* RegisterNetworking.swift */,
+				C138411323C5DA3E00A347F9 /* UpdatePersonalInfoNetworking.swift */,
+				C133DE5123C871A90096F5B2 /* UpdatePasswordNetworking.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -468,6 +489,7 @@
 				C110AE2823C34E420066C394 /* UpdatePasswordViewController.swift in Sources */,
 				C137F48223B8B6AC00358E30 /* RegisterNetworking.swift in Sources */,
 				C16A2EF123A77B1200CBA43F /* Coordinator.swift in Sources */,
+				C1FF2A8E23C4B3EA00ACCF29 /* Coordinator+Settings.swift in Sources */,
 				C10F78DB23A3D79200783476 /* UILabel+Extension.swift in Sources */,
 				C13B4B1223BF8A62006E1E0E /* FirebaseDocumentResponeObject.swift in Sources */,
 				C13C412223ABBC4100B674E9 /* ActivityViewController.swift in Sources */,
@@ -480,8 +502,10 @@
 				C10F78D923A3D79200783476 /* UIFont+Extension.swift in Sources */,
 				C10F78EB23A3DD9A00783476 /* SceneDelegate.swift in Sources */,
 				C10F78E823A3D79200783476 /* CGFloat+Extension.swift in Sources */,
+				C1FF2A8C23C4B14200ACCF29 /* UpdatePersonalInfoViewModel.swift in Sources */,
 				C10F78E123A3D79200783476 /* UIViewController+Extension.swift in Sources */,
 				C1C41B7623A9594F009288CA /* UITextField+Extension.swift in Sources */,
+				C133DE5423C89F2A0096F5B2 /* UpdateResponse.swift in Sources */,
 				C10F78DD23A3D79200783476 /* UIButton+Extension.swift in Sources */,
 				C10F78E423A3D79200783476 /* UIStackView+Extension.swift in Sources */,
 				C10F78D823A3D79200783476 /* UIImageView+Extension.swift in Sources */,
@@ -498,17 +522,21 @@
 				C10F78E623A3D79200783476 /* CGSize+Extension.swift in Sources */,
 				C10F78E523A3D79200783476 /* UIScrollView+Extension.swift in Sources */,
 				C198B8EF23B0CACA00FBD3C6 /* Coordinator+Auth.swift in Sources */,
+				C1FF2A8A23C4B0E500ACCF29 /* UpdatePersonalInfoViewController.swift in Sources */,
 				C198B8F123B0CB4C00FBD3C6 /* Coordinator+Tabbar.swift in Sources */,
 				C10F78E223A3D79200783476 /* UIScreen+Extension.swift in Sources */,
 				C198B8F423B0CFC100FBD3C6 /* CustomTabBarController.swift in Sources */,
 				C146992C23A11D5200A84818 /* LoginViewController.swift in Sources */,
 				C10F78DE23A3D79200783476 /* ObservableType+Extension.swift in Sources */,
+				C138411423C5DA3E00A347F9 /* UpdatePersonalInfoNetworking.swift in Sources */,
+				C138411223C5C58100A347F9 /* UserFactory.swift in Sources */,
 				C16A2EF323A784A700CBA43F /* RegisterViewController.swift in Sources */,
 				C13C412623ABBC7000B674E9 /* SettingsViewController.swift in Sources */,
 				C13C412423ABBC5400B674E9 /* ActivityViewModel.swift in Sources */,
 				C146991223A112F100A84818 /* AppDelegate.swift in Sources */,
 				C1FBC46F23AA521C00579913 /* HomeViewModel.swift in Sources */,
 				C10F78E723A3D79200783476 /* UIButton+Rx.swift in Sources */,
+				C133DE5223C871A90096F5B2 /* UpdatePasswordNetworking.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -645,8 +673,9 @@
 			baseConfigurationReference = F56D7C9D8CB0DE7FF265F229 /* Pods-Unpause.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = S9TH2M95GL;
+				DEVELOPMENT_TEAM = Q2P9VVU3YH;
 				INFOPLIST_FILE = Unpause/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -655,6 +684,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = studio.codable.unpause;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -665,8 +695,9 @@
 			baseConfigurationReference = 7A22B2694C577AAD4753E790 /* Pods-Unpause.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = S9TH2M95GL;
+				DEVELOPMENT_TEAM = Q2P9VVU3YH;
 				INFOPLIST_FILE = Unpause/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -675,6 +706,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = studio.codable.unpause;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
