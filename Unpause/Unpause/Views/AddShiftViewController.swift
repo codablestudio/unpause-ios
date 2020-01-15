@@ -110,5 +110,5 @@ private extension AddShiftViewController {
         youArrivedAtLabel.text = "You arrived at:"
         youArrivedAtLabel.font = youArrivedAtLabel.font.withSize(20)
     }
-    
+
 }
