@@ -40,7 +40,8 @@ class UpdatePasswordViewModel {
         updatePasswordResponse = updatePasswordButtonTapped
             .flatMapLatest({ [weak self] _ -> Observable<UpdateResponse> in
                 guard let `self` = self else { return Observable.empty() }
-                return self.updatePasswordNetworking.updateCurrentUserPassword(self.textInCurrentPasswordTextField, with: self.textInNewPasswordTextField)
+                return self.updatePasswordNetworking.updateCurrentUserPassword(self.textInCurrentPasswordTextField,
+                                                                               with: self.textInNewPasswordTextField)
             })
     }
 }

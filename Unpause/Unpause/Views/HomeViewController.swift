@@ -30,6 +30,8 @@ class HomeViewController: UIViewController {
     
     private let checkInButton = UIButton()
     
+    var userChecksIn = PublishSubject<Bool>()
+    
     init(homeViewModel: HomeViewModel) {
         self.homeViewModel = homeViewModel
         super.init(nibName: nil, bundle: nil)
@@ -61,8 +63,27 @@ class HomeViewController: UIViewController {
     }
     
     private func setUpObservables() {
-        checkInButton.rx.tap.bind(to: homeViewModel.checkInButtonTapped)
+        userChecksIn
+            .do(onNext: { [weak self] (userChecksIn) in
+                guard let `self` = self else { return }
+                if !userChecksIn {
+                    Coordinator.shared.presentAddShiftViewController(from: self)
+                }
+            })
+            .bind(to: homeViewModel.userChecksIn)
             .disposed(by: disposeBag)
+        
+        checkInButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                if self.checkInButton.title(for: .normal) == "Check in" {
+                    self.checkInButton.setTitle("Check out", for: .normal)
+                    self.userChecksIn.onNext(true)
+                } else {
+                    self.checkInButton.setTitle("Check in", for: .normal)
+                    self.userChecksIn.onNext(false)
+                }
+            }).disposed(by: disposeBag)
     }
     
     private func showTitleInNavigationBar() {

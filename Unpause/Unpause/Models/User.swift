@@ -13,6 +13,9 @@ class User: NSObject, NSCoding, Decodable {
     var firstName: String?
     var lastName: String?
     var email: String?
+    var lastCheckInTime: Date?
+    var lastCheckOutTime: Date?
+    var shifts: [String: String] = [:]
     
     required init?(coder: NSCoder) {
         firstName = coder.decodeObject(forKey: "firstName") as? String
