@@ -106,7 +106,7 @@ class LoginViewController: UIViewController {
     }
     
     private func addGestureRecognizer() {
-        view.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] (tapGesture) in
+        view.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] _ in
             self?.view.endEditing(true)
         }).disposed(by: disposeBag)
     }
