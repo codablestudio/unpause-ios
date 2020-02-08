@@ -41,6 +41,8 @@ class AddShiftViewController: UIViewController {
     private let cancleButton = OrangeButton(title: "Cancle")
     private let continueButton = OrangeButton(title: "Continue")
     
+    private let closeButton = UIButton()
+    
     init(addShiftViewModel: AddShiftViewModel) {
         self.addShiftViewModel = addShiftViewModel
         super.init(nibName: nil, bundle: nil)
@@ -53,6 +55,7 @@ class AddShiftViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         render()
+        setUpObservables()
         createPickers()
     }
     
@@ -65,6 +68,17 @@ class AddShiftViewController: UIViewController {
         renderLeavingPickersAndLabelsForDateAndTime()
         renderSeparatorAndDescription()
         renderCancleAndContinueButton()
+        renderCloseButton()
+    }
+    
+    private func setUpObservables() {
+        cancleButton.rx.tap.subscribe(onNext: { _ in
+            self.dismiss(animated: true)
+        }).disposed(by: disposeBag)
+        
+        closeButton.rx.tap.subscribe(onNext: { _ in
+            self.dismiss(animated: true)
+        }).disposed(by: disposeBag)
     }
     
     private func createPickers() {
@@ -254,6 +268,15 @@ private extension AddShiftViewController {
         stackView.alignment = .center
         stackView.distribution = .fillEqually
         stackView.spacing = 10
+    }
+    
+    func renderCloseButton() {
+        containerView.addSubview(closeButton)
+        closeButton.snp.makeConstraints { (make) in
+            make.top.equalToSuperview().offset(25)
+            make.left.equalToSuperview().offset(15)
+        }
+        closeButton.setImage(UIImage(named: "close_25x25"), for: .normal)
     }
 }
 
