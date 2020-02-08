@@ -57,6 +57,7 @@ class AddShiftViewController: UIViewController {
         render()
         setUpObservables()
         createPickers()
+        addGestureRecognizer()
     }
     
     private func render() {
@@ -116,6 +117,12 @@ class AddShiftViewController: UIViewController {
         doneButton.rx.tap.subscribe(onNext: { [weak self] _ in
         self?.view.endEditing(true)
          }).disposed(by: disposeBag)
+    }
+    
+    private func addGestureRecognizer() {
+        view.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] (tapGesture) in
+            self?.view.endEditing(true)
+        }).disposed(by: disposeBag)
     }
 }
 
