@@ -22,10 +22,12 @@ class HomeViewModel {
     }
     
     private func setUpObservables() {
-        userChecksIn.subscribe(onNext: { (userChecksIn) in
+        userChecksIn.subscribe(onNext: { [weak self] (userChecksIn) in
+            guard let `self` = self else { return }
             let timeAtThisMoment = Date()
             if userChecksIn {
                 SessionManager.shared.currentUser?.lastCheckInDateAndTime = timeAtThisMoment
+                self.homeNetworking.checkInUser(with: timeAtThisMoment)
             } else {
                 SessionManager.shared.currentUser?.lastCheckOutDateAndTime = timeAtThisMoment
             }

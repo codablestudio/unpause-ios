@@ -9,8 +9,12 @@
 import Foundation
 
 class DescriptionViewModel {
+
+    init() {
+        setUpObservables()
+    }
     
-    init() {}
-    
-    
+    private func setUpObservables() {
+        
+    }
 }

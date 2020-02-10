@@ -37,6 +37,7 @@ class DescriptionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         render()
+        setUpObservables()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,6 +49,12 @@ class DescriptionViewController: UIViewController {
         renderWhatDidYouWorkOnLabel()
         renderTextView()
         renderCancelAndSaveButton()
+    }
+    
+    private func setUpObservables() {
+        cancelButton.rx.tap.subscribe(onNext: { _ in
+            self.dismiss(animated: true)
+        }).disposed(by: disposeBag)
     }
     
     private func showNavigationBar() {
