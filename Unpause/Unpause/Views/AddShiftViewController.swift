@@ -58,10 +58,15 @@ class AddShiftViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpArrivalTimePickerInitalValue()
         render()
         setUpObservables()
         createPickers()
         addGestureRecognizer()
+    }
+    
+    private func setUpArrivalTimePickerInitalValue() {
+        arrivalTimePicker.date = SessionManager.shared.currentUser?.lastCheckInDateAndTime ?? Date()
     }
     
     private func render() {
@@ -86,24 +91,23 @@ class AddShiftViewController: UIViewController {
         }).disposed(by: disposeBag)
         
         arrivalTimePicker.rx.value
-            .subscribe(onNext: { [weak self] date in
+            .subscribe(onNext: { [weak self] timeInDateFormat in
                 guard let `self` = self else { return }
-                let time = self.addShiftViewModel.convertTimeIntoString(from: date)
-                self.arrivalTimeTextField.text = time
+                let timeInStringFormat = Formatter.shared.convertTimeIntoString(from: timeInDateFormat)
+                self.arrivalTimeTextField.text = timeInStringFormat
+                self.addShiftViewModel.updateLastCheckInTime(with: timeInDateFormat)
             }).disposed(by: disposeBag)
-        
-        leavingDatePicker.rx.value
-            .subscribe(onNext: { [weak self] date in
+                
+        Observable.combineLatest(leavingDatePicker.rx.value, leavingTimePicker.rx.value)
+            .subscribe(onNext: { [weak self] (leavingDateInDateFormat, leavingTimeInDateFormat) in
                 guard let `self` = self else { return }
-                let date = self.addShiftViewModel.convertDateIntoString(from: date)
-                self.leavingDateTextField.text = date
-            }).disposed(by: disposeBag)
-        
-        leavingTimePicker.rx.value
-            .subscribe(onNext: { [weak self] date in
-                guard let `self` = self else { return }
-                let time = self.addShiftViewModel.convertTimeIntoString(from: date)
-                self.leavingTimeTextField.text = time
+                
+                let dateInStringFormat = Formatter.shared.convertDateIntoString(from: leavingDateInDateFormat)
+                self.leavingDateTextField.text = dateInStringFormat
+                let timeInStringFormat = Formatter.shared.convertTimeIntoString(from: leavingTimeInDateFormat)
+                self.leavingTimeTextField.text = timeInStringFormat
+                
+                self.addShiftViewModel.updateLastCheckOutTime(with: leavingDateInDateFormat, and: leavingTimeInDateFormat)
             }).disposed(by: disposeBag)
     }
     
@@ -216,14 +220,13 @@ private extension AddShiftViewController {
             make.top.equalTo(youArrivedAtLabel.snp.bottom).offset(40)
             make.left.equalTo(arriveImageView.snp.right).offset(30)
         }
-        arrivalDateLabel.text = "13.01.2020"
+        arrivalDateLabel.text = Formatter.shared.convertDateIntoString(from: Date())
         
         containerView.addSubview(arrivalTimeTextField)
         arrivalTimeTextField.snp.makeConstraints { (make) in
             make.top.equalTo(arrivalDateLabel.snp.bottom).offset(15)
             make.left.equalTo(arriveImageView.snp.right).offset(30)
         }
-        arrivalTimeTextField.text = "10:59"
     }
     
     func renderLeavingAtLabelAndLeavingImageView() {
@@ -252,14 +255,12 @@ private extension AddShiftViewController {
             make.top.equalTo(youAreLeavingAtLabel.snp.bottom).offset(40)
             make.left.equalTo(leavingImageView.snp.right).offset(45)
         }
-        leavingDateTextField.text = "13.01.2020"
         
         containerView.addSubview(leavingTimeTextField)
         leavingTimeTextField.snp.makeConstraints { (make) in
             make.top.equalTo(leavingDateTextField.snp.bottom).offset(15)
             make.left.equalTo(leavingImageView.snp.right).offset(45)
         }
-        leavingTimeTextField.text = "19:08"
     }
     
     func renderSeparatorAndDescription() {

@@ -13,8 +13,8 @@ class User: NSObject, NSCoding, Decodable {
     var firstName: String?
     var lastName: String?
     var email: String?
-    var lastCheckInTime: Date?
-    var lastCheckOutTime: Date?
+    var lastCheckInDateAndTime: Date?
+    var lastCheckOutDateAndTime: Date?
     var shifts: [String: String] = [:]
     
     required init?(coder: NSCoder) {

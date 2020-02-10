@@ -12,11 +12,10 @@ import RxSwift
 class HomeViewModel {
     
     private let disposeBag = DisposeBag()
+    private let homeNetworking = HomeNetworking()
     
     var userChecksIn = PublishSubject<Bool>()
-    
     var checkInButtonTapped = PublishSubject<Void>()
-    
     
     init() {
         setUpObservables()
@@ -26,10 +25,9 @@ class HomeViewModel {
         userChecksIn.subscribe(onNext: { (userChecksIn) in
             let timeAtThisMoment = Date()
             if userChecksIn {
-                SessionManager.shared.currentUser?.lastCheckInTime = timeAtThisMoment
+                SessionManager.shared.currentUser?.lastCheckInDateAndTime = timeAtThisMoment
             } else {
-                SessionManager.shared.currentUser?.lastCheckOutTime = timeAtThisMoment
-                // AT THIS MOMENT PRESENT ADDSHIFT VC
+                SessionManager.shared.currentUser?.lastCheckOutDateAndTime = timeAtThisMoment
             }
         }).disposed(by: disposeBag)
     }

@@ -10,37 +10,53 @@ import Foundation
 
 class AddShiftViewModel {
     
-    init() {
+    init() {}
+
+    func updateLastCheckInTime(with timeInDateFormat: Date) {
+        let calendar = Calendar.current
+        var dateComponents = DateComponents()
         
-    }
-    
-    func convertTimeIntoString(from date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        let formatterString = formatter.string(from: date)
-        let formatterDate = formatter.date(from: formatterString)
-        formatter.dateFormat = "HH:mm"
-        
-        guard let formatedDate = formatterDate else {
-            return ""
+        guard let lastCheckInDateAndTime = SessionManager.shared.currentUser?.lastCheckInDateAndTime else {
+            return
         }
         
-        let time = formatter.string(from: formatedDate)
-        return time
+        let year = calendar.component(.year, from: lastCheckInDateAndTime)
+        let month = calendar.component(.month, from: lastCheckInDateAndTime)
+        let day = calendar.component(.day, from: lastCheckInDateAndTime)
+        let hour = calendar.component(.hour, from: timeInDateFormat)
+        let minute = calendar.component(.minute, from: timeInDateFormat)
+        let second = calendar.component(.second, from: timeInDateFormat)
+        
+        dateComponents.year = year
+        dateComponents.month = month
+        dateComponents.day = day
+        dateComponents.hour = hour
+        dateComponents.minute = minute
+        dateComponents.second = second
+        
+        let newLastCheckInDateAndTime = calendar.date(from: dateComponents)
+        SessionManager.shared.currentUser?.lastCheckInDateAndTime = newLastCheckInDateAndTime
     }
     
-    func convertDateIntoString(from date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        let formatterString = formatter.string(from: date)
-        let formatterDate = formatter.date(from: formatterString)
-        formatter.dateFormat = "dd.MM.yyyy"
+    func updateLastCheckOutTime(with dateInDateFormat: Date, and timeInDateFormat: Date) {
+        let calendar = Calendar.current
+        var dateComponents = DateComponents()
         
-        guard let formatedDate = formatterDate else {
-            return ""
-        }
+        let year = calendar.component(.year, from: dateInDateFormat)
+        let month = calendar.component(.month, from: dateInDateFormat)
+        let day = calendar.component(.day, from: dateInDateFormat)
+        let hour = calendar.component(.hour, from: timeInDateFormat)
+        let minute = calendar.component(.minute, from: timeInDateFormat)
+        let second = calendar.component(.second, from: timeInDateFormat)
         
-        let date = formatter.string(from: formatedDate)
-        return date
+        dateComponents.year = year
+        dateComponents.month = month
+        dateComponents.day = day
+        dateComponents.hour = hour
+        dateComponents.minute = minute
+        dateComponents.second = second
+        
+        let newLastCheckOutDateAndTime = calendar.date(from: dateComponents)
+        SessionManager.shared.currentUser?.lastCheckOutDateAndTime = newLastCheckOutDateAndTime
     }
 }

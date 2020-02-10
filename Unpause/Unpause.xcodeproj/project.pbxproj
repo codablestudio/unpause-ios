@@ -57,6 +57,8 @@
 		C16A2EF123A77B1200CBA43F /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16A2EF023A77B1200CBA43F /* Coordinator.swift */; };
 		C16A2EF323A784A700CBA43F /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16A2EF223A784A700CBA43F /* RegisterViewController.swift */; };
 		C16A2EF523A7853800CBA43F /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16A2EF423A7853800CBA43F /* RegisterViewModel.swift */; };
+		C1707B1A23F17605002E1A10 /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1707B1923F17605002E1A10 /* Formatter.swift */; };
+		C1707B1C23F18AE3002E1A10 /* HomeNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1707B1B23F18AE3002E1A10 /* HomeNetworking.swift */; };
 		C198B8EF23B0CACA00FBD3C6 /* Coordinator+Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C198B8EE23B0CACA00FBD3C6 /* Coordinator+Auth.swift */; };
 		C198B8F123B0CB4C00FBD3C6 /* Coordinator+Tabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C198B8F023B0CB4C00FBD3C6 /* Coordinator+Tabbar.swift */; };
 		C198B8F423B0CFC100FBD3C6 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C198B8F323B0CFC100FBD3C6 /* CustomTabBarController.swift */; };
@@ -124,6 +126,8 @@
 		C16A2EF023A77B1200CBA43F /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		C16A2EF223A784A700CBA43F /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		C16A2EF423A7853800CBA43F /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		C1707B1923F17605002E1A10 /* Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
+		C1707B1B23F18AE3002E1A10 /* HomeNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNetworking.swift; sourceTree = "<group>"; };
 		C198B8EE23B0CACA00FBD3C6 /* Coordinator+Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinator+Auth.swift"; sourceTree = "<group>"; };
 		C198B8F023B0CB4C00FBD3C6 /* Coordinator+Tabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinator+Tabbar.swift"; sourceTree = "<group>"; };
 		C198B8F323B0CFC100FBD3C6 /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
@@ -224,6 +228,7 @@
 			children = (
 				C1B0B2B223B0BF9700CE5D05 /* SessionManager.swift */,
 				C138411123C5C58100A347F9 /* UserFactory.swift */,
+				C1707B1923F17605002E1A10 /* Formatter.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -339,6 +344,7 @@
 				C137F48123B8B6AC00358E30 /* RegisterNetworking.swift */,
 				C138411323C5DA3E00A347F9 /* UpdatePersonalInfoNetworking.swift */,
 				C133DE5123C871A90096F5B2 /* UpdatePasswordNetworking.swift */,
+				C1707B1B23F18AE3002E1A10 /* HomeNetworking.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -517,6 +523,7 @@
 				C1FF2A8C23C4B14200ACCF29 /* UpdatePersonalInfoViewModel.swift in Sources */,
 				C10F78E123A3D79200783476 /* UIViewController+Extension.swift in Sources */,
 				C1C41B7623A9594F009288CA /* UITextField+Extension.swift in Sources */,
+				C1707B1C23F18AE3002E1A10 /* HomeNetworking.swift in Sources */,
 				C133DE5423C89F2A0096F5B2 /* UpdateResponse.swift in Sources */,
 				C10F78DD23A3D79200783476 /* UIButton+Extension.swift in Sources */,
 				C10F78E423A3D79200783476 /* UIStackView+Extension.swift in Sources */,
@@ -532,6 +539,7 @@
 				C110AE2A23C34E770066C394 /* UpdatePasswordViewModel.swift in Sources */,
 				C10F78DC23A3D79200783476 /* Thread+Extension.swift in Sources */,
 				C10F78E623A3D79200783476 /* CGSize+Extension.swift in Sources */,
+				C1707B1A23F17605002E1A10 /* Formatter.swift in Sources */,
 				C10F78E523A3D79200783476 /* UIScrollView+Extension.swift in Sources */,
 				C198B8EF23B0CACA00FBD3C6 /* Coordinator+Auth.swift in Sources */,
 				C1FF2A8A23C4B0E500ACCF29 /* UpdatePersonalInfoViewController.swift in Sources */,
