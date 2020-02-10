@@ -65,6 +65,10 @@ class AddShiftViewController: UIViewController {
         addGestureRecognizer()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        hideNavigationBar()
+    }
+    
     private func setUpArrivalTimePickerInitalValue() {
         arrivalTimePicker.date = SessionManager.shared.currentUser?.lastCheckInDateAndTime ?? Date()
     }
@@ -90,6 +94,10 @@ class AddShiftViewController: UIViewController {
             self.dismiss(animated: true)
         }).disposed(by: disposeBag)
         
+        continueButton.rx.tap.subscribe(onNext: { _ in
+            Coordinator.shared.navigateToDecriptionViewController(from: self)
+        }).disposed(by: disposeBag)
+        
         arrivalTimePicker.rx.value
             .subscribe(onNext: { [weak self] timeInDateFormat in
                 guard let `self` = self else { return }
@@ -97,7 +105,7 @@ class AddShiftViewController: UIViewController {
                 self.arrivalTimeTextField.text = timeInStringFormat
                 self.addShiftViewModel.updateLastCheckInTime(with: timeInDateFormat)
             }).disposed(by: disposeBag)
-                
+        
         Observable.combineLatest(leavingDatePicker.rx.value, leavingTimePicker.rx.value)
             .subscribe(onNext: { [weak self] (leavingDateInDateFormat, leavingTimeInDateFormat) in
                 guard let `self` = self else { return }
@@ -150,6 +158,10 @@ class AddShiftViewController: UIViewController {
         view.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] (tapGesture) in
             self?.view.endEditing(true)
         }).disposed(by: disposeBag)
+    }
+    
+    private func hideNavigationBar() {
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
 }
 

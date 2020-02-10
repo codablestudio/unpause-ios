@@ -13,6 +13,7 @@ extension Coordinator {
     func presentAddShiftViewController(from viewController: UIViewController) {
         let addShiftViewModel = AddShiftViewModel()
         let addShiftViewController = AddShiftViewController(addShiftViewModel: addShiftViewModel)
-        viewController.present(addShiftViewController, animated: true)
+        let navigationController = UINavigationController(rootViewController: addShiftViewController)
+        viewController.present(navigationController, animated: true)
     }
 }
