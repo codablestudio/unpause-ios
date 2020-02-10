@@ -43,6 +43,10 @@ class AddShiftViewController: UIViewController {
     
     private let closeButton = UIButton()
     
+    private let arrivalTimePicker = UIDatePicker()
+    private let leavingDatePicker = UIDatePicker()
+    private let leavingTimePicker = UIDatePicker()
+    
     init(addShiftViewModel: AddShiftViewModel) {
         self.addShiftViewModel = addShiftViewModel
         super.init(nibName: nil, bundle: nil)
@@ -51,7 +55,7 @@ class AddShiftViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         render()
@@ -80,25 +84,44 @@ class AddShiftViewController: UIViewController {
         closeButton.rx.tap.subscribe(onNext: { _ in
             self.dismiss(animated: true)
         }).disposed(by: disposeBag)
+        
+        arrivalTimePicker.rx.value
+            .subscribe(onNext: { [weak self] date in
+                guard let `self` = self else { return }
+                let time = self.addShiftViewModel.convertTimeIntoString(from: date)
+                self.arrivalTimeTextField.text = time
+            }).disposed(by: disposeBag)
+        
+        leavingDatePicker.rx.value
+            .subscribe(onNext: { [weak self] date in
+                guard let `self` = self else { return }
+                let date = self.addShiftViewModel.convertDateIntoString(from: date)
+                self.leavingDateTextField.text = date
+            }).disposed(by: disposeBag)
+        
+        leavingTimePicker.rx.value
+            .subscribe(onNext: { [weak self] date in
+                guard let `self` = self else { return }
+                let time = self.addShiftViewModel.convertTimeIntoString(from: date)
+                self.leavingTimeTextField.text = time
+            }).disposed(by: disposeBag)
     }
     
     private func createPickers() {
-        createTimePickerAndBarForPicker(for: arrivalTimeTextField)
-        createPickerAndBarForPicker(for: leavingDateTextField)
-        createTimePickerAndBarForPicker(for: leavingTimeTextField)
+        createTimePickerAndBarForPicker(for: arrivalTimeTextField, with: arrivalTimePicker)
+        createDatePickerAndBarForPicker(for: leavingDateTextField, with: leavingDatePicker)
+        createTimePickerAndBarForPicker(for: leavingTimeTextField, with: leavingTimePicker)
     }
     
-    private func createPickerAndBarForPicker(for textField: UITextField) {
-        let picker = UIDatePicker()
+    private func createDatePickerAndBarForPicker(for textField: UITextField, with picker: UIDatePicker) {
+        picker.datePickerMode = UIDatePicker.Mode.date
         textField.inputView = picker
         picker.backgroundColor = UIColor.white
         addBarOnTopOfPicker(for: textField)
     }
     
-    private func createTimePickerAndBarForPicker(for textField: UITextField) {
-        let picker = UIPickerView()
-        picker.delegate = self
-        picker.dataSource = self
+    private func createTimePickerAndBarForPicker(for textField: UITextField, with picker: UIDatePicker) {
+        picker.datePickerMode = UIDatePicker.Mode.time
         textField.inputView = picker
         picker.backgroundColor = UIColor.white
         addBarOnTopOfPicker(for: textField)
@@ -115,8 +138,8 @@ class AddShiftViewController: UIViewController {
         textField.inputAccessoryView = bar
         
         doneButton.rx.tap.subscribe(onNext: { [weak self] _ in
-        self?.view.endEditing(true)
-         }).disposed(by: disposeBag)
+            self?.view.endEditing(true)
+        }).disposed(by: disposeBag)
     }
     
     private func addGestureRecognizer() {
@@ -259,7 +282,7 @@ private extension AddShiftViewController {
         descriptionLabel.numberOfLines = 0
         descriptionLabel.textAlignment = .center
     }
-
+    
     func renderCancleAndContinueButton() {
         containerView.addSubview(stackView)
         stackView.snp.makeConstraints { (make) in
@@ -284,89 +307,5 @@ private extension AddShiftViewController {
             make.left.equalToSuperview().offset(15)
         }
         closeButton.setImage(UIImage(named: "close_25x25"), for: .normal)
-    }
-}
-
-// MARK: - Picker delegate functions
-
-extension AddShiftViewController: UIPickerViewDelegate, UIPickerViewDataSource {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-//        if pickerView == dateTextField.inputView {
-//            return 3
-//        } else {
-//            return 1
-//        }
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-//        if pickerView == membershipTextField.inputView {
-//            return membershipPickerArray.count
-//        } else if pickerView == phoneNumberTextField.inputView {
-//            return phoneNumberPickerArray.count
-//        } else if pickerView == statusTextView.inputView {
-//            return statusPickerArray.count
-//        } else {
-//            if component == 0 {
-//                return dayArray.count
-//            } else if component == 1 {
-//                return monthsArray.count
-//            } else {
-//                return yearArray.count
-//            }
-//        }
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-//        if pickerView == membershipTextField.inputView {
-//            return membershipPickerArray[row]
-//        } else if pickerView == phoneNumberTextField.inputView {
-//            return phoneNumberPickerArray[row]
-//        } else if pickerView == statusTextView.inputView {
-//            return statusPickerArray[row]
-//        } else {
-//            if component == 0 {
-//                return dayArray[row]
-//            } else if component == 1 {
-//                return monthsArray[row]
-//            } else {
-//                return yearArray[row]
-//            }
-//        }
-        return "aaa"
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-//        if pickerView == membershipTextField.inputView {
-//            chosenMembership = membershipPickerArray[row]
-//            membershipTextField.text = chosenMembership
-//        } else if pickerView == phoneNumberTextField.inputView {
-//            preNumber = phoneNumberPickerArray[row]
-//            phoneNumberTextField.text = preNumber
-//        } else if pickerView == statusTextView.inputView {
-//            chosenStatus = statusPickerArray[row]
-//            if [1,2,3,4,5,6].contains(row) {
-//                schoolStackView.isHidden = false
-//            } else {
-//                schoolStackView.isHidden = true
-//            }
-//            statusTextView.text = chosenStatus
-//        } else {
-//            if component == 0 {
-//                chosenDay = dayArray[row]
-//            } else if component == 1 {
-//                chosenMonth = monthsArray[row]
-//            } else {
-//                chosenYear = yearArray[row]
-//            }
-//            guard let day = chosenDay, let month = chosenMonth, let year = chosenYear else {
-//                return
-//            }
-//            dateTextField.text = "\(day) \(month) \(year)"
-//            if day == "" || month == "" || year == "" {
-//                dateTextField.text =  nil
-//            }
-//        }
     }
 }
