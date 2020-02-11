@@ -50,6 +50,9 @@ class AddShiftViewController: UIViewController {
     private var workingHours = PublishSubject<String>()
     private var workingMinutes = PublishSubject<String>()
     
+    private var arrivalDateAndTime: Date?
+    private var leavingDateAndTime: Date?
+    
     init(addShiftViewModel: AddShiftViewModel) {
         self.addShiftViewModel = addShiftViewModel
         super.init(nibName: nil, bundle: nil)
@@ -98,8 +101,11 @@ class AddShiftViewController: UIViewController {
             self.dismiss(animated: true)
         }).disposed(by: disposeBag)
         
-        continueButton.rx.tap.subscribe(onNext: { _ in
-            Coordinator.shared.navigateToDecriptionViewController(from: self)
+        continueButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else { return }
+            Coordinator.shared.navigateToDecriptionViewController(from: self,
+                                                                  arrivalTime: self.arrivalDateAndTime,
+                                                                  leavingTime: self.leavingDateAndTime)
         }).disposed(by: disposeBag)
         
         arrivalTimePicker.rx.value
@@ -133,6 +139,9 @@ class AddShiftViewController: UIViewController {
                     let secondDate = self.addShiftViewModel.makeNewDateAndTimeInDateFormat(dateInDateFormat: leavingDate,
                                                                                            timeInDateFormat: leavingTime)
                     else { return }
+                
+                self.arrivalDateAndTime = firstDate
+                self.leavingDateAndTime = secondDate
                 
                 let timeDifference = self.addShiftViewModel.findTimeDifference(firstDate: firstDate, secondDate: secondDate)
                 self.workingHours.onNext(timeDifference.0)

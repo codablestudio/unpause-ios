@@ -80,7 +80,6 @@ class HomeViewController: UIViewController {
                     self.checkInButton.setTitle("Check out", for: .normal)
                     self.userChecksIn.onNext(true)
                 } else {
-                    self.checkInButton.setTitle("Check in", for: .normal)
                     self.userChecksIn.onNext(false)
                 }
             }).disposed(by: disposeBag)
@@ -94,6 +93,16 @@ class HomeViewController: UIViewController {
                 case .error(let error):
                     print("Error occured: \(error)")
                     self.showAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
+                }
+            }).disposed(by: disposeBag)
+        
+        homeViewModel.usersLastCheckInTime
+            .subscribe(onNext: { (lastCheckInResponse) in
+                switch lastCheckInResponse {
+                case .lastCheckIn(let lastCheckInDate):
+                    print("\(lastCheckInDate)")
+                case .error(let error):
+                    print("\(error)")
                 }
             }).disposed(by: disposeBag)
     }
@@ -115,7 +124,6 @@ class HomeViewController: UIViewController {
 }
 
 // MARK: - UI rendering
-
 private extension HomeViewController {
     func configureScrollViewAndContainerView() {
         view.backgroundColor = UIColor.white
@@ -135,6 +143,7 @@ private extension HomeViewController {
             make.width.equalTo(UIScreen.main.bounds.width)
         }
     }
+
     
     func renderSignedInLabel() {
         containerView.addSubview(signedInLabel)

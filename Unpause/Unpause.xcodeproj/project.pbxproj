@@ -68,6 +68,7 @@
 		C198B8F623B0D57C00FBD3C6 /* UnpauseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C198B8F523B0D57C00FBD3C6 /* UnpauseError.swift */; };
 		C1B0B2B323B0BF9700CE5D05 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B0B2B223B0BF9700CE5D05 /* SessionManager.swift */; };
 		C1C41B7623A9594F009288CA /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C41B7523A9594F009288CA /* UITextField+Extension.swift */; };
+		C1F2CD1F23F2E6D600BD23DC /* LastCheckInResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F2CD1E23F2E6D600BD23DC /* LastCheckInResponse.swift */; };
 		C1FBC46D23AA51E100579913 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBC46C23AA51E100579913 /* HomeViewController.swift */; };
 		C1FBC46F23AA521C00579913 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBC46E23AA521C00579913 /* HomeViewModel.swift */; };
 		C1FF2A8A23C4B0E500ACCF29 /* UpdatePersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FF2A8923C4B0E500ACCF29 /* UpdatePersonalInfoViewController.swift */; };
@@ -140,6 +141,7 @@
 		C198B8F523B0D57C00FBD3C6 /* UnpauseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnpauseError.swift; sourceTree = "<group>"; };
 		C1B0B2B223B0BF9700CE5D05 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		C1C41B7523A9594F009288CA /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
+		C1F2CD1E23F2E6D600BD23DC /* LastCheckInResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastCheckInResponse.swift; sourceTree = "<group>"; };
 		C1FBC46C23AA51E100579913 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		C1FBC46E23AA521C00579913 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		C1FF2A8923C4B0E500ACCF29 /* UpdatePersonalInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePersonalInfoViewController.swift; sourceTree = "<group>"; };
@@ -329,6 +331,7 @@
 				C198B8F523B0D57C00FBD3C6 /* UnpauseError.swift */,
 				C13B4B1123BF8A62006E1E0E /* FirebaseDocumentResponeObject.swift */,
 				C133DE5323C89F2A0096F5B2 /* Response.swift */,
+				C1F2CD1E23F2E6D600BD23DC /* LastCheckInResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -516,6 +519,7 @@
 				C111932323CF6008007E2866 /* AddShiftViewModel.swift in Sources */,
 				C1FF2A8E23C4B3EA00ACCF29 /* Coordinator+Settings.swift in Sources */,
 				C10F78DB23A3D79200783476 /* UILabel+Extension.swift in Sources */,
+				C1F2CD1F23F2E6D600BD23DC /* LastCheckInResponse.swift in Sources */,
 				C13B4B1223BF8A62006E1E0E /* FirebaseDocumentResponeObject.swift in Sources */,
 				C13C412223ABBC4100B674E9 /* ActivityViewController.swift in Sources */,
 				C10F78DA23A3D79200783476 /* UIColor+Extension.swift in Sources */,

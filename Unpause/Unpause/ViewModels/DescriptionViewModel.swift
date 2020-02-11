@@ -6,12 +6,16 @@
 //  Copyright © 2020 Krešimir Baković. All rights reserved.
 //
 
-import Foundation
+import RxSwift
 
 class DescriptionViewModel {
-
-    init() {
+    
+    private var textInDescriptionTextView: String?
+    var textInEmailTextFieldChanges = PublishSubject<String?>()
+    
+    init(arrivalTime: Date?, leavingTime: Date?) {
         setUpObservables()
+        HomeViewModel.forceRefresh.onNext(())
     }
     
     private func setUpObservables() {

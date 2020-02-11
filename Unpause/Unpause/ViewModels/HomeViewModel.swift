@@ -14,15 +14,20 @@ class HomeViewModel {
     private let disposeBag = DisposeBag()
     private let homeNetworking = HomeNetworking()
     
+    var usersLastCheckInTime: Observable<LastCheckInResponse>!
+    
     var userChecksIn = PublishSubject<Bool>()
     
     var checkInResponse: Observable<Response>!
+    
+    static let forceRefresh = PublishSubject<Void>()
     
     init() {
         setUpObservables()
     }
     
     private func setUpObservables() {
+        usersLastCheckInTime = homeNetworking.getUsersLastCheckInTime()
         checkInResponse = userChecksIn
             .flatMapLatest({ [weak self] userChecksIn -> Observable<Response> in
                 guard let `self` = self else { return Observable.empty() }
@@ -35,5 +40,10 @@ class HomeViewModel {
                     return Observable.empty()
                 }
             })
+        
+        HomeViewModel.forceRefresh
+            .subscribe(onNext: { _ in
+                print("I should refresh")
+            }).disposed(by: disposeBag)
     }
 }

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
 class Formatter {
     
@@ -45,4 +46,8 @@ class Formatter {
         let dateInStringFormat = formatter.string(from: formatedDate)
         return dateInStringFormat
     }
+    
+//    func convertTimeStampIntoDate(timeStamp: Timestamp?) -> Date? {
+//        
+//    }
 }
