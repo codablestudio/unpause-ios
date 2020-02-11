@@ -131,9 +131,8 @@ class AddShiftViewController: UIViewController {
                 guard let `self` = self else { return }
                 guard let firstDate = self.addShiftViewModel.makeNewDateAndTimeWithCheckInDateAnd(timeInDateFormat: arrivalTime),
                     let secondDate = self.addShiftViewModel.makeNewDateAndTimeInDateFormat(dateInDateFormat: leavingDate,
-                                                                                           timeInDateFormat: leavingTime) else {
-                                                                                            return
-                }
+                                                                                           timeInDateFormat: leavingTime)
+                    else { return }
                 
                 let timeDifference = self.addShiftViewModel.findTimeDifference(firstDate: firstDate, secondDate: secondDate)
                 self.workingHours.onNext(timeDifference.0)
@@ -143,12 +142,11 @@ class AddShiftViewController: UIViewController {
         Observable.combineLatest(workingHours, workingMinutes)
             .subscribe(onNext: { [weak self] (workingHours, workingMinutes) in
                 guard let `self` = self else { return }
-                self.descriptionLabel.text = """
-                You have been working for
-                \(workingHours) hours and
-                \(workingMinutes) minutes,
-                would you like to continue?
-                """
+                let firstPartOfString = "You have been working for"
+                let hoursPartOfString = "\(workingHours) hours and"
+                let minutesPartOfString = "\(workingMinutes)"
+                let lastPartOfString = "minutes, would you like to continue?"
+                self.descriptionLabel.text = "\(firstPartOfString) \(hoursPartOfString) \(minutesPartOfString) \(lastPartOfString)"
             }).disposed(by: disposeBag)
     }
     
@@ -200,18 +198,16 @@ class AddShiftViewController: UIViewController {
     private func showFreshWorkingHoursAndMinutesLabel() {
         guard let firstDateAndTime = addShiftViewModel.makeNewDateAndTimeWithCheckInDateAnd(timeInDateFormat: arrivalTimePicker.date),
             let secondDateAndTime = addShiftViewModel.makeNewDateAndTimeInDateFormat(dateInDateFormat: leavingDatePicker.date,
-                                                                                     timeInDateFormat: leavingTimePicker.date) else {
-                                                                                        return
-        }
+                                                                                     timeInDateFormat: leavingTimePicker.date)
+            else { return }
         
         let timeIntervalHoursAndMinutes = addShiftViewModel.findTimeDifference(firstDate: firstDateAndTime,
                                                                                secondDate: secondDateAndTime)
-        descriptionLabel.text = """
-        You have been working for
-        \(timeIntervalHoursAndMinutes.0) hours and
-        \(timeIntervalHoursAndMinutes.1) minutes,
-        would you like to continue?
-        """
+        let firstPartOfString = "You have been working for"
+        let hoursPartOfString = "\(timeIntervalHoursAndMinutes.0) hours and"
+        let minutesPartOfString = "\(timeIntervalHoursAndMinutes.1)"
+        let lastPartOfString = "minutes, would you like to continue?"
+        descriptionLabel.text = "\(firstPartOfString) \(hoursPartOfString) \(minutesPartOfString) \(lastPartOfString)"
     }
 }
 
