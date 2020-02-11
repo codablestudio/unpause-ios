@@ -47,6 +47,9 @@ class AddShiftViewController: UIViewController {
     private let leavingDatePicker = UIDatePicker()
     private let leavingTimePicker = UIDatePicker()
     
+    private var workingHours = PublishSubject<String>()
+    private var workingMinutes = PublishSubject<String>()
+    
     init(addShiftViewModel: AddShiftViewModel) {
         self.addShiftViewModel = addShiftViewModel
         super.init(nibName: nil, bundle: nil)
@@ -67,6 +70,7 @@ class AddShiftViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         hideNavigationBar()
+        showFreshWorkingHoursAndMinutesLabel()
     }
     
     private func setUpArrivalTimePickerInitalValue() {
@@ -103,7 +107,9 @@ class AddShiftViewController: UIViewController {
                 guard let `self` = self else { return }
                 let timeInStringFormat = Formatter.shared.convertTimeIntoString(from: timeInDateFormat)
                 self.arrivalTimeTextField.text = timeInStringFormat
-                self.addShiftViewModel.updateLastCheckInTime(with: timeInDateFormat)
+                
+                let newDateAndTime = self.addShiftViewModel.makeNewDateAndTimeWithCheckInDateAnd(timeInDateFormat: timeInDateFormat)
+                SessionManager.shared.currentUser?.lastCheckInDateAndTime = newDateAndTime
             }).disposed(by: disposeBag)
         
         Observable.combineLatest(leavingDatePicker.rx.value, leavingTimePicker.rx.value)
@@ -115,7 +121,34 @@ class AddShiftViewController: UIViewController {
                 let timeInStringFormat = Formatter.shared.convertTimeIntoString(from: leavingTimeInDateFormat)
                 self.leavingTimeTextField.text = timeInStringFormat
                 
-                self.addShiftViewModel.updateLastCheckOutTime(with: leavingDateInDateFormat, and: leavingTimeInDateFormat)
+                let newDateAndTime = self.addShiftViewModel.makeNewDateAndTimeInDateFormat(dateInDateFormat: leavingDateInDateFormat,
+                                               timeInDateFormat: leavingTimeInDateFormat)
+                SessionManager.shared.currentUser?.lastCheckOutDateAndTime = newDateAndTime
+            }).disposed(by: disposeBag)
+        
+        Observable.combineLatest(arrivalTimePicker.rx.value, leavingDatePicker.rx.value, leavingTimePicker.rx.value)
+            .subscribe(onNext: { [weak self] (arrivalTime, leavingDate, leavingTime) in
+                guard let `self` = self else { return }
+                guard let firstDate = self.addShiftViewModel.makeNewDateAndTimeWithCheckInDateAnd(timeInDateFormat: arrivalTime),
+                    let secondDate = self.addShiftViewModel.makeNewDateAndTimeInDateFormat(dateInDateFormat: leavingDate,
+                                                                                           timeInDateFormat: leavingTime) else {
+                                                                                            return
+                }
+                
+                let timeDifference = self.addShiftViewModel.findTimeDifference(firstDate: firstDate, secondDate: secondDate)
+                self.workingHours.onNext(timeDifference.0)
+                self.workingMinutes.onNext(timeDifference.1)
+            }).disposed(by: disposeBag)
+        
+        Observable.combineLatest(workingHours, workingMinutes)
+            .subscribe(onNext: { [weak self] (workingHours, workingMinutes) in
+                guard let `self` = self else { return }
+                self.descriptionLabel.text = """
+                You have been working for
+                \(workingHours) hours and
+                \(workingMinutes) minutes,
+                would you like to continue?
+                """
             }).disposed(by: disposeBag)
     }
     
@@ -162,6 +195,23 @@ class AddShiftViewController: UIViewController {
     
     private func hideNavigationBar() {
         navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
+    private func showFreshWorkingHoursAndMinutesLabel() {
+        guard let firstDateAndTime = addShiftViewModel.makeNewDateAndTimeWithCheckInDateAnd(timeInDateFormat: arrivalTimePicker.date),
+            let secondDateAndTime = addShiftViewModel.makeNewDateAndTimeInDateFormat(dateInDateFormat: leavingDatePicker.date,
+                                                                                     timeInDateFormat: leavingTimePicker.date) else {
+                                                                                        return
+        }
+        
+        let timeIntervalHoursAndMinutes = addShiftViewModel.findTimeDifference(firstDate: firstDateAndTime,
+                                                                               secondDate: secondDateAndTime)
+        descriptionLabel.text = """
+        You have been working for
+        \(timeIntervalHoursAndMinutes.0) hours and
+        \(timeIntervalHoursAndMinutes.1) minutes,
+        would you like to continue?
+        """
     }
 }
 
@@ -291,7 +341,6 @@ private extension AddShiftViewController {
             make.left.equalToSuperview().offset(30)
             make.right.equalToSuperview().inset(30)
         }
-        descriptionLabel.text = "You have been working for 3 hours and 15 minutes, would you like to continue?"
         descriptionLabel.numberOfLines = 0
         descriptionLabel.textAlignment = .center
     }

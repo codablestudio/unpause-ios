@@ -12,12 +12,12 @@ class AddShiftViewModel {
     
     init() {}
 
-    func updateLastCheckInTime(with timeInDateFormat: Date) {
+    func makeNewDateAndTimeWithCheckInDateAnd(timeInDateFormat: Date) -> Date? {
         let calendar = Calendar.current
         var dateComponents = DateComponents()
         
         guard let lastCheckInDateAndTime = SessionManager.shared.currentUser?.lastCheckInDateAndTime else {
-            return
+            return Date()
         }
         
         let year = calendar.component(.year, from: lastCheckInDateAndTime)
@@ -34,11 +34,11 @@ class AddShiftViewModel {
         dateComponents.minute = minute
         dateComponents.second = second
         
-        let newLastCheckInDateAndTime = calendar.date(from: dateComponents)
-        SessionManager.shared.currentUser?.lastCheckInDateAndTime = newLastCheckInDateAndTime
+        let newDateAndTime = calendar.date(from: dateComponents)
+        return newDateAndTime
     }
     
-    func updateLastCheckOutTime(with dateInDateFormat: Date, and timeInDateFormat: Date) {
+    func makeNewDateAndTimeInDateFormat(dateInDateFormat: Date, timeInDateFormat: Date) -> Date? {
         let calendar = Calendar.current
         var dateComponents = DateComponents()
         
@@ -56,7 +56,14 @@ class AddShiftViewModel {
         dateComponents.minute = minute
         dateComponents.second = second
         
-        let newLastCheckOutDateAndTime = calendar.date(from: dateComponents)
-        SessionManager.shared.currentUser?.lastCheckOutDateAndTime = newLastCheckOutDateAndTime
+        let newDateAndTime = calendar.date(from: dateComponents)
+        return newDateAndTime
+    }
+    
+    func findTimeDifference(firstDate: Date, secondDate: Date) -> (String, String) {
+        let timeDifferenceInSeconds = secondDate.timeIntervalSince1970 - firstDate.timeIntervalSince1970
+        let hours = String(Int(timeDifferenceInSeconds / 3600))
+        let minutes = String(Int((timeDifferenceInSeconds.truncatingRemainder(dividingBy: 3600)) / 60))
+        return (hours,minutes)
     }
 }
