@@ -84,6 +84,18 @@ class HomeViewController: UIViewController {
                     self.userChecksIn.onNext(false)
                 }
             }).disposed(by: disposeBag)
+        
+        homeViewModel.checkInResponse
+            .subscribe(onNext: { [weak self] (response) in
+                guard let `self` = self else { return }
+                switch response {
+                case .success:
+                    print("User successfully checked in.")
+                case .error(let error):
+                    print("Error occured: \(error)")
+                    self.showAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
+                }
+            }).disposed(by: disposeBag)
     }
     
     private func showTitleInNavigationBar() {
@@ -93,6 +105,12 @@ class HomeViewController: UIViewController {
     private func displayFreshUserData() {
         userFirstNameLabel.text = SessionManager.shared.currentUser?.firstName
         userLastNameLabel.text = SessionManager.shared.currentUser?.lastName
+    }
+    
+    private func showAlert(title: String, message: String, actionTitle: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: actionTitle, style: .default, handler: nil))
+        self.present(alert, animated: true)
     }
 }
 

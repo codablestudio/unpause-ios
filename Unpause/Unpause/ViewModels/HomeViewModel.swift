@@ -15,22 +15,25 @@ class HomeViewModel {
     private let homeNetworking = HomeNetworking()
     
     var userChecksIn = PublishSubject<Bool>()
-    var checkInButtonTapped = PublishSubject<Void>()
+    
+    var checkInResponse: Observable<Response>!
     
     init() {
         setUpObservables()
     }
     
     private func setUpObservables() {
-        userChecksIn.subscribe(onNext: { [weak self] (userChecksIn) in
-            guard let `self` = self else { return }
-            let timeAtThisMoment = Date()
-            if userChecksIn {
-                SessionManager.shared.currentUser?.lastCheckInDateAndTime = timeAtThisMoment
-                self.homeNetworking.checkInUser(with: timeAtThisMoment)
-            } else {
-                SessionManager.shared.currentUser?.lastCheckOutDateAndTime = timeAtThisMoment
-            }
-        }).disposed(by: disposeBag)
+        checkInResponse = userChecksIn
+            .flatMapLatest({ [weak self] userChecksIn -> Observable<Response> in
+                guard let `self` = self else { return Observable.empty() }
+                let timeAtThisMoment = Date()
+                if userChecksIn {
+                    SessionManager.shared.currentUser?.lastCheckInDateAndTime = timeAtThisMoment
+                    return self.homeNetworking.checkInUser(with: timeAtThisMoment)
+                } else {
+                    SessionManager.shared.currentUser?.lastCheckOutDateAndTime = timeAtThisMoment
+                    return Observable.empty()
+                }
+            })
     }
 }
