@@ -15,7 +15,6 @@ import RxFirebase
 class HomeNetworking {
     
     private let dataBaseReference = Firestore.firestore()
-    private let disposeBag = DisposeBag()
     
     func getUsersLastCheckInTime() -> Observable<LastCheckInResponse> {
         guard let currentUserEmail = SessionManager.shared.currentUser?.email else {

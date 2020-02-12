@@ -51,4 +51,12 @@ class Formatter {
         let date = timeStamp?.dateValue()
         return date
     }
+    
+    func convertDateIntoTimeStamp(date: Date?) -> Timestamp? {
+        guard let date = date else {
+            return Timestamp()
+        }
+        let timeStamp = Timestamp(date: date)
+        return timeStamp
+    }
 }

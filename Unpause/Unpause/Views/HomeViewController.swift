@@ -105,8 +105,11 @@ class HomeViewController: UIViewController {
                 guard let `self` = self else { return }
                 switch lastCheckInResponse {
                 case .lastCheckIn(let lastCheckInDate):
+                    SessionManager.shared.currentUser?.lastCheckInDateAndTime = lastCheckInDate
                     if lastCheckInDate != nil {
                         self.checkInButton.setTitle("Check out", for: .normal)
+                    } else {
+                        self.checkInButton.setTitle("Check in", for: .normal)
                     }
                 case .error(let error):
                     print("\(error)")
@@ -150,7 +153,7 @@ private extension HomeViewController {
             make.width.equalTo(UIScreen.main.bounds.width)
         }
     }
-
+    
     
     func renderSignedInLabel() {
         containerView.addSubview(signedInLabel)

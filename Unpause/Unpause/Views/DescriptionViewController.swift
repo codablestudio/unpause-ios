@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import SVProgressHUD
 
 class DescriptionViewController: UIViewController {
     
@@ -33,7 +34,7 @@ class DescriptionViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         render()
@@ -44,6 +45,10 @@ class DescriptionViewController: UIViewController {
         showNavigationBar()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        HomeViewModel.forceRefresh.onNext(())
+    }
+    
     private func render() {
         configureScrollViewAndContainerView()
         renderWhatDidYouWorkOnLabel()
@@ -52,13 +57,43 @@ class DescriptionViewController: UIViewController {
     }
     
     private func setUpObservables() {
+        descriptionTextView.rx.text
+            .bind(to: descriptionViewModel.textInEmailTextFieldChanges)
+            .disposed(by: disposeBag)
+        
         cancelButton.rx.tap.subscribe(onNext: { _ in
             self.dismiss(animated: true)
         }).disposed(by: disposeBag)
+        
+        saveButton.rx.tap
+            .do(onNext: { _ in
+                SVProgressHUD.show()
+            })
+            .bind(to: descriptionViewModel.saveButtonTapped)
+            .disposed(by: disposeBag)
+        
+        descriptionViewModel.shiftSavingResponse
+            .subscribe(onNext: { [weak self] (response) in
+                guard let `self` = self else { return }
+                switch response {
+                case .success:
+                    SVProgressHUD.showSuccess(withStatus: "Shift successfully added.")
+                    SVProgressHUD.dismiss(withDelay: 0.6)
+                    self.dismiss(animated: true)
+                case .error(let error):
+                    self.showAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
+                }
+            }).disposed(by: disposeBag)
     }
     
     private func showNavigationBar() {
         navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    private func showAlert(title: String, message: String, actionTitle: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: actionTitle, style: .default, handler: nil))
+        self.present(alert, animated: true)
     }
 }
 

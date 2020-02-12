@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 
 class HomeViewModel {
+    
     private let disposeBag = DisposeBag()
     private let homeNetworking = HomeNetworking()
     
@@ -29,8 +30,13 @@ class HomeViewModel {
     }
     
     private func setUpObservables() {
-        usersLastCheckInTimeRequest = homeNetworking.getUsersLastCheckInTime()
-            .trackActivity(_isFetchingLastShift)
+        usersLastCheckInTimeRequest = HomeViewModel.forceRefresh
+            .startWith(())
+            .flatMapLatest({ [weak self] _ -> Observable<LastCheckInResponse> in
+                guard let `self` = self else { return Observable.empty() }
+                return self.homeNetworking.getUsersLastCheckInTime()
+                    .trackActivity(self._isFetchingLastShift)
+            })
         
         checkInResponse = userChecksIn
             .flatMapLatest({ [weak self] userChecksIn -> Observable<Response> in
@@ -44,10 +50,5 @@ class HomeViewModel {
                     return Observable.empty()
                 }
             })
-        
-        HomeViewModel.forceRefresh
-            .subscribe(onNext: { _ in
-                print("I should refresh")
-            }).disposed(by: disposeBag)
     }
 }

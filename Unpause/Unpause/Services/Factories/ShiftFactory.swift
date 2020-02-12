@@ -11,6 +11,15 @@ import FirebaseFirestore
 
 class ShiftFactory {
     
+    func createShift(from shiftData: [String: Any]) -> Shift? {
+        guard let arrivalTimestamp = shiftData["arrivalTime"] as? Timestamp else { return nil }
+        let newShift = Shift()
+        newShift.arrivalTime = arrivalTimestamp
+        newShift.exitTime = shiftData["exitTime"] as? Timestamp
+        newShift.description = shiftData["description"] as? String
+        return newShift
+    }
+    
     func createShifts(_ data: [String: Any]) -> [Shift] {
         var shifts = [Shift]()
         let shiftsData = data["shifts"] as? [[String: Any]] ?? []
@@ -23,13 +32,21 @@ class ShiftFactory {
         return shifts
     }
     
-    func createShift(from shiftData: [String: Any]) -> Shift? {
-        guard let arrivalTimestamp = shiftData["arrivalTime"] as? Timestamp else { return nil }
-        let newShift = Shift()
-        newShift.arrivalTime = arrivalTimestamp
-        newShift.exitTime = shiftData["exitTime"] as? Timestamp
-        newShift.description = shiftData["description"] as? String
-        return newShift
+    func createShiftData(from shift: Shift) -> [String: Any] {
+        var newShiftData = [String: Any]()
+        newShiftData["arrivalTime"] = shift.arrivalTime
+        newShiftData["exitTime"] = shift.exitTime
+        newShiftData["description"] = shift.description
+        return newShiftData
+    }
+    
+    func createShiftsData(from shifts: [Shift]) -> [[String: Any]] {
+        var shiftsData = [[String: Any]]()
+        for shift in shifts {
+            let newShiftData = createShiftData(from: shift)
+            shiftsData.append(newShiftData)
+        }
+        return shiftsData
     }
 }
 

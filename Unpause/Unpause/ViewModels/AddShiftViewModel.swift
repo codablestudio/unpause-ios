@@ -11,7 +11,7 @@ import Foundation
 class AddShiftViewModel {
     
     init() {}
-
+    
     func makeNewDateAndTimeWithCheckInDateAnd(timeInDateFormat: Date) -> Date? {
         let calendar = Calendar.current
         var dateComponents = DateComponents()

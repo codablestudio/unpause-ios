@@ -11,7 +11,7 @@ import UIKit
 
 extension Coordinator {
     func navigateToDecriptionViewController(from viewController: UIViewController, arrivalTime: Date?, leavingTime: Date?) {
-        let descriptionViewModel = DescriptionViewModel(arrivalTime: arrivalTime, leavingTime: leavingTime)
+        let descriptionViewModel = DescriptionViewModel(arrivalDateAndTime: arrivalTime, leavingDateAndTime: leavingTime)
         let descriptionViewController = DescriptionViewController(descriptionViewModel: descriptionViewModel)
         viewController.navigationController?.pushViewController(descriptionViewController, animated: true)
     }

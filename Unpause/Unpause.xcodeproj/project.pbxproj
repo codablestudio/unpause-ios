@@ -50,6 +50,7 @@
 		C13C412823ABBC8900B674E9 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C412723ABBC8900B674E9 /* SettingsViewModel.swift */; };
 		C13DDCEB23F36D050043E242 /* Shift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13DDCEA23F36D050043E242 /* Shift.swift */; };
 		C1437B4123F3EF43007BD7DA /* ShiftFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1437B4023F3EF43007BD7DA /* ShiftFactory.swift */; };
+		C1437B4323F40B0A007BD7DA /* DescriptionNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1437B4223F40B0A007BD7DA /* DescriptionNetworking.swift */; };
 		C146991223A112F100A84818 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C146991123A112F100A84818 /* AppDelegate.swift */; };
 		C146991B23A112F200A84818 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C146991A23A112F200A84818 /* Assets.xcassets */; };
 		C146991E23A112F200A84818 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C146991C23A112F200A84818 /* LaunchScreen.storyboard */; };
@@ -123,6 +124,7 @@
 		C13C412723ABBC8900B674E9 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		C13DDCEA23F36D050043E242 /* Shift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shift.swift; sourceTree = "<group>"; };
 		C1437B4023F3EF43007BD7DA /* ShiftFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftFactory.swift; sourceTree = "<group>"; };
+		C1437B4223F40B0A007BD7DA /* DescriptionNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionNetworking.swift; sourceTree = "<group>"; };
 		C146990E23A112F100A84818 /* Unpause.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Unpause.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C146991123A112F100A84818 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C146991A23A112F200A84818 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -379,6 +381,7 @@
 				C138411323C5DA3E00A347F9 /* UpdatePersonalInfoNetworking.swift */,
 				C133DE5123C871A90096F5B2 /* UpdatePasswordNetworking.swift */,
 				C1707B1B23F18AE3002E1A10 /* HomeNetworking.swift */,
+				C1437B4223F40B0A007BD7DA /* DescriptionNetworking.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -538,6 +541,7 @@
 				C110AE2823C34E420066C394 /* UpdatePasswordViewController.swift in Sources */,
 				C1437B4123F3EF43007BD7DA /* ShiftFactory.swift in Sources */,
 				C137F48223B8B6AC00358E30 /* RegisterNetworking.swift in Sources */,
+				C1437B4323F40B0A007BD7DA /* DescriptionNetworking.swift in Sources */,
 				C16A2EF123A77B1200CBA43F /* Coordinator.swift in Sources */,
 				C111932323CF6008007E2866 /* AddShiftViewModel.swift in Sources */,
 				C1FF2A8E23C4B3EA00ACCF29 /* Coordinator+Settings.swift in Sources */,

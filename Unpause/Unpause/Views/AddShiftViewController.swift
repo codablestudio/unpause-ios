@@ -128,7 +128,7 @@ class AddShiftViewController: UIViewController {
                 self.leavingTimeTextField.text = timeInStringFormat
                 
                 let newDateAndTime = self.addShiftViewModel.makeNewDateAndTimeInDateFormat(dateInDateFormat: leavingDateInDateFormat,
-                                               timeInDateFormat: leavingTimeInDateFormat)
+                                                                                           timeInDateFormat: leavingTimeInDateFormat)
                 SessionManager.shared.currentUser?.lastCheckOutDateAndTime = newDateAndTime
             }).disposed(by: disposeBag)
         

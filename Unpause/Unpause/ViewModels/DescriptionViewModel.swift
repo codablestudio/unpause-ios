@@ -10,15 +10,45 @@ import RxSwift
 
 class DescriptionViewModel {
     
-    private var textInDescriptionTextView: String?
-    var textInEmailTextFieldChanges = PublishSubject<String?>()
+    private let disposeBag = DisposeBag()
+    private let descriptionNetworking = DesriptionNetworking()
     
-    init(arrivalTime: Date?, leavingTime: Date?) {
+    private let arrivalDateAndTime: Date?
+    private let leavingDateAndTime: Date?
+    
+    private var textInDescriptionTextView: String?
+    
+    var textInEmailTextFieldChanges = PublishSubject<String?>()
+    var saveButtonTapped = PublishSubject<Void>()
+    
+    var shiftSavingResponse: Observable<Response>!
+    
+    init(arrivalDateAndTime: Date?, leavingDateAndTime: Date?) {
+        self.arrivalDateAndTime = arrivalDateAndTime
+        self.leavingDateAndTime = leavingDateAndTime
         setUpObservables()
-        HomeViewModel.forceRefresh.onNext(())
     }
     
     private func setUpObservables() {
+        textInEmailTextFieldChanges.subscribe(onNext: { [weak self] (descriptionText) in
+            guard let `self` = self else { return }
+            self.textInDescriptionTextView = descriptionText
+        }).disposed(by: disposeBag)
         
+        shiftSavingResponse = saveButtonTapped
+            .flatMapLatest({ [weak self] _ -> Observable<Response> in
+                guard let `self` = self,
+                    let arrivalDateAndTime = self.arrivalDateAndTime,
+                    let leavingDateAndTime = self.leavingDateAndTime else {
+                        return Observable.just(Response.error(UnpauseError.emptyError))
+                }
+                
+                let arrivalDateAndTimeInTimeStampFormat = Formatter.shared.convertDateIntoTimeStamp(date: arrivalDateAndTime)
+                let leavingDateAndTimeInTimeStampFormat = Formatter.shared.convertDateIntoTimeStamp(date: leavingDateAndTime)
+                
+                return self.descriptionNetworking.saveNewShift(arrivalTime: arrivalDateAndTimeInTimeStampFormat,
+                                                               leavingTime: leavingDateAndTimeInTimeStampFormat,
+                                                               description: self.textInDescriptionTextView)
+            })
     }
 }
