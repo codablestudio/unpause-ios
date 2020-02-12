@@ -73,6 +73,10 @@ class HomeViewController: UIViewController {
             .bind(to: homeViewModel.userChecksIn)
             .disposed(by: disposeBag)
         
+        homeViewModel.fetchingLastShift
+            .bind(to: checkInButton.rx.animating)
+            .disposed(by: disposeBag)
+        
         checkInButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 guard let `self` = self else { return }
@@ -96,11 +100,14 @@ class HomeViewController: UIViewController {
                 }
             }).disposed(by: disposeBag)
         
-        homeViewModel.usersLastCheckInTime
-            .subscribe(onNext: { (lastCheckInResponse) in
+        homeViewModel.usersLastCheckInTimeRequest
+            .subscribe(onNext: { [weak self] (lastCheckInResponse) in
+                guard let `self` = self else { return }
                 switch lastCheckInResponse {
                 case .lastCheckIn(let lastCheckInDate):
-                    print("\(lastCheckInDate)")
+                    if lastCheckInDate != nil {
+                        self.checkInButton.setTitle("Check out", for: .normal)
+                    }
                 case .error(let error):
                     print("\(error)")
                 }
@@ -126,7 +133,7 @@ class HomeViewController: UIViewController {
 // MARK: - UI rendering
 private extension HomeViewController {
     func configureScrollViewAndContainerView() {
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = UIColor.whiteUnpauseTextAndBackgroundColor
         
         view.addSubview(scrollView)
         
@@ -225,7 +232,7 @@ private extension HomeViewController {
         }
         checkInButton.backgroundColor = UIColor.orange
         checkInButton.layer.cornerRadius = 70
-        checkInButton.setTitle("Check in", for: .normal)
-        checkInButton.titleLabel?.font = checkInButton.titleLabel?.font.withSize(25)
+        checkInButton.titleLabel?.font = .systemFont(ofSize: 25)
+        checkInButton.setTitleColor(.white, for: UIControl.State())
     }
 }

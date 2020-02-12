@@ -117,7 +117,7 @@ class UpdatePasswordViewController: UIViewController {
 private extension UpdatePasswordViewController {
     
     func configureScrollViewAndContainerView() {
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = UIColor.whiteUnpauseTextAndBackgroundColor
         
         view.addSubview(scrollView)
         scrollView.snp.makeConstraints { (make) in

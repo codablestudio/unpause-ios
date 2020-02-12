@@ -18,29 +18,30 @@ class HomeNetworking {
     private let disposeBag = DisposeBag()
     
     func getUsersLastCheckInTime() -> Observable<LastCheckInResponse> {
-        guard let currentUserEmail = SessionManager.shared.currentUser?.email else { return Observable.empty() }
+        guard let currentUserEmail = SessionManager.shared.currentUser?.email else {
+            return Observable.just(.error(UnpauseError.noUser))
+        }
         
         return dataBaseReference.collection("users")
             .document("\(currentUserEmail)")
             .rx
             .getDocument()
-            .flatMapLatest { (shifts) -> Observable<LastCheckInResponse> in
-                print(shifts.data())
-                guard let a = shifts.data() else {
-                    return Observable.empty()
-                }
-                return Observable.empty()
-//                for shift in a {
-//                    for (name,value) in shift {
-//                        let lastCheckInTime = shift["arrivalTime"]
-//                        return Observable.just(LastCheckInResponse(a))
-//                    }
-//                }
-        }
+            .mapShifts()
+            .map({ shifts -> Shift? in
+                return shifts.last(where: { $0.exitTime == nil })
+            })
+            .flatMapLatest({ lastShiftWithoutExitTime -> Observable<LastCheckInResponse> in
+                let lastArrivalDateAndTime = Formatter
+                    .shared
+                    .convertTimeStampIntoDate(timeStamp: lastShiftWithoutExitTime?.arrivalTime)
+                return Observable.just(LastCheckInResponse.lastCheckIn(lastArrivalDateAndTime))
+            })
     }
     
     func checkInUser(with time: Date) -> Observable<Response> {
-        guard let currentUserEmail = SessionManager.shared.currentUser?.email else { return Observable.empty() }
+        guard let currentUserEmail = SessionManager.shared.currentUser?.email else {
+            return Observable.just(.error(UnpauseError.noUser))
+        }
         
         var shiftsData = [String: Any]()
         

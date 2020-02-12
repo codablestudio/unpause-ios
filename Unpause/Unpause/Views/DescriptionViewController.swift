@@ -64,7 +64,7 @@ class DescriptionViewController: UIViewController {
 
 private extension DescriptionViewController {
     func configureScrollViewAndContainerView() {
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = UIColor.whiteUnpauseTextAndBackgroundColor
         
         view.addSubview(scrollView)
         
@@ -103,7 +103,7 @@ private extension DescriptionViewController {
             make.right.equalToSuperview().inset(15)
             make.height.equalTo(200)
         }
-        descriptionTextView.backgroundColor = UIColor.white
+        descriptionTextView.backgroundColor = UIColor.whiteUnpauseTextAndBackgroundColor
         descriptionTextView.font = .systemFont(ofSize: 18)
         descriptionTextView.autocorrectionType = .no
         descriptionTextView.autocapitalizationType = .sentences

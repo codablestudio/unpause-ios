@@ -10,8 +10,8 @@ import UIKit
 
 extension UIColor {
     
-    static var white: UIColor {
-        return UIColor(named: "white") ?? UIColor.fallbackColor("white")
+    static var whiteUnpauseTextAndBackgroundColor: UIColor {
+        return UIColor(named: "whiteUnpauseTextAndBackgroundColor") ?? UIColor.fallbackColor("whiteUnpauseTextAndBackgroundColor")
     }
     
     static var orange: UIColor {

@@ -47,7 +47,8 @@ class Formatter {
         return dateInStringFormat
     }
     
-//    func convertTimeStampIntoDate(timeStamp: Timestamp?) -> Date? {
-//        
-//    }
+    func convertTimeStampIntoDate(timeStamp: Timestamp?) -> Date? {
+        let date = timeStamp?.dateValue()
+        return date
+    }
 }

@@ -143,7 +143,7 @@ class LoginViewController: UIViewController {
 private extension LoginViewController {
     
     func configureScrollViewAndContainerView() {
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = UIColor.whiteUnpauseTextAndBackgroundColor
         
         view.addSubview(scrollView)
         

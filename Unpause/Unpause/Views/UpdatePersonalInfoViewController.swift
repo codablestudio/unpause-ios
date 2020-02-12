@@ -118,7 +118,7 @@ class UpdatePersonalInfoViewController: UIViewController {
 private extension UpdatePersonalInfoViewController {
     
     func configureScrollViewAndContainerView() {
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = UIColor.whiteUnpauseTextAndBackgroundColor
         
         view.addSubview(scrollView)
         scrollView.snp.makeConstraints { (make) in
