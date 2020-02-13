@@ -45,4 +45,3 @@ extension SessionManager {
         return currentUser != nil
     }
 }
-
