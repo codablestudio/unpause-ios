@@ -30,6 +30,8 @@ class HomeViewController: UIViewController {
     
     private let checkInButton = UIButton()
     
+    var userChecksIn = PublishSubject<Bool>()
+    
     init(homeViewModel: HomeViewModel) {
         self.homeViewModel = homeViewModel
         super.init(nibName: nil, bundle: nil)
@@ -61,8 +63,58 @@ class HomeViewController: UIViewController {
     }
     
     private func setUpObservables() {
-        checkInButton.rx.tap.bind(to: homeViewModel.checkInButtonTapped)
+        userChecksIn
+            .do(onNext: { [weak self] (userChecksIn) in
+                guard let `self` = self else { return }
+                if !userChecksIn {
+                    Coordinator.shared.presentAddShiftViewController(from: self)
+                }
+            })
+            .bind(to: homeViewModel.userChecksIn)
             .disposed(by: disposeBag)
+        
+        homeViewModel.fetchingLastShift
+            .bind(to: checkInButton.rx.animating)
+            .disposed(by: disposeBag)
+        
+        checkInButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                if self.checkInButton.title(for: .normal) == "Check in" {
+                    self.checkInButton.setTitle("Check out", for: .normal)
+                    self.userChecksIn.onNext(true)
+                } else {
+                    self.userChecksIn.onNext(false)
+                }
+            }).disposed(by: disposeBag)
+        
+        homeViewModel.checkInResponse
+            .subscribe(onNext: { [weak self] (response) in
+                guard let `self` = self else { return }
+                switch response {
+                case .success:
+                    print("User successfully checked in.")
+                case .error(let error):
+                    print("Error occured: \(error)")
+                    self.showAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
+                }
+            }).disposed(by: disposeBag)
+        
+        homeViewModel.usersLastCheckInTimeRequest
+            .subscribe(onNext: { [weak self] (lastCheckInResponse) in
+                guard let `self` = self else { return }
+                switch lastCheckInResponse {
+                case .lastCheckIn(let lastCheckInDate):
+                    SessionManager.shared.currentUser?.lastCheckInDateAndTime = lastCheckInDate
+                    if lastCheckInDate != nil {
+                        self.checkInButton.setTitle("Check out", for: .normal)
+                    } else {
+                        self.checkInButton.setTitle("Check in", for: .normal)
+                    }
+                case .error(let error):
+                    print("\(error)")
+                }
+            }).disposed(by: disposeBag)
     }
     
     private func showTitleInNavigationBar() {
@@ -73,13 +125,18 @@ class HomeViewController: UIViewController {
         userFirstNameLabel.text = SessionManager.shared.currentUser?.firstName
         userLastNameLabel.text = SessionManager.shared.currentUser?.lastName
     }
+    
+    private func showAlert(title: String, message: String, actionTitle: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: actionTitle, style: .default, handler: nil))
+        self.present(alert, animated: true)
+    }
 }
 
 // MARK: - UI rendering
-
 private extension HomeViewController {
     func configureScrollViewAndContainerView() {
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = UIColor.whiteUnpauseTextAndBackgroundColor
         
         view.addSubview(scrollView)
         
@@ -96,6 +153,7 @@ private extension HomeViewController {
             make.width.equalTo(UIScreen.main.bounds.width)
         }
     }
+    
     
     func renderSignedInLabel() {
         containerView.addSubview(signedInLabel)
@@ -177,7 +235,7 @@ private extension HomeViewController {
         }
         checkInButton.backgroundColor = UIColor.orange
         checkInButton.layer.cornerRadius = 70
-        checkInButton.setTitle("Check in", for: .normal)
-        checkInButton.titleLabel?.font = checkInButton.titleLabel?.font.withSize(25)
+        checkInButton.titleLabel?.font = .systemFont(ofSize: 25)
+        checkInButton.setTitleColor(.white, for: UIControl.State())
     }
 }

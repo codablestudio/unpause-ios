@@ -11,4 +11,5 @@ import Foundation
 enum UnpauseError: Error {
     case defaultError
     case emptyError
+    case noUser
 }

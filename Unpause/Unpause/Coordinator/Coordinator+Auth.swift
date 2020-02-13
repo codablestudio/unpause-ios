@@ -10,9 +10,9 @@ import Foundation
 import UIKit
 
 extension Coordinator {
-    func presentRegistrationViewController(from: UIViewController) {
+    func presentRegistrationViewController(from viewController: UIViewController) {
         let registerViewModel = RegisterViewModel()
         let registerViewController = RegisterViewController(registerViewModel: registerViewModel)
-        from.present(registerViewController, animated: true, completion: nil)
+        viewController.present(registerViewController, animated: true, completion: nil)
     }
 }

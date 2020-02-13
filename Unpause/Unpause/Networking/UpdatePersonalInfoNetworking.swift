@@ -15,13 +15,13 @@ class UpdatePersonalInfoNetworking {
     
     private let dataBaseReference = Firestore.firestore()
     
-    func updateUserWith(newFirstName: String?, newLastName: String?) -> Observable<UpdateResponse> {
+    func updateUserWith(newFirstName: String?, newLastName: String?) -> Observable<Response> {
         guard let currentUserEmail = SessionManager.shared.currentUser?.email,
             let newFirstName = newFirstName,
             let newLastName = newLastName,
             !newLastName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
             !newFirstName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-                return Observable.just(UpdateResponse.error(UnpauseError.emptyError))
+                return Observable.just(Response.error(UnpauseError.emptyError))
         }
         
         let response = dataBaseReference.collection("users")
@@ -32,13 +32,13 @@ class UpdatePersonalInfoNetworking {
                 "lastName": newLastName,
             ])
         
-        return response.flatMapLatest { _ -> Observable<UpdateResponse> in
+        return response.flatMapLatest { _ -> Observable<Response> in
             let userWithNewData = User(firstName: newFirstName, lastName: newLastName, email: currentUserEmail)
             SessionManager.shared.logIn(userWithNewData)
-            return Observable.just(UpdateResponse.success)
+            return Observable.just(Response.success)
         }
-        .catchError { (error) -> Observable<UpdateResponse> in
-            return Observable.just(UpdateResponse.error(error))
+        .catchError { (error) -> Observable<Response> in
+            return Observable.just(Response.error(error))
         }
     }
 }

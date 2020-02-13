@@ -21,7 +21,7 @@ class UpdatePasswordViewModel {
     private var textInCurrentPasswordTextField: String?
     private var textInNewPasswordTextField: String?
     
-    var updatePasswordResponse: Observable<UpdateResponse>!
+    var updatePasswordResponse: Observable<Response>!
     
     
     init() {
@@ -38,9 +38,10 @@ class UpdatePasswordViewModel {
         }).disposed(by: disposeBag)
         
         updatePasswordResponse = updatePasswordButtonTapped
-            .flatMapLatest({ [weak self] _ -> Observable<UpdateResponse> in
+            .flatMapLatest({ [weak self] _ -> Observable<Response> in
                 guard let `self` = self else { return Observable.empty() }
-                return self.updatePasswordNetworking.updateCurrentUserPassword(self.textInCurrentPasswordTextField, with: self.textInNewPasswordTextField)
+                return self.updatePasswordNetworking.updateCurrentUserPassword(self.textInCurrentPasswordTextField,
+                                                                               with: self.textInNewPasswordTextField)
             })
     }
 }

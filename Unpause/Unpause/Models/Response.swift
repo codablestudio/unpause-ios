@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum UpdateResponse: Error {
+enum Response: Error {
     case success
     case error(Error)
 }

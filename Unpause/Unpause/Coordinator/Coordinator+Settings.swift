@@ -10,15 +10,15 @@ import Foundation
 import UIKit
 
 extension Coordinator {
-    func presentChangePersonalInfoViewController(from: UIViewController) {
+    func presentChangePersonalInfoViewController(from viewController: UIViewController) {
         let updatePersonalInfoViewModel = UpdatePersonalInfoViewModel()
         let updatePersonalInfoViewController = UpdatePersonalInfoViewController(updatePersonalInfoViewModel: updatePersonalInfoViewModel)
-        from.present(updatePersonalInfoViewController, animated: true)
+        viewController.present(updatePersonalInfoViewController, animated: true)
     }
     
-    func presentChangePasswordViewController(from: UIViewController) {
+    func presentChangePasswordViewController(from viewController: UIViewController) {
         let updatePasswordViewModel = UpdatePasswordViewModel()
         let updatePasswordViewController = UpdatePasswordViewController(updatePasswordViewModel: updatePasswordViewModel)
-        from.present(updatePasswordViewController, animated: true)
+        viewController.present(updatePasswordViewController, animated: true)
     }
 }
