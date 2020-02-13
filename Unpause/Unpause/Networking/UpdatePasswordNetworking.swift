@@ -15,14 +15,14 @@ class UpdatePasswordNetworking {
     
     private let dataBaseReference = Auth.auth()
     
-    func updateCurrentUserPassword(_ oldPassword: String?, with newPassword: String?) -> Observable<UpdateResponse> {
+    func updateCurrentUserPassword(_ oldPassword: String?, with newPassword: String?) -> Observable<Response> {
         guard let email = SessionManager.shared.currentUser?.email,
             let oldPassword = oldPassword,
             let newPassword = newPassword,
             let user = dataBaseReference.currentUser,
             !oldPassword.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
             !newPassword.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-                return Observable.just(UpdateResponse.error(UnpauseError.emptyError))
+                return Observable.just(Response.error(UnpauseError.emptyError))
         }
         
         let credential = EmailAuthProvider.credential(withEmail: email, password: oldPassword)
@@ -31,10 +31,10 @@ class UpdatePasswordNetworking {
             .flatMapLatest { _ -> Observable<Void> in
                 return user.rx.updatePassword(to: newPassword)
         }
-        .flatMapLatest { _ -> Observable<UpdateResponse> in
-            return Observable.just(UpdateResponse.success)
-        }.catchError { (error) -> Observable<UpdateResponse> in
-            return Observable.just(UpdateResponse.error(error))
+        .flatMapLatest { _ -> Observable<Response> in
+            return Observable.just(Response.success)
+        }.catchError { (error) -> Observable<Response> in
+            return Observable.just(Response.error(error))
         }
     }
 }

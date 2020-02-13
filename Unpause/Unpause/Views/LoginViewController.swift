@@ -106,7 +106,7 @@ class LoginViewController: UIViewController {
     }
     
     private func addGestureRecognizer() {
-        view.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] (tapGesture) in
+        view.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] _ in
             self?.view.endEditing(true)
         }).disposed(by: disposeBag)
     }
@@ -143,7 +143,7 @@ class LoginViewController: UIViewController {
 private extension LoginViewController {
     
     func configureScrollViewAndContainerView() {
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = UIColor.whiteUnpauseTextAndBackgroundColor
         
         view.addSubview(scrollView)
         

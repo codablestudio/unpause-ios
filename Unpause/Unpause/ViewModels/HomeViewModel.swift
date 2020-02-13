@@ -12,17 +12,43 @@ import RxSwift
 class HomeViewModel {
     
     private let disposeBag = DisposeBag()
+    private let homeNetworking = HomeNetworking()
     
-    var checkInButtonTapped = PublishSubject<Void>()
+    var usersLastCheckInTimeRequest: Observable<LastCheckInResponse>!
+    var userChecksIn = PublishSubject<Bool>()
+    var checkInResponse: Observable<Response>!
+    
+    private let _isFetchingLastShift = ActivityIndicator()
+    var fetchingLastShift: Observable<Bool> {
+        return _isFetchingLastShift.asObservable()
+    }
+    
+    static let forceRefresh = PublishSubject<Void>()
     
     init() {
         setUpObservables()
     }
     
     private func setUpObservables() {
-        checkInButtonTapped.subscribe(onNext: { _ in
-            print("Check in")
-            // TODO: Do check in for user
-        }).disposed(by: disposeBag)
+        usersLastCheckInTimeRequest = HomeViewModel.forceRefresh
+            .startWith(())
+            .flatMapLatest({ [weak self] _ -> Observable<LastCheckInResponse> in
+                guard let `self` = self else { return Observable.empty() }
+                return self.homeNetworking.getUsersLastCheckInTime()
+                    .trackActivity(self._isFetchingLastShift)
+            })
+        
+        checkInResponse = userChecksIn
+            .flatMapLatest({ [weak self] userChecksIn -> Observable<Response> in
+                guard let `self` = self else { return Observable.empty() }
+                let timeAtThisMoment = Date()
+                if userChecksIn {
+                    SessionManager.shared.currentUser?.lastCheckInDateAndTime = timeAtThisMoment
+                    return self.homeNetworking.checkInUser(with: timeAtThisMoment)
+                } else {
+                    SessionManager.shared.currentUser?.lastCheckOutDateAndTime = timeAtThisMoment
+                    return Observable.empty()
+                }
+            })
     }
 }

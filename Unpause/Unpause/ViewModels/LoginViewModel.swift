@@ -64,7 +64,7 @@ class LoginViewModel: LoginViewModelProtocol {
                 case .documentSnapshot(let document):
                     do {
                         let newUser = try UserFactory.createUser(from: document)
-                            SessionManager.shared.logIn(newUser)
+                        SessionManager.shared.logIn(newUser)
                     } catch(let error) {
                         return FirebaseDocumentResponseObject.error(error)
                     }

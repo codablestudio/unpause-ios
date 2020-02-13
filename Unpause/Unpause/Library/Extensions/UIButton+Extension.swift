@@ -16,12 +16,12 @@ extension UIButton {
         self.setTitleColor(color, for: .normal)
         self.titleLabel?.font = font
     }
-
+    
     func addBorder(color: UIColor, width: CGFloat) {
         self.layer.borderColor = color.cgColor
         self.layer.borderWidth = width
     }
-
+    
     func addBottomBorder(color: UIColor, height: CGFloat) {
         let border = UIView()
         border.snp.makeConstraints { (make) in
@@ -30,5 +30,46 @@ extension UIButton {
             make.right.equalToSuperview()
         }
         border.backgroundColor = color
+    }
+}
+
+extension UIButton {
+    func startAnimating(_ style: UIActivityIndicatorView.Style?) {
+        titleLabel?.alpha = 0
+        _ = subviews.map({ ($0 as? UIActivityIndicatorView)?.removeFromSuperview() })
+        let activityIndicator = UIActivityIndicatorView(style: style ?? .gray)
+        addSubview(activityIndicator)
+        activityIndicator.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
+        }
+        activityIndicator.startAnimating()
+    }
+    func stopAnimating() {
+        titleLabel?.alpha = 1
+        _ = subviews.map({ ($0 as? UIActivityIndicatorView)?.removeFromSuperview() })
+    }
+}
+
+import RxSwift
+import RxCocoa
+
+extension Reactive where Base: UIButton {
+    var animating: Binder<Bool> {
+        return Binder(self.base) { button, isAnimating in
+            if isAnimating {
+                button.isEnabled = false
+                button.startAnimating(.gray)
+            } else {
+                button.isEnabled = true
+                button.stopAnimating()
+            }
+        }
+    }
+    
+    var isEnabled: Binder<Bool> {
+        return Binder(self.base) { button, isEnabled in
+            button.isEnabled = isEnabled
+        }
     }
 }

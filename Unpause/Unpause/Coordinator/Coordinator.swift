@@ -19,7 +19,6 @@ class Coordinator {
     
     func start(_ window: UIWindow) {
         self.window = window
-        
         if SessionManager.shared.userLoggedIn() {
             startTabbar()
         } else {

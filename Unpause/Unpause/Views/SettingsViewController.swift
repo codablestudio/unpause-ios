@@ -68,7 +68,7 @@ class SettingsViewController: UIViewController {
 
 private extension SettingsViewController {
     func configureScrollViewAndContainerView() {
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = UIColor.whiteUnpauseTextAndBackgroundColor
         
         view.addSubview(scrollView)
         

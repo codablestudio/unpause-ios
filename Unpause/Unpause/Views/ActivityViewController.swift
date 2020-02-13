@@ -29,7 +29,7 @@ class ActivityViewController: UIViewController {
     }
     
     private func render() {
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = UIColor.whiteUnpauseTextAndBackgroundColor
     }
     
     private func showTitleInNavigationBar() {
