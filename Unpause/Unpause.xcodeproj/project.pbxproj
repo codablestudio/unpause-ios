@@ -50,7 +50,7 @@
 		C13C412823ABBC8900B674E9 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C412723ABBC8900B674E9 /* SettingsViewModel.swift */; };
 		C13DDCEB23F36D050043E242 /* Shift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13DDCEA23F36D050043E242 /* Shift.swift */; };
 		C1437B4123F3EF43007BD7DA /* ShiftFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1437B4023F3EF43007BD7DA /* ShiftFactory.swift */; };
-		C1437B4323F40B0A007BD7DA /* DescriptionNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1437B4223F40B0A007BD7DA /* DescriptionNetworking.swift */; };
+		C1437B4323F40B0A007BD7DA /* ShiftNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1437B4223F40B0A007BD7DA /* ShiftNetworking.swift */; };
 		C146991223A112F100A84818 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C146991123A112F100A84818 /* AppDelegate.swift */; };
 		C146991B23A112F200A84818 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C146991A23A112F200A84818 /* Assets.xcassets */; };
 		C146991E23A112F200A84818 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C146991C23A112F200A84818 /* LaunchScreen.storyboard */; };
@@ -70,6 +70,8 @@
 		C198B8F423B0CFC100FBD3C6 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C198B8F323B0CFC100FBD3C6 /* CustomTabBarController.swift */; };
 		C198B8F623B0D57C00FBD3C6 /* UnpauseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C198B8F523B0D57C00FBD3C6 /* UnpauseError.swift */; };
 		C1B0B2B323B0BF9700CE5D05 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B0B2B223B0BF9700CE5D05 /* SessionManager.swift */; };
+		C1B131FA23F581E7009C3C59 /* ShiftTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B131F923F581E7009C3C59 /* ShiftTableViewCell.swift */; };
+		C1B131FC23F59150009C3C59 /* ShitfsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B131FB23F59150009C3C59 /* ShitfsResponse.swift */; };
 		C1C41B7623A9594F009288CA /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C41B7523A9594F009288CA /* UITextField+Extension.swift */; };
 		C1F2CD1F23F2E6D600BD23DC /* LastCheckInResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F2CD1E23F2E6D600BD23DC /* LastCheckInResponse.swift */; };
 		C1FBC46D23AA51E100579913 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBC46C23AA51E100579913 /* HomeViewController.swift */; };
@@ -124,7 +126,7 @@
 		C13C412723ABBC8900B674E9 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		C13DDCEA23F36D050043E242 /* Shift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shift.swift; sourceTree = "<group>"; };
 		C1437B4023F3EF43007BD7DA /* ShiftFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftFactory.swift; sourceTree = "<group>"; };
-		C1437B4223F40B0A007BD7DA /* DescriptionNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionNetworking.swift; sourceTree = "<group>"; };
+		C1437B4223F40B0A007BD7DA /* ShiftNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftNetworking.swift; sourceTree = "<group>"; };
 		C146990E23A112F100A84818 /* Unpause.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Unpause.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C146991123A112F100A84818 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C146991A23A112F200A84818 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -146,6 +148,8 @@
 		C198B8F323B0CFC100FBD3C6 /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		C198B8F523B0D57C00FBD3C6 /* UnpauseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnpauseError.swift; sourceTree = "<group>"; };
 		C1B0B2B223B0BF9700CE5D05 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
+		C1B131F923F581E7009C3C59 /* ShiftTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftTableViewCell.swift; sourceTree = "<group>"; };
+		C1B131FB23F59150009C3C59 /* ShitfsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShitfsResponse.swift; sourceTree = "<group>"; };
 		C1C41B7523A9594F009288CA /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		C1F2CD1E23F2E6D600BD23DC /* LastCheckInResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastCheckInResponse.swift; sourceTree = "<group>"; };
 		C1FBC46C23AA51E100579913 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -247,14 +251,6 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		C1437B3E23F3EF20007BD7DA /* Shift */ = {
-			isa = PBXGroup;
-			children = (
-				C13DDCEA23F36D050043E242 /* Shift.swift */,
-			);
-			path = Shift;
-			sourceTree = "<group>";
-		};
 		C1437B3F23F3EF35007BD7DA /* Factories */ = {
 			isa = PBXGroup;
 			children = (
@@ -335,6 +331,7 @@
 				C16A2EF223A784A700CBA43F /* RegisterViewController.swift */,
 				C1FBC46C23AA51E100579913 /* HomeViewController.swift */,
 				C13C412123ABBC4100B674E9 /* ActivityViewController.swift */,
+				C1B131F923F581E7009C3C59 /* ShiftTableViewCell.swift */,
 				C13C412523ABBC7000B674E9 /* SettingsViewController.swift */,
 				C198B8F323B0CFC100FBD3C6 /* CustomTabBarController.swift */,
 				C110AE2723C34E420066C394 /* UpdatePasswordViewController.swift */,
@@ -355,7 +352,8 @@
 				C13B4B1123BF8A62006E1E0E /* FirebaseDocumentResponeObject.swift */,
 				C133DE5323C89F2A0096F5B2 /* Response.swift */,
 				C1F2CD1E23F2E6D600BD23DC /* LastCheckInResponse.swift */,
-				C1437B3E23F3EF20007BD7DA /* Shift */,
+				C13DDCEA23F36D050043E242 /* Shift.swift */,
+				C1B131FB23F59150009C3C59 /* ShitfsResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -381,7 +379,7 @@
 				C138411323C5DA3E00A347F9 /* UpdatePersonalInfoNetworking.swift */,
 				C133DE5123C871A90096F5B2 /* UpdatePasswordNetworking.swift */,
 				C1707B1B23F18AE3002E1A10 /* HomeNetworking.swift */,
-				C1437B4223F40B0A007BD7DA /* DescriptionNetworking.swift */,
+				C1437B4223F40B0A007BD7DA /* ShiftNetworking.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -541,7 +539,7 @@
 				C110AE2823C34E420066C394 /* UpdatePasswordViewController.swift in Sources */,
 				C1437B4123F3EF43007BD7DA /* ShiftFactory.swift in Sources */,
 				C137F48223B8B6AC00358E30 /* RegisterNetworking.swift in Sources */,
-				C1437B4323F40B0A007BD7DA /* DescriptionNetworking.swift in Sources */,
+				C1437B4323F40B0A007BD7DA /* ShiftNetworking.swift in Sources */,
 				C16A2EF123A77B1200CBA43F /* Coordinator.swift in Sources */,
 				C111932323CF6008007E2866 /* AddShiftViewModel.swift in Sources */,
 				C1FF2A8E23C4B3EA00ACCF29 /* Coordinator+Settings.swift in Sources */,
@@ -552,6 +550,7 @@
 				C10F78DA23A3D79200783476 /* UIColor+Extension.swift in Sources */,
 				C12D289823A536BC004BC57A /* LoginNetworking.swift in Sources */,
 				C1FBC46D23AA51E100579913 /* HomeViewController.swift in Sources */,
+				C1B131FA23F581E7009C3C59 /* ShiftTableViewCell.swift in Sources */,
 				C13C412023AB93D600B674E9 /* FirebaseResponseObject.swift in Sources */,
 				C10F78E923A3D79200783476 /* Array+Extension.swift in Sources */,
 				C10F78E323A3D79200783476 /* Bool+Extension.swift in Sources */,
@@ -566,6 +565,7 @@
 				C1707B1C23F18AE3002E1A10 /* HomeNetworking.swift in Sources */,
 				C133DE5423C89F2A0096F5B2 /* Response.swift in Sources */,
 				C10F78DD23A3D79200783476 /* UIButton+Extension.swift in Sources */,
+				C1B131FC23F59150009C3C59 /* ShitfsResponse.swift in Sources */,
 				C10F78E423A3D79200783476 /* UIStackView+Extension.swift in Sources */,
 				C10F78D823A3D79200783476 /* UIImageView+Extension.swift in Sources */,
 				C1707B1E23F19022002E1A10 /* Coordinator+AddShift.swift in Sources */,

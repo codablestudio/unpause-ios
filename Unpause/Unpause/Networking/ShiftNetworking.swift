@@ -1,5 +1,5 @@
 //
-//  DescriptionNetworking.swift
+//  ShiftNetworking.swift
 //  Unpause
 //
 //  Created by Krešimir Baković on 12/02/2020.
@@ -10,7 +10,7 @@ import Foundation
 import FirebaseFirestore
 import RxSwift
 
-class DesriptionNetworking {
+class ShiftNetworking {
     
     private let dataBaseReference = Firestore.firestore()
     
@@ -22,12 +22,13 @@ class DesriptionNetworking {
                 return Observable.just(Response.error(UnpauseError.emptyError))
         }
         
+        
         return dataBaseReference.collection("users")
             .document("\(currentUserEmail)")
             .rx
             .getDocument()
             .mapShifts()
-            .map({ shifts -> ([Shift],Shift?) in
+            .map({ shifts -> ([Shift], Shift?) in
                 return (shifts, shifts.last(where: { $0.exitTime == nil }))
             })
             .flatMapLatest({ (shifts, lastShiftWithOutExitTime) -> Observable<[Shift]> in
@@ -60,5 +61,19 @@ class DesriptionNetworking {
                         return Observable.just(Response.error(error))
                     })
             })
+    }
+    
+    private func fetchShifts() -> Observable<[Shift]> {
+        guard let currentUserEmail = SessionManager.shared.currentUser?.email else {
+            return Observable.empty()
+        }
+        
+        let shifts = dataBaseReference.collection("users")
+            .document("\(currentUserEmail)")
+            .rx
+            .getDocument()
+            .mapShifts()
+        
+        return shifts
     }
 }

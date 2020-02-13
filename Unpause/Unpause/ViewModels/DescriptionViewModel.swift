@@ -11,7 +11,7 @@ import RxSwift
 class DescriptionViewModel {
     
     private let disposeBag = DisposeBag()
-    private let descriptionNetworking = DesriptionNetworking()
+    private let shiftNetworking = ShiftNetworking()
     
     private let arrivalDateAndTime: Date?
     private let leavingDateAndTime: Date?
@@ -46,7 +46,7 @@ class DescriptionViewModel {
                 let arrivalDateAndTimeInTimeStampFormat = Formatter.shared.convertDateIntoTimeStamp(date: arrivalDateAndTime)
                 let leavingDateAndTimeInTimeStampFormat = Formatter.shared.convertDateIntoTimeStamp(date: leavingDateAndTime)
                 
-                return self.descriptionNetworking.saveNewShift(arrivalTime: arrivalDateAndTimeInTimeStampFormat,
+                return self.shiftNetworking.saveNewShift(arrivalTime: arrivalDateAndTimeInTimeStampFormat,
                                                                leavingTime: leavingDateAndTimeInTimeStampFormat,
                                                                description: self.textInDescriptionTextView)
             })
