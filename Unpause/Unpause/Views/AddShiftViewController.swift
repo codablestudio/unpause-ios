@@ -116,6 +116,8 @@ class AddShiftViewController: UIViewController {
                 
                 let newDateAndTime = self.addShiftViewModel.makeNewDateAndTimeWithCheckInDateAnd(timeInDateFormat: timeInDateFormat)
                 SessionManager.shared.currentUser?.lastCheckInDateAndTime = newDateAndTime
+                
+                self.leavingTimePicker.minimumDate = timeInDateFormat
             }).disposed(by: disposeBag)
         
         Observable.combineLatest(leavingDatePicker.rx.value, leavingTimePicker.rx.value)
@@ -169,6 +171,9 @@ class AddShiftViewController: UIViewController {
         picker.datePickerMode = UIDatePicker.Mode.date
         textField.inputView = picker
         picker.backgroundColor = UIColor.whiteUnpauseTextAndBackgroundColor
+        if textField == leavingDateTextField {
+            picker.minimumDate = SessionManager.shared.currentUser?.lastCheckInDateAndTime
+        }
         addBarOnTopOfPicker(for: textField)
     }
     
