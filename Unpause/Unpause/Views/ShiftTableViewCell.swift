@@ -18,6 +18,15 @@ class ShiftTableViewCell: UITableViewCell {
     
     private let onThatDayLabel = UILabel()
     private let descriptionLabel = UILabel()
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        render()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -33,7 +42,28 @@ class ShiftTableViewCell: UITableViewCell {
         descriptionLabel.text = nil
     }
     
+    private func render() {
+        renderFromLabelAndArrivalDateAndTimeLabel()
+        renderToLabelAndExitDateAndTimeLabel()
+        renderOnThatDayLabelAndDescriptionLabel()
+    }
+    
     func configure() {
+        
+    }
+}
+
+// MARK: - UI rendering
+private extension ShiftTableViewCell {
+    func renderFromLabelAndArrivalDateAndTimeLabel() {
+        
+    }
+    
+    func renderToLabelAndExitDateAndTimeLabel() {
+        
+    }
+    
+    func renderOnThatDayLabelAndDescriptionLabel() {
         
     }
 }

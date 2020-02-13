@@ -44,6 +44,7 @@ class ActivityViewController: UIViewController {
         setUpObservables()
         showTitleInNavigationBar()
         createPickers()
+        setUpTableView()
     }
     
     private func render() {
@@ -95,6 +96,12 @@ class ActivityViewController: UIViewController {
             guard let `self` = self else { return }
             self.view.endEditing(true)
         }).disposed(by: disposeBag)
+    }
+    
+    private func setUpTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(ShiftTableViewCell.self, forCellReuseIdentifier: "ShiftTableViewCell")
     }
 }
 
@@ -184,4 +191,3 @@ extension ActivityViewController: UITableViewDataSource {
         return cell
     }
 }
-
