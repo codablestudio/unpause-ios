@@ -39,6 +39,7 @@ class DescriptionViewController: UIViewController {
         super.viewDidLoad()
         render()
         setUpObservables()
+        addGestureRecognizer()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -86,6 +87,13 @@ class DescriptionViewController: UIViewController {
             }).disposed(by: disposeBag)
     }
     
+    private func addGestureRecognizer() {
+        view.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else { return }
+            self.view.endEditing(true)
+        }).disposed(by: disposeBag)
+    }
+    
     private func showNavigationBar() {
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
@@ -96,6 +104,8 @@ class DescriptionViewController: UIViewController {
         self.present(alert, animated: true)
     }
 }
+
+// MARK: - UI rendering
 
 private extension DescriptionViewController {
     func configureScrollViewAndContainerView() {

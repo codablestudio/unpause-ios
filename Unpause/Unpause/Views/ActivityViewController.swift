@@ -78,7 +78,7 @@ class ActivityViewController: UIViewController {
                     self.dataSource = data
                 }
                 
-                let delay = DispatchTime.now() + .seconds(1)
+                let delay = DispatchTime.now() + .milliseconds(600)
                 DispatchQueue.main.asyncAfter(deadline: delay) { [weak self] in
                     guard let `self` = self else { return }
                     self.refresherControl.endRefreshing()
@@ -132,6 +132,7 @@ class ActivityViewController: UIViewController {
 
 
 // MARK: - UI rendering
+
 private extension ActivityViewController {
     func configureContainerView() {
         view.backgroundColor = UIColor.whiteUnpauseTextAndBackgroundColor
@@ -187,12 +188,13 @@ private extension ActivityViewController {
         tableView.snp.makeConstraints { make in
             make.top.equalTo(toDateLabel.snp.bottom).offset(10)
             make.left.right.equalToSuperview()
-            make.bottomMargin.equalToSuperview()
+            make.bottomMargin.equalToSuperview().inset(25)
         }
     }
 }
 
 //MARK: - Table View Delegate
+
 extension ActivityViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -204,6 +206,7 @@ extension ActivityViewController: UITableViewDelegate {
 }
 
 //MARK: - Table View DataSource
+
 extension ActivityViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataSource.count

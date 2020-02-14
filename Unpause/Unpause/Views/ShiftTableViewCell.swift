@@ -63,6 +63,7 @@ class ShiftTableViewCell: UITableViewCell {
 }
 
 // MARK: - UI rendering
+
 private extension ShiftTableViewCell {
     func renderFromLabel() {
         contentView.addSubview(fromLabel)

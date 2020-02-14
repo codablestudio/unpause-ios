@@ -134,6 +134,7 @@ class HomeViewController: UIViewController {
 }
 
 // MARK: - UI rendering
+
 private extension HomeViewController {
     func configureScrollViewAndContainerView() {
         view.backgroundColor = UIColor.whiteUnpauseTextAndBackgroundColor
