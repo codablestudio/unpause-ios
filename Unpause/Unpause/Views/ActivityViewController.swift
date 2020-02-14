@@ -8,11 +8,14 @@
 
 import UIKit
 import RxSwift
+import DifferenceKit
 
 class ActivityViewController: UIViewController {
     
     private let activityViewModel: ActivityViewModel
     private let disposeBag = DisposeBag()
+    
+    private let refresherControl = UIRefreshControl()
     
     private let containerView = UIView()
     
@@ -22,12 +25,14 @@ class ActivityViewController: UIViewController {
     private let toDateLabel = UILabel()
     private let toDateTextField = UITextField()
     
+    private let separator = UIView()
+    
     private let tableView = UITableView()
     
     private let fromDatePicker = UIDatePicker()
     private let toDatePicker = UIDatePicker()
     
-    private var allShifts = [Shift]()
+    private var dataSource = [ShiftsTableViewItem]()
     
     init(activityViewModel: ActivityViewModel) {
         self.activityViewModel = activityViewModel
@@ -64,11 +69,30 @@ class ActivityViewController: UIViewController {
                 self.toDateTextField.text = toDateInStringFormat
                 self.toDatePicker.minimumDate = fromDateInDateFormat
             }).disposed(by: disposeBag)
+        
+        activityViewModel.shiftsRequest
+            .subscribe(onNext: { [weak self] items in
+                guard let `self` = self else { return }
+                let changeset = StagedChangeset(source: self.dataSource, target: items)
+                self.tableView.reload(using: changeset, with: .fade) { data in
+                    self.dataSource = data
+                }
+                
+                let delay = DispatchTime.now() + .seconds(1)
+                DispatchQueue.main.asyncAfter(deadline: delay) { [weak self] in
+                    guard let `self` = self else { return }
+                    self.refresherControl.endRefreshing()
+                }
+            }).disposed(by: disposeBag)
+        
+        refresherControl.rx.controlEvent(.valueChanged)
+            .bind(to: activityViewModel.refreshTrigger)
+            .disposed(by: disposeBag)
     }
     
     private func showTitleInNavigationBar() {
-           self.title = "Activity"
-       }
+        self.title = "Activity"
+    }
     
     private func createPickers() {
         createDatePickerAndBarForPicker(for: fromDateTextField, with: fromDatePicker)
@@ -102,6 +126,7 @@ class ActivityViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(ShiftTableViewCell.self, forCellReuseIdentifier: "ShiftTableViewCell")
+        tableView.refreshControl = refresherControl
     }
 }
 
@@ -181,13 +206,19 @@ extension ActivityViewController: UITableViewDelegate {
 //MARK: - Table View DataSource
 extension ActivityViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return dataSource.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ShiftTableViewCell.self),
                                                  for: indexPath) as! ShiftTableViewCell
-        cell.configure()
+        
+        switch dataSource[indexPath.row] {
+        case .shift(let shift):
+            cell.configure(shift)
+        default:
+            break
+        }
         return cell
     }
 }

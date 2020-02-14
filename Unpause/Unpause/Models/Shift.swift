@@ -8,9 +8,20 @@
 
 import Foundation
 import FirebaseFirestore
+import DifferenceKit
 
-class Shift {
+class Shift: Differentiable {
+    typealias DifferenceIdentifier = Int
+    
+     var differenceIdentifier: Int {
+        return 123
+    }
+    
     var arrivalTime: Timestamp?
     var description: String?
     var exitTime: Timestamp?
+    
+    func isContentEqual(to source: Shift) -> Bool {
+        return arrivalTime == source.arrivalTime
+    }
 }

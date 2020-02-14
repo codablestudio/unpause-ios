@@ -23,4 +23,5 @@ target 'Unpause' do
     pod 'RxFirebase/Storage'
     pod 'RxFirebase/Auth'
     pod 'RxFirebase/Functions'
+    pod 'DifferenceKit'
 end

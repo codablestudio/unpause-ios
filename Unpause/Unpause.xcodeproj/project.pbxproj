@@ -73,6 +73,7 @@
 		C1B131FA23F581E7009C3C59 /* ShiftTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B131F923F581E7009C3C59 /* ShiftTableViewCell.swift */; };
 		C1B131FC23F59150009C3C59 /* ShitfsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B131FB23F59150009C3C59 /* ShitfsResponse.swift */; };
 		C1C41B7623A9594F009288CA /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C41B7523A9594F009288CA /* UITextField+Extension.swift */; };
+		C1D0CA0B23F6AC9600A20D6F /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D0CA0A23F6AC9600A20D6F /* DataSource.swift */; };
 		C1F2CD1F23F2E6D600BD23DC /* LastCheckInResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F2CD1E23F2E6D600BD23DC /* LastCheckInResponse.swift */; };
 		C1FBC46D23AA51E100579913 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBC46C23AA51E100579913 /* HomeViewController.swift */; };
 		C1FBC46F23AA521C00579913 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBC46E23AA521C00579913 /* HomeViewModel.swift */; };
@@ -151,6 +152,7 @@
 		C1B131F923F581E7009C3C59 /* ShiftTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftTableViewCell.swift; sourceTree = "<group>"; };
 		C1B131FB23F59150009C3C59 /* ShitfsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShitfsResponse.swift; sourceTree = "<group>"; };
 		C1C41B7523A9594F009288CA /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
+		C1D0CA0A23F6AC9600A20D6F /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		C1F2CD1E23F2E6D600BD23DC /* LastCheckInResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastCheckInResponse.swift; sourceTree = "<group>"; };
 		C1FBC46C23AA51E100579913 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		C1FBC46E23AA521C00579913 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -354,6 +356,7 @@
 				C1F2CD1E23F2E6D600BD23DC /* LastCheckInResponse.swift */,
 				C13DDCEA23F36D050043E242 /* Shift.swift */,
 				C1B131FB23F59150009C3C59 /* ShitfsResponse.swift */,
+				C1D0CA0A23F6AC9600A20D6F /* DataSource.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -552,6 +555,7 @@
 				C1FBC46D23AA51E100579913 /* HomeViewController.swift in Sources */,
 				C1B131FA23F581E7009C3C59 /* ShiftTableViewCell.swift in Sources */,
 				C13C412023AB93D600B674E9 /* FirebaseResponseObject.swift in Sources */,
+				C1D0CA0B23F6AC9600A20D6F /* DataSource.swift in Sources */,
 				C10F78E923A3D79200783476 /* Array+Extension.swift in Sources */,
 				C10F78E323A3D79200783476 /* Bool+Extension.swift in Sources */,
 				C111932123CF56B7007E2866 /* AddShiftViewController.swift in Sources */,

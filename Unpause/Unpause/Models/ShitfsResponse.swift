@@ -10,6 +10,6 @@ import Foundation
 import FirebaseAuth
 
 enum ShiftsResponse {
-    case shifts([Shift])
+    case success([Shift])
     case error(Error)
 }

@@ -23,11 +23,15 @@ class ShiftNetworking {
         }
         
         
-        return dataBaseReference.collection("users")
-            .document("\(currentUserEmail)")
-            .rx
-            .getDocument()
-            .mapShifts()
+        return fetchShifts()
+            .map({ shiftsResponse -> [Shift] in
+                switch shiftsResponse {
+                case .success(let shifts):
+                    return shifts
+                default:
+                    return []
+                }
+            })
             .map({ shifts -> ([Shift], Shift?) in
                 return (shifts, shifts.last(where: { $0.exitTime == nil }))
             })
@@ -63,17 +67,19 @@ class ShiftNetworking {
             })
     }
     
-    private func fetchShifts() -> Observable<[Shift]> {
+    func fetchShifts() -> Observable<ShiftsResponse> {
         guard let currentUserEmail = SessionManager.shared.currentUser?.email else {
-            return Observable.empty()
+            return Observable.just(.error(UnpauseError.noUser))
         }
         
-        let shifts = dataBaseReference.collection("users")
-            .document("\(currentUserEmail)")
-            .rx
-            .getDocument()
+        return dataBaseReference.collection("users")
+            .document("\(currentUserEmail)").rx.getDocument()
             .mapShifts()
-        
-        return shifts
+            .map({ shifts -> ShiftsResponse in
+                return .success(shifts)
+            })
+            .catchError({ err -> Observable<ShiftsResponse> in
+                return Observable.just(ShiftsResponse.error(err))
+            })
     }
 }
