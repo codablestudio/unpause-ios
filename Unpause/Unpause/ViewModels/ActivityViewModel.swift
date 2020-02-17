@@ -11,16 +11,42 @@ import RxSwift
 class ActivityViewModel {
     
     private let shiftNetworking = ShiftNetworking()
+    private let disposeBag = DisposeBag()
     
     var shiftsRequest: Observable<[ShiftsTableViewItem]>!
     var refreshTrigger = PublishSubject<Void>()
+    var dateInFromDatePickerChanges = PublishSubject<Date>()
+    var dateInToDatePickerChanges = PublishSubject<Date>()
+    
+    private var dateInFromDatePicker: Date?
+    private var dateInToDatePicker: Date?
     
     init() {
+        dateInFromDatePickerChanges
+            .subscribe(onNext: { [weak self] date in
+            guard let `self` = self else { return }
+            self.dateInFromDatePicker = date
+        }).disposed(by: disposeBag)
+        
+        dateInToDatePickerChanges
+            .subscribe(onNext: { [weak self] date in
+                guard let `self` = self else { return }
+                self.dateInToDatePicker = date
+            }).disposed(by: disposeBag)
+        
         shiftsRequest = refreshTrigger
             .startWith(())
             .flatMapLatest({ [weak self] _ -> Observable<ShiftsResponse> in
                 guard let `self` = self else { return Observable.empty() }
                 return self.shiftNetworking.fetchShifts()
+            })
+            .flatMapLatest({ [weak self] shiftsResponse -> Observable<ShiftsResponse> in
+                guard let `self` = self,
+                    let fromDate = self.dateInFromDatePicker,
+                    let toDate = self.dateInToDatePicker else {
+                        return Observable.just(ShiftsResponse.error(UnpauseError.emptyError))
+                }
+                return self.shiftNetworking.filterShifts(fromDate: fromDate, toDate: toDate, allShifts: shiftsResponse)
             })
             .map({ shiftsResponse -> [ShiftsTableViewItem] in
                 switch shiftsResponse {

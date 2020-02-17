@@ -59,4 +59,30 @@ class Formatter {
         let timeStamp = Timestamp(date: date)
         return timeStamp
     }
+    
+    func getDateOneMontBeforeTodaysDate() -> Date {
+        let calendar = Calendar.current
+        var dateComponents = DateComponents()
+        
+        let year = calendar.component(.year, from: Date())
+        let lastmonth = calendar.date(byAdding: .month, value: -1, to: Date())
+        let lMonth = calendar.component(.month, from: lastmonth!)
+        let day = calendar.component(.day, from: Date())
+        let hour = calendar.component(.hour, from: Date())
+        let minute = calendar.component(.minute, from: Date())
+        let second = calendar.component(.second, from: Date())
+        
+        
+        dateComponents.year = year
+        dateComponents.month = lMonth
+        dateComponents.day = day
+        dateComponents.hour = hour
+        dateComponents.minute = minute
+        dateComponents.second = second
+        
+        guard let dateOneMonthBeforeTodaysDate = calendar.date(from: dateComponents) else {
+            return Date()
+        }
+        return dateOneMonthBeforeTodaysDate
+    }
 }

@@ -50,6 +50,7 @@ class ActivityViewController: UIViewController {
         showTitleInNavigationBar()
         createPickers()
         setUpTableView()
+        setFromPickerAndTextFieldInitialDate()
     }
     
     private func render() {
@@ -60,7 +61,8 @@ class ActivityViewController: UIViewController {
     }
     
     private func setUpObservables() {
-        Observable.combineLatest(fromDatePicker.rx.value, toDatePicker.rx.value)
+        Observable.combineLatest(fromDatePicker.rx.date, toDatePicker.rx.date)
+            .startWith((Formatter.shared.getDateOneMontBeforeTodaysDate(), Date()))
             .subscribe(onNext: { [weak self] (fromDateInDateFormat, toDateInDateFormat) in
                 guard let `self` = self else { return }
                 let fromDateInStringFormat = Formatter.shared.convertDateIntoString(from: fromDateInDateFormat)
@@ -82,6 +84,14 @@ class ActivityViewController: UIViewController {
         
         refresherControl.rx.controlEvent(.valueChanged)
             .bind(to: activityViewModel.refreshTrigger)
+            .disposed(by: disposeBag)
+        
+        fromDatePicker.rx.date
+            .bind(to: activityViewModel.dateInFromDatePickerChanges)
+            .disposed(by: disposeBag)
+        
+        toDatePicker.rx.date
+            .bind(to: activityViewModel.dateInToDatePickerChanges)
             .disposed(by: disposeBag)
     }
     
@@ -124,6 +134,12 @@ class ActivityViewController: UIViewController {
         tableView.register(EmptyTableViewCell.self, forCellReuseIdentifier: "EmptyTableViewCell")
         tableView.register(LoadingTableViewCell.self, forCellReuseIdentifier: "LoadingTableViewCell")
         tableView.refreshControl = refresherControl
+    }
+    
+    private func setFromPickerAndTextFieldInitialDate() {
+        fromDatePicker.date = Formatter.shared.getDateOneMontBeforeTodaysDate()
+        let lastMonthDate = Formatter.shared.getDateOneMontBeforeTodaysDate()
+        fromDateTextField.text = Formatter.shared.convertDateIntoString(from: lastMonthDate)
     }
 }
 

@@ -82,4 +82,24 @@ class ShiftNetworking {
                 return Observable.just(ShiftsResponse.error(err))
             })
     }
+    
+    func filterShifts(fromDate: Date, toDate: Date, allShifts: ShiftsResponse) -> Observable<ShiftsResponse> {
+        switch allShifts {
+        case .success(let allShifts):
+            var filteredArrayOfShifts = [Shift]()
+            for shift in allShifts {
+                guard let arrivalDateInDateFormat = Formatter.shared.convertTimeStampIntoDate(timeStamp: shift.arrivalTime) else {
+                    return Observable.just(ShiftsResponse.error(UnpauseError.emptyError))
+                }
+                
+                if arrivalDateInDateFormat >= fromDate && arrivalDateInDateFormat <= toDate {
+                    filteredArrayOfShifts.append(shift)
+                }
+            }
+            return Observable.just(ShiftsResponse.success(filteredArrayOfShifts))
+        case .error(let error):
+            print("Error")
+            return Observable.just(ShiftsResponse.error(error))
+        }
+    }
 }

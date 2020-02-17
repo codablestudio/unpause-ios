@@ -51,6 +51,7 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         displayFreshUserData()
+        print("Date one month before:\(Formatter.shared.getDateOneMontBeforeTodaysDate())")
     }
     
     private func render() {
