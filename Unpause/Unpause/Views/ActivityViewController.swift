@@ -32,7 +32,7 @@ class ActivityViewController: UIViewController {
     private let fromDatePicker = UIDatePicker()
     private let toDatePicker = UIDatePicker()
     
-    private var dataSource = [ShiftsTableViewItem]()
+    private var dataSource: [ShiftsTableViewItem] = [.loading]
     
     init(activityViewModel: ActivityViewModel) {
         self.activityViewModel = activityViewModel
@@ -77,12 +77,7 @@ class ActivityViewController: UIViewController {
                 self.tableView.reload(using: changeset, with: .fade) { data in
                     self.dataSource = data
                 }
-                
-                let delay = DispatchTime.now() + .milliseconds(600)
-                DispatchQueue.main.asyncAfter(deadline: delay) { [weak self] in
-                    guard let `self` = self else { return }
-                    self.refresherControl.endRefreshing()
-                }
+                self.refresherControl.endRefreshing()
             }).disposed(by: disposeBag)
         
         refresherControl.rx.controlEvent(.valueChanged)
@@ -126,6 +121,8 @@ class ActivityViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(ShiftTableViewCell.self, forCellReuseIdentifier: "ShiftTableViewCell")
+        tableView.register(EmptyTableViewCell.self, forCellReuseIdentifier: "EmptyTableViewCell")
+        tableView.register(LoadingTableViewCell.self, forCellReuseIdentifier: "LoadingTableViewCell")
         tableView.refreshControl = refresherControl
     }
 }
@@ -213,15 +210,24 @@ extension ActivityViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ShiftTableViewCell.self),
-                                                 for: indexPath) as! ShiftTableViewCell
-        
         switch dataSource[indexPath.row] {
         case .shift(let shift):
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ShiftTableViewCell.self),
+                                                     for: indexPath) as! ShiftTableViewCell
             cell.configure(shift)
-        default:
-            break
+            return cell
+            
+        case .empty:
+            tableView.separatorStyle = .none
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: EmptyTableViewCell.self),
+                                                     for: indexPath) as! EmptyTableViewCell
+            return cell
+            
+        case .loading:
+            tableView.separatorStyle = .none
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: LoadingTableViewCell.self),
+                                                     for: indexPath) as! LoadingTableViewCell
+            return cell
         }
-        return cell
     }
 }

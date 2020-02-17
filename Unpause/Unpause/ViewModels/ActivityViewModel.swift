@@ -25,13 +25,18 @@ class ActivityViewModel {
             .map({ shiftsResponse -> [ShiftsTableViewItem] in
                 switch shiftsResponse {
                 case .success(let shifts):
-                    var res = [ShiftsTableViewItem]()
+                    var response = [ShiftsTableViewItem]()
                     for shift in shifts {
-                        res.append(.shift(shift))
+                        response.append(.shift(shift))
                     }
-                    return res
-                case .error(let err):
-                    print("error \(err)")
+                    
+                    if shifts.isEmpty {
+                        response.append(.empty)
+                    }
+                    
+                    return response
+                case .error(let error):
+                    print("error \(error)")
                 }
                 return []
             })

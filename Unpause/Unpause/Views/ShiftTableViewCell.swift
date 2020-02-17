@@ -105,7 +105,6 @@ private extension ShiftTableViewCell {
             make.right.equalToSuperview().inset(15)
             make.bottom.equalToSuperview().inset(15)
         }
-        descriptionLabel.text = "Today I did a lot of great things and it was fenomenal."
         descriptionLabel.numberOfLines = 0
         descriptionLabel.font = UIFont.systemFont(ofSize: 16, weight: .light)
     }
