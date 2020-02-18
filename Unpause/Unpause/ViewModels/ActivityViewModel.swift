@@ -24,14 +24,16 @@ class ActivityViewModel {
     init() {
         dateInFromDatePickerChanges
             .subscribe(onNext: { [weak self] date in
-            guard let `self` = self else { return }
-            self.dateInFromDatePicker = date
-        }).disposed(by: disposeBag)
-        
+                guard let `self` = self else { return }
+                let dateWithZeroTime = Formatter.shared.getDateWithStartingDayTime(fromDate: date)
+                self.dateInFromDatePicker = dateWithZeroTime
+            }).disposed(by: disposeBag)
+
         dateInToDatePickerChanges
             .subscribe(onNext: { [weak self] date in
                 guard let `self` = self else { return }
-                self.dateInToDatePicker = date
+                let dateWithZeroTime = Formatter.shared.getDateWithEndingDayTime(fromDate: date)
+                self.dateInToDatePicker = dateWithZeroTime
             }).disposed(by: disposeBag)
         
         shiftsRequest = refreshTrigger

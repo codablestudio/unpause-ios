@@ -65,16 +65,15 @@ class Formatter {
         var dateComponents = DateComponents()
         
         let year = calendar.component(.year, from: Date())
-        let lastmonth = calendar.date(byAdding: .month, value: -1, to: Date())
-        let lMonth = calendar.component(.month, from: lastmonth!)
+        let lastmonthInDateFormat = calendar.date(byAdding: .month, value: -1, to: Date())
+        let lastMonth = calendar.component(.month, from: lastmonthInDateFormat!)
         let day = calendar.component(.day, from: Date())
         let hour = calendar.component(.hour, from: Date())
         let minute = calendar.component(.minute, from: Date())
         let second = calendar.component(.second, from: Date())
         
-        
         dateComponents.year = year
-        dateComponents.month = lMonth
+        dateComponents.month = lastMonth
         dateComponents.day = day
         dateComponents.hour = hour
         dateComponents.minute = minute
@@ -84,5 +83,50 @@ class Formatter {
             return Date()
         }
         return dateOneMonthBeforeTodaysDate
+    }
+    // Date -> Date with 00:00 time
+    func getDateWithStartingDayTime(fromDate: Date) -> Date {
+        let calendar = Calendar.current
+        var dateComponents = DateComponents()
+        
+        let year = calendar.component(.year, from: fromDate)
+        let lastMonth = calendar.component(.month, from: fromDate)
+        let day = calendar.component(.day, from: fromDate)
+        
+        dateComponents.timeZone = TimeZone(abbreviation: "GMT")
+        dateComponents.year = year
+        dateComponents.month = lastMonth
+        dateComponents.day = day
+        dateComponents.hour = 0
+        dateComponents.minute = 0
+        dateComponents.second = 0
+        
+        guard let dateWithStartingDayTime = calendar.date(from: dateComponents) else {
+            return Date()
+        }
+        return dateWithStartingDayTime
+    }
+    
+    // Date -> Date with 23:59 time
+    func getDateWithEndingDayTime(fromDate: Date) -> Date {
+        let calendar = Calendar.current
+        var dateComponents = DateComponents()
+        
+        let year = calendar.component(.year, from: fromDate)
+        let lastMonth = calendar.component(.month, from: fromDate)
+        let day = calendar.component(.day, from: fromDate)
+        
+        dateComponents.timeZone = TimeZone(abbreviation: "GMT")
+        dateComponents.year = year
+        dateComponents.month = lastMonth
+        dateComponents.day = day
+        dateComponents.hour = 23
+        dateComponents.minute = 59
+        dateComponents.second = 59
+        
+        guard let dateWithEndingDayTime = calendar.date(from: dateComponents) else {
+            return Date()
+        }
+        return dateWithEndingDayTime
     }
 }

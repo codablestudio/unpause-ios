@@ -19,11 +19,17 @@ class ActivityViewController: UIViewController {
     
     private let containerView = UIView()
     
+    private let datesAndSearchContainer = UIView()
+    
+    private let datesContainer = UIView()
+    
     private let fromDateLabel = UILabel()
     private let fromDateTextField = UITextField()
     
     private let toDateLabel = UILabel()
     private let toDateTextField = UITextField()
+    
+    private let searchButton = OrangeButton(title: "Search")
     
     private let separator = UIView()
     
@@ -46,32 +52,24 @@ class ActivityViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         render()
-        setUpObservables()
+        setFromPickerAndTextFieldInitialDate()
         showTitleInNavigationBar()
         createPickers()
         setUpTableView()
-        setFromPickerAndTextFieldInitialDate()
+        setUpObservables()
     }
     
     private func render() {
         configureContainerView()
+        configureDatesAndSearchContainer()
+        configureDatesContainer()
         renderFromDateLabelAndFromDateTextField()
         renderToDateLabelAndToDateTextField()
+        renderSearchButton()
         configureTableView()
     }
     
     private func setUpObservables() {
-        Observable.combineLatest(fromDatePicker.rx.date, toDatePicker.rx.date)
-            .startWith((Formatter.shared.getDateOneMontBeforeTodaysDate(), Date()))
-            .subscribe(onNext: { [weak self] (fromDateInDateFormat, toDateInDateFormat) in
-                guard let `self` = self else { return }
-                let fromDateInStringFormat = Formatter.shared.convertDateIntoString(from: fromDateInDateFormat)
-                let toDateInStringFormat = Formatter.shared.convertDateIntoString(from: toDateInDateFormat)
-                self.fromDateTextField.text = fromDateInStringFormat
-                self.toDateTextField.text = toDateInStringFormat
-                self.toDatePicker.minimumDate = fromDateInDateFormat
-            }).disposed(by: disposeBag)
-        
         activityViewModel.shiftsRequest
             .subscribe(onNext: { [weak self] items in
                 guard let `self` = self else { return }
@@ -82,15 +80,23 @@ class ActivityViewController: UIViewController {
                 self.refresherControl.endRefreshing()
             }).disposed(by: disposeBag)
         
-        refresherControl.rx.controlEvent(.valueChanged)
+        Observable.merge(refresherControl.rx.controlEvent(.valueChanged).asObservable(),
+                         searchButton.rx.tap.asObservable())
             .bind(to: activityViewModel.refreshTrigger)
             .disposed(by: disposeBag)
         
         fromDatePicker.rx.date
+            .do(onNext: { fromDate in
+                self.fromDateTextField.text = Formatter.shared.convertDateIntoString(from: fromDate)
+                self.toDatePicker.minimumDate = fromDate
+            })
             .bind(to: activityViewModel.dateInFromDatePickerChanges)
             .disposed(by: disposeBag)
         
         toDatePicker.rx.date
+            .do(onNext: { toDate in
+                self.toDateTextField.text = Formatter.shared.convertDateIntoString(from: toDate)
+            })
             .bind(to: activityViewModel.dateInToDatePickerChanges)
             .disposed(by: disposeBag)
     }
@@ -159,26 +165,46 @@ private extension ActivityViewController {
         }
     }
     
+    func configureDatesAndSearchContainer() {
+        containerView.addSubview(datesAndSearchContainer)
+        
+        datesAndSearchContainer.snp.makeConstraints { (make) in
+            make.top.left.right.equalToSuperview()
+        }
+        datesAndSearchContainer.addBottomBorder(.lightGray)
+    }
+    
+    func configureDatesContainer() {
+        datesAndSearchContainer.addSubview(datesContainer)
+        
+        datesContainer.snp.makeConstraints { (make) in
+            make.topMargin.equalToSuperview()
+            make.left.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+    }
+    
     func renderFromDateLabelAndFromDateTextField() {
-        containerView.addSubview(fromDateLabel)
+        datesContainer.addSubview(fromDateLabel)
         
         fromDateLabel.snp.makeConstraints { make in
-            make.topMargin.equalToSuperview().offset(30)
+            make.top.equalToSuperview().offset(30)
             make.left.equalToSuperview().offset(15)
         }
         fromDateLabel.text = "From:"
         fromDateLabel.font = UIFont.boldSystemFont(ofSize: 20)
         
-        containerView.addSubview(fromDateTextField)
+        datesContainer.addSubview(fromDateTextField)
         
         fromDateTextField.snp.makeConstraints { make in
             make.topMargin.equalToSuperview().offset(32)
             make.left.equalTo(fromDateLabel.snp.right).offset(5)
+            make.right.equalToSuperview()
         }
     }
     
     func renderToDateLabelAndToDateTextField() {
-        containerView.addSubview(toDateLabel)
+        datesContainer.addSubview(toDateLabel)
         
         toDateLabel.snp.makeConstraints { make in
             make.top.equalTo(fromDateLabel.snp.bottom).offset(15)
@@ -187,21 +213,36 @@ private extension ActivityViewController {
         toDateLabel.text = "To:"
         toDateLabel.font = UIFont.boldSystemFont(ofSize: 20)
         
-        containerView.addSubview(toDateTextField)
+        datesContainer.addSubview(toDateTextField)
         
         toDateTextField.snp.makeConstraints { make in
             make.top.equalTo(fromDateTextField.snp.bottom).offset(17)
             make.left.equalTo(toDateLabel.snp.right).offset(5)
+            make.right.equalToSuperview()
+            make.bottom.equalToSuperview().inset(10)
+        }
+    }
+    
+    func renderSearchButton() {
+        datesAndSearchContainer.addSubview(searchButton)
+        
+        searchButton.snp.makeConstraints { (make) in
+            make.topMargin.equalToSuperview().offset(38)
+            make.left.equalTo(datesContainer.snp.right).offset(30)
+            make.right.equalToSuperview().inset(30)
+            make.height.equalTo(48)
+            //make.width.equalTo(100)
         }
     }
     
     func configureTableView() {
-        containerView.addSubview(tableView)
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 25, right: 0)
         
+        containerView.addSubview(tableView)
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(toDateLabel.snp.bottom).offset(10)
+            make.top.equalTo(datesAndSearchContainer.snp.bottom).offset(10)
             make.left.right.equalToSuperview()
-            make.bottomMargin.equalToSuperview().inset(25)
+            make.bottomMargin.equalToSuperview()
         }
     }
 }
