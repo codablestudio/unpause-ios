@@ -116,9 +116,6 @@ class AddShiftViewController: UIViewController {
                 
                 let newDateAndTime = self.addShiftViewModel.makeNewDateAndTimeWithCheckInDateAnd(timeInDateFormat: timeInDateFormat)
                 SessionManager.shared.currentUser?.lastCheckInDateAndTime = newDateAndTime
-                
-                
-                //self.leavingTimePicker.minimumDate = timeInDateFormat
             }).disposed(by: disposeBag)
         
         Observable.combineLatest(leavingDatePicker.rx.value, leavingTimePicker.rx.value)
