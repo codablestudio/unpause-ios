@@ -160,7 +160,7 @@ private extension HomeViewController {
         containerView.addSubview(signedInLabel)
         
         signedInLabel.snp.makeConstraints { (make) in
-            make.topMargin.equalToSuperview().offset(135)
+            make.topMargin.equalToSuperview().offset(UIScreen.main.bounds.height / 8)
             make.left.equalToSuperview().offset(40)
             make.right.equalToSuperview()
         }

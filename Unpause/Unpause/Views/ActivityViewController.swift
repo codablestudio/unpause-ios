@@ -139,6 +139,8 @@ class ActivityViewController: UIViewController {
         tableView.register(ShiftTableViewCell.self, forCellReuseIdentifier: "ShiftTableViewCell")
         tableView.register(EmptyTableViewCell.self, forCellReuseIdentifier: "EmptyTableViewCell")
         tableView.register(LoadingTableViewCell.self, forCellReuseIdentifier: "LoadingTableViewCell")
+        
+        tableView.allowsSelection = false
         tableView.refreshControl = refresherControl
     }
     
@@ -231,7 +233,6 @@ private extension ActivityViewController {
             make.left.equalTo(datesContainer.snp.right).offset(30)
             make.right.equalToSuperview().inset(30)
             make.height.equalTo(48)
-            //make.width.equalTo(100)
         }
     }
     
@@ -240,7 +241,7 @@ private extension ActivityViewController {
         
         containerView.addSubview(tableView)
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(datesAndSearchContainer.snp.bottom).offset(10)
+            make.top.equalTo(datesAndSearchContainer.snp.bottom)
             make.left.right.equalToSuperview()
             make.bottomMargin.equalToSuperview()
         }
@@ -249,11 +250,7 @@ private extension ActivityViewController {
 
 //MARK: - Table View Delegate
 
-extension ActivityViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
+extension ActivityViewController: UITableViewDelegate {    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }

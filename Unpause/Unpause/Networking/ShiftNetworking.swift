@@ -96,7 +96,7 @@ class ShiftNetworking {
                     filteredArrayOfShifts.append(shift)
                 }
             }
-            return Observable.just(ShiftsResponse.success(filteredArrayOfShifts))
+            return Observable.just(ShiftsResponse.success(filteredArrayOfShifts.reversed()))
         case .error(let error):
             print("Error")
             return Observable.just(ShiftsResponse.error(error))
