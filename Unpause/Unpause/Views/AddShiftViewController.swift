@@ -117,7 +117,8 @@ class AddShiftViewController: UIViewController {
                 let newDateAndTime = self.addShiftViewModel.makeNewDateAndTimeWithCheckInDateAnd(timeInDateFormat: timeInDateFormat)
                 SessionManager.shared.currentUser?.lastCheckInDateAndTime = newDateAndTime
                 
-                self.leavingTimePicker.minimumDate = timeInDateFormat
+                
+                //self.leavingTimePicker.minimumDate = timeInDateFormat
             }).disposed(by: disposeBag)
         
         Observable.combineLatest(leavingDatePicker.rx.value, leavingTimePicker.rx.value)
@@ -137,6 +138,16 @@ class AddShiftViewController: UIViewController {
         Observable.combineLatest(arrivalTimePicker.rx.value, leavingDatePicker.rx.value, leavingTimePicker.rx.value)
             .subscribe(onNext: { [weak self] (arrivalTime, leavingDate, leavingTime) in
                 guard let `self` = self else { return }
+                
+                let arrivalDate = Formatter.shared.convertStringIntoDate(from: self.arrivalDateLabel.text!)
+                let arrivalDateWithStartingDayTime = Formatter.shared.getDateWithStartingDayTime(fromDate: arrivalDate)
+                let leavingDateWithStartingDayTime = Formatter.shared.getDateWithStartingDayTime(fromDate: leavingDate)
+                if arrivalDateWithStartingDayTime == leavingDateWithStartingDayTime {
+                    self.leavingTimePicker.minimumDate = arrivalTime
+                } else {
+                    self.leavingTimePicker.minimumDate = nil
+                }
+                
                 guard let firstDate = self.addShiftViewModel.makeNewDateAndTimeWithCheckInDateAnd(timeInDateFormat: arrivalTime),
                     let secondDate = self.addShiftViewModel.makeNewDateAndTimeInDateFormat(dateInDateFormat: leavingDate,
                                                                                            timeInDateFormat: leavingTime)

@@ -47,6 +47,22 @@ class Formatter {
         return dateInStringFormat
     }
     
+    // String -> Date: yyyy-MM-dd
+    func convertStringIntoDate(from string: String) -> Date {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.yyyy"
+        let formatterdate = formatter.date(from: string)
+        formatter.dateFormat = "yyyy-MM-dd"
+        let formatterString = formatter.string(from: formatterdate!)
+        
+        let date = formatter.date(from: formatterString)
+        
+        guard let formattedDate = date else {
+            return Date()
+        }
+        return formattedDate
+    }
+    
     func convertTimeStampIntoDate(timeStamp: Timestamp?) -> Date? {
         let date = timeStamp?.dateValue()
         return date
