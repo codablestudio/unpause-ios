@@ -15,7 +15,7 @@ class Formatter {
     
     private init() {}
     
-    /// Date -> String: HH:mm
+    /// Date -> String(HH:mm)
     func convertTimeIntoString(from timeInDateFormat: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -47,6 +47,7 @@ class Formatter {
         return dateInStringFormat
     }
     
+    /// TimeStamp -> String(dd.MM.yyyy)
     func convertTimeStampIntoString(timeStamp: Timestamp?) -> String {
         let dateInDateFormat = convertTimeStampIntoDate(timeStamp: timeStamp)
         guard let date = dateInDateFormat else {

@@ -10,7 +10,7 @@ import Foundation
 import FirebaseFirestore
 
 extension Formatter {
-    // String -> Date: yyyy-MM-dd
+    /// String(dd.MM.yyyy) -> Date: yyyy-MM-dd
     func convertStringIntoDate(from string: String) -> Date {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd.MM.yyyy"
@@ -26,7 +26,7 @@ extension Formatter {
         return formattedDate
     }
     
-    // Date -> Date with 00:00 time
+    /// Date -> Date with 00:00 time
     func getDateWithStartingDayTime(fromDate: Date) -> Date {
         let calendar = Calendar.current
         var dateComponents = DateComponents()
@@ -49,7 +49,7 @@ extension Formatter {
         return dateWithStartingDayTime
     }
     
-    // Date -> Date with 23:59 time
+    /// Date -> Date with 23:59 time
     func getDateWithEndingDayTime(fromDate: Date) -> Date {
         let calendar = Calendar.current
         var dateComponents = DateComponents()
