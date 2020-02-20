@@ -76,9 +76,12 @@ class ShiftTableViewCell: UITableViewCell {
     private func render() {
         configureContainerView()
         configureStackViewAndArrivalStackView()
-        renderArrivalStackViewAndItsSubviews()
-        renderDescriptionTitleAndLabel()
-        renderExitStackViewAndItsSubviews()
+        renderArrivalImageViewAndDateStackView()
+        renderArrivalTimeStackView()
+        renderDescriptionStackView()
+        configureExitStackViewAndRenderExitImageView()
+        renderExitDateStackView()
+        renderExitTimeAndWorkingHoursStackView()
     }
     
     func configure(_ shift: Shift) {
@@ -137,7 +140,7 @@ private extension ShiftTableViewCell {
         arrivalStackView.spacing = 25
     }
     
-    func renderArrivalStackViewAndItsSubviews() {
+    func renderArrivalImageViewAndDateStackView() {
         arrivalStackView.addArrangedSubview(arrivalImageView)
         
         arrivalImageView.snp.makeConstraints { (make) in
@@ -162,7 +165,9 @@ private extension ShiftTableViewCell {
         arrivalDateStackView.addArrangedSubview(arrivalDateLabel)
         arrivalDateLabel.text = "19.03.2020"
         arrivalDateLabel.font = .systemFont(ofSize: 10)
-        
+    }
+    
+    func renderArrivalTimeStackView() {
         arrivalStackView.addArrangedSubview(arrivalTimeStackView)
         
         arrivalTimeStackView.axis = .vertical
@@ -182,7 +187,7 @@ private extension ShiftTableViewCell {
         arrivalTimeLabel.font = .systemFont(ofSize: 10)
     }
     
-    func renderDescriptionTitleAndLabel() {
+    func renderDescriptionStackView() {
         stackView.addArrangedSubview(jobDescriptionStackView)
         
         jobDescriptionStackView.axis = .vertical
@@ -201,7 +206,7 @@ private extension ShiftTableViewCell {
         jobDescriptionLabel.text = "Today was one great day!!!"
     }
     
-    func renderExitStackViewAndItsSubviews() {
+    func configureExitStackViewAndRenderExitImageView() {
         stackView.addArrangedSubview(exitStackView)
         
         exitStackView.axis = .horizontal
@@ -215,7 +220,9 @@ private extension ShiftTableViewCell {
             make.width.height.equalTo(40)
         }
         exitImageView.image = UIImage(named: "exit_100x100")
-
+    }
+    
+    func renderExitDateStackView() {
         exitStackView.addArrangedSubview(exitDateStackView)
 
         exitDateStackView.axis = .vertical
@@ -233,7 +240,9 @@ private extension ShiftTableViewCell {
         exitDateStackView.addArrangedSubview(exitDateLabel)
         exitDateLabel.text = "19.03.2020"
         exitDateLabel.font = .systemFont(ofSize: 10)
-
+    }
+    
+    func renderExitTimeAndWorkingHoursStackView() {
         exitStackView.addArrangedSubview(exitTimeStackView)
 
         exitTimeStackView.axis = .vertical
@@ -251,5 +260,20 @@ private extension ShiftTableViewCell {
         exitTimeStackView.addArrangedSubview(exitTimeLabel)
         exitTimeLabel.text = "12:43"
         exitTimeLabel.font = .systemFont(ofSize: 10)
+        
+        exitStackView.addArrangedSubview(workingHoursStackView)
+        
+        workingHoursStackView.axis = .vertical
+        workingHoursStackView.alignment = .center
+        workingHoursStackView.distribution = .equalSpacing
+        workingHoursStackView.spacing = 5
+        
+        workingHoursStackView.addArrangedSubview(workingHoursTitleLabel)
+        workingHoursTitleLabel.text = "Working hours"
+        workingHoursTitleLabel.font = .systemFont(ofSize: 12)
+        
+        workingHoursStackView.addArrangedSubview(workingHoursLabel)
+        workingHoursLabel.text = "1 hour 34 minutes"
+        workingHoursLabel.font = .systemFont(ofSize: 10)
     }
 }
