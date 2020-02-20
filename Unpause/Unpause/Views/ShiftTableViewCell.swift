@@ -101,7 +101,6 @@ class ShiftTableViewCell: UITableViewCell {
 }
 
 // MARK: - UI rendering
-
 private extension ShiftTableViewCell {
     func configureContainerView() {
         contentView.addSubview(containerView)
@@ -208,6 +207,7 @@ private extension ShiftTableViewCell {
         jobDescriptionStackView.addArrangedSubview(jobDescriptionLabel)
         
         jobDescriptionLabel.font = .systemFont(ofSize: 12, weight: .light)
+        jobDescriptionLabel.text = "No descripton"
         jobDescriptionLabel.numberOfLines = 0
     }
     
@@ -255,6 +255,7 @@ private extension ShiftTableViewCell {
 
         exitDateStackView.addArrangedSubview(exitDateLabel)
         exitDateLabel.font = .systemFont(ofSize: 10)
+        exitDateLabel.text = "-"
     }
     
     func renderExitTimeAndWorkingHoursStackView() {
@@ -274,13 +275,14 @@ private extension ShiftTableViewCell {
 
         exitTimeStackView.addArrangedSubview(exitTimeLabel)
         exitTimeLabel.font = .systemFont(ofSize: 10)
+        exitTimeLabel.text = "-"
         
         exitStackView.addArrangedSubview(workingHoursStackView)
         
         workingHoursStackView.axis = .vertical
         workingHoursStackView.alignment = .center
         workingHoursStackView.distribution = .equalSpacing
-        workingHoursStackView.spacing = 5
+        workingHoursStackView.spacing = 10
         
         workingHoursStackView.addArrangedSubview(workingHoursTitleLabel)
         workingHoursTitleLabel.text = "Working hours"
@@ -288,6 +290,7 @@ private extension ShiftTableViewCell {
         
         workingHoursStackView.addArrangedSubview(workingHoursLabel)
         workingHoursLabel.text = "1 hour 34 minutes"
+        workingHoursLabel.text = "-"
         workingHoursLabel.font = .systemFont(ofSize: 10)
     }
 }

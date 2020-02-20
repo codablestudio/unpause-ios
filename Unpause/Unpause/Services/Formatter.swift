@@ -15,7 +15,7 @@ class Formatter {
     
     private init() {}
     
-    // Date -> String: HH:mm
+    /// Date -> String: HH:mm
     func convertTimeIntoString(from timeInDateFormat: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -26,12 +26,12 @@ class Formatter {
         guard let formatedDate = formatterDate else {
             return ""
         }
-        
+       
         let timeInStringFormat = formatter.string(from: formatedDate)
         return timeInStringFormat
     }
     
-    // Date -> String: dd.MM.yyyy
+    /// Date -> String(dd.MM.yyyy)
     func convertDateIntoString(from dateInDateFormat: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -47,35 +47,6 @@ class Formatter {
         return dateInStringFormat
     }
     
-    // String -> Date: yyyy-MM-dd
-    func convertStringIntoDate(from string: String) -> Date {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yyyy"
-        let formatterdate = formatter.date(from: string)
-        formatter.dateFormat = "yyyy-MM-dd"
-        let formatterString = formatter.string(from: formatterdate!)
-        
-        let date = formatter.date(from: formatterString)
-        
-        guard let formattedDate = date else {
-            return Date()
-        }
-        return formattedDate
-    }
-    
-    func convertTimeStampIntoDate(timeStamp: Timestamp?) -> Date? {
-        let date = timeStamp?.dateValue()
-        return date
-    }
-    
-    func convertDateIntoTimeStamp(date: Date?) -> Timestamp? {
-        guard let date = date else {
-            return Timestamp()
-        }
-        let timeStamp = Timestamp(date: date)
-        return timeStamp
-    }
-    
     func convertTimeStampIntoString(timeStamp: Timestamp?) -> String {
         let dateInDateFormat = convertTimeStampIntoDate(timeStamp: timeStamp)
         guard let date = dateInDateFormat else {
@@ -85,80 +56,11 @@ class Formatter {
         return dateInStringFormat
     }
     
-    func getDateOneMontBeforeTodaysDate() -> Date {
-        let calendar = Calendar.current
-        var dateComponents = DateComponents()
-        
-        let year = calendar.component(.year, from: Date())
-        let lastmonthInDateFormat = calendar.date(byAdding: .month, value: -1, to: Date())
-        let lastMonth = calendar.component(.month, from: lastmonthInDateFormat!)
-        let day = calendar.component(.day, from: Date())
-        let hour = calendar.component(.hour, from: Date())
-        let minute = calendar.component(.minute, from: Date())
-        let second = calendar.component(.second, from: Date())
-        
-        dateComponents.year = year
-        dateComponents.month = lastMonth
-        dateComponents.day = day
-        dateComponents.hour = hour
-        dateComponents.minute = minute
-        dateComponents.second = second
-        
-        guard let dateOneMonthBeforeTodaysDate = calendar.date(from: dateComponents) else {
-            return Date()
+    func convertDateIntoTimeStamp(date: Date?) -> Timestamp? {
+        guard let date = date else {
+            return Timestamp()
         }
-        return dateOneMonthBeforeTodaysDate
-    }
-    // Date -> Date with 00:00 time
-    func getDateWithStartingDayTime(fromDate: Date) -> Date {
-        let calendar = Calendar.current
-        var dateComponents = DateComponents()
-        
-        let year = calendar.component(.year, from: fromDate)
-        let lastMonth = calendar.component(.month, from: fromDate)
-        let day = calendar.component(.day, from: fromDate)
-        
-        dateComponents.timeZone = TimeZone(abbreviation: "GMT")
-        dateComponents.year = year
-        dateComponents.month = lastMonth
-        dateComponents.day = day
-        dateComponents.hour = 0
-        dateComponents.minute = 0
-        dateComponents.second = 0
-        
-        guard let dateWithStartingDayTime = calendar.date(from: dateComponents) else {
-            return Date()
-        }
-        return dateWithStartingDayTime
-    }
-    
-    // Date -> Date with 23:59 time
-    func getDateWithEndingDayTime(fromDate: Date) -> Date {
-        let calendar = Calendar.current
-        var dateComponents = DateComponents()
-        
-        let year = calendar.component(.year, from: fromDate)
-        let lastMonth = calendar.component(.month, from: fromDate)
-        let day = calendar.component(.day, from: fromDate)
-        
-        dateComponents.timeZone = TimeZone(abbreviation: "GMT")
-        dateComponents.year = year
-        dateComponents.month = lastMonth
-        dateComponents.day = day
-        dateComponents.hour = 23
-        dateComponents.minute = 59
-        dateComponents.second = 59
-        
-        guard let dateWithEndingDayTime = calendar.date(from: dateComponents) else {
-            return Date()
-        }
-        return dateWithEndingDayTime
-    }
-    
-    func findTimeDifference(firstDate: Date, secondDate: Date) -> (String, String) {
-        let timeDifferenceInSeconds = secondDate.timeIntervalSince1970 - firstDate.timeIntervalSince1970
-        let hours = String(Int(timeDifferenceInSeconds / 3600))
-        let minutes = String(Int((timeDifferenceInSeconds.truncatingRemainder(dividingBy: 3600)) / 60))
-        return (hours,minutes)
+        let timeStamp = Timestamp(date: date)
+        return timeStamp
     }
 }

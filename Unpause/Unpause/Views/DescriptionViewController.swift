@@ -40,6 +40,7 @@ class DescriptionViewController: UIViewController {
         render()
         setUpObservables()
         addGestureRecognizer()
+        setUpFirstResponder()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -95,19 +96,16 @@ class DescriptionViewController: UIViewController {
         }).disposed(by: disposeBag)
     }
     
-    private func showNavigationBar() {
-        navigationController?.setNavigationBarHidden(false, animated: true)
+    private func setUpFirstResponder() {
+        descriptionTextView.becomeFirstResponder()
     }
     
-    private func showAlert(title: String, message: String, actionTitle: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: actionTitle, style: .default, handler: nil))
-        self.present(alert, animated: true)
+    private func showNavigationBar() {
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
 }
 
 // MARK: - UI rendering
-
 private extension DescriptionViewController {
     func configureScrollViewAndContainerView() {
         view.backgroundColor = UIColor.whiteUnpauseTextAndBackgroundColor

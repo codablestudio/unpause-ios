@@ -37,7 +37,6 @@ class EmptyTableViewCell: UITableViewCell {
 }
 
 // MARK: - UI rendering
-
 private extension EmptyTableViewCell {
     func renderNoShiftsImageView() {
         contentView.addSubview(noShiftImageView)

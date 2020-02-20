@@ -51,6 +51,7 @@
 		C13C412623ABBC7000B674E9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C412523ABBC7000B674E9 /* SettingsViewController.swift */; };
 		C13C412823ABBC8900B674E9 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C412723ABBC8900B674E9 /* SettingsViewModel.swift */; };
 		C13DDCEB23F36D050043E242 /* Shift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13DDCEA23F36D050043E242 /* Shift.swift */; };
+		C13EFBA423FECC5D0081ACF0 /* Formatter+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13EFBA323FECC5D0081ACF0 /* Formatter+Date.swift */; };
 		C1437B4123F3EF43007BD7DA /* ShiftFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1437B4023F3EF43007BD7DA /* ShiftFactory.swift */; };
 		C1437B4323F40B0A007BD7DA /* ShiftNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1437B4223F40B0A007BD7DA /* ShiftNetworking.swift */; };
 		C146991223A112F100A84818 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C146991123A112F100A84818 /* AppDelegate.swift */; };
@@ -67,6 +68,7 @@
 		C1707B1E23F19022002E1A10 /* Coordinator+AddShift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1707B1D23F19022002E1A10 /* Coordinator+AddShift.swift */; };
 		C1707B2023F190AE002E1A10 /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1707B1F23F190AE002E1A10 /* DescriptionViewController.swift */; };
 		C1707B2223F19129002E1A10 /* DescriptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1707B2123F19129002E1A10 /* DescriptionViewModel.swift */; };
+		C176A55A23FED4F900631E39 /* ShiftDeletionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C176A55923FED4F900631E39 /* ShiftDeletionResponse.swift */; };
 		C198B8EF23B0CACA00FBD3C6 /* Coordinator+Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C198B8EE23B0CACA00FBD3C6 /* Coordinator+Auth.swift */; };
 		C198B8F123B0CB4C00FBD3C6 /* Coordinator+Tabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C198B8F023B0CB4C00FBD3C6 /* Coordinator+Tabbar.swift */; };
 		C198B8F423B0CFC100FBD3C6 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C198B8F323B0CFC100FBD3C6 /* CustomTabBarController.swift */; };
@@ -130,6 +132,7 @@
 		C13C412523ABBC7000B674E9 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		C13C412723ABBC8900B674E9 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		C13DDCEA23F36D050043E242 /* Shift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shift.swift; sourceTree = "<group>"; };
+		C13EFBA323FECC5D0081ACF0 /* Formatter+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Formatter+Date.swift"; sourceTree = "<group>"; };
 		C1437B4023F3EF43007BD7DA /* ShiftFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftFactory.swift; sourceTree = "<group>"; };
 		C1437B4223F40B0A007BD7DA /* ShiftNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftNetworking.swift; sourceTree = "<group>"; };
 		C146990E23A112F100A84818 /* Unpause.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Unpause.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -148,6 +151,7 @@
 		C1707B1D23F19022002E1A10 /* Coordinator+AddShift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinator+AddShift.swift"; sourceTree = "<group>"; };
 		C1707B1F23F190AE002E1A10 /* DescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
 		C1707B2123F19129002E1A10 /* DescriptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionViewModel.swift; sourceTree = "<group>"; };
+		C176A55923FED4F900631E39 /* ShiftDeletionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftDeletionResponse.swift; sourceTree = "<group>"; };
 		C198B8EE23B0CACA00FBD3C6 /* Coordinator+Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinator+Auth.swift"; sourceTree = "<group>"; };
 		C198B8F023B0CB4C00FBD3C6 /* Coordinator+Tabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinator+Tabbar.swift"; sourceTree = "<group>"; };
 		C198B8F323B0CFC100FBD3C6 /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
@@ -251,6 +255,7 @@
 			isa = PBXGroup;
 			children = (
 				C1B0B2B223B0BF9700CE5D05 /* SessionManager.swift */,
+				C13EFBA323FECC5D0081ACF0 /* Formatter+Date.swift */,
 				C1707B1923F17605002E1A10 /* Formatter.swift */,
 				C1437B3F23F3EF35007BD7DA /* Factories */,
 			);
@@ -363,6 +368,7 @@
 				C13DDCEA23F36D050043E242 /* Shift.swift */,
 				C1B131FB23F59150009C3C59 /* ShitfsResponse.swift */,
 				C1D0CA0A23F6AC9600A20D6F /* DataSource.swift */,
+				C176A55923FED4F900631E39 /* ShiftDeletionResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -591,6 +597,7 @@
 				C13105E723B0ADF200A509D9 /* User.swift in Sources */,
 				C146992E23A11DBE00A84818 /* LoginViewModel.swift in Sources */,
 				C110AE2A23C34E770066C394 /* UpdatePasswordViewModel.swift in Sources */,
+				C13EFBA423FECC5D0081ACF0 /* Formatter+Date.swift in Sources */,
 				C1707B2223F19129002E1A10 /* DescriptionViewModel.swift in Sources */,
 				C10F78DC23A3D79200783476 /* Thread+Extension.swift in Sources */,
 				C10F78E623A3D79200783476 /* CGSize+Extension.swift in Sources */,
@@ -613,6 +620,7 @@
 				C1FBC46F23AA521C00579913 /* HomeViewModel.swift in Sources */,
 				C10F78E723A3D79200783476 /* UIButton+Rx.swift in Sources */,
 				C133DE5223C871A90096F5B2 /* UpdatePasswordNetworking.swift in Sources */,
+				C176A55A23FED4F900631E39 /* ShiftDeletionResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

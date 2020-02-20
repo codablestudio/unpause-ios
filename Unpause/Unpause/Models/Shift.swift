@@ -10,7 +10,7 @@ import Foundation
 import FirebaseFirestore
 import DifferenceKit
 
-class Shift: Differentiable {
+class Shift: Differentiable, Equatable {
     typealias DifferenceIdentifier = String
     
      var differenceIdentifier: String {
@@ -25,5 +25,9 @@ class Shift: Differentiable {
     
     func isContentEqual(to source: Shift) -> Bool {
         return arrivalTime == source.arrivalTime && exitTime == source.exitTime
+    }
+    
+    static func ==(lhs: Shift, rhs: Shift) -> Bool {
+        return lhs.arrivalTime == rhs.arrivalTime && lhs.exitTime == rhs.exitTime && lhs.description == rhs.description
     }
 }

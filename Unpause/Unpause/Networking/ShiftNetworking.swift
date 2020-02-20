@@ -88,7 +88,9 @@ class ShiftNetworking {
         case .success(let allShifts):
             var filteredArrayOfShifts = [Shift]()
             for shift in allShifts {
-                guard let arrivalDateInDateFormat = Formatter.shared.convertTimeStampIntoDate(timeStamp: shift.arrivalTime) else {
+                guard let arrivalDateInDateFormat =
+                    Formatter.shared.convertTimeStampIntoDate(timeStamp: shift.arrivalTime) else {
+                    
                     return Observable.just(ShiftsResponse.error(UnpauseError.emptyError))
                 }
                 
@@ -101,5 +103,49 @@ class ShiftNetworking {
             print("Error")
             return Observable.just(ShiftsResponse.error(error))
         }
+    }
+    
+    func deleteShift(shiftToDelete: Shift) -> Observable<ShiftDeletionResponse> {
+        return fetchShifts()
+            .flatMapLatest { [weak self] shiftsResponse -> Observable<ShiftDeletionResponse> in
+                guard let `self` = self else { return Observable.empty() }
+                switch shiftsResponse {
+                case .success(let shifts):
+                    let newShiftArray = self.getNewArrayOfShiftsWithOutOneShift(shifts: shifts, shiftToRemove: shiftToDelete)
+                    
+                    let shiftsData = ShiftFactory().createShiftsData(from: newShiftArray)
+                    
+                    return self.saveNewShiftsArrayOnServer(shiftsData: shiftsData, shiftToDelete: shiftToDelete)
+                case .error(let error):
+                    return Observable.just(ShiftDeletionResponse.error(error))
+                }
+        }
+    }
+    
+    func saveNewShiftsArrayOnServer(shiftsData: [[String : Any]], shiftToDelete: Shift) -> Observable<ShiftDeletionResponse> {
+        guard let currentUserEmail = SessionManager.shared.currentUser?.email else {
+            return Observable.just(ShiftDeletionResponse.error(UnpauseError.emptyError))
+        }
+        return self.dataBaseReference
+            .collection("users")
+            .document("\(currentUserEmail)")
+            .rx
+            .updateData(["shifts": shiftsData])
+            .flatMapLatest({ _ -> Observable<ShiftDeletionResponse> in
+                return Observable.just(ShiftDeletionResponse.success(shiftToDelete))
+            })
+            .catchError({ error -> Observable<ShiftDeletionResponse> in
+                return Observable.just(ShiftDeletionResponse.error(error))
+            })
+    }
+    
+    private func getNewArrayOfShiftsWithOutOneShift(shifts: [Shift], shiftToRemove: Shift) -> [Shift] {
+        var newShiftArray = [Shift]()
+        for shift in shifts {
+            if shift != shiftToRemove {
+                newShiftArray.append(shift)
+            }
+        }
+        return newShiftArray
     }
 }

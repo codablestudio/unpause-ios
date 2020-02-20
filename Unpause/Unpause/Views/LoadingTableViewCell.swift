@@ -35,7 +35,6 @@ class LoadingTableViewCell: UITableViewCell {
 }
 
 // MARK: - UI rendering
-
 private extension LoadingTableViewCell {
     func renderActivityIndicatorView() {
         contentView.addSubview(activityIndicatorView)

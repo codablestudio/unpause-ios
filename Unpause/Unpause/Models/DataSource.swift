@@ -37,4 +37,11 @@ enum ShiftsTableViewItem: Differentiable {
             return false
         }
     }
+    
+    var shift: Shift? {
+        switch self {
+        case .shift(let shift): return shift
+        default: return nil
+        }
+    }
 }

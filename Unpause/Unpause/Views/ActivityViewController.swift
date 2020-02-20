@@ -9,11 +9,13 @@
 import UIKit
 import RxSwift
 import DifferenceKit
+import SVProgressHUD
 
 class ActivityViewController: UIViewController {
     
     private let activityViewModel: ActivityViewModel
     private let disposeBag = DisposeBag()
+    private let shiftNetworking = ShiftNetworking()
     
     private let refresherControl = UIRefreshControl()
     
@@ -37,6 +39,8 @@ class ActivityViewController: UIViewController {
     
     private let fromDatePicker = UIDatePicker()
     private let toDatePicker = UIDatePicker()
+    
+    private let shiftToDelete = PublishSubject<Shift>()
     
     private var dataSource: [ShiftsTableViewItem] = [.loading]
     
@@ -99,6 +103,11 @@ class ActivityViewController: UIViewController {
             })
             .bind(to: activityViewModel.dateInToDatePickerChanges)
             .disposed(by: disposeBag)
+        
+        shiftToDelete.bind(to: activityViewModel.shiftToDelete)
+            .disposed(by: disposeBag)
+        
+        observeDeletions()
     }
     
     private func showTitleInNavigationBar() {
@@ -153,7 +162,6 @@ class ActivityViewController: UIViewController {
 
 
 // MARK: - UI rendering
-
 private extension ActivityViewController {
     func configureContainerView() {
         view.backgroundColor = UIColor.whiteUnpauseTextAndBackgroundColor
@@ -249,15 +257,48 @@ private extension ActivityViewController {
 }
 
 //MARK: - Table View Delegate
-
 extension ActivityViewController: UITableViewDelegate {    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        guard editingStyle == .delete else { return }
+        SVProgressHUD.show()
+        
+        switch dataSource[indexPath.row] {
+        case .shift(let shift):
+            shiftToDelete.onNext(shift)
+        default:
+            SVProgressHUD.dismiss()
+        }
+    }
+    
+    private func observeDeletions() {
+        activityViewModel.deleteRequest
+            .subscribe(onNext: { [weak self] shiftDeletionsResponse in
+                guard let `self` = self else { return }
+                SVProgressHUD.dismiss()
+                
+                switch shiftDeletionsResponse {
+                case .success(let deletedShift):
+                    guard let rowToDelete = self.dataSource.firstIndex(where: { $0.shift == deletedShift }) else { return }
+                    self.dataSource.remove(at: rowToDelete)
+                    self.tableView.deleteRows(at: [IndexPath(row: rowToDelete, section: 0)], with: .automatic)
+                    ActivityViewModel.forceRefresh.onNext(())
+                    
+                case .error(let error):
+                    print("ERROR: \(error)")
+                }
+            }).disposed(by: disposeBag)
+    }
 }
 
 //MARK: - Table View DataSource
-
 extension ActivityViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataSource.count

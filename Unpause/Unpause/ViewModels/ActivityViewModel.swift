@@ -14,9 +14,13 @@ class ActivityViewModel {
     private let disposeBag = DisposeBag()
     
     var shiftsRequest: Observable<[ShiftsTableViewItem]>!
+    
     var refreshTrigger = PublishSubject<Void>()
     var dateInFromDatePickerChanges = PublishSubject<Date>()
     var dateInToDatePickerChanges = PublishSubject<Date>()
+    
+    var shiftToDelete = PublishSubject<Shift>()
+    var deleteRequest: Observable<ShiftDeletionResponse>!
     
     private var dateInFromDatePicker: Date?
     private var dateInToDatePicker: Date?
@@ -69,6 +73,19 @@ class ActivityViewModel {
                     print("error \(error)")
                 }
                 return []
+            })
+        
+        setupDeletion()
+    }
+}
+
+// MARK: Delete request
+extension ActivityViewModel {
+    func setupDeletion() {
+        deleteRequest = shiftToDelete
+            .flatMapLatest({ [weak self] shift -> Observable<ShiftDeletionResponse> in
+                guard let `self` = self else { return Observable.empty() }
+                return self.shiftNetworking.deleteShift(shiftToDelete: shift)
             })
     }
 }

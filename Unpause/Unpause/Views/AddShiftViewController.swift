@@ -103,9 +103,20 @@ class AddShiftViewController: UIViewController {
         
         continueButton.rx.tap.subscribe(onNext: { [weak self] _ in
             guard let `self` = self else { return }
-            Coordinator.shared.navigateToDecriptionViewController(from: self,
-                                                                  arrivalTime: self.arrivalDateAndTime,
-                                                                  leavingTime: self.leavingDateAndTime)
+            
+            guard let arrivalDateAndTimeInDateFormat = self.arrivalDateAndTime,
+                let exitDateAndTimeInDateFormat = self.leavingDateAndTime else {
+                    return
+            }
+            
+            if arrivalDateAndTimeInDateFormat <= exitDateAndTimeInDateFormat {
+                Coordinator.shared.navigateToDecriptionViewController(from: self,
+                arrivalTime: self.arrivalDateAndTime,
+                leavingTime: self.leavingDateAndTime)
+            } else {
+                self.showAlert(title: "Alert", message: "Please enter correct dates and times.", actionTitle: "OK")
+            }
+            
         }).disposed(by: disposeBag)
         
         arrivalTimePicker.rx.value
@@ -234,7 +245,6 @@ class AddShiftViewController: UIViewController {
 }
 
 // MARK: - UI rendering
-
 private extension AddShiftViewController {
     func configureScrollViewAndContainerView() {
         view.backgroundColor = UIColor.whiteUnpauseTextAndBackgroundColor

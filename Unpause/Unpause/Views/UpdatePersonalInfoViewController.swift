@@ -95,12 +95,6 @@ class UpdatePersonalInfoViewController: UIViewController {
             }).disposed(by: disposeBag)
     }
     
-    private func showAlert(title: String, message: String, actionTitle: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: actionTitle, style: .default, handler: nil))
-        self.present(alert, animated: true)
-    }
-    
     private func setUpTextFields() {
         newFirstNameTextField.setNextResponder(newLastNameTextField, disposeBag: disposeBag)
         newLastNameTextField.resignWhenFinished(disposeBag)
@@ -114,7 +108,6 @@ class UpdatePersonalInfoViewController: UIViewController {
 }
 
 // MARK: - UI rendering
-
 private extension UpdatePersonalInfoViewController {
     
     func configureScrollViewAndContainerView() {
