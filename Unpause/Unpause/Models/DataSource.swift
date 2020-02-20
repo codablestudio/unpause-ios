@@ -10,20 +10,20 @@ import Foundation
 import DifferenceKit
 
 enum ShiftsTableViewItem: Differentiable {
-    typealias DifferenceIdentifier = Int
+    typealias DifferenceIdentifier = String
     
     case shift(Shift)
     case empty
     case loading
     
-    var differenceIdentifier: Int {
+    var differenceIdentifier: String {
         switch self {
         case .shift(let shift):
             return shift.differenceIdentifier
         case .empty:
-            return -1
+            return "-1"
         case .loading:
-            return -2
+            return "-2"
         }
     }
     
@@ -32,7 +32,7 @@ enum ShiftsTableViewItem: Differentiable {
         case (.empty, .empty), (.loading, .loading):
             return true
         case (.shift(let lhs), .shift(let rhs)):
-            return lhs.differenceIdentifier == rhs.differenceIdentifier
+            return lhs.isContentEqual(to: rhs)
         default:
             return false
         }

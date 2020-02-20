@@ -94,6 +94,7 @@ class HomeViewController: UIViewController {
                 switch response {
                 case .success:
                     print("User successfully checked in.")
+                    ActivityViewModel.forceRefresh.onNext(())
                 case .error(let error):
                     print("Error occured: \(error)")
                     self.showAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")

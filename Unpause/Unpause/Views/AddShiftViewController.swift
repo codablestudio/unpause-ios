@@ -153,7 +153,7 @@ class AddShiftViewController: UIViewController {
                 self.arrivalDateAndTime = firstDate
                 self.leavingDateAndTime = secondDate
                 
-                let timeDifference = self.addShiftViewModel.findTimeDifference(firstDate: firstDate, secondDate: secondDate)
+                let timeDifference = Formatter.shared.findTimeDifference(firstDate: firstDate, secondDate: secondDate)
                 self.workingHours.onNext(timeDifference.0)
                 self.workingMinutes.onNext(timeDifference.1)
             }).disposed(by: disposeBag)
@@ -223,7 +223,7 @@ class AddShiftViewController: UIViewController {
                                                                                      timeInDateFormat: leavingTimePicker.date)
             else { return }
         
-        let timeIntervalHoursAndMinutes = addShiftViewModel.findTimeDifference(firstDate: firstDateAndTime,
+        let timeIntervalHoursAndMinutes = Formatter.shared.findTimeDifference(firstDate: firstDateAndTime,
                                                                                secondDate: secondDateAndTime)
         let firstPartOfString = "You have been working for"
         let hoursPartOfString = "\(timeIntervalHoursAndMinutes.0) hours and"

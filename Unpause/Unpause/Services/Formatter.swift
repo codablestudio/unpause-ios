@@ -76,6 +76,15 @@ class Formatter {
         return timeStamp
     }
     
+    func convertTimeStampIntoString(timeStamp: Timestamp?) -> String {
+        let dateInDateFormat = convertTimeStampIntoDate(timeStamp: timeStamp)
+        guard let date = dateInDateFormat else {
+            return ""
+        }
+        let dateInStringFormat = convertDateIntoString(from: date)
+        return dateInStringFormat
+    }
+    
     func getDateOneMontBeforeTodaysDate() -> Date {
         let calendar = Calendar.current
         var dateComponents = DateComponents()
@@ -144,5 +153,12 @@ class Formatter {
             return Date()
         }
         return dateWithEndingDayTime
+    }
+    
+    func findTimeDifference(firstDate: Date, secondDate: Date) -> (String, String) {
+        let timeDifferenceInSeconds = secondDate.timeIntervalSince1970 - firstDate.timeIntervalSince1970
+        let hours = String(Int(timeDifferenceInSeconds / 3600))
+        let minutes = String(Int((timeDifferenceInSeconds.truncatingRemainder(dividingBy: 3600)) / 60))
+        return (hours,minutes)
     }
 }

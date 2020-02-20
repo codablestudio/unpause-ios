@@ -80,6 +80,7 @@ class DescriptionViewController: UIViewController {
                 case .success:
                     SVProgressHUD.showSuccess(withStatus: "Shift successfully added.")
                     SVProgressHUD.dismiss(withDelay: 0.6)
+                    ActivityViewModel.forceRefresh.onNext(())
                     self.dismiss(animated: true)
                 case .error(let error):
                     self.showAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")

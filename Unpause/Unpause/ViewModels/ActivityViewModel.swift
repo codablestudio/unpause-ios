@@ -21,6 +21,8 @@ class ActivityViewModel {
     private var dateInFromDatePicker: Date?
     private var dateInToDatePicker: Date?
     
+    static var forceRefresh = PublishSubject<()>()
+    
     init() {
         dateInFromDatePickerChanges
             .subscribe(onNext: { [weak self] date in
@@ -36,7 +38,7 @@ class ActivityViewModel {
                 self.dateInToDatePicker = dateWithZeroTime
             }).disposed(by: disposeBag)
         
-        shiftsRequest = refreshTrigger
+        shiftsRequest = Observable.merge(ActivityViewModel.forceRefresh, refreshTrigger)
             .startWith(())
             .flatMapLatest({ [weak self] _ -> Observable<ShiftsResponse> in
                 guard let `self` = self else { return Observable.empty() }

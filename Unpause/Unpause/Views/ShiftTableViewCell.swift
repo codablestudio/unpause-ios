@@ -26,9 +26,13 @@ class ShiftTableViewCell: UITableViewCell {
     private let arrivalTimeImageView = UIImageView()
     private let arrivalTimeLabel = UILabel()
     
+    private let firstSeparator = UIView()
+    
     private let jobDescriptionStackView = UIStackView()
     private let jobDesriptionTitleLabel = UILabel()
     private let jobDescriptionLabel = UILabel()
+    
+    private let secondSetarator = UIView()
     
     private let exitStackView = UIStackView()
     
@@ -46,13 +50,6 @@ class ShiftTableViewCell: UITableViewCell {
     private let workingHoursTitleLabel = UILabel()
     private let workingHoursLabel = UILabel()
     
-    
-    
-    private let fromLabel = UILabel()
-    private let toLabel = UILabel()
-    private let onThatDayLabel = UILabel()
-    private let descriptionLabel = UILabel()
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         render()
@@ -66,19 +63,14 @@ class ShiftTableViewCell: UITableViewCell {
         super.awakeFromNib()
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        fromLabel.text = "From xx:xx on xx.xx.xxxx"
-        toLabel.text = "To xx:xx on xx.xx.xxxx"
-        descriptionLabel.text = nil
-    }
-    
     private func render() {
         configureContainerView()
         configureStackViewAndArrivalStackView()
         renderArrivalImageViewAndDateStackView()
         renderArrivalTimeStackView()
+        renderFirstSeparator()
         renderDescriptionStackView()
+        renderSecondSeparator()
         configureExitStackViewAndRenderExitImageView()
         renderExitDateStackView()
         renderExitTimeAndWorkingHoursStackView()
@@ -93,13 +85,18 @@ class ShiftTableViewCell: UITableViewCell {
         }
         let arrivalTimeInStringFormat = Formatter.shared.convertTimeIntoString(from: arrivalDateAndTime)
         let arrivalDateInStringFormat = Formatter.shared.convertDateIntoString(from: arrivalDateAndTime)
-        fromLabel.text = "From \(arrivalTimeInStringFormat) on \(arrivalDateInStringFormat)"
+        arrivalDateLabel.text = "\(arrivalDateInStringFormat)"
+        arrivalTimeLabel.text = "\(arrivalTimeInStringFormat)"
         
         let exitTimeInStringFormat = Formatter.shared.convertTimeIntoString(from: exitDateAndTime)
         let exitDateInStringFormat = Formatter.shared.convertDateIntoString(from: exitDateAndTime)
-        toLabel.text = "To \(exitTimeInStringFormat) on \(exitDateInStringFormat)"
+        exitDateLabel.text = "\(exitDateInStringFormat)"
+        exitTimeLabel.text = "\(exitTimeInStringFormat)"
+
+        jobDescriptionLabel.text = shift.description
         
-        descriptionLabel.text = shift.description
+        let timeDifference = Formatter.shared.findTimeDifference(firstDate: arrivalDateAndTime, secondDate: exitDateAndTime)
+        workingHoursLabel.text = "\(timeDifference.0) hours \(timeDifference.1) minutes"
     }
 }
 
@@ -121,10 +118,9 @@ private extension ShiftTableViewCell {
     func configureStackViewAndArrivalStackView() {
         containerView.addSubview(stackView)
         
-        stackView.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(15)
-            make.left.equalToSuperview().offset(15)
-            make.bottom.equalToSuperview().inset(15)
+        stackView.snp.makeConstraints { make in
+            make.top.left.equalToSuperview().offset(15)
+            make.bottom.right.equalToSuperview().inset(15)
         }
         
         stackView.axis = .vertical
@@ -143,10 +139,10 @@ private extension ShiftTableViewCell {
     func renderArrivalImageViewAndDateStackView() {
         arrivalStackView.addArrangedSubview(arrivalImageView)
         
-        arrivalImageView.snp.makeConstraints { (make) in
-            make.width.height.equalTo(40)
+        arrivalImageView.snp.makeConstraints { make in
+            make.width.height.equalTo(30)
         }
-        arrivalImageView.image = UIImage(named: "enter_100x100")
+        arrivalImageView.image = UIImage(named: "unpause_white_logo_75x75")
         
         arrivalStackView.addArrangedSubview(arrivalDateStackView)
         
@@ -157,13 +153,12 @@ private extension ShiftTableViewCell {
         
         arrivalDateStackView.addArrangedSubview(arrivalDateImageView)
         
-        arrivalDateImageView.snp.makeConstraints { (make) in
+        arrivalDateImageView.snp.makeConstraints { make in
             make.height.width.equalTo(20)
         }
         arrivalDateImageView.image = UIImage(named: "calendar_75x75_black")
         
         arrivalDateStackView.addArrangedSubview(arrivalDateLabel)
-        arrivalDateLabel.text = "19.03.2020"
         arrivalDateLabel.font = .systemFont(ofSize: 10)
     }
     
@@ -177,14 +172,24 @@ private extension ShiftTableViewCell {
         
         arrivalTimeStackView.addArrangedSubview(arrivalTimeImageView)
         
-        arrivalTimeImageView.snp.makeConstraints { (make) in
+        arrivalTimeImageView.snp.makeConstraints { make in
             make.height.width.equalTo(20)
         }
         arrivalTimeImageView.image = UIImage(named: "time_75x75_black")
         
         arrivalTimeStackView.addArrangedSubview(arrivalTimeLabel)
-        arrivalTimeLabel.text = "12:43"
         arrivalTimeLabel.font = .systemFont(ofSize: 10)
+    }
+    
+    func renderFirstSeparator() {
+        stackView.addArrangedSubview(firstSeparator)
+        
+        firstSeparator.snp.makeConstraints { make in
+            make.left.equalToSuperview()
+            make.right.equalTo(arrivalTimeStackView.snp.right).offset(15)
+            make.height.equalTo(1)
+        }
+        firstSeparator.backgroundColor = .lightGray
     }
     
     func renderDescriptionStackView() {
@@ -203,7 +208,18 @@ private extension ShiftTableViewCell {
         jobDescriptionStackView.addArrangedSubview(jobDescriptionLabel)
         
         jobDescriptionLabel.font = .systemFont(ofSize: 12, weight: .light)
-        jobDescriptionLabel.text = "Today was one great day!!!"
+        jobDescriptionLabel.numberOfLines = 0
+    }
+    
+    func renderSecondSeparator() {
+        stackView.addArrangedSubview(secondSetarator)
+        
+        secondSetarator.snp.makeConstraints { make in
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            make.height.equalTo(1)
+        }
+        secondSetarator.backgroundColor = .lightGray
     }
     
     func configureExitStackViewAndRenderExitImageView() {
@@ -216,10 +232,10 @@ private extension ShiftTableViewCell {
         
         exitStackView.addArrangedSubview(exitImageView)
 
-        exitImageView.snp.makeConstraints { (make) in
-            make.width.height.equalTo(40)
+        exitImageView.snp.makeConstraints { make in
+            make.width.height.equalTo(30)
         }
-        exitImageView.image = UIImage(named: "exit_100x100")
+        exitImageView.image = UIImage(named: "unpause_white_logo_back_75x75")
     }
     
     func renderExitDateStackView() {
@@ -232,13 +248,12 @@ private extension ShiftTableViewCell {
 
         exitDateStackView.addArrangedSubview(exitDateImageView)
 
-        exitDateImageView.snp.makeConstraints { (make) in
+        exitDateImageView.snp.makeConstraints { make in
             make.height.width.equalTo(20)
         }
         exitDateImageView.image = UIImage(named: "calendar_75x75_black")
 
         exitDateStackView.addArrangedSubview(exitDateLabel)
-        exitDateLabel.text = "19.03.2020"
         exitDateLabel.font = .systemFont(ofSize: 10)
     }
     
@@ -252,13 +267,12 @@ private extension ShiftTableViewCell {
 
         exitTimeStackView.addArrangedSubview(exitTimeImageView)
 
-        exitTimeImageView.snp.makeConstraints { (make) in
+        exitTimeImageView.snp.makeConstraints { make in
             make.height.width.equalTo(20)
         }
         exitTimeImageView.image = UIImage(named: "time_75x75_black")
 
         exitTimeStackView.addArrangedSubview(exitTimeLabel)
-        exitTimeLabel.text = "12:43"
         exitTimeLabel.font = .systemFont(ofSize: 10)
         
         exitStackView.addArrangedSubview(workingHoursStackView)

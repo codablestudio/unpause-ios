@@ -11,10 +11,12 @@ import FirebaseFirestore
 import DifferenceKit
 
 class Shift: Differentiable {
-    typealias DifferenceIdentifier = Int
+    typealias DifferenceIdentifier = String
     
-     var differenceIdentifier: Int {
-        return 123
+     var differenceIdentifier: String {
+        let arrivalDateAndTimeInDateFormat = Formatter.shared.convertTimeStampIntoString(timeStamp: arrivalTime)
+        let exitDateAndTimeInDateFormat = Formatter.shared.convertTimeStampIntoString(timeStamp: exitTime)
+        return "\(arrivalDateAndTimeInDateFormat)+\(exitDateAndTimeInDateFormat)"
     }
     
     var arrivalTime: Timestamp?
@@ -22,6 +24,6 @@ class Shift: Differentiable {
     var exitTime: Timestamp?
     
     func isContentEqual(to source: Shift) -> Bool {
-        return arrivalTime == source.arrivalTime
+        return arrivalTime == source.arrivalTime && exitTime == source.exitTime
     }
 }
