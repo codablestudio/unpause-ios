@@ -31,8 +31,6 @@ class ActivityViewController: UIViewController {
     private let toDateLabel = UILabel()
     private let toDateTextField = UITextField()
     
-    private let searchButton = OrangeButton(title: "Search")
-    
     private let separator = UIView()
     
     private let tableView = UITableView()
@@ -69,7 +67,6 @@ class ActivityViewController: UIViewController {
         configureDatesContainer()
         renderFromDateLabelAndFromDateTextField()
         renderToDateLabelAndToDateTextField()
-        renderSearchButton()
         configureTableView()
     }
     
@@ -84,8 +81,7 @@ class ActivityViewController: UIViewController {
                 self.refresherControl.endRefreshing()
             }).disposed(by: disposeBag)
         
-        Observable.merge(refresherControl.rx.controlEvent(.valueChanged).asObservable(),
-                         searchButton.rx.tap.asObservable())
+        refresherControl.rx.controlEvent(.valueChanged)
             .bind(to: activityViewModel.refreshTrigger)
             .disposed(by: disposeBag)
         
@@ -108,6 +104,25 @@ class ActivityViewController: UIViewController {
             .disposed(by: disposeBag)
         
         observeDeletions()
+    }
+    
+    private func observeDeletions() {
+        activityViewModel.deleteRequest
+            .subscribe(onNext: { [weak self] shiftDeletionsResponse in
+                guard let `self` = self else { return }
+                SVProgressHUD.dismiss()
+                
+                switch shiftDeletionsResponse {
+                case .success(let deletedShift):
+                    guard let rowToDelete = self.dataSource.firstIndex(where: { $0.shift == deletedShift }) else { return }
+                    self.dataSource.remove(at: rowToDelete)
+                    self.tableView.deleteRows(at: [IndexPath(row: rowToDelete, section: 0)], with: .automatic)
+                    ActivityViewModel.forceRefresh.onNext(())
+                    
+                case .error(let error):
+                    print("ERROR: \(error)")
+                }
+            }).disposed(by: disposeBag)
     }
     
     private func showTitleInNavigationBar() {
@@ -138,6 +153,7 @@ class ActivityViewController: UIViewController {
         
         doneButton.rx.tap.subscribe(onNext: { [weak self] _ in
             guard let `self` = self else { return }
+            ActivityViewModel.forceRefresh.onNext(())
             self.view.endEditing(true)
         }).disposed(by: disposeBag)
     }
@@ -233,17 +249,6 @@ private extension ActivityViewController {
         }
     }
     
-    func renderSearchButton() {
-        datesAndSearchContainer.addSubview(searchButton)
-        
-        searchButton.snp.makeConstraints { (make) in
-            make.topMargin.equalToSuperview().offset(38)
-            make.left.equalTo(datesContainer.snp.right).offset(30)
-            make.right.equalToSuperview().inset(30)
-            make.height.equalTo(48)
-        }
-    }
-    
     func configureTableView() {
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 25, right: 0)
         
@@ -276,25 +281,6 @@ extension ActivityViewController: UITableViewDelegate {
         default:
             SVProgressHUD.dismiss()
         }
-    }
-    
-    private func observeDeletions() {
-        activityViewModel.deleteRequest
-            .subscribe(onNext: { [weak self] shiftDeletionsResponse in
-                guard let `self` = self else { return }
-                SVProgressHUD.dismiss()
-                
-                switch shiftDeletionsResponse {
-                case .success(let deletedShift):
-                    guard let rowToDelete = self.dataSource.firstIndex(where: { $0.shift == deletedShift }) else { return }
-                    self.dataSource.remove(at: rowToDelete)
-                    self.tableView.deleteRows(at: [IndexPath(row: rowToDelete, section: 0)], with: .automatic)
-                    ActivityViewModel.forceRefresh.onNext(())
-                    
-                case .error(let error):
-                    print("ERROR: \(error)")
-                }
-            }).disposed(by: disposeBag)
     }
 }
 

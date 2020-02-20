@@ -46,9 +46,12 @@ class DescriptionViewModel {
                 let arrivalDateAndTimeInTimeStampFormat = Formatter.shared.convertDateIntoTimeStamp(date: arrivalDateAndTime)
                 let leavingDateAndTimeInTimeStampFormat = Formatter.shared.convertDateIntoTimeStamp(date: leavingDateAndTime)
                 
-                return self.shiftNetworking.saveNewShift(arrivalTime: arrivalDateAndTimeInTimeStampFormat,
-                                                               leavingTime: leavingDateAndTimeInTimeStampFormat,
-                                                               description: self.textInDescriptionTextView)
+                let newShift = Shift()
+                newShift.arrivalTime = arrivalDateAndTimeInTimeStampFormat
+                newShift.exitTime = leavingDateAndTimeInTimeStampFormat
+                newShift.description = self.textInDescriptionTextView
+                
+                return self.shiftNetworking.saveNewShift(newShiftWithExitTime: newShift)
             })
     }
 }

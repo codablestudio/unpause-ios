@@ -35,7 +35,7 @@ extension Formatter {
         let lastMonth = calendar.component(.month, from: fromDate)
         let day = calendar.component(.day, from: fromDate)
         
-        dateComponents.timeZone = TimeZone(abbreviation: "GMT")
+        //dateComponents.timeZone = TimeZone(abbreviation: "GMT")
         dateComponents.year = year
         dateComponents.month = lastMonth
         dateComponents.day = day
@@ -58,7 +58,7 @@ extension Formatter {
         let lastMonth = calendar.component(.month, from: fromDate)
         let day = calendar.component(.day, from: fromDate)
         
-        dateComponents.timeZone = TimeZone(abbreviation: "GMT")
+        //dateComponents.timeZone = TimeZone(abbreviation: "GMT")
         dateComponents.year = year
         dateComponents.month = lastMonth
         dateComponents.day = day

@@ -14,50 +14,33 @@ class ShiftNetworking {
     
     private let dataBaseReference = Firestore.firestore()
     
-    func saveNewShift(arrivalTime: Timestamp?, leavingTime: Timestamp?, description: String?) -> Observable<Response> {
-        guard let currentUserEmail = SessionManager.shared.currentUser?.email,
-            let arrivalTime = arrivalTime,
-            let leavingTime = leavingTime,
-            let description = description else {
-                return Observable.just(Response.error(UnpauseError.emptyError))
-        }
-        
-        
+    func saveNewShift(newShiftWithExitTime: Shift) -> Observable<Response> {
         return fetchShifts()
-            .map({ shiftsResponse -> [Shift] in
+            .map({ shiftsResponse -> ([Shift], Shift) in
                 switch shiftsResponse {
                 case .success(let shifts):
-                    return shifts
+                    return (shifts, newShiftWithExitTime)
                 default:
-                    return []
+                    return ([],Shift())
                 }
             })
-            .map({ shifts -> ([Shift], Shift?) in
-                return (shifts, shifts.last(where: { $0.exitTime == nil }))
+            .map({ (shifts, newShiftWithExitTime) -> ([Shift], Shift?, Shift) in
+                return (shifts, shifts.last(where: { $0.exitTime == nil }), newShiftWithExitTime)
             })
-            .flatMapLatest({ (shifts, lastShiftWithOutExitTime) -> Observable<[Shift]> in
-                let lastShiftWithNewExitTime = Shift()
+            .flatMapLatest({ [weak self] (shifts, lastShiftWithOutExitTime, newShiftWithExitTime) -> Observable<[Shift]> in
+                guard let `self` = self,
+                    let lastShiftWithoutExitTime = lastShiftWithOutExitTime else {
+                        return Observable.just([])
+                }
                 
-                lastShiftWithNewExitTime.arrivalTime = arrivalTime
-                lastShiftWithNewExitTime.exitTime = leavingTime
-                lastShiftWithNewExitTime.description = description
-                
-                var newShiftArray = [Shift]()
-                newShiftArray = shifts.dropLast()
-                newShiftArray.append(lastShiftWithNewExitTime)
-                
-                return Observable.just(newShiftArray)
+                return self.popLastShiftAndAddShiftWithExitTime(shifts: shifts,
+                                                                lastShiftWithOutExitTime: lastShiftWithoutExitTime,
+                                                                newShiftWithExitTime: newShiftWithExitTime)
             })
             .flatMapLatest ({ [weak self] (newShiftArray) -> Observable<Response> in
                 guard let `self` = self else { return Observable.empty() }
                 
-                let shiftsData = ShiftFactory().createShiftsData(from: newShiftArray)
-                
-                return self.dataBaseReference
-                    .collection("users")
-                    .document("\(currentUserEmail)")
-                    .rx
-                    .updateData(["shifts": shiftsData])
+                return self.saveNewShiftsArrayOnServer(newShiftArray: newShiftArray)
                     .flatMapLatest({ _ -> Observable<Response> in
                         return Observable.just(Response.success)
                     })
@@ -73,7 +56,9 @@ class ShiftNetworking {
         }
         
         return dataBaseReference.collection("users")
-            .document("\(currentUserEmail)").rx.getDocument()
+            .document("\(currentUserEmail)")
+            .rx
+            .getDocument()
             .mapShifts()
             .map({ shifts -> ShiftsResponse in
                 return .success(shifts)
@@ -90,8 +75,7 @@ class ShiftNetworking {
             for shift in allShifts {
                 guard let arrivalDateInDateFormat =
                     Formatter.shared.convertTimeStampIntoDate(timeStamp: shift.arrivalTime) else {
-                    
-                    return Observable.just(ShiftsResponse.error(UnpauseError.emptyError))
+                        return Observable.just(ShiftsResponse.error(UnpauseError.emptyError))
                 }
                 
                 if arrivalDateInDateFormat >= fromDate && arrivalDateInDateFormat <= toDate {
@@ -111,26 +95,33 @@ class ShiftNetworking {
                 guard let `self` = self else { return Observable.empty() }
                 switch shiftsResponse {
                 case .success(let shifts):
-                    let newShiftArray = self.getNewArrayOfShiftsWithOutOneShift(shifts: shifts, shiftToRemove: shiftToDelete)
+                    let newShiftArray = self.getNewArrayOfShiftsWithOutOneShift(shifts: shifts,
+                                                                                shiftToRemove: shiftToDelete)
                     
-                    let shiftsData = ShiftFactory().createShiftsData(from: newShiftArray)
-                    
-                    return self.saveNewShiftsArrayOnServer(shiftsData: shiftsData, shiftToDelete: shiftToDelete)
+                    return self.saveNewShiftsArrayOnServerAndReturnDeletedShift(newShiftArray: newShiftArray,
+                                                                                shiftToDelete: shiftToDelete)
                 case .error(let error):
                     return Observable.just(ShiftDeletionResponse.error(error))
                 }
         }
     }
     
-    func saveNewShiftsArrayOnServer(shiftsData: [[String : Any]], shiftToDelete: Shift) -> Observable<ShiftDeletionResponse> {
+    private func saveNewShiftsArrayOnServer(newShiftArray: [Shift]) -> Observable<Void> {
         guard let currentUserEmail = SessionManager.shared.currentUser?.email else {
-            return Observable.just(ShiftDeletionResponse.error(UnpauseError.emptyError))
+            return Observable.just(())
         }
+        
+        let shiftsData = ShiftFactory().createShiftsData(from: newShiftArray)
+        
         return self.dataBaseReference
             .collection("users")
             .document("\(currentUserEmail)")
             .rx
             .updateData(["shifts": shiftsData])
+    }
+    
+    private func saveNewShiftsArrayOnServerAndReturnDeletedShift(newShiftArray: [Shift], shiftToDelete: Shift) -> Observable<ShiftDeletionResponse> {
+        return saveNewShiftsArrayOnServer(newShiftArray: newShiftArray)
             .flatMapLatest({ _ -> Observable<ShiftDeletionResponse> in
                 return Observable.just(ShiftDeletionResponse.success(shiftToDelete))
             })
@@ -147,5 +138,17 @@ class ShiftNetworking {
             }
         }
         return newShiftArray
+    }
+    
+    private func popLastShiftAndAddShiftWithExitTime(shifts: [Shift],
+                                                     lastShiftWithOutExitTime: Shift,
+                                                     newShiftWithExitTime: Shift) -> Observable<[Shift]> {
+        
+        var newShiftArray = [Shift]()
+        newShiftArray = shifts.dropLast()
+        newShiftArray.append(newShiftWithExitTime)
+        
+        return Observable.just(newShiftArray)
+        
     }
 }
