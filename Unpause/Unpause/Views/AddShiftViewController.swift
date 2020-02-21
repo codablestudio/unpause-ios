@@ -139,7 +139,6 @@ class AddShiftViewController: UIViewController {
                 
                 if arrivalDateWithStartingDayTime == leavingDateWithStartingDayTime {
                     self.leavingTimePicker.minimumDate = arrivalTime
-                    self.leavingTimePicker.date = arrivalTime
                 } else {
                     self.leavingTimePicker.minimumDate = nil
                 }
