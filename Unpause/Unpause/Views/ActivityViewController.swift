@@ -165,7 +165,6 @@ class ActivityViewController: UIViewController {
         tableView.register(EmptyTableViewCell.self, forCellReuseIdentifier: "EmptyTableViewCell")
         tableView.register(LoadingTableViewCell.self, forCellReuseIdentifier: "LoadingTableViewCell")
         
-        tableView.allowsSelection = false
         tableView.refreshControl = refresherControl
     }
     
@@ -269,6 +268,10 @@ extension ActivityViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        Coordinator.shared.presentAddShiftViewController(from: self, withShiftData: dataSource[indexPath.row])
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

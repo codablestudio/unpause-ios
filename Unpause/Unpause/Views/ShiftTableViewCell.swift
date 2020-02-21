@@ -53,6 +53,7 @@ class ShiftTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         render()
+        setUpCellSelectionStyle()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -74,6 +75,10 @@ class ShiftTableViewCell: UITableViewCell {
         configureExitStackViewAndRenderExitImageView()
         renderExitDateStackView()
         renderExitTimeAndWorkingHoursStackView()
+    }
+    
+    private func setUpCellSelectionStyle() {
+        self.selectionStyle = .none
     }
     
     func configure(_ shift: Shift) {

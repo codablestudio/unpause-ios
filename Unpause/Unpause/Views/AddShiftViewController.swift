@@ -24,7 +24,7 @@ class AddShiftViewController: UIViewController {
     private let youArrivedAtLabel = UILabel()
     private let arriveImageView = UIImageView()
     
-    private let arrivalDateLabel = UILabel()
+    private let arrivalDateTextField = UITextField()
     private let arrivalTimeTextField = UITextField()
     
     private let youAreLeavingAtLabel = UILabel()
@@ -43,6 +43,7 @@ class AddShiftViewController: UIViewController {
     
     private let closeButton = UIButton()
     
+    private let arrivalDatePicker = UIDatePicker()
     private let arrivalTimePicker = UIDatePicker()
     private let leavingDatePicker = UIDatePicker()
     private let leavingTimePicker = UIDatePicker()
@@ -52,6 +53,8 @@ class AddShiftViewController: UIViewController {
     
     private var arrivalDateAndTime: Date?
     private var leavingDateAndTime: Date?
+    
+    var arrivalDatePickerEnabled = false
     
     init(addShiftViewModel: AddShiftViewModel) {
         self.addShiftViewModel = addShiftViewModel
@@ -66,6 +69,7 @@ class AddShiftViewController: UIViewController {
         super.viewDidLoad()
         setUpArrivalTimePickerInitalValue()
         render()
+        checkIfArrivalDatePickerIsEnabled()
         setUpObservables()
         createPickers()
         addGestureRecognizer()
@@ -90,6 +94,12 @@ class AddShiftViewController: UIViewController {
         renderSeparatorAndDescription()
         renderCancleAndContinueButton()
         renderCloseButton()
+    }
+    
+    private func checkIfArrivalDatePickerIsEnabled() {
+        if !arrivalDatePickerEnabled {
+            arrivalDatePicker.isEnabled = false
+        }
     }
     
     private func setUpObservables() {
@@ -119,44 +129,41 @@ class AddShiftViewController: UIViewController {
             
         }).disposed(by: disposeBag)
         
-        arrivalTimePicker.rx.value
-            .subscribe(onNext: { [weak self] timeInDateFormat in
-                guard let `self` = self else { return }
-                let timeInStringFormat = Formatter.shared.convertTimeIntoString(from: timeInDateFormat)
-                self.arrivalTimeTextField.text = timeInStringFormat
-                
-                let newDateAndTime = self.addShiftViewModel.makeNewDateAndTimeWithCheckInDateAnd(timeInDateFormat: timeInDateFormat)
-                SessionManager.shared.currentUser?.lastCheckInDateAndTime = newDateAndTime
-            }).disposed(by: disposeBag)
-        
-        Observable.combineLatest(leavingDatePicker.rx.value, leavingTimePicker.rx.value)
-            .subscribe(onNext: { [weak self] (leavingDateInDateFormat, leavingTimeInDateFormat) in
+        Observable.combineLatest(arrivalDatePicker.rx.value,
+                                 arrivalTimePicker.rx.value,
+                                 leavingDatePicker.rx.value,
+                                 leavingTimePicker.rx.value)
+            .subscribe(onNext: { [weak self] (arrivalDate, arrivalTime, leavingDate, leavingTime) in
                 guard let `self` = self else { return }
                 
-                let dateInStringFormat = Formatter.shared.convertDateIntoString(from: leavingDateInDateFormat)
-                self.leavingDateTextField.text = dateInStringFormat
-                let timeInStringFormat = Formatter.shared.convertTimeIntoString(from: leavingTimeInDateFormat)
-                self.leavingTimeTextField.text = timeInStringFormat
+                self.leavingDatePicker.minimumDate = arrivalDate
                 
-                let newDateAndTime = self.addShiftViewModel.makeNewDateAndTimeInDateFormat(dateInDateFormat: leavingDateInDateFormat,
-                                                                                           timeInDateFormat: leavingTimeInDateFormat)
-                SessionManager.shared.currentUser?.lastCheckOutDateAndTime = newDateAndTime
-            }).disposed(by: disposeBag)
-        
-        Observable.combineLatest(arrivalTimePicker.rx.value, leavingDatePicker.rx.value, leavingTimePicker.rx.value)
-            .subscribe(onNext: { [weak self] (arrivalTime, leavingDate, leavingTime) in
-                guard let `self` = self else { return }
+                self.refreshTextFieldWithNewDate(textField: self.arrivalDateTextField, newDate: arrivalDate)
+                self.refreshTextFieldWithNewTime(textField: self.arrivalTimeTextField, newTime: arrivalTime)
                 
-                let arrivalDate = Formatter.shared.convertStringIntoDate(from: self.arrivalDateLabel.text!)
+                self.refreshTextFieldWithNewDate(textField: self.leavingDateTextField, newDate: leavingDate)
+                self.refreshTextFieldWithNewTime(textField: self.leavingTimeTextField, newTime: leavingTime)
+                
+                let newLastCheckInDateAndTime = self.addShiftViewModel.makeNewDateAndTimeInDateFormat(dateInDateFormat: arrivalDate,
+                                                                                                      timeInDateFormat: arrivalTime)
+                let newLastCheckOutDateAndTime = self.addShiftViewModel.makeNewDateAndTimeInDateFormat(dateInDateFormat: leavingDate,
+                                                                                                       timeInDateFormat: leavingTime)
+                
+                SessionManager.shared.currentUser?.lastCheckInDateAndTime = newLastCheckInDateAndTime
+                SessionManager.shared.currentUser?.lastCheckOutDateAndTime = newLastCheckOutDateAndTime
+                
                 let arrivalDateWithStartingDayTime = Formatter.shared.getDateWithStartingDayTime(fromDate: arrivalDate)
                 let leavingDateWithStartingDayTime = Formatter.shared.getDateWithStartingDayTime(fromDate: leavingDate)
+                
                 if arrivalDateWithStartingDayTime == leavingDateWithStartingDayTime {
                     self.leavingTimePicker.minimumDate = arrivalTime
+                    self.leavingTimePicker.date = arrivalTime
                 } else {
                     self.leavingTimePicker.minimumDate = nil
                 }
                 
-                guard let firstDate = self.addShiftViewModel.makeNewDateAndTimeWithCheckInDateAnd(timeInDateFormat: arrivalTime),
+                guard let firstDate = self.addShiftViewModel.makeNewDateAndTimeInDateFormat(dateInDateFormat: arrivalDate,
+                                                                                            timeInDateFormat: arrivalTime),
                     let secondDate = self.addShiftViewModel.makeNewDateAndTimeInDateFormat(dateInDateFormat: leavingDate,
                                                                                            timeInDateFormat: leavingTime)
                     else { return }
@@ -180,7 +187,18 @@ class AddShiftViewController: UIViewController {
             }).disposed(by: disposeBag)
     }
     
+    private func refreshTextFieldWithNewDate(textField: UITextField, newDate: Date) {
+        let dateInStringFormat = Formatter.shared.convertDateIntoString(from: newDate)
+        textField.text = dateInStringFormat
+    }
+    
+    private func refreshTextFieldWithNewTime(textField: UITextField, newTime: Date) {
+        let timeInStringFormat = Formatter.shared.convertTimeIntoString(from: newTime)
+        textField.text = timeInStringFormat
+    }
+    
     private func createPickers() {
+        createDatePickerAndBarForPicker(for: arrivalDateTextField, with: arrivalDatePicker)
         createTimePickerAndBarForPicker(for: arrivalTimeTextField, with: arrivalTimePicker)
         createDatePickerAndBarForPicker(for: leavingDateTextField, with: leavingDatePicker)
         createTimePickerAndBarForPicker(for: leavingTimeTextField, with: leavingTimePicker)
@@ -229,13 +247,14 @@ class AddShiftViewController: UIViewController {
     }
     
     private func showFreshWorkingHoursAndMinutesLabel() {
-        guard let firstDateAndTime = addShiftViewModel.makeNewDateAndTimeWithCheckInDateAnd(timeInDateFormat: arrivalTimePicker.date),
-            let secondDateAndTime = addShiftViewModel.makeNewDateAndTimeInDateFormat(dateInDateFormat: leavingDatePicker.date,
-                                                                                     timeInDateFormat: leavingTimePicker.date)
+        guard let arrivalDateAndTime = addShiftViewModel.makeNewDateAndTimeInDateFormat(dateInDateFormat: arrivalDatePicker.date,
+                                                                                        timeInDateFormat: arrivalTimePicker.date),
+            let leavingDateAndTime = addShiftViewModel.makeNewDateAndTimeInDateFormat(dateInDateFormat: leavingDatePicker.date,
+                                                                                      timeInDateFormat: leavingTimePicker.date)
             else { return }
         
-        let timeIntervalHoursAndMinutes = Formatter.shared.findTimeDifference(firstDate: firstDateAndTime,
-                                                                               secondDate: secondDateAndTime)
+        let timeIntervalHoursAndMinutes = Formatter.shared.findTimeDifference(firstDate: arrivalDateAndTime,
+                                                                               secondDate: leavingDateAndTime)
         let firstPartOfString = "You have been working for"
         let hoursPartOfString = "\(timeIntervalHoursAndMinutes.0) hours and"
         let minutesPartOfString = "\(timeIntervalHoursAndMinutes.1)"
@@ -305,16 +324,15 @@ private extension AddShiftViewController {
     }
     
     func renderArrivalPickersAndLabelsForDateAndTime() {
-        containerView.addSubview(arrivalDateLabel)
-        arrivalDateLabel.snp.makeConstraints { (make) in
+        containerView.addSubview(arrivalDateTextField)
+        arrivalDateTextField.snp.makeConstraints { (make) in
             make.top.equalTo(youArrivedAtLabel.snp.bottom).offset(40)
             make.left.equalTo(arriveImageView.snp.right).offset(30)
         }
-        arrivalDateLabel.text = Formatter.shared.convertDateIntoString(from: Date())
         
         containerView.addSubview(arrivalTimeTextField)
         arrivalTimeTextField.snp.makeConstraints { (make) in
-            make.top.equalTo(arrivalDateLabel.snp.bottom).offset(15)
+            make.top.equalTo(arrivalDateTextField.snp.bottom).offset(15)
             make.left.equalTo(arriveImageView.snp.right).offset(30)
         }
     }

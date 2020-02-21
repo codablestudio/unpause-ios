@@ -16,4 +16,12 @@ extension Coordinator {
         let navigationController = UINavigationController(rootViewController: addShiftViewController)
         viewController.present(navigationController, animated: true)
     }
+    
+    func presentAddShiftViewController(from viewController: UIViewController, withShiftData: ShiftsTableViewItem) {
+        let addShiftViewModel = AddShiftViewModel()
+        let addShiftViewController = AddShiftViewController(addShiftViewModel: addShiftViewModel)
+        addShiftViewController.arrivalDatePickerEnabled = true
+        let navigationController = UINavigationController(rootViewController: addShiftViewController)
+        viewController.present(navigationController, animated: true)
+    }
 }

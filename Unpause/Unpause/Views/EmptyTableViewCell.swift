@@ -16,6 +16,7 @@ class EmptyTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         render()
+        setUpCellSelectionStyle()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -33,6 +34,10 @@ class EmptyTableViewCell: UITableViewCell {
     private func render() {
         renderNoShiftsImageView()
         renderNoShiftsLabel()
+    }
+    
+    private func setUpCellSelectionStyle() {
+        self.selectionStyle = .none
     }
 }
 

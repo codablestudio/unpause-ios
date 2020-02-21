@@ -15,6 +15,7 @@ class LoadingTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         render()
+        setUpCellSelectionStyle()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -31,6 +32,10 @@ class LoadingTableViewCell: UITableViewCell {
     
     private func render() {
         renderActivityIndicatorView()
+    }
+    
+    private func setUpCellSelectionStyle() {
+        self.selectionStyle = .none
     }
 }
 
