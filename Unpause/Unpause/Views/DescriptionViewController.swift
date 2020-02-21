@@ -26,7 +26,12 @@ class DescriptionViewController: UIViewController {
     private let cancelButton = OrangeButton(title: "Cancle")
     private let saveButton = OrangeButton(title: "Save")
     
-    init(descriptionViewModel: DescriptionViewModel) {
+    var shiftToEdit = PublishSubject<ShiftsTableViewItem>()
+    
+    let navigationFromTableView: Bool
+    
+    init(descriptionViewModel: DescriptionViewModel, navigationFromTableView: Bool) {
+        self.navigationFromTableView = navigationFromTableView
         self.descriptionViewModel = descriptionViewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -37,6 +42,7 @@ class DescriptionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         render()
         setUpObservables()
         addGestureRecognizer()
@@ -67,12 +73,7 @@ class DescriptionViewController: UIViewController {
             self.dismiss(animated: true)
         }).disposed(by: disposeBag)
         
-        saveButton.rx.tap
-            .do(onNext: { _ in
-                SVProgressHUD.show()
-            })
-            .bind(to: descriptionViewModel.saveButtonTapped)
-            .disposed(by: disposeBag)
+        handleSaveButtonTap()
         
         descriptionViewModel.shiftSavingResponse
             .subscribe(onNext: { [weak self] (response) in
@@ -87,6 +88,39 @@ class DescriptionViewController: UIViewController {
                     self.showAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)
+        
+        descriptionViewModel.shiftEditingResponse
+            .subscribe(onNext: { [weak self] response in
+                guard let `self` = self else { return }
+                switch response {
+                case .success:
+                    SVProgressHUD.showSuccess(withStatus: "Shift successfully edited.")
+                    SVProgressHUD.dismiss(withDelay: 0.6)
+                    ActivityViewModel.forceRefresh.onNext(())
+                    self.dismiss(animated: true)
+                case .error(let error):
+                    self.showAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
+                }
+            }).disposed(by: disposeBag)
+    }
+    
+    func handleSaveButtonTap() {
+        if navigationFromTableView {
+            saveButton.rx.tap
+                .do(onNext: { _ in
+                    SVProgressHUD.show()
+                })
+                .bind(to: descriptionViewModel.saveButtonFromTableViewTapped)
+                .disposed(by: disposeBag)
+        } else {
+            saveButton.rx.tap
+            .do(onNext: { _ in
+                SVProgressHUD.show()
+            })
+            .bind(to: descriptionViewModel.saveButtonTapped)
+            .disposed(by: disposeBag)
+        }
+        
     }
     
     private func addGestureRecognizer() {

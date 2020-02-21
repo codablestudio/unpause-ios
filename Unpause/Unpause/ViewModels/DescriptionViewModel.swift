@@ -18,14 +18,25 @@ class DescriptionViewModel {
     
     private var textInDescriptionTextView: String?
     
+    var cellToEdit: ShiftsTableViewItem?
+    
     var textInEmailTextFieldChanges = PublishSubject<String?>()
     var saveButtonTapped = PublishSubject<Void>()
+    var saveButtonFromTableViewTapped = PublishSubject<Void>()
     
     var shiftSavingResponse: Observable<Response>!
+    var shiftEditingResponse: Observable<Response>!
     
     init(arrivalDateAndTime: Date?, leavingDateAndTime: Date?) {
         self.arrivalDateAndTime = arrivalDateAndTime
         self.leavingDateAndTime = leavingDateAndTime
+        setUpObservables()
+    }
+    
+    init(arrivalDateAndTime: Date?, leavingDateAndTime: Date?, cellToEdit: ShiftsTableViewItem) {
+        self.arrivalDateAndTime = arrivalDateAndTime
+        self.leavingDateAndTime = leavingDateAndTime
+        self.cellToEdit = cellToEdit
         setUpObservables()
     }
     
@@ -53,5 +64,53 @@ class DescriptionViewModel {
                 
                 return self.shiftNetworking.saveNewShift(newShiftWithExitTime: newShift)
             })
+        
+        shiftEditingResponse = saveButtonFromTableViewTapped
+            .flatMapLatest({ [weak self] _ -> Observable<ShiftsResponse> in
+                guard let `self` = self else { return Observable.empty() }
+                return self.shiftNetworking.fetchShifts()
+            })
+            .flatMapLatest({ [weak self] shiftResponse -> Observable<ShiftsResponse> in
+                guard let `self` = self,
+                    let shiftToEdit = self.cellToEdit?.shift else {
+                        return Observable.just(ShiftsResponse.error(UnpauseError.emptyError))
+                }
+                
+                switch shiftResponse {
+                case .success(let shifts):
+                    let newShiftArray = self.findAndEditShiftInShiftsArray(shiftToFind: shiftToEdit, shifts: shifts)
+                    return Observable.just(ShiftsResponse.success(newShiftArray))
+                case .error(let error):
+                    return Observable.just(ShiftsResponse.error(error))
+                }
+            })
+            .flatMapLatest({ [weak self] shiftResponse -> Observable<Void> in
+                guard let `self` = self else { return Observable.empty() }
+                switch shiftResponse {
+                case .success(let newShiftArray):
+                    return self.shiftNetworking.saveNewShiftsArrayOnServer(newShiftArray: newShiftArray)
+                case .error(_):
+                    return Observable.just(())
+                }
+            })
+            .flatMapLatest({ _ -> Observable<Response> in
+                return Observable.just(Response.success)
+            })
+    }
+    
+    private func findAndEditShiftInShiftsArray(shiftToFind: Shift, shifts: [Shift]) -> [Shift] {
+        var newShiftsArray = [Shift]()
+        for shift in shifts {
+            if shift == shiftToFind {
+                let newShift = Shift()
+                newShift.arrivalTime = Formatter.shared.convertDateIntoTimeStamp(date: arrivalDateAndTime)
+                newShift.exitTime = Formatter.shared.convertDateIntoTimeStamp(date: leavingDateAndTime)
+                newShift.description = textInDescriptionTextView
+                newShiftsArray.append(newShift)
+            } else {
+                newShiftsArray.append(shift)
+            }
+        }
+        return newShiftsArray
     }
 }

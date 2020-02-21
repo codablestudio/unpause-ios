@@ -106,7 +106,17 @@ class ShiftNetworking {
         }
     }
     
-    private func saveNewShiftsArrayOnServer(newShiftArray: [Shift]) -> Observable<Void> {
+    func removeShiftFromShiftsArray(shiftToRemove: Shift, shifts: [Shift]) -> [Shift] {
+        var newArray = [Shift]()
+        for shift in shifts {
+            if shift != shiftToRemove {
+                newArray.append(shift)
+            }
+        }
+        return newArray
+    }
+    
+    func saveNewShiftsArrayOnServer(newShiftArray: [Shift]) -> Observable<Void> {
         guard let currentUserEmail = SessionManager.shared.currentUser?.email else {
             return Observable.just(())
         }

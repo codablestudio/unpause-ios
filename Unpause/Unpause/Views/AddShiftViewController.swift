@@ -54,6 +54,8 @@ class AddShiftViewController: UIViewController {
     private var arrivalDateAndTime: Date?
     private var leavingDateAndTime: Date?
     
+    var cellToEdit: ShiftsTableViewItem?
+    
     var arrivalDatePickerEnabled = false
     
     init(addShiftViewModel: AddShiftViewModel) {
@@ -67,11 +69,11 @@ class AddShiftViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpArrivalTimePickerInitalValue()
         render()
         checkIfArrivalDatePickerIsEnabled()
         setUpObservables()
         createPickers()
+        setUpArrivalTimePickerInitalValue()
         addGestureRecognizer()
     }
     
@@ -81,7 +83,11 @@ class AddShiftViewController: UIViewController {
     }
     
     private func setUpArrivalTimePickerInitalValue() {
-        arrivalTimePicker.date = SessionManager.shared.currentUser?.lastCheckInDateAndTime ?? Date()
+        guard let lastCheckInDateAndTime = SessionManager.shared.currentUser?.lastCheckInDateAndTime else {
+            return
+        }
+        arrivalTimePicker.date = lastCheckInDateAndTime
+        arrivalTimeTextField.text = Formatter.shared.convertTimeIntoString(from: lastCheckInDateAndTime)
     }
     
     private func render() {
@@ -111,23 +117,7 @@ class AddShiftViewController: UIViewController {
             self.dismiss(animated: true)
         }).disposed(by: disposeBag)
         
-        continueButton.rx.tap.subscribe(onNext: { [weak self] _ in
-            guard let `self` = self else { return }
-            
-            guard let arrivalDateAndTimeInDateFormat = self.arrivalDateAndTime,
-                let exitDateAndTimeInDateFormat = self.leavingDateAndTime else {
-                    return
-            }
-            
-            if arrivalDateAndTimeInDateFormat <= exitDateAndTimeInDateFormat {
-                Coordinator.shared.navigateToDecriptionViewController(from: self,
-                arrivalTime: self.arrivalDateAndTime,
-                leavingTime: self.leavingDateAndTime)
-            } else {
-                self.showAlert(title: "Alert", message: "Please enter correct dates and times.", actionTitle: "OK")
-            }
-            
-        }).disposed(by: disposeBag)
+        handleContinueButtonTap()
         
         Observable.combineLatest(arrivalDatePicker.rx.value,
                                  arrivalTimePicker.rx.value,
@@ -143,14 +133,6 @@ class AddShiftViewController: UIViewController {
                 
                 self.refreshTextFieldWithNewDate(textField: self.leavingDateTextField, newDate: leavingDate)
                 self.refreshTextFieldWithNewTime(textField: self.leavingTimeTextField, newTime: leavingTime)
-                
-                let newLastCheckInDateAndTime = self.addShiftViewModel.makeNewDateAndTimeInDateFormat(dateInDateFormat: arrivalDate,
-                                                                                                      timeInDateFormat: arrivalTime)
-                let newLastCheckOutDateAndTime = self.addShiftViewModel.makeNewDateAndTimeInDateFormat(dateInDateFormat: leavingDate,
-                                                                                                       timeInDateFormat: leavingTime)
-                
-                SessionManager.shared.currentUser?.lastCheckInDateAndTime = newLastCheckInDateAndTime
-                SessionManager.shared.currentUser?.lastCheckOutDateAndTime = newLastCheckOutDateAndTime
                 
                 let arrivalDateWithStartingDayTime = Formatter.shared.getDateWithStartingDayTime(fromDate: arrivalDate)
                 let leavingDateWithStartingDayTime = Formatter.shared.getDateWithStartingDayTime(fromDate: leavingDate)
@@ -185,6 +167,42 @@ class AddShiftViewController: UIViewController {
                 let lastPartOfString = "minutes, would you like to continue?"
                 self.descriptionLabel.text = "\(firstPartOfString) \(hoursPartOfString) \(minutesPartOfString) \(lastPartOfString)"
             }).disposed(by: disposeBag)
+    }
+    
+    func handleContinueButtonTap() {
+        continueButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else { return }
+            
+            if !self.arrivalDatePickerEnabled {
+                guard let arrivalDateAndTimeInDateFormat = self.arrivalDateAndTime,
+                    let exitDateAndTimeInDateFormat = self.leavingDateAndTime else {
+                        return
+                }
+                
+                SessionManager.shared.currentUser?.lastCheckInDateAndTime = arrivalDateAndTimeInDateFormat
+                SessionManager.shared.currentUser?.lastCheckOutDateAndTime = exitDateAndTimeInDateFormat
+                
+                if arrivalDateAndTimeInDateFormat <= exitDateAndTimeInDateFormat {
+                    Coordinator.shared.navigateToDecriptionViewController(from: self,
+                    arrivalTime: self.arrivalDateAndTime,
+                    leavingTime: self.leavingDateAndTime)
+                } else {
+                    self.showAlert(title: "Alert", message: "Please enter correct dates and times.", actionTitle: "OK")
+                }
+            } else {
+                guard let arrivalDateAndTimeInDateFormat = self.arrivalDateAndTime,
+                    let exitDateAndTimeInDateFormat = self.leavingDateAndTime,
+                    let shiftData = self.cellToEdit else { return }
+                if arrivalDateAndTimeInDateFormat <= exitDateAndTimeInDateFormat {
+                    Coordinator.shared.navigateToDecriptionViewController(from: self,
+                    arrivalTime: self.arrivalDateAndTime,
+                    leavingTime: self.leavingDateAndTime,
+                    with: shiftData)
+                } else {
+                    self.showAlert(title: "Alert", message: "Please enter correct dates and times.", actionTitle: "OK")
+                }
+            }
+        }).disposed(by: disposeBag)
     }
     
     private func refreshTextFieldWithNewDate(textField: UITextField, newDate: Date) {

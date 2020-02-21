@@ -17,17 +17,13 @@ class Formatter {
     
     /// Date -> String(HH:mm)
     func convertTimeIntoString(from timeInDateFormat: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        let formatterString = formatter.string(from: timeInDateFormat)
-        let formatterDate = formatter.date(from: formatterString)
-        formatter.dateFormat = "HH:mm"
-        
-        guard let formatedDate = formatterDate else {
-            return ""
-        }
-       
-        let timeInStringFormat = formatter.string(from: formatedDate)
+        let calendar = Calendar.current
+
+        let hour = calendar.component(.hour, from: timeInDateFormat)
+        let minutes = calendar.component(.minute, from: timeInDateFormat)
+        let twoDigitsHour = convertOneDigitiToTwoDigitis(oneDigitTime: hour)
+        let twoDigitMinutes = convertOneDigitiToTwoDigitis(oneDigitTime: minutes)
+        let timeInStringFormat = "\(twoDigitsHour):\(twoDigitMinutes)"
         return timeInStringFormat
     }
     
@@ -63,5 +59,14 @@ class Formatter {
         }
         let timeStamp = Timestamp(date: date)
         return timeStamp
+    }
+    
+    private func convertOneDigitiToTwoDigitis(oneDigitTime: Int) -> String {
+        let oneDigitTimeAsString = String(oneDigitTime)
+        if oneDigitTimeAsString.count == 1 {
+            return "0" + oneDigitTimeAsString
+        } else {
+            return oneDigitTimeAsString
+        }
     }
 }

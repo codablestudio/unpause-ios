@@ -10,7 +10,13 @@ import Foundation
 
 class AddShiftViewModel {
     
+    var cellToEdit: ShiftsTableViewItem?
+    
     init() {}
+    
+    init(cellToEdit: ShiftsTableViewItem) {
+        self.cellToEdit = cellToEdit
+    }
     
     func makeNewDateAndTimeWithCheckInDateAnd(timeInDateFormat: Date) -> Date? {
         let calendar = Calendar.current

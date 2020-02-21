@@ -271,7 +271,7 @@ extension ActivityViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        Coordinator.shared.presentAddShiftViewController(from: self, withShiftData: dataSource[indexPath.row])
+        Coordinator.shared.presentAddShiftViewController(from: self, with: dataSource[indexPath.row])
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
