@@ -57,9 +57,11 @@ class AddShiftViewController: UIViewController {
     var cellToEdit: ShiftsTableViewItem?
     
     var arrivalDatePickerEnabled = false
+    var navigationFromTableView: Bool
     
-    init(addShiftViewModel: AddShiftViewModel) {
+    init(addShiftViewModel: AddShiftViewModel, navigationFromTableView: Bool) {
         self.addShiftViewModel = addShiftViewModel
+        self.navigationFromTableView = navigationFromTableView
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -306,9 +308,15 @@ private extension AddShiftViewController {
             make.top.equalToSuperview().offset(40)
             make.centerX.equalToSuperview()
         }
-        addingShiftLabel.text = "Adding shift"
-        addingShiftLabel.textColor = UIColor.orange
-        addingShiftLabel.font = UIFont.boldSystemFont(ofSize: 25)
+        if navigationFromTableView {
+           addingShiftLabel.text = "Editing shift"
+            addingShiftLabel.textColor = UIColor.orange
+            addingShiftLabel.font = UIFont.boldSystemFont(ofSize: 25)
+        } else {
+            addingShiftLabel.text = "Adding shift"
+            addingShiftLabel.textColor = UIColor.orange
+            addingShiftLabel.font = UIFont.boldSystemFont(ofSize: 25)
+        }
         
         containerView.addSubview(addingShiftSeparator)
         addingShiftSeparator.snp.makeConstraints { (make) in

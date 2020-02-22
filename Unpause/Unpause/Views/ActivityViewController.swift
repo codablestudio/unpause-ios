@@ -213,7 +213,7 @@ private extension ActivityViewController {
         datesContainer.addSubview(fromDateLabel)
         
         fromDateLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(30)
+            make.top.equalToSuperview().offset(20)
             make.left.equalToSuperview().offset(15)
         }
         fromDateLabel.text = "From:"
@@ -222,7 +222,7 @@ private extension ActivityViewController {
         datesContainer.addSubview(fromDateTextField)
         
         fromDateTextField.snp.makeConstraints { make in
-            make.topMargin.equalToSuperview().offset(32)
+            make.topMargin.equalToSuperview().offset(23)
             make.left.equalTo(fromDateLabel.snp.right).offset(5)
             make.right.equalToSuperview()
         }

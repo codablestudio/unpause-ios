@@ -101,7 +101,7 @@ class ShiftTableViewCell: UITableViewCell {
         jobDescriptionLabel.text = shift.description
         
         let timeDifference = Formatter.shared.findTimeDifference(firstDate: arrivalDateAndTime, secondDate: exitDateAndTime)
-        workingHoursLabel.text = "\(timeDifference.0) hours \(timeDifference.1) minutes"
+        workingHoursLabel.text = "\(timeDifference.0) h \(timeDifference.1) min"
     }
 }
 
@@ -164,6 +164,7 @@ private extension ShiftTableViewCell {
         
         arrivalDateStackView.addArrangedSubview(arrivalDateLabel)
         arrivalDateLabel.font = .systemFont(ofSize: 10)
+        arrivalDateLabel.text = "-"
     }
     
     func renderArrivalTimeStackView() {
@@ -183,6 +184,7 @@ private extension ShiftTableViewCell {
         
         arrivalTimeStackView.addArrangedSubview(arrivalTimeLabel)
         arrivalTimeLabel.font = .systemFont(ofSize: 10)
+        arrivalTimeLabel.text = "-"
     }
     
     func renderFirstSeparator() {
@@ -290,12 +292,13 @@ private extension ShiftTableViewCell {
         workingHoursStackView.spacing = 10
         
         workingHoursStackView.addArrangedSubview(workingHoursTitleLabel)
-        workingHoursTitleLabel.text = "Working hours"
+        workingHoursTitleLabel.text = "Working"
         workingHoursTitleLabel.font = .systemFont(ofSize: 12)
         
         workingHoursStackView.addArrangedSubview(workingHoursLabel)
         workingHoursLabel.text = "1 hour 34 minutes"
         workingHoursLabel.text = "-"
-        workingHoursLabel.font = .systemFont(ofSize: 10)
+        workingHoursLabel.font = .systemFont(ofSize: 10, weight: .bold)
+        workingHoursLabel.textColor = .orange
     }
 }

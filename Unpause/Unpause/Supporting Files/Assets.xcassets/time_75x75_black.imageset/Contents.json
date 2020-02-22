@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "time_75x75_black.png"
+      "filename" : "clock.png"
     },
     {
       "idiom" : "universal",
-      "filename" : "time_75x75_white.png",
+      "filename" : "clock-2.png",
       "appearances" : [
         {
           "appearance" : "luminosity",
