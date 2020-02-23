@@ -292,7 +292,7 @@ private extension ShiftTableViewCell {
         workingHoursStackView.spacing = 10
         
         workingHoursStackView.addArrangedSubview(workingHoursTitleLabel)
-        workingHoursTitleLabel.text = "Working"
+        workingHoursTitleLabel.text = "Working time:"
         workingHoursTitleLabel.font = .systemFont(ofSize: 12)
         
         workingHoursStackView.addArrangedSubview(workingHoursLabel)

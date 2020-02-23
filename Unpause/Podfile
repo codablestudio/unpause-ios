@@ -15,7 +15,7 @@ target 'Unpause' do
     pod 'Firebase/Auth'
     pod 'GoogleSignIn'
     pod 'RxKeyboard'
-    pod 'SVProgressHUD'
+    pod 'SVProgressHUD', :git => 'https://github.com/SVProgressHUD/SVProgressHUD.git'
     pod "RxGesture"
     pod 'RxFirebase/Firestore'
     pod 'RxFirebase/RemoteConfig'

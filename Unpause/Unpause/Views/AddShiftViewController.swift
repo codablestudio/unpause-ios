@@ -75,7 +75,7 @@ class AddShiftViewController: UIViewController {
         checkIfArrivalDatePickerIsEnabled()
         setUpObservables()
         createPickers()
-        setUpArrivalTimePickerInitalValue()
+        setUpArrivalTimeAndDatePickerInitalValue()
         addGestureRecognizer()
     }
     
@@ -84,12 +84,14 @@ class AddShiftViewController: UIViewController {
         showFreshWorkingHoursAndMinutesLabel()
     }
     
-    private func setUpArrivalTimePickerInitalValue() {
+    private func setUpArrivalTimeAndDatePickerInitalValue() {
         guard let lastCheckInDateAndTime = SessionManager.shared.currentUser?.lastCheckInDateAndTime else {
             return
         }
         arrivalTimePicker.date = lastCheckInDateAndTime
         arrivalTimeTextField.text = Formatter.shared.convertTimeIntoString(from: lastCheckInDateAndTime)
+        arrivalDatePicker.date = lastCheckInDateAndTime
+        arrivalDateTextField.text = Formatter.shared.convertDateIntoString(from: lastCheckInDateAndTime)
     }
     
     private func render() {
@@ -118,8 +120,6 @@ class AddShiftViewController: UIViewController {
         closeButton.rx.tap.subscribe(onNext: { _ in
             self.dismiss(animated: true)
         }).disposed(by: disposeBag)
-        
-        handleContinueButtonTap()
         
         Observable.combineLatest(arrivalDatePicker.rx.value,
                                  arrivalTimePicker.rx.value,
@@ -168,6 +168,8 @@ class AddShiftViewController: UIViewController {
                 let lastPartOfString = "minutes, would you like to continue?"
                 self.descriptionLabel.text = "\(firstPartOfString) \(hoursPartOfString) \(minutesPartOfString) \(lastPartOfString)"
             }).disposed(by: disposeBag)
+        
+        handleContinueButtonTap()
     }
     
     func handleContinueButtonTap() {
