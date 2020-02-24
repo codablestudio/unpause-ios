@@ -38,7 +38,7 @@ class AddShiftViewController: UIViewController {
     
     private let stackView = UIStackView()
     
-    private let cancleButton = OrangeButton(title: "Cancle")
+    private let cancleButton = OrangeButton(title: "Cancel")
     private let continueButton = OrangeButton(title: "Continue")
     
     private let closeButton = UIButton()
@@ -84,55 +84,51 @@ class AddShiftViewController: UIViewController {
     }
     
     private func setUpArrivalAndLeavingDateAndTimePickerInitalValue() {
-        if !navigationFromTableView {
-            setUpArrivalAndLeavingDateAndTimePickerInitalValueOnAddingNewShift()
-        } else {
+        if navigationFromTableView {
             setUpArrivalAndLeavingDateAndTimepickerInitialValueOnEditinigShift()
+        } else {
+            setUpArrivalAndLeavingDateAndTimePickerInitalValueOnAddingNewShift()
         }
     }
     
     private func setUpArrivalAndLeavingDateAndTimePickerInitalValueOnAddingNewShift() {
-        if !navigationFromTableView {
-            guard let lastCheckInDateAndTime = SessionManager.shared.currentUser?.lastCheckInDateAndTime,
-                let lastCheckOutDateAndTime = SessionManager.shared.currentUser?.lastCheckOutDateAndTime else { return }
-            
-            arrivalTimePicker.rx.value.onNext(lastCheckInDateAndTime)
-            refreshTextFieldWithNewTime(textField: arrivalTimeTextField, newTime: lastCheckInDateAndTime)
-            arrivalDatePicker.rx.value.onNext(lastCheckInDateAndTime)
-            refreshTextFieldWithNewDate(textField: arrivalDateTextField, newDate: lastCheckInDateAndTime)
-            arrivalDateAndTime = lastCheckInDateAndTime
-            
-            leavingTimePicker.rx.value.onNext(lastCheckOutDateAndTime)
-            refreshTextFieldWithNewTime(textField: leavingTimeTextField, newTime: lastCheckOutDateAndTime)
-            leavingDatePicker.rx.value.onNext(lastCheckOutDateAndTime)
-            refreshTextFieldWithNewDate(textField: leavingDateTextField, newDate: lastCheckOutDateAndTime)
-            leavingDateAndTime = lastCheckOutDateAndTime
-            
-            showFreshWorkingHoursAndMinutesLabel()
-        }
+        guard let lastCheckInDateAndTime = SessionManager.shared.currentUser?.lastCheckInDateAndTime,
+            let lastCheckOutDateAndTime = SessionManager.shared.currentUser?.lastCheckOutDateAndTime else { return }
+        
+        arrivalTimePicker.rx.value.onNext(lastCheckInDateAndTime)
+        refreshTextFieldWithNewTime(textField: arrivalTimeTextField, newTime: lastCheckInDateAndTime)
+        arrivalDatePicker.rx.value.onNext(lastCheckInDateAndTime)
+        refreshTextFieldWithNewDate(textField: arrivalDateTextField, newDate: lastCheckInDateAndTime)
+        arrivalDateAndTime = lastCheckInDateAndTime
+        
+        leavingTimePicker.rx.value.onNext(lastCheckOutDateAndTime)
+        refreshTextFieldWithNewTime(textField: leavingTimeTextField, newTime: lastCheckOutDateAndTime)
+        leavingDatePicker.rx.value.onNext(lastCheckOutDateAndTime)
+        refreshTextFieldWithNewDate(textField: leavingDateTextField, newDate: lastCheckOutDateAndTime)
+        leavingDateAndTime = lastCheckOutDateAndTime
+        
+        showFreshWorkingHoursAndMinutesLabel()
     }
     
     private func setUpArrivalAndLeavingDateAndTimepickerInitialValueOnEditinigShift() {
-        if navigationFromTableView {
-            let checkInDateAndTime = Formatter.shared.convertTimeStampIntoDate(timeStamp: cellToEdit?.shift?.arrivalTime)
-            let checkOutDateAndTime = Formatter.shared.convertTimeStampIntoDate(timeStamp: cellToEdit?.shift?.exitTime)
-            
-            guard let checkInDateAndTimeInDateFormat = checkInDateAndTime,
-                let checkOutDateAndTimeInDateFormat = checkOutDateAndTime else { return }
-            
-            
-            arrivalTimePicker.rx.value.onNext(checkInDateAndTimeInDateFormat)
-            refreshTextFieldWithNewTime(textField: arrivalTimeTextField, newTime: checkInDateAndTimeInDateFormat)
-            arrivalDatePicker.rx.value.onNext(checkInDateAndTimeInDateFormat)
-            refreshTextFieldWithNewDate(textField: arrivalDateTextField, newDate: checkInDateAndTimeInDateFormat)
-            
-            leavingTimePicker.rx.value.onNext(checkOutDateAndTimeInDateFormat)
-            refreshTextFieldWithNewTime(textField: leavingTimeTextField, newTime: checkOutDateAndTimeInDateFormat)
-            leavingDatePicker.rx.value.onNext(checkOutDateAndTimeInDateFormat)
-            refreshTextFieldWithNewDate(textField: leavingDateTextField, newDate: checkOutDateAndTimeInDateFormat)
-            
-            showFreshWorkingHoursAndMinutesLabel()
-        }
+        let checkInDateAndTime = Formatter.shared.convertTimeStampIntoDate(timeStamp: cellToEdit?.shift?.arrivalTime)
+        let checkOutDateAndTime = Formatter.shared.convertTimeStampIntoDate(timeStamp: cellToEdit?.shift?.exitTime)
+        
+        guard let checkInDateAndTimeInDateFormat = checkInDateAndTime,
+            let checkOutDateAndTimeInDateFormat = checkOutDateAndTime else { return }
+        
+        
+        arrivalTimePicker.rx.value.onNext(checkInDateAndTimeInDateFormat)
+        refreshTextFieldWithNewTime(textField: arrivalTimeTextField, newTime: checkInDateAndTimeInDateFormat)
+        arrivalDatePicker.rx.value.onNext(checkInDateAndTimeInDateFormat)
+        refreshTextFieldWithNewDate(textField: arrivalDateTextField, newDate: checkInDateAndTimeInDateFormat)
+        
+        leavingTimePicker.rx.value.onNext(checkOutDateAndTimeInDateFormat)
+        refreshTextFieldWithNewTime(textField: leavingTimeTextField, newTime: checkOutDateAndTimeInDateFormat)
+        leavingDatePicker.rx.value.onNext(checkOutDateAndTimeInDateFormat)
+        refreshTextFieldWithNewDate(textField: leavingDateTextField, newDate: checkOutDateAndTimeInDateFormat)
+        
+        showFreshWorkingHoursAndMinutesLabel()
     }
     
     private func render() {
@@ -166,10 +162,10 @@ class AddShiftViewController: UIViewController {
             .subscribe(onNext: { [weak self] arrivalDate, arrivalTime in
                 guard let `self` = self else { return }
                 
-                if !self.navigationFromTableView {
-                    self.handleArrivalFieldsWhenAddingShift(arrivalDate: arrivalDate, arrivalTime: arrivalTime)
-                } else {
+                if self.navigationFromTableView {
                     self.handleArrivalFieldsWhenEditingShift(arrivalDate: arrivalDate, arrivalTime: arrivalTime)
+                } else {
+                    self.handleArrivalFieldsWhenAddingShift(arrivalDate: arrivalDate, arrivalTime: arrivalTime)
                 }
             }).disposed(by: disposeBag)
         
@@ -177,10 +173,10 @@ class AddShiftViewController: UIViewController {
             .subscribe(onNext: { [weak self] leavingDate, leavingTime in
                 guard let `self` = self else { return }
                 
-                if !self.navigationFromTableView {
-                    self.handleLeavingFieldsWhenAddingShift(leavingDate: leavingDate, leavingTime: leavingTime)
-                } else {
+                if self.navigationFromTableView {
                     self.handleLeavingFieldsWhenEditingShift(leavingDate: leavingDate, leavingTime: leavingTime)
+                } else {
+                    self.handleLeavingFieldsWhenAddingShift(leavingDate: leavingDate, leavingTime: leavingTime)
                 }
             }).disposed(by: disposeBag)
         
@@ -197,10 +193,10 @@ class AddShiftViewController: UIViewController {
         continueButton.rx.tap.subscribe(onNext: { [weak self] _ in
             guard let `self` = self else { return }
             
-            if !self.navigationFromTableView {
-                self.handleContinueButtonWhenAddingShift()
-            } else {
+            if self.navigationFromTableView {
                 self.handleContinueButtonWhenEditingShift()
+            } else {
+                self.handleContinueButtonWhenAddingShift()
             }
         }).disposed(by: disposeBag)
     }
@@ -208,23 +204,23 @@ class AddShiftViewController: UIViewController {
     func handleArrivalFieldsWhenAddingShift(arrivalDate: Date, arrivalTime: Date) {
         guard let leavingDateAndTime = self.leavingDateAndTime else { return }
         
-        self.refreshTextFieldWithNewDate(textField: self.arrivalDateTextField, newDate: arrivalDate)
-        self.refreshTextFieldWithNewTime(textField: self.arrivalTimeTextField, newTime: arrivalTime)
+        refreshTextFieldWithNewDate(textField: arrivalDateTextField, newDate: arrivalDate)
+        refreshTextFieldWithNewTime(textField: arrivalTimeTextField, newTime: arrivalTime)
         
         let arrivalDateWithStartingDayTime = Formatter.shared.getDateWithStartingDayTime(fromDate: arrivalDate)
         let leavingDateWithStartingDayTime = Formatter.shared.getDateWithStartingDayTime(fromDate: leavingDateAndTime)
         
         if arrivalDateWithStartingDayTime == leavingDateWithStartingDayTime {
-            self.leavingTimePicker.minimumDate = arrivalTime
+            leavingTimePicker.minimumDate = arrivalTime
         } else {
-            self.leavingTimePicker.minimumDate = nil
+            leavingTimePicker.minimumDate = nil
         }
         
-        guard let newArrivalDateAndTime = self.addShiftViewModel.makeNewDateAndTimeInDateFormat(
+        guard let newArrivalDateAndTime = addShiftViewModel.makeNewDateAndTimeInDateFormat(
             dateInDateFormat: arrivalDate,
             timeInDateFormat: arrivalTime) else { return }
         
-        self.arrivalDateAndTime = newArrivalDateAndTime
+        arrivalDateAndTime = newArrivalDateAndTime
         
         let arrivalDateAndTimeWithZeroSeconds = Formatter.shared.getDateAndTimeWithZeroSeconds(from: newArrivalDateAndTime)
         let leavingDateAndTimeWithZeroSeconds = Formatter.shared.getDateAndTimeWithZeroSeconds(from: leavingDateAndTime)
@@ -232,27 +228,27 @@ class AddShiftViewController: UIViewController {
         let timeDifference = Formatter.shared.findTimeDifference(firstDate: arrivalDateAndTimeWithZeroSeconds,
                                                                  secondDate: leavingDateAndTimeWithZeroSeconds)
         
-        self.workingHours.onNext(timeDifference.0)
-        self.workingMinutes.onNext(timeDifference.1)
+        workingHours.onNext(timeDifference.0)
+        workingMinutes.onNext(timeDifference.1)
     }
     
     func handleArrivalFieldsWhenEditingShift(arrivalDate: Date, arrivalTime: Date) {
         let leavingDateAndTime = Formatter.shared.convertTimeStampIntoDate(timeStamp: cellToEdit?.shift?.exitTime)
         guard let leavingDateAndTimeInDateFormat = leavingDateAndTime else { return }
         
-        self.refreshTextFieldWithNewDate(textField: arrivalDateTextField, newDate: arrivalDate)
-        self.refreshTextFieldWithNewTime(textField: arrivalTimeTextField, newTime: arrivalTime)
+        refreshTextFieldWithNewDate(textField: arrivalDateTextField, newDate: arrivalDate)
+        refreshTextFieldWithNewTime(textField: arrivalTimeTextField, newTime: arrivalTime)
         
         let arrivalDateWithStartingDayTime = Formatter.shared.getDateWithStartingDayTime(fromDate: arrivalDate)
         let leavingDateWithStartingDayTime = Formatter.shared.getDateWithStartingDayTime(fromDate: leavingDateAndTimeInDateFormat)
         
         if arrivalDateWithStartingDayTime == leavingDateWithStartingDayTime {
-            self.leavingTimePicker.minimumDate = arrivalTime
+            leavingTimePicker.minimumDate = arrivalTime
         } else {
-            self.leavingTimePicker.minimumDate = nil
+            leavingTimePicker.minimumDate = nil
         }
         
-        guard let newArrivalDateAndTime = self.addShiftViewModel.makeNewDateAndTimeInDateFormat(
+        guard let newArrivalDateAndTime = addShiftViewModel.makeNewDateAndTimeInDateFormat(
             dateInDateFormat: arrivalDate,
             timeInDateFormat: arrivalTime) else { return }
         
@@ -262,29 +258,29 @@ class AddShiftViewController: UIViewController {
         let timeDifference = Formatter.shared.findTimeDifference(firstDate: arrivalDateAndTimeWithZeroSeconds,
                                                                  secondDate: leavingDateAndTimeWithZeroSeconds)
         
-        self.workingHours.onNext(timeDifference.0)
-        self.workingMinutes.onNext(timeDifference.1)
+        workingHours.onNext(timeDifference.0)
+        workingMinutes.onNext(timeDifference.1)
     }
     
     func handleLeavingFieldsWhenAddingShift(leavingDate: Date, leavingTime: Date) {
-        guard let arrivalDateAndTime = self.arrivalDateAndTime else { return }
+        guard let arrivalDateAndTime = arrivalDateAndTime else { return }
         
-        self.refreshTextFieldWithNewDate(textField: self.leavingDateTextField, newDate: leavingDate)
-        self.refreshTextFieldWithNewTime(textField: self.leavingTimeTextField, newTime: leavingTime)
+        refreshTextFieldWithNewDate(textField: leavingDateTextField, newDate: leavingDate)
+        refreshTextFieldWithNewTime(textField: leavingTimeTextField, newTime: leavingTime)
         
         let arrivalDateWithStartingDayTime = Formatter.shared.getDateWithStartingDayTime(fromDate: arrivalDateAndTime)
         let leavingDateWithStartingDayTime = Formatter.shared.getDateWithStartingDayTime(fromDate: leavingDate)
         
         if arrivalDateWithStartingDayTime == leavingDateWithStartingDayTime {
-            self.leavingTimePicker.minimumDate = self.arrivalTimePicker.date
+            leavingTimePicker.minimumDate = arrivalTimePicker.date
         } else {
-            self.leavingTimePicker.minimumDate = nil
+            leavingTimePicker.minimumDate = nil
         }
         
-        guard let newLeavingDateAndTime = self.addShiftViewModel.makeNewDateAndTimeInDateFormat(
+        guard let newLeavingDateAndTime = addShiftViewModel.makeNewDateAndTimeInDateFormat(
             dateInDateFormat: leavingDate,
             timeInDateFormat: leavingTime) else { return }
-        self.leavingDateAndTime = newLeavingDateAndTime
+        leavingDateAndTime = newLeavingDateAndTime
         
         let arrivalDateAndTimeWithZeroSeconds = Formatter.shared.getDateAndTimeWithZeroSeconds(from: arrivalDateAndTime)
         let leavingDateAndTimeWithZeroSeconds = Formatter.shared.getDateAndTimeWithZeroSeconds(from: newLeavingDateAndTime)
@@ -292,27 +288,27 @@ class AddShiftViewController: UIViewController {
         let timeDifference = Formatter.shared.findTimeDifference(firstDate: arrivalDateAndTimeWithZeroSeconds,
                                                                  secondDate: leavingDateAndTimeWithZeroSeconds)
         
-        self.workingHours.onNext(timeDifference.0)
-        self.workingMinutes.onNext(timeDifference.1)
+        workingHours.onNext(timeDifference.0)
+        workingMinutes.onNext(timeDifference.1)
     }
     
     func handleLeavingFieldsWhenEditingShift(leavingDate: Date, leavingTime: Date) {
         let arrivalDateAndTime = Formatter.shared.convertTimeStampIntoDate(timeStamp: cellToEdit?.shift?.arrivalTime)
         guard let arrivalDateAndTimeInDateFormat = arrivalDateAndTime else { return }
         
-        self.refreshTextFieldWithNewDate(textField: leavingDateTextField, newDate: leavingDate)
-        self.refreshTextFieldWithNewTime(textField: leavingTimeTextField, newTime: leavingTime)
+        refreshTextFieldWithNewDate(textField: leavingDateTextField, newDate: leavingDate)
+        refreshTextFieldWithNewTime(textField: leavingTimeTextField, newTime: leavingTime)
         
         let arrivalDateWithStartingDayTime = Formatter.shared.getDateWithStartingDayTime(fromDate: arrivalDateAndTimeInDateFormat)
         let leavingDateWithStartingDayTime = Formatter.shared.getDateWithStartingDayTime(fromDate: leavingDate)
         
         if arrivalDateWithStartingDayTime == leavingDateWithStartingDayTime {
-            self.leavingTimePicker.minimumDate = arrivalDateAndTimeInDateFormat
+            leavingTimePicker.minimumDate = arrivalDateAndTimeInDateFormat
         } else {
-            self.leavingTimePicker.minimumDate = nil
+            leavingTimePicker.minimumDate = nil
         }
         
-        guard let newLeavingDateAndTime = self.addShiftViewModel.makeNewDateAndTimeInDateFormat(
+        guard let newLeavingDateAndTime = addShiftViewModel.makeNewDateAndTimeInDateFormat(
             dateInDateFormat: leavingDate,
             timeInDateFormat: leavingTime) else { return }
         
@@ -322,13 +318,13 @@ class AddShiftViewController: UIViewController {
         let timeDifference = Formatter.shared.findTimeDifference(firstDate: arrivalDateAndTimeWithZeroSeconds,
                                                                  secondDate: leavingDateAndTimeWithZeroSeconds)
         
-        self.workingHours.onNext(timeDifference.0)
-        self.workingMinutes.onNext(timeDifference.1)
+        workingHours.onNext(timeDifference.0)
+        workingMinutes.onNext(timeDifference.1)
     }
     
     private func handleContinueButtonWhenAddingShift() {
-        guard let arrivalDateAndTimeInDateFormat = self.arrivalDateAndTime,
-            let exitDateAndTimeInDateFormat = self.leavingDateAndTime else {
+        guard let arrivalDateAndTimeInDateFormat = arrivalDateAndTime,
+            let exitDateAndTimeInDateFormat = leavingDateAndTime else {
                 return
         }
         
@@ -340,7 +336,7 @@ class AddShiftViewController: UIViewController {
                                                                   arrivalTime: arrivalDateAndTimeInDateFormat,
                                                                   leavingTime: exitDateAndTimeInDateFormat)
         } else {
-            self.showAlert(title: "Alert", message: "Please enter correct dates and times.", actionTitle: "OK")
+            showAlert(title: "Alert", message: "Please enter correct dates and times.", actionTitle: "OK")
         }
     }
     
@@ -352,14 +348,14 @@ class AddShiftViewController: UIViewController {
         
         guard let arrivalDateAndTimeInDateFormat = arrivalDateAndTime,
             let leavingDateAndTimeInDateFormat = leavingDateAndTime,
-            let shiftData = self.cellToEdit else { return }
+            let shiftData = cellToEdit else { return }
         if arrivalDateAndTimeInDateFormat <= leavingDateAndTimeInDateFormat {
             Coordinator.shared.navigateToDecriptionViewController(from: self,
                                                                   arrivalTime: arrivalDateAndTimeInDateFormat,
                                                                   leavingTime: leavingDateAndTimeInDateFormat,
                                                                   with: shiftData)
         } else {
-            self.showAlert(title: "Alert", message: "Please enter correct dates and times.", actionTitle: "OK")
+            showAlert(title: "Alert", message: "Please enter correct dates and times.", actionTitle: "OK")
         }
     }
     
@@ -418,34 +414,32 @@ class AddShiftViewController: UIViewController {
         }).disposed(by: disposeBag)
     }
     
-    private func hideNavigationBar() {
-        navigationController?.setNavigationBarHidden(true, animated: true)
-    }
-    
     private func showFreshWorkingHoursAndMinutesLabel() {
-        if !navigationFromTableView {
-            showFreshWorkingHoursAndMinutesLabelWhenAdding()
-        } else {
+        if navigationFromTableView {
             showFreshWorkingHoursAndMinutesLabelWhenEditing()
+        } else {
+            showFreshWorkingHoursAndMinutesLabelWhenAdding()
         }
     }
     
     private func showFreshWorkingHoursAndMinutesLabelWhenAdding() {
         guard let lastCheckInDateAndTime = SessionManager.shared.currentUser?.lastCheckInDateAndTime,
         let lastCheckOutDateAndTime = SessionManager.shared.currentUser?.lastCheckOutDateAndTime else { return }
+        
         let arrivalDateAndTimeWithZeroSeconds = Formatter.shared.getDateAndTimeWithZeroSeconds(from: lastCheckInDateAndTime)
         let leavingDateAndTimeWithZeroSeconds = Formatter.shared.getDateAndTimeWithZeroSeconds(from: lastCheckOutDateAndTime)
         
         let timeDifference = Formatter.shared.findTimeDifference(firstDate: arrivalDateAndTimeWithZeroSeconds,
                                                                  secondDate: leavingDateAndTimeWithZeroSeconds)
         
-        self.workingHours.onNext(timeDifference.0)
-        self.workingMinutes.onNext(timeDifference.1)
+        workingHours.onNext(timeDifference.0)
+        workingMinutes.onNext(timeDifference.1)
     }
     
     private func showFreshWorkingHoursAndMinutesLabelWhenEditing() {
         let leavingDateAndTime = Formatter.shared.convertTimeStampIntoDate(timeStamp: cellToEdit?.shift?.exitTime)
         let arrivalDateAndTime = Formatter.shared.convertTimeStampIntoDate(timeStamp: cellToEdit?.shift?.arrivalTime)
+        
         guard let arrivalDateAndTimeInDateFormat = arrivalDateAndTime,
             let leavingDateAndTimeInDateFormat = leavingDateAndTime else { return }
         
@@ -455,8 +449,12 @@ class AddShiftViewController: UIViewController {
         let timeDifference = Formatter.shared.findTimeDifference(firstDate: arrivalDateAndTimeWithZeroSeconds,
                                                                  secondDate: leavingDateAndTimeWithZeroSeconds)
         
-        self.workingHours.onNext(timeDifference.0)
-        self.workingMinutes.onNext(timeDifference.1)
+        workingHours.onNext(timeDifference.0)
+        workingMinutes.onNext(timeDifference.1)
+    }
+    
+    private func hideNavigationBar() {
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
 }
 
