@@ -120,7 +120,6 @@ class DescriptionViewController: UIViewController {
             .bind(to: descriptionViewModel.saveButtonTapped)
             .disposed(by: disposeBag)
         }
-        
     }
     
     private func addGestureRecognizer() {

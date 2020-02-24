@@ -100,7 +100,11 @@ class ShiftTableViewCell: UITableViewCell {
 
         jobDescriptionLabel.text = shift.description
         
-        let timeDifference = Formatter.shared.findTimeDifference(firstDate: arrivalDateAndTime, secondDate: exitDateAndTime)
+        let arrivalDateAndTimeWithZeroSeconds = Formatter.shared.getDateAndTimeWithZeroSeconds(from: arrivalDateAndTime)
+        let leavingDateAndTimeWithZeroSeconds = Formatter.shared.getDateAndTimeWithZeroSeconds(from: exitDateAndTime)
+        let timeDifference = Formatter.shared.findTimeDifference(firstDate: arrivalDateAndTimeWithZeroSeconds,
+                                                                 secondDate: leavingDateAndTimeWithZeroSeconds)
+        
         workingHoursLabel.text = "\(timeDifference.0) h \(timeDifference.1) min"
     }
 }

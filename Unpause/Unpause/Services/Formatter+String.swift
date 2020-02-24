@@ -1,5 +1,5 @@
 //
-//  Formatter.swift
+//  Formatter+String.swift
 //  Unpause
 //
 //  Created by Krešimir Baković on 10/02/2020.

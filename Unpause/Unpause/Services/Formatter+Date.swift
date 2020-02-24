@@ -1,5 +1,5 @@
 //
-//  Formatter+Date->String.swift
+//  Formatter+Date.swift
 //  Unpause
 //
 //  Created by Krešimir Baković on 20/02/2020.
@@ -100,6 +100,30 @@ extension Formatter {
             return Date()
         }
         return dateOneMonthBeforeTodaysDate
+    }
+    
+    func getDateAndTimeWithZeroSeconds(from date: Date) -> Date {
+        let calendar = Calendar.current
+        var dateComponents = DateComponents()
+        
+        let year = calendar.component(.year, from: date)
+        let month = calendar.component(.month, from: date)
+        let day = calendar.component(.day, from: date)
+        let hour = calendar.component(.hour, from: date)
+        let minute = calendar.component(.minute, from: date)
+        let second = 0
+        
+        dateComponents.year = year
+        dateComponents.month = month
+        dateComponents.day = day
+        dateComponents.hour = hour
+        dateComponents.minute = minute
+        dateComponents.second = second
+        
+        guard let dateAndTimeWithZeroSeconds = calendar.date(from: dateComponents) else {
+            return Date()
+        }
+        return dateAndTimeWithZeroSeconds
     }
 
     func findTimeDifference(firstDate: Date, secondDate: Date) -> (String, String) {

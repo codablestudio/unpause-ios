@@ -78,7 +78,7 @@ class ShiftNetworking {
                         return Observable.just(ShiftsResponse.error(UnpauseError.emptyError))
                 }
                 
-                if arrivalDateInDateFormat >= fromDate && arrivalDateInDateFormat <= toDate {
+                if arrivalDateInDateFormat >= fromDate && arrivalDateInDateFormat <= toDate && shift.exitTime != nil {
                     filteredArrayOfShifts.append(shift)
                 }
             }
@@ -159,6 +159,5 @@ class ShiftNetworking {
         newShiftArray.append(newShiftWithExitTime)
         
         return Observable.just(newShiftArray)
-        
     }
 }

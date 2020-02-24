@@ -183,7 +183,7 @@ private extension UpdatePersonalInfoViewController {
     }
     
     func renderCloseButton() {
-        containerView.addSubview(closeButton)
+        view.addSubview(closeButton)
         closeButton.snp.makeConstraints { (make) in
             make.top.equalToSuperview().offset(25)
             make.left.equalToSuperview().offset(15)
