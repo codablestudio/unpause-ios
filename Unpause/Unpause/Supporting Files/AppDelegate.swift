@@ -17,10 +17,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
-        let newWindow = UIWindow(frame: UIScreen.main.bounds)
-        Coordinator.shared.start(newWindow)
-        self.window = newWindow
-        self.window?.makeKeyAndVisible()
+        
+        guard #available(iOS 13, *) else {
+            let newWindow = UIWindow(frame: UIScreen.main.bounds)
+            Coordinator.shared.start(newWindow)
+            self.window = newWindow
+            self.window?.makeKeyAndVisible()
+            return true
+        }
         return true
     }
     

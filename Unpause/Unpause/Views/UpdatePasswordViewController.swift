@@ -94,12 +94,6 @@ class UpdatePasswordViewController: UIViewController {
         }).disposed(by: disposeBag)
     }
     
-    private func showAlert(title: String, message: String, actionTitle: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: actionTitle, style: .default, handler: nil))
-        self.present(alert, animated: true)
-    }
-    
     private func setUpTextFields() {
         currentPasswordTextField.setNextResponder(newPasswordTextField, disposeBag: disposeBag)
         newPasswordTextField.resignWhenFinished(disposeBag)
@@ -113,7 +107,6 @@ class UpdatePasswordViewController: UIViewController {
 }
 
 // MARK: - UI rendering
-
 private extension UpdatePasswordViewController {
     
     func configureScrollViewAndContainerView() {
@@ -189,7 +182,7 @@ private extension UpdatePasswordViewController {
     }
     
     func renderCloseButton() {
-        containerView.addSubview(closeButton)
+        view.addSubview(closeButton)
         closeButton.snp.makeConstraints { (make) in
             make.top.equalToSuperview().offset(25)
             make.left.equalToSuperview().offset(15)

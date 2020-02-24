@@ -10,7 +10,13 @@ import Foundation
 
 class AddShiftViewModel {
     
+    var cellToEdit: ShiftsTableViewItem?
+    
     init() {}
+    
+    init(cellToEdit: ShiftsTableViewItem) {
+        self.cellToEdit = cellToEdit
+    }
     
     func makeNewDateAndTimeWithCheckInDateAnd(timeInDateFormat: Date) -> Date? {
         let calendar = Calendar.current
@@ -58,12 +64,5 @@ class AddShiftViewModel {
         
         let newDateAndTime = calendar.date(from: dateComponents)
         return newDateAndTime
-    }
-    
-    func findTimeDifference(firstDate: Date, secondDate: Date) -> (String, String) {
-        let timeDifferenceInSeconds = secondDate.timeIntervalSince1970 - firstDate.timeIntervalSince1970
-        let hours = String(Int(timeDifferenceInSeconds / 3600))
-        let minutes = String(Int((timeDifferenceInSeconds.truncatingRemainder(dividingBy: 3600)) / 60))
-        return (hours,minutes)
     }
 }

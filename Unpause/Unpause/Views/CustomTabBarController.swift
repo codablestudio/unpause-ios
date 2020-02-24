@@ -26,9 +26,9 @@ class CustomTabBarController: UITabBarController {
         let settingsNavigationController = UINavigationController(rootViewController: settingsViewController)
         
         self.setViewControllers([homeNavigationController,
-                                                 activityNavigationController,
-                                                 settingsNavigationController],
-                                                 animated: true)
+                                 activityNavigationController,
+                                 settingsNavigationController],
+                                animated: true)
         self.selectedViewController = homeNavigationController
         
         homeNavigationController.tabBarItem = UITabBarItem(title: "Home",

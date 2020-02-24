@@ -94,6 +94,7 @@ class HomeViewController: UIViewController {
                 switch response {
                 case .success:
                     print("User successfully checked in.")
+                    ActivityViewModel.forceRefresh.onNext(())
                 case .error(let error):
                     print("Error occured: \(error)")
                     self.showAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
@@ -125,12 +126,6 @@ class HomeViewController: UIViewController {
         userFirstNameLabel.text = SessionManager.shared.currentUser?.firstName
         userLastNameLabel.text = SessionManager.shared.currentUser?.lastName
     }
-    
-    private func showAlert(title: String, message: String, actionTitle: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: actionTitle, style: .default, handler: nil))
-        self.present(alert, animated: true)
-    }
 }
 
 // MARK: - UI rendering
@@ -159,7 +154,7 @@ private extension HomeViewController {
         containerView.addSubview(signedInLabel)
         
         signedInLabel.snp.makeConstraints { (make) in
-            make.topMargin.equalToSuperview().offset(135)
+            make.topMargin.equalToSuperview().offset(UIScreen.main.bounds.height / 8)
             make.left.equalToSuperview().offset(40)
             make.right.equalToSuperview()
         }
