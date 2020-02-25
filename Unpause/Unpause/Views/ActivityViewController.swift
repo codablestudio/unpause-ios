@@ -35,6 +35,10 @@ class ActivityViewController: UIViewController {
     
     private let tableView = UITableView()
     
+    private let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
+    
+    let documentController = UIDocumentInteractionController()
+    
     private let fromDatePicker = UIDatePicker()
     private let toDatePicker = UIDatePicker()
     
@@ -59,6 +63,7 @@ class ActivityViewController: UIViewController {
         createPickers()
         setUpTableView()
         setUpObservables()
+        addBarButtonItem()
     }
     
     private func render() {
@@ -68,6 +73,7 @@ class ActivityViewController: UIViewController {
         renderFromDateLabelAndFromDateTextField()
         renderToDateLabelAndToDateTextField()
         configureTableView()
+        setUpDocumentInteractionController()
     }
     
     private func setUpObservables() {
@@ -172,6 +178,49 @@ class ActivityViewController: UIViewController {
         fromDatePicker.date = Formatter.shared.getDateOneMontBeforeTodaysDate()
         let lastMonthDate = Formatter.shared.getDateOneMontBeforeTodaysDate()
         fromDateTextField.text = Formatter.shared.convertDateIntoString(from: lastMonthDate)
+    }
+    
+    private func addBarButtonItem() {
+        navigationItem.rightBarButtonItem = addButton
+        
+        addButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else { return }
+            self.showActionSheet()
+            }).disposed(by: disposeBag)
+    }
+    
+    private func setUpDocumentInteractionController() {
+        documentController.delegate = self
+    }
+    
+    private func showActionSheet() {
+        let alert = UIAlertController(title: "What do you want?", message: "Please select an option", preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "Add custom shift", style: .default , handler:{ _ in
+            Coordinator.shared.presentAddShiftViewController(from: self)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Send as email", style: .default, handler:{ _ in
+                  
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Open CSV", style: .default, handler:{ [weak self] _ in
+            guard let `self` = self else { return }
+            let fileURL = self.activityViewModel.makeNewCSVFileWithShiftsData(shiftsData: self.dataSource)
+            switch fileURL {
+            case .success(let url):
+                self.documentController.url = url
+                self.documentController.presentPreview(animated: true)
+            case .error(let error):
+                self.showAlert(title: "Alert", message: "\(error.localizedDescription)", actionTitle: "OK")
+            }
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler:{ _ in
+                                        
+        }))
+        
+        self.present(alert, animated: true)
     }
 }
 
@@ -313,5 +362,12 @@ extension ActivityViewController: UITableViewDataSource {
                                                      for: indexPath) as! LoadingTableViewCell
             return cell
         }
+    }
+}
+
+//MARK: - UIDocumentInteractionController delegate
+extension ActivityViewController: UIDocumentInteractionControllerDelegate {
+    func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController {
+        return self
     }
 }

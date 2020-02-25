@@ -89,3 +89,59 @@ extension ActivityViewModel {
             })
     }
 }
+
+// MARK: Open CSV
+
+extension ActivityViewModel {
+    func makeNewCSVFileWithShiftsData(shiftsData: [ShiftsTableViewItem]) -> CSVMakingResponse {
+        var csvString = "\("Dosao"),\("Otisao"),\("Opis"),\("Sati")\n"
+        var totalWorkingHours = 0.0
+        
+        for shiftData in shiftsData {
+            guard let arrivalDateInDateFormat = Formatter.shared.convertTimeStampIntoDate(timeStamp: shiftData.shift?.arrivalTime),
+                let leavingDateInDateFormat = Formatter.shared.convertTimeStampIntoDate(timeStamp: shiftData.shift?.exitTime),
+                let description = shiftData.shift?.description else {
+                    return CSVMakingResponse.error(UnpauseError.emptyError)
+            }
+            
+            let arrivalDateAndTimeWithZeroSeconds = Formatter.shared.getDateAndTimeWithZeroSeconds(from: arrivalDateInDateFormat)
+            let leavingDateAndTimeWithZeroSeconds = Formatter.shared.getDateAndTimeWithZeroSeconds(from: leavingDateInDateFormat)
+            
+            let arrivalDateAndTimeInStringFormat = Formatter.shared.convertDateIntoStringWithTime(from: arrivalDateInDateFormat)
+            let leavingDateAndTimeInStringFormat = Formatter.shared.convertDateIntoStringWithTime(from: leavingDateInDateFormat)
+            
+            
+            let workingHours = Formatter.shared.findTimeDifferenceInHours(firstDate: arrivalDateAndTimeWithZeroSeconds,
+                                                                          secondDate: leavingDateAndTimeWithZeroSeconds)
+            
+            totalWorkingHours += workingHours
+            let workingHoursInStringFormat = String(workingHours)
+            
+            let firstPartOfString = "\(arrivalDateAndTimeInStringFormat),"
+            let secondPartOfString = "\(leavingDateAndTimeInStringFormat),"
+            let thirdPartOfString = "\(description),"
+            let lastPartOfString = "\(workingHoursInStringFormat),\n"
+            
+            csvString = csvString.appending("\(firstPartOfString)\(secondPartOfString)\(thirdPartOfString)\(lastPartOfString)")
+        }
+        
+        let totalWorkingHoursInStringFormat = String(totalWorkingHours)
+        
+        csvString = csvString.appending("\n \("Ukupno sati"), \(totalWorkingHoursInStringFormat)")
+        
+        let fileManager = FileManager.default
+        do {
+            guard let currentUserFirstName = SessionManager.shared.currentUser?.firstName,
+                let currentUserLastName = SessionManager.shared.currentUser?.lastName else {
+                    return CSVMakingResponse.error(UnpauseError.noUser)
+            }
+            
+            let path = try fileManager.url(for: .documentDirectory, in: .allDomainsMask, appropriateFor: nil, create: false)
+            let fileURL = path.appendingPathComponent("\(currentUserFirstName) \(currentUserLastName).csv")
+            try csvString.write(to: fileURL, atomically: true, encoding: .utf8)
+            return CSVMakingResponse.success(fileURL)
+        } catch (let error) {
+            return CSVMakingResponse.error(error)
+        }
+    }
+}
