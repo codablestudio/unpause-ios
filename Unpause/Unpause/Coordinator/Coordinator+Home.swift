@@ -10,10 +10,11 @@ import Foundation
 import UIKit
 
 extension Coordinator {
-    func presentAddShiftViewController(from viewController: UIViewController) {
+    func presentAddShiftViewController(from viewController: UIViewController, navigationFromCustomShift: Bool) {
         let addShiftViewModel = AddShiftViewModel()
         let addShiftViewController = AddShiftViewController(addShiftViewModel: addShiftViewModel,
-                                                            navigationFromTableView: false)
+                                                            navigationFromTableView: false,
+                                                            navigationFromCustomShift: navigationFromCustomShift)
         let navigationController = UINavigationController(rootViewController: addShiftViewController)
         viewController.present(navigationController, animated: true)
     }
@@ -21,8 +22,8 @@ extension Coordinator {
     func presentAddShiftViewController(from viewController: UIViewController, with shiftData: ShiftsTableViewItem) {
         let addShiftViewModel = AddShiftViewModel(cellToEdit: shiftData)
         let addShiftViewController = AddShiftViewController(addShiftViewModel: addShiftViewModel,
-                                                            navigationFromTableView: true)
-        addShiftViewController.arrivalDatePickerEnabled = true
+                                                            navigationFromTableView: true,
+                                                            navigationFromCustomShift: false)
         addShiftViewController.cellToEdit = shiftData
         let navigationController = UINavigationController(rootViewController: addShiftViewController)
         viewController.present(navigationController, animated: true)

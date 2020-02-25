@@ -197,7 +197,7 @@ class ActivityViewController: UIViewController {
         let alert = UIAlertController(title: "What do you want?", message: "Please select an option", preferredStyle: .actionSheet)
         
         alert.addAction(UIAlertAction(title: "Add custom shift", style: .default , handler:{ _ in
-            Coordinator.shared.presentAddShiftViewController(from: self)
+            Coordinator.shared.presentAddShiftViewController(from: self, navigationFromCustomShift: true)
         }))
         
         alert.addAction(UIAlertAction(title: "Send as email", style: .default, handler:{ _ in
