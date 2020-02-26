@@ -20,8 +20,10 @@ class RegisterNetworking {
     func registerUserWith(firstName: String, lastName: String, email: String, password: String) -> Observable<FirebaseResponseObject> {
         Auth.auth().rx.createUser(withEmail: email, password: password)
             .flatMapLatest { [weak self] (authDataResult) -> Observable<FirebaseResponseObject> in
+                guard let `self` = self else { return Observable.empty() }
                 if authDataResult.user.email != nil {
-                    self?.dataBaseReference.collection("users")
+                    self.dataBaseReference
+                        .collection("users")
                         .document("\(email)")
                         .setData(["firstName": "\(firstName)",
                             "lastName": "\(lastName)",

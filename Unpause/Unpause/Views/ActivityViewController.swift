@@ -201,7 +201,11 @@ class ActivityViewController: UIViewController {
         }))
         
         alert.addAction(UIAlertAction(title: "Send as email", style: .default, handler:{ _ in
-                  
+            if SessionManager.shared.currentUser?.boss?.email == nil {
+                Coordinator.shared.presentAddBossInfoViewController(from: self)
+            } else {
+                // SEND EMAIL TO BOSS
+            }
         }))
         
         alert.addAction(UIAlertAction(title: "Open CSV", style: .default, handler:{ [weak self] _ in
@@ -216,9 +220,7 @@ class ActivityViewController: UIViewController {
             }
         }))
         
-        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler:{ _ in
-                                        
-        }))
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
         
         self.present(alert, animated: true)
     }
