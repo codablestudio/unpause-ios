@@ -13,6 +13,7 @@ class HomeViewModel {
     
     private let disposeBag = DisposeBag()
     private let homeNetworking = HomeNetworking()
+    private let shiftNetworking = ShiftNetworking()
     
     var usersLastCheckInTimeRequest: Observable<LastCheckInResponse>!
     var userChecksIn = PublishSubject<Bool>()
@@ -44,7 +45,9 @@ class HomeViewModel {
                 let timeAtThisMoment = Date()
                 if userChecksIn {
                     SessionManager.shared.currentUser?.lastCheckInDateAndTime = timeAtThisMoment
-                    return self.homeNetworking.checkInUser(with: timeAtThisMoment)
+                    let newShift = Shift()
+                    newShift.arrivalTime = Formatter.shared.convertDateIntoTimeStamp(date: timeAtThisMoment)
+                    return self.shiftNetworking.saveNewShift(newShift: newShift)
                 } else {
                     SessionManager.shared.currentUser?.lastCheckOutDateAndTime = timeAtThisMoment
                     return Observable.empty()

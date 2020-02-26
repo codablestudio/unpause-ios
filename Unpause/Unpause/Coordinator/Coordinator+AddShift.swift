@@ -10,9 +10,13 @@ import Foundation
 import UIKit
 
 extension Coordinator {
-    func navigateToDecriptionViewController(from viewController: UIViewController, arrivalTime: Date?, leavingTime: Date?) {
+    func navigateToDecriptionViewController(from viewController: UIViewController,
+                                            arrivalTime: Date?,
+                                            leavingTime: Date?,
+                                            navigationFromCustomShift: Bool) {
         let descriptionViewModel = DescriptionViewModel(arrivalDateAndTime: arrivalTime,
-                                                        leavingDateAndTime: leavingTime)
+                                                        leavingDateAndTime: leavingTime,
+                                                        navigationFromCustomShift: navigationFromCustomShift)
         let descriptionViewController = DescriptionViewController(descriptionViewModel: descriptionViewModel,
                                                                   navigationFromTableView: false)
         viewController.navigationController?.pushViewController(descriptionViewController, animated: true)

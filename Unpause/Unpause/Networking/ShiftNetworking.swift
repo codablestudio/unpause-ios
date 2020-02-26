@@ -14,7 +14,7 @@ class ShiftNetworking {
     
     private let dataBaseReference = Firestore.firestore()
     
-    func saveNewShift(newShiftWithExitTime: Shift) -> Observable<Response> {
+    func removeShiftWithOutExitTimeAndSaveNewShift(newShiftWithExitTime: Shift) -> Observable<Response> {
         return fetchShifts()
             .map({ shiftsResponse -> ([Shift], Shift) in
                 switch shiftsResponse {
@@ -24,18 +24,45 @@ class ShiftNetworking {
                     return ([],Shift())
                 }
             })
-            .map({ (shifts, newShiftWithExitTime) -> ([Shift], Shift?, Shift) in
-                return (shifts, shifts.last(where: { $0.exitTime == nil }), newShiftWithExitTime)
+            .map({ [weak self] (shifts, newShiftWithExitTime) -> ([Shift], Shift?, Shift) in
+                return (shifts, self?.findShiftWithOutExitTime(shifts: shifts), newShiftWithExitTime)
             })
-            .flatMapLatest({ [weak self] (shifts, lastShiftWithOutExitTime, newShiftWithExitTime) -> Observable<[Shift]> in
+            .flatMapLatest({ [weak self] (shifts, shiftWithOutExitTime, newShiftWithExitTime) -> Observable<[Shift]> in
                 guard let `self` = self,
-                    let lastShiftWithoutExitTime = lastShiftWithOutExitTime else {
+                    let shiftWithoutExitTime = shiftWithOutExitTime else {
                         return Observable.just([])
                 }
                 
-                return self.popLastShiftAndAddShiftWithExitTime(shifts: shifts,
-                                                                lastShiftWithOutExitTime: lastShiftWithoutExitTime,
-                                                                newShiftWithExitTime: newShiftWithExitTime)
+                return self.popShiftWithOutExitTimeAndAddShiftWithExitTime(shifts: shifts,
+                                                                           shiftWithOutExitTime: shiftWithoutExitTime,
+                                                                           newShiftWithExitTime: newShiftWithExitTime)
+            })
+            .flatMapLatest ({ [weak self] (newShiftArray) -> Observable<Response> in
+                guard let `self` = self else { return Observable.empty() }
+                
+                return self.saveNewShiftsArrayOnServer(newShiftArray: newShiftArray)
+                    .flatMapLatest({ _ -> Observable<Response> in
+                        return Observable.just(Response.success)
+                    })
+                    .catchError({ error -> Observable<Response> in
+                        return Observable.just(Response.error(error))
+                    })
+            })
+    }
+    
+    func saveNewShift(newShift: Shift) -> Observable<Response> {
+        return fetchShifts()
+            .map({ shiftsResponse -> ([Shift], Shift) in
+                switch shiftsResponse {
+                case .success(let shifts):
+                    return (shifts, newShift)
+                default:
+                    return ([],Shift())
+                }
+            })
+            .map({ [weak self] (shifts, newShift) ->  [Shift] in
+                guard let `self` = self else { return [] }
+                return self.addShiftOnRightPlaceInShiftArray(shifts: shifts, newShift: newShift)
             })
             .flatMapLatest ({ [weak self] (newShiftArray) -> Observable<Response> in
                 guard let `self` = self else { return Observable.empty() }
@@ -150,14 +177,53 @@ class ShiftNetworking {
         return newShiftArray
     }
     
-    private func popLastShiftAndAddShiftWithExitTime(shifts: [Shift],
-                                                     lastShiftWithOutExitTime: Shift,
-                                                     newShiftWithExitTime: Shift) -> Observable<[Shift]> {
+    private func popShiftWithOutExitTimeAndAddShiftWithExitTime(shifts: [Shift],
+                                                                shiftWithOutExitTime: Shift,
+                                                                newShiftWithExitTime: Shift) -> Observable<[Shift]> {
         
         var newShiftArray = [Shift]()
-        newShiftArray = shifts.dropLast()
-        newShiftArray.append(newShiftWithExitTime)
+        for shift in shifts {
+            if shift == shiftWithOutExitTime {
+                newShiftArray.append(newShiftWithExitTime)
+            } else {
+                newShiftArray.append(shift)
+            }
+        }
         
         return Observable.just(newShiftArray)
+    }
+    
+    private func addShiftOnRightPlaceInShiftArray(shifts: [Shift], newShift: Shift) -> [Shift] {
+        var newShiftArray = [Shift]()
+        var shiftInserted = false
+        for shift in shifts {
+            guard let shiftArrivalDateAndTime = Formatter.shared.convertTimeStampIntoDate(timeStamp: shift.arrivalTime),
+                let newShiftArrivalDateAndTime = Formatter.shared.convertTimeStampIntoDate(timeStamp: newShift.arrivalTime) else {
+                    return []
+            }
+            
+            if newShiftArrivalDateAndTime < shiftArrivalDateAndTime && !shiftInserted {
+                newShiftArray.append(newShift)
+                newShiftArray.append(shift)
+                shiftInserted = true
+            } else {
+                newShiftArray.append(shift)
+            }
+        }
+        
+        if !shiftInserted {
+            newShiftArray.append(newShift)
+        }
+        return newShiftArray
+    }
+    
+    private func findShiftWithOutExitTime(shifts: [Shift]) -> Shift {
+        var shiftWithOutExitTime = Shift()
+        for shift in shifts {
+            if shift.exitTime == nil {
+                shiftWithOutExitTime = shift
+            }
+        }
+        return shiftWithOutExitTime
     }
 }

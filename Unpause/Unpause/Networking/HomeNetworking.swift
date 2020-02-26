@@ -36,28 +36,4 @@ class HomeNetworking {
                 return Observable.just(LastCheckInResponse.lastCheckIn(lastArrivalDateAndTime))
             })
     }
-    
-    func checkInUser(with time: Date) -> Observable<Response> {
-        guard let currentUserEmail = SessionManager.shared.currentUser?.email else {
-            return Observable.just(.error(UnpauseError.noUser))
-        }
-        
-        var shiftsData = [String: Any]()
-        
-        let newShiftData = ["arrivalTime": Timestamp(date: time), "description": "", "exitTime": ""] as [String : Any]
-        let newShiftDataFieldValue = FieldValue.arrayUnion([newShiftData])
-        shiftsData["shifts"] = newShiftDataFieldValue
-        
-        return dataBaseReference
-            .collection("users")
-            .document("\(currentUserEmail)")
-            .rx
-            .updateData(shiftsData)
-            .flatMapLatest({ _ -> Observable<Response> in
-                return Observable.just(Response.success)
-            })
-            .catchError({ error -> Observable<Response> in
-                return Observable.just(Response.error(error))
-            })
-    }
 }

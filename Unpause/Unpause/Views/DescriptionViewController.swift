@@ -42,7 +42,6 @@ class DescriptionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         render()
         setUpObservables()
         addGestureRecognizer()
@@ -114,11 +113,11 @@ class DescriptionViewController: UIViewController {
                 .disposed(by: disposeBag)
         } else {
             saveButton.rx.tap
-            .do(onNext: { _ in
-                SVProgressHUD.show()
-            })
-            .bind(to: descriptionViewModel.saveButtonTapped)
-            .disposed(by: disposeBag)
+                .do(onNext: { _ in
+                    SVProgressHUD.show()
+                })
+                .bind(to: descriptionViewModel.saveButtonTapped)
+                .disposed(by: disposeBag)
         }
     }
     
