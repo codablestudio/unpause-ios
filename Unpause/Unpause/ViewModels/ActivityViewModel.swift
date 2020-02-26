@@ -125,7 +125,7 @@ extension ActivityViewModel {
             csvString = csvString.appending("\(firstPartOfString)\(secondPartOfString)\(thirdPartOfString)\(lastPartOfString)")
         }
         
-        let totalWorkingHoursInStringFormat = String(totalWorkingHours)
+        let totalWorkingHoursInStringFormat = String(round(totalWorkingHours*100)/100)
         
         csvString = csvString.appending("\n \("Ukupno sati"), \(totalWorkingHoursInStringFormat)")
         
