@@ -43,6 +43,22 @@ class Formatter {
         return dateInStringFormat
     }
     
+    /// Date -> String(dd.MM.yyyy HH:mm)
+    func convertDateIntoStringWithTime(from dateInDateFormat: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let formatterString = formatter.string(from: dateInDateFormat)
+        let formatterDate = formatter.date(from: formatterString)
+        formatter.dateFormat = "dd.MM.yyyy HH:mm"
+        
+        guard let formatedDate = formatterDate else {
+            return ""
+        }
+        
+        let dateInStringFormat = formatter.string(from: formatedDate)
+        return dateInStringFormat
+    }
+    
     /// TimeStamp -> String(dd.MM.yyyy)
     func convertTimeStampIntoString(timeStamp: Timestamp?) -> String {
         let dateInDateFormat = convertTimeStampIntoDate(timeStamp: timeStamp)
@@ -50,6 +66,16 @@ class Formatter {
             return ""
         }
         let dateInStringFormat = convertDateIntoString(from: date)
+        return dateInStringFormat
+    }
+    
+    /// TimeStamp -> String(dd.MM.yyyy HH:mm)
+    func convertTimeStampIntoStringWithTime(timeStamp: Timestamp?) -> String {
+        let dateInDateFormat = convertTimeStampIntoDate(timeStamp: timeStamp)
+        guard let date = dateInDateFormat else {
+            return ""
+        }
+        let dateInStringFormat = convertDateIntoStringWithTime(from: date)
         return dateInStringFormat
     }
     

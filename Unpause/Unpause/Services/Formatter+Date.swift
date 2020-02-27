@@ -132,4 +132,10 @@ extension Formatter {
         let minutes = String(Int((timeDifferenceInSeconds.truncatingRemainder(dividingBy: 3600)) / 60))
         return (hours,minutes)
     }
+    
+    func findTimeDifferenceInHours(firstDate: Date, secondDate: Date) -> Double {
+        let timeDifferenceInSeconds = secondDate.timeIntervalSince1970 - firstDate.timeIntervalSince1970
+        let hours = round((timeDifferenceInSeconds / 3600)*100)/100
+        return hours
+    }
 }

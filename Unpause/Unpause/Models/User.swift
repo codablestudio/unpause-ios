@@ -13,8 +13,11 @@ class User: NSObject, NSCoding, Decodable {
     var firstName: String?
     var lastName: String?
     var email: String?
+    
     var lastCheckInDateAndTime: Date?
     var lastCheckOutDateAndTime: Date?
+    
+    var boss: User?
     
     required init?(coder: NSCoder) {
         firstName = coder.decodeObject(forKey: "firstName") as? String
@@ -22,7 +25,7 @@ class User: NSObject, NSCoding, Decodable {
         email = coder.decodeObject(forKey: "email") as? String
     }
     
-    init(firstName: String, lastName: String, email: String) {
+    init(firstName: String?, lastName: String?, email: String?) {
         self.firstName = firstName
         self.lastName = lastName
         self.email = email

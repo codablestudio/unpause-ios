@@ -15,6 +15,7 @@ class DescriptionViewModel {
     
     private let arrivalDateAndTime: Date?
     private let leavingDateAndTime: Date?
+    private var navigationFromCustomShift: Bool?
     
     private var textInDescriptionTextView: String?
     
@@ -27,9 +28,10 @@ class DescriptionViewModel {
     var shiftSavingResponse: Observable<Response>!
     var shiftEditingResponse: Observable<Response>!
     
-    init(arrivalDateAndTime: Date?, leavingDateAndTime: Date?) {
+    init(arrivalDateAndTime: Date?, leavingDateAndTime: Date?, navigationFromCustomShift: Bool) {
         self.arrivalDateAndTime = arrivalDateAndTime
         self.leavingDateAndTime = leavingDateAndTime
+        self.navigationFromCustomShift = navigationFromCustomShift
         setUpObservables()
     }
     
@@ -62,7 +64,11 @@ class DescriptionViewModel {
                 newShift.exitTime = leavingDateAndTimeInTimeStampFormat
                 newShift.description = self.textInDescriptionTextView
                 
-                return self.shiftNetworking.saveNewShift(newShiftWithExitTime: newShift)
+                if let navigationFromCustomShift = self.navigationFromCustomShift, navigationFromCustomShift {
+                    return self.shiftNetworking.saveNewShift(newShift: newShift)
+                } else {
+                    return self.shiftNetworking.removeShiftWithOutExitTimeAndSaveNewShift(newShiftWithExitTime: newShift)
+                }
             })
         
         shiftEditingResponse = saveButtonFromTableViewTapped

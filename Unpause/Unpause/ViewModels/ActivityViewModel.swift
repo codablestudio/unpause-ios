@@ -11,6 +11,7 @@ import RxSwift
 class ActivityViewModel {
     
     private let shiftNetworking = ShiftNetworking()
+    private let bossNetworking = BossNetworking()
     private let disposeBag = DisposeBag()
     
     var shiftsRequest: Observable<[ShiftsTableViewItem]>!
@@ -18,9 +19,11 @@ class ActivityViewModel {
     var refreshTrigger = PublishSubject<Void>()
     var dateInFromDatePickerChanges = PublishSubject<Date>()
     var dateInToDatePickerChanges = PublishSubject<Date>()
-    
+    var activityStarted = PublishSubject<Void>()
     var shiftToDelete = PublishSubject<Shift>()
+    
     var deleteRequest: Observable<ShiftDeletionResponse>!
+    var bossFetchingResponse: Observable<BossFetchingResponse>!
     
     private var dateInFromDatePicker: Date?
     private var dateInToDatePicker: Date?
@@ -34,7 +37,7 @@ class ActivityViewModel {
                 let dateWithZeroTime = Formatter.shared.getDateWithStartingDayTime(fromDate: date)
                 self.dateInFromDatePicker = dateWithZeroTime
             }).disposed(by: disposeBag)
-
+        
         dateInToDatePickerChanges
             .subscribe(onNext: { [weak self] date in
                 guard let `self` = self else { return }
@@ -75,17 +78,87 @@ class ActivityViewModel {
                 return []
             })
         
-        setupDeletion()
-    }
-}
-
-// MARK: Delete request
-extension ActivityViewModel {
-    func setupDeletion() {
+        bossFetchingResponse = activityStarted
+            .flatMapLatest({ [weak self] _ -> Observable<BossFetchingResponse> in
+                guard let `self` = self else { return Observable.empty() }
+                return self.bossNetworking.fetchBoss()
+            })
+        
         deleteRequest = shiftToDelete
             .flatMapLatest({ [weak self] shift -> Observable<ShiftDeletionResponse> in
                 guard let `self` = self else { return Observable.empty() }
                 return self.shiftNetworking.deleteShift(shiftToDelete: shift)
             })
+    }
+}
+
+// MARK: Open CSV
+extension ActivityViewModel {
+    func makeNewCSVFileWithShiftsData(shiftsData: [ShiftsTableViewItem]) -> CSVMakingResponse {
+        var csvString = "\("Dosao"),\("Otisao"),\("Opis"),\("Sati")\n"
+        var totalWorkingHours = 0.0
+        
+        for shiftData in shiftsData {
+            guard let arrivalDateInDateFormat = Formatter.shared.convertTimeStampIntoDate(timeStamp: shiftData.shift?.arrivalTime),
+                let leavingDateInDateFormat = Formatter.shared.convertTimeStampIntoDate(timeStamp: shiftData.shift?.exitTime),
+                let description = shiftData.shift?.description else {
+                    return CSVMakingResponse.error(UnpauseError.emptyError)
+            }
+            
+            let arrivalDateAndTimeWithZeroSeconds = Formatter.shared.getDateAndTimeWithZeroSeconds(from: arrivalDateInDateFormat)
+            let leavingDateAndTimeWithZeroSeconds = Formatter.shared.getDateAndTimeWithZeroSeconds(from: leavingDateInDateFormat)
+            
+            let arrivalDateAndTimeInStringFormat = Formatter.shared.convertDateIntoStringWithTime(from: arrivalDateInDateFormat)
+            let leavingDateAndTimeInStringFormat = Formatter.shared.convertDateIntoStringWithTime(from: leavingDateInDateFormat)
+            
+            
+            let workingHours = Formatter.shared.findTimeDifferenceInHours(firstDate: arrivalDateAndTimeWithZeroSeconds,
+                                                                          secondDate: leavingDateAndTimeWithZeroSeconds)
+            
+            totalWorkingHours += workingHours
+            let workingHoursInStringFormat = String(workingHours)
+            
+            let firstPartOfString = "\(arrivalDateAndTimeInStringFormat),"
+            let secondPartOfString = "\(leavingDateAndTimeInStringFormat),"
+            let thirdPartOfString = "\(description),"
+            let lastPartOfString = "\(workingHoursInStringFormat),\n"
+            
+            csvString = csvString.appending("\(firstPartOfString)\(secondPartOfString)\(thirdPartOfString)\(lastPartOfString)")
+        }
+        
+        let totalWorkingHoursInStringFormat = String(round(totalWorkingHours*100)/100)
+        
+        csvString = csvString.appending("\n \("Ukupno sati"), \(totalWorkingHoursInStringFormat)")
+        
+        let fileManager = FileManager.default
+        do {
+            guard let currentUserFirstName = SessionManager.shared.currentUser?.firstName,
+                let currentUserLastName = SessionManager.shared.currentUser?.lastName else {
+                    return CSVMakingResponse.error(UnpauseError.noUser)
+            }
+            
+            let path = try fileManager.url(for: .documentDirectory, in: .allDomainsMask, appropriateFor: nil, create: false)
+            let fileURL = path.appendingPathComponent("\(currentUserFirstName) \(currentUserLastName).csv")
+            try csvString.write(to: fileURL, atomically: true, encoding: .utf8)
+            return CSVMakingResponse.success(fileURL)
+        } catch (let error) {
+            return CSVMakingResponse.error(error)
+        }
+    }
+}
+
+extension ActivityViewModel {
+    func makeDataFrom(csvMakingResponse: CSVMakingResponse) -> DataMakingResponse {
+        switch csvMakingResponse {
+        case .success(let url):
+            do {
+                let data =  try Data(contentsOf: url)
+                return DataMakingResponse.success(data)
+            } catch {
+                return DataMakingResponse.error(error)
+            }
+        case .error(let error):
+            return DataMakingResponse.error(error)
+        }
     }
 }

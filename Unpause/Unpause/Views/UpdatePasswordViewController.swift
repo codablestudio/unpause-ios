@@ -184,7 +184,7 @@ private extension UpdatePasswordViewController {
     func renderCloseButton() {
         view.addSubview(closeButton)
         closeButton.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(25)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(25)
             make.left.equalToSuperview().offset(15)
         }
         closeButton.setImage(UIImage(named: "close_25x25"), for: .normal)
