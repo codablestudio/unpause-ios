@@ -58,6 +58,7 @@
 		C13D7C392406D1A200E56C77 /* BossFetchingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13D7C382406D1A200E56C77 /* BossFetchingResponse.swift */; };
 		C13DDCEB23F36D050043E242 /* Shift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13DDCEA23F36D050043E242 /* Shift.swift */; };
 		C13EFBA423FECC5D0081ACF0 /* Formatter+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13EFBA323FECC5D0081ACF0 /* Formatter+Date.swift */; };
+		C14334EC2407F4BD00C49E16 /* DataMakingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14334EB2407F4BD00C49E16 /* DataMakingResponse.swift */; };
 		C1437B4123F3EF43007BD7DA /* ShiftFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1437B4023F3EF43007BD7DA /* ShiftFactory.swift */; };
 		C1437B4323F40B0A007BD7DA /* ShiftNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1437B4223F40B0A007BD7DA /* ShiftNetworking.swift */; };
 		C146991223A112F100A84818 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C146991123A112F100A84818 /* AppDelegate.swift */; };
@@ -96,7 +97,6 @@
 		7A22B2694C577AAD4753E790 /* Pods-Unpause.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Unpause.release.xcconfig"; path = "Target Support Files/Pods-Unpause/Pods-Unpause.release.xcconfig"; sourceTree = "<group>"; };
 		C102D7B923ACCFB4000B9E80 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		C102D7BE23AD0063000B9E80 /* OrangeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrangeButton.swift; sourceTree = "<group>"; };
-		C10F78BF23A3D50000783476 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Colors.xcassets; path = "/Users/kresimir_bakovic/Codable Studio/unpause-ios/Unpause/Unpause/Supporting Files/Colors.xcassets"; sourceTree = "<absolute>"; };
 		C10F78C223A3D79200783476 /* ActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		C10F78C423A3D79200783476 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		C10F78C523A3D79200783476 /* UIFont+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
@@ -145,6 +145,7 @@
 		C13D7C382406D1A200E56C77 /* BossFetchingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BossFetchingResponse.swift; sourceTree = "<group>"; };
 		C13DDCEA23F36D050043E242 /* Shift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shift.swift; sourceTree = "<group>"; };
 		C13EFBA323FECC5D0081ACF0 /* Formatter+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Formatter+Date.swift"; sourceTree = "<group>"; };
+		C14334EB2407F4BD00C49E16 /* DataMakingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataMakingResponse.swift; sourceTree = "<group>"; };
 		C1437B4023F3EF43007BD7DA /* ShiftFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftFactory.swift; sourceTree = "<group>"; };
 		C1437B4223F40B0A007BD7DA /* ShiftNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftNetworking.swift; sourceTree = "<group>"; };
 		C146990E23A112F100A84818 /* Unpause.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Unpause.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -286,7 +287,6 @@
 		C146990523A112F100A84818 = {
 			isa = PBXGroup;
 			children = (
-				C102D7B923ACCFB4000B9E80 /* Colors.xcassets */,
 				C146991023A112F100A84818 /* Unpause */,
 				C146990F23A112F100A84818 /* Products */,
 				0824E02AECECEDE61A6B389D /* Pods */,
@@ -325,7 +325,7 @@
 				C146991123A112F100A84818 /* AppDelegate.swift */,
 				C10F78EA23A3DD9A00783476 /* SceneDelegate.swift */,
 				C146991C23A112F200A84818 /* LaunchScreen.storyboard */,
-				C10F78BF23A3D50000783476 /* Colors.xcassets */,
+				C102D7B923ACCFB4000B9E80 /* Colors.xcassets */,
 				C146991A23A112F200A84818 /* Assets.xcassets */,
 			);
 			path = "Supporting Files";
@@ -385,6 +385,7 @@
 				C176A55923FED4F900631E39 /* ShiftDeletionResponse.swift */,
 				C116D39424055A2400A6FEC5 /* CSVMakingResponse.swift */,
 				C13D7C382406D1A200E56C77 /* BossFetchingResponse.swift */,
+				C14334EB2407F4BD00C49E16 /* DataMakingResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -614,6 +615,7 @@
 				C10F78DF23A3D79200783476 /* UIView+Extension.swift in Sources */,
 				C102D7BF23AD0063000B9E80 /* OrangeButton.swift in Sources */,
 				C1707B2023F190AE002E1A10 /* DescriptionViewController.swift in Sources */,
+				C14334EC2407F4BD00C49E16 /* DataMakingResponse.swift in Sources */,
 				C13C412823ABBC8900B674E9 /* SettingsViewModel.swift in Sources */,
 				C1B0B2B323B0BF9700CE5D05 /* SessionManager.swift in Sources */,
 				C16A2EF523A7853800CBA43F /* RegisterViewModel.swift in Sources */,

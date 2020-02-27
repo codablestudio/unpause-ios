@@ -54,8 +54,7 @@ class BossNetworking {
             .getDocument()
             .map { documentSnapshot -> BossFetchingResponse in
                 do {
-                    let boss = try UserFactory.createUser(from: documentSnapshot)
-                    print("BOSS:\(boss)")
+                    let boss = try UserFactory.createBoss(from: documentSnapshot)
                     return BossFetchingResponse.success(boss)
                 } catch (let error) {
                     print("ERROR: \(error)")

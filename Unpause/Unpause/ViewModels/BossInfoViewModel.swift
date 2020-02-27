@@ -15,13 +15,11 @@ class BossInfoViewModel {
     private let bossNetworking = BossNetworking()
     
     var saveButtonTouched = PublishSubject<Void>()
-    var activityStarted = PublishSubject<Void>()
     var textInBossFirstNameTextFieldChanges = PublishSubject<String?>()
     var textInBossLastNameTextFieldChanges = PublishSubject<String?>()
     var textInBossEmailTextFieldChanges = PublishSubject<String?>()
     
     var bossSavingResponse: Observable<Response>!
-    var bossFetchingResponse: Observable<BossFetchingResponse>!
     
     private var textInBossFirstNameTextField: String?
     private var textInBossLastNameTextField: String?
@@ -54,12 +52,6 @@ class BossInfoViewModel {
                 return self.bossNetworking.addBossToCurrenUser(bossEmail: bossEmail,
                                                                bossFirstName: bossFirstName,
                                                                bossLastName: bossLastName)
-            })
-        
-        bossFetchingResponse = activityStarted
-            .flatMapLatest({ [weak self] _ -> Observable<BossFetchingResponse> in
-                guard let `self` = self else { return Observable.empty() }
-                return self.bossNetworking.fetchBoss()
             })
     }
 }

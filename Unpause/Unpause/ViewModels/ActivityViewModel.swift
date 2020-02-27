@@ -11,6 +11,7 @@ import RxSwift
 class ActivityViewModel {
     
     private let shiftNetworking = ShiftNetworking()
+    private let bossNetworking = BossNetworking()
     private let disposeBag = DisposeBag()
     
     var shiftsRequest: Observable<[ShiftsTableViewItem]>!
@@ -18,9 +19,11 @@ class ActivityViewModel {
     var refreshTrigger = PublishSubject<Void>()
     var dateInFromDatePickerChanges = PublishSubject<Date>()
     var dateInToDatePickerChanges = PublishSubject<Date>()
-    
+    var activityStarted = PublishSubject<Void>()
     var shiftToDelete = PublishSubject<Shift>()
+    
     var deleteRequest: Observable<ShiftDeletionResponse>!
+    var bossFetchingResponse: Observable<BossFetchingResponse>!
     
     private var dateInFromDatePicker: Date?
     private var dateInToDatePicker: Date?
@@ -34,7 +37,7 @@ class ActivityViewModel {
                 let dateWithZeroTime = Formatter.shared.getDateWithStartingDayTime(fromDate: date)
                 self.dateInFromDatePicker = dateWithZeroTime
             }).disposed(by: disposeBag)
-
+        
         dateInToDatePickerChanges
             .subscribe(onNext: { [weak self] date in
                 guard let `self` = self else { return }
@@ -75,13 +78,12 @@ class ActivityViewModel {
                 return []
             })
         
-        setupDeletion()
-    }
-}
-
-// MARK: Delete request
-extension ActivityViewModel {
-    func setupDeletion() {
+        bossFetchingResponse = activityStarted
+            .flatMapLatest({ [weak self] _ -> Observable<BossFetchingResponse> in
+                guard let `self` = self else { return Observable.empty() }
+                return self.bossNetworking.fetchBoss()
+            })
+        
         deleteRequest = shiftToDelete
             .flatMapLatest({ [weak self] shift -> Observable<ShiftDeletionResponse> in
                 guard let `self` = self else { return Observable.empty() }
@@ -91,7 +93,6 @@ extension ActivityViewModel {
 }
 
 // MARK: Open CSV
-
 extension ActivityViewModel {
     func makeNewCSVFileWithShiftsData(shiftsData: [ShiftsTableViewItem]) -> CSVMakingResponse {
         var csvString = "\("Dosao"),\("Otisao"),\("Opis"),\("Sati")\n"
@@ -142,6 +143,22 @@ extension ActivityViewModel {
             return CSVMakingResponse.success(fileURL)
         } catch (let error) {
             return CSVMakingResponse.error(error)
+        }
+    }
+}
+
+extension ActivityViewModel {
+    func makeDataFrom(csvMakingResponse: CSVMakingResponse) -> DataMakingResponse {
+        switch csvMakingResponse {
+        case .success(let url):
+            do {
+                let data =  try Data(contentsOf: url)
+                return DataMakingResponse.success(data)
+            } catch {
+                return DataMakingResponse.error(error)
+            }
+        case .error(let error):
+            return DataMakingResponse.error(error)
         }
     }
 }

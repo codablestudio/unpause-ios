@@ -19,17 +19,13 @@ class User: NSObject, NSCoding, Decodable {
     
     var boss: User?
     
-    //var bossFirstName: String?
-    //var bossLastName: String?
-    //var bossEmail: String?
-    
     required init?(coder: NSCoder) {
         firstName = coder.decodeObject(forKey: "firstName") as? String
         lastName = coder.decodeObject(forKey: "lastName") as? String
         email = coder.decodeObject(forKey: "email") as? String
     }
     
-    init(firstName: String, lastName: String, email: String) {
+    init(firstName: String?, lastName: String?, email: String?) {
         self.firstName = firstName
         self.lastName = lastName
         self.email = email

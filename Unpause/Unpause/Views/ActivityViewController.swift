@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import DifferenceKit
 import SVProgressHUD
+import MessageUI
 
 class ActivityViewController: UIViewController {
     
@@ -43,6 +44,7 @@ class ActivityViewController: UIViewController {
     private let toDatePicker = UIDatePicker()
     
     private let shiftToDelete = PublishSubject<Shift>()
+    private let activityStarted = PublishSubject<Void>()
     
     private var dataSource: [ShiftsTableViewItem] = [.loading]
     
@@ -64,6 +66,7 @@ class ActivityViewController: UIViewController {
         setUpTableView()
         setUpObservables()
         addBarButtonItem()
+        activityStarted.onNext(())
     }
     
     private func render() {
@@ -108,6 +111,20 @@ class ActivityViewController: UIViewController {
         
         shiftToDelete.bind(to: activityViewModel.shiftToDelete)
             .disposed(by: disposeBag)
+        
+        activityStarted
+        .bind(to: activityViewModel.activityStarted)
+        .disposed(by: disposeBag)
+        
+        activityViewModel.bossFetchingResponse
+            .subscribe(onNext: { bossFetchingResponse in
+                switch bossFetchingResponse {
+                case .success(let boss):
+                    SessionManager.shared.currentUser?.boss = boss
+                case .error(_):
+                    print("NO BOSS")
+                }
+            }).disposed(by: disposeBag)
         
         observeDeletions()
     }
@@ -194,17 +211,18 @@ class ActivityViewController: UIViewController {
     }
     
     private func showActionSheet() {
-        let alert = UIAlertController(title: "What do you want?", message: "Please select an option", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Please select an option", message: nil, preferredStyle: .actionSheet)
         
         alert.addAction(UIAlertAction(title: "Add custom shift", style: .default , handler:{ _ in
             Coordinator.shared.presentAddShiftViewController(from: self, navigationFromCustomShift: true)
         }))
         
-        alert.addAction(UIAlertAction(title: "Send as email", style: .default, handler:{ _ in
+        alert.addAction(UIAlertAction(title: "Send as email", style: .default, handler:{ [weak self] _ in
+            guard let `self` = self else { return }
             if SessionManager.shared.currentUser?.boss?.email == nil {
                 Coordinator.shared.presentAddBossInfoViewController(from: self)
             } else {
-                // SEND EMAIL TO BOSS
+                self.sendEmailWithExcelSheetToBoss()
             }
         }))
         
@@ -221,8 +239,36 @@ class ActivityViewController: UIViewController {
         }))
         
         alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
-        
         self.present(alert, animated: true)
+    }
+    
+    private func sendEmailWithExcelSheetToBoss() {
+        guard let bossEmail = SessionManager.shared.currentUser?.boss?.email,
+            let bossFirstName = SessionManager.shared.currentUser?.boss?.firstName,
+            let bossLastName = SessionManager.shared.currentUser?.boss?.lastName,
+            let currentUserFirstName = SessionManager.shared.currentUser?.firstName,
+            let currentuserLastName = SessionManager.shared.currentUser?.lastName else { return }
+        
+        if MFMailComposeViewController.canSendMail() {
+            let mail = MFMailComposeViewController()
+            mail.mailComposeDelegate = self
+            mail.setToRecipients(["\(bossEmail)"])
+            mail.setSubject("Working hours")
+            mail.setMessageBody("<b>Hello \(bossFirstName) \(bossLastName),<br>Here are my working hours,<br>Cheers :)</b>",
+                isHTML: true)
+            
+            let csvMakingResponse = self.activityViewModel.makeNewCSVFileWithShiftsData(shiftsData: self.dataSource)
+            let data = activityViewModel.makeDataFrom(csvMakingResponse: csvMakingResponse)
+            switch data {
+            case .success(let data):
+                mail.addAttachmentData(data, mimeType: "text/csv", fileName: "\(currentUserFirstName) \(currentuserLastName)")
+            case .error(let error):
+                self.showAlert(title: "Alert", message: error.localizedDescription, actionTitle: "OK")
+            }
+            self.present(mail, animated: true)
+        } else {
+            self.showAlert(title: "Alert", message: "Can not send email.", actionTitle: "OK")
+        }
     }
 }
 
@@ -371,5 +417,30 @@ extension ActivityViewController: UITableViewDataSource {
 extension ActivityViewController: UIDocumentInteractionControllerDelegate {
     func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController {
         return self
+    }
+}
+
+//MARK: - MFMailComposeViewController delegate
+extension ActivityViewController: MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        switch result.rawValue {
+        case MFMailComposeResult.cancelled.rawValue:
+            print("Cancelled")
+            
+        case MFMailComposeResult.saved.rawValue:
+            SVProgressHUD.showSuccess(withStatus: "Email saved")
+            SVProgressHUD.dismiss(withDelay: 0.6)
+            
+        case MFMailComposeResult.sent.rawValue:
+            SVProgressHUD.showSuccess(withStatus: "Email successfully sent")
+            SVProgressHUD.dismiss(withDelay: 0.6)
+            
+        case MFMailComposeResult.failed.rawValue:
+            showAlert(title: "Alert", message: error!.localizedDescription, actionTitle: "OK")
+            
+        default:
+            break
+        }
+        controller.dismiss(animated: true, completion: nil)
     }
 }

@@ -34,14 +34,12 @@ class BossInfoViewController: UIViewController {
     
     private let closeButton = UIButton()
     
-    private let activityStarted = PublishSubject<Void>()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         render()
         setUpObservables()
         setUpTextFields()
-        activityStarted.onNext(())
+        
     }
     
     init(bossInfoViewModel: BossInfoViewModel) {
@@ -88,11 +86,6 @@ class BossInfoViewController: UIViewController {
             .bind(to: bossInfoViewModel.textInBossEmailTextFieldChanges)
             .disposed(by: disposeBag)
         
-        activityStarted
-            .bind(to: bossInfoViewModel.activityStarted)
-            .disposed(by: disposeBag)
-        
-        
         bossInfoViewModel.bossSavingResponse
             .subscribe(onNext: { [weak self] response in
                 guard let `self` = self else { return }
@@ -105,18 +98,6 @@ class BossInfoViewController: UIViewController {
                 case .error(let error):
                     SVProgressHUD.dismiss()
                     self.showAlert(title: "Alert", message: error.localizedDescription, actionTitle: "OK")
-                }
-            }).disposed(by: disposeBag)
-        
-        bossInfoViewModel.bossFetchingResponse
-            .subscribe(onNext: { [weak self] bossFetchingResponse in
-                guard let `self` = self else { return }
-                
-                switch bossFetchingResponse {
-                case .success(let boss):
-                    SessionManager.shared.currentUser?.boss = boss
-                case .error(_):
-                    self.showAlert(title: "Error", message: "Error fetching boss info.", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)
     }
