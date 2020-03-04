@@ -116,13 +116,13 @@ class ActivityViewController: UIViewController {
         .bind(to: activityViewModel.activityStarted)
         .disposed(by: disposeBag)
         
-        activityViewModel.bossFetchingResponse
-            .subscribe(onNext: { bossFetchingResponse in
-                switch bossFetchingResponse {
-                case .success(let boss):
-                    SessionManager.shared.currentUser?.boss = boss
-                case .error(_):
-                    print("NO BOSS")
+        activityViewModel.companyFetchingResponse
+            .subscribe(onNext: { companyFetchingResponse in
+                switch companyFetchingResponse {
+                case .success(let company):
+                    SessionManager.shared.currentUser?.company = company
+                case .error(let error):
+                    print("ERROR: \(error.localizedDescription)")
                 }
             }).disposed(by: disposeBag)
         
@@ -219,10 +219,11 @@ class ActivityViewController: UIViewController {
         
         alert.addAction(UIAlertAction(title: "Send as email", style: .default, handler:{ [weak self] _ in
             guard let `self` = self else { return }
-            if SessionManager.shared.currentUser?.boss?.email == nil {
-                Coordinator.shared.presentAddBossInfoViewController(from: self)
+            if SessionManager.shared.currentUser?.company?.email == nil {
+                // Provjeri sve komapnije i pridjeli mu kompaniju ako mozes
+                //Coordinator.shared.presentAddBossInfoViewController(from: self)
             } else {
-                self.sendEmailWithExcelSheetToBoss()
+                self.sendEmailWithExcelSheetToCompany()
             }
         }))
         
@@ -242,20 +243,17 @@ class ActivityViewController: UIViewController {
         self.present(alert, animated: true)
     }
     
-    private func sendEmailWithExcelSheetToBoss() {
-        guard let bossEmail = SessionManager.shared.currentUser?.boss?.email,
-            let bossFirstName = SessionManager.shared.currentUser?.boss?.firstName,
-            let bossLastName = SessionManager.shared.currentUser?.boss?.lastName,
+    private func sendEmailWithExcelSheetToCompany() {
+        guard let companyEmail = SessionManager.shared.currentUser?.company?.email,
             let currentUserFirstName = SessionManager.shared.currentUser?.firstName,
             let currentuserLastName = SessionManager.shared.currentUser?.lastName else { return }
         
         if MFMailComposeViewController.canSendMail() {
             let mail = MFMailComposeViewController()
             mail.mailComposeDelegate = self
-            mail.setToRecipients(["\(bossEmail)"])
+            mail.setToRecipients(["\(companyEmail)"])
             mail.setSubject("Working hours")
-            mail.setMessageBody("<b>Hello \(bossFirstName) \(bossLastName),<br>Here are my working hours,<br>Cheers :)</b>",
-                isHTML: true)
+            mail.setMessageBody("<b>Hello,<br>Here are my working hours,<br>Cheers :)</b>", isHTML: true)
             
             let csvMakingResponse = self.activityViewModel.makeNewCSVFileWithShiftsData(shiftsData: self.dataSource)
             let data = activityViewModel.makeDataFrom(csvMakingResponse: csvMakingResponse)

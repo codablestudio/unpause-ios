@@ -6,6 +6,7 @@
 //  Copyright © 2019 Krešimir Baković. All rights reserved.
 //
 import UIKit
+import CoreLocation
 
 @available(iOS 13.0, *)
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -13,11 +14,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        
         if let windowScene = scene as? UIWindowScene {
             let newWindow = UIWindow(windowScene: windowScene)
             self.window = newWindow
             self.window?.makeKeyAndVisible()
             Coordinator.shared.start(newWindow)
+            LocationManager.shared.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+            LocationManager.shared.locationManager.pausesLocationUpdatesAutomatically = false
+            LocationManager.shared.locationManager.allowsBackgroundLocationUpdates = true
+            LocationManager.shared.locationManager.requestAlwaysAuthorization()
+            NotificationManager.shared.notificationCenter.requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
+                if let error = error {
+                    print("Error occured: \(error)")
+                } else {
+                    print("NotificationCenter Authorization Granted!")
+                }
+            }
+            LocationManager.shared.locationManager.startUpdatingLocation()
+            NotificationManager.shared.scheduleNotification()
         }
     }
 
@@ -48,6 +63,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
+}
 
-
+@available(iOS 13.0, *)
+extension SceneDelegate: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .sound])
+    }
 }

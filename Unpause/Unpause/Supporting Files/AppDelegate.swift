@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import GoogleSignIn
+import CoreLocation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,6 +24,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             Coordinator.shared.start(newWindow)
             self.window = newWindow
             self.window?.makeKeyAndVisible()
+            LocationManager.shared.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+            LocationManager.shared.locationManager.pausesLocationUpdatesAutomatically = false
+            LocationManager.shared.locationManager.allowsBackgroundLocationUpdates = true
+            LocationManager.shared.locationManager.requestAlwaysAuthorization()
+            NotificationManager.shared.notificationCenter.requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
+                if let error = error {
+                    print("Error occured: \(error)")
+                } else {
+                    print("NotificationCenter Authorization Granted!")
+                }
+            }
+            LocationManager.shared.locationManager.startUpdatingLocation()
+            NotificationManager.shared.scheduleNotification()
             return true
         }
         return true
@@ -44,3 +58,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .sound])
+    }
+}

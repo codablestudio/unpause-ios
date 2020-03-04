@@ -11,7 +11,7 @@ import RxSwift
 class ActivityViewModel {
     
     private let shiftNetworking = ShiftNetworking()
-    private let bossNetworking = BossNetworking()
+    private let companyNetworking = CompanyNetworking()
     private let disposeBag = DisposeBag()
     
     var shiftsRequest: Observable<[ShiftsTableViewItem]>!
@@ -23,7 +23,7 @@ class ActivityViewModel {
     var shiftToDelete = PublishSubject<Shift>()
     
     var deleteRequest: Observable<ShiftDeletionResponse>!
-    var bossFetchingResponse: Observable<BossFetchingResponse>!
+    var companyFetchingResponse: Observable<CompanyFetchingResponse>!
     
     private var dateInFromDatePicker: Date?
     private var dateInToDatePicker: Date?
@@ -78,10 +78,10 @@ class ActivityViewModel {
                 return []
             })
         
-        bossFetchingResponse = activityStarted
-            .flatMapLatest({ [weak self] _ -> Observable<BossFetchingResponse> in
+        companyFetchingResponse = activityStarted
+            .flatMapLatest({ [weak self] _ -> Observable<CompanyFetchingResponse> in
                 guard let `self` = self else { return Observable.empty() }
-                return self.bossNetworking.fetchBoss()
+                return self.companyNetworking.fetchCompany()
             })
         
         deleteRequest = shiftToDelete

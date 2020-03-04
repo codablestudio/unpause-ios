@@ -53,32 +53,32 @@
     <name>WP013</name>
     <time>2018-03-27T18:46:16Z</time>
   </wpt>
-  <wpt lat="37.3291994" lon="-122.03339">
+  <wpt lat="45.793954" lon="15.939329">
     <name>WP014</name>
-    <time>2018-03-27T18:47:06Z</time>
-  </wpt>
-  <wpt lat="37.3289479" lon="-122.0324014">
-    <name>WP015</name>
-    <time>2018-03-27T18:48:12Z</time>
-  </wpt>
-  <wpt lat="37.3253598" lon="-122.0323979">
-    <name>WP016</name>
-    <time>2018-03-27T18:52:57Z</time>
-  </wpt>
-  <wpt lat="37.325136" lon="-122.0323982">
-    <name>WP017</name>
     <time>2018-03-27T18:53:15Z</time>
   </wpt>
-  <wpt lat="37.3251328" lon="-122.0331518">
-    <name>WP018</name>
+  <wpt lat="45.793928" lon="15.944232">
+    <name>WP015</name>
     <time>2018-03-27T18:54:02Z</time>
   </wpt>
-  <wpt lat="37.324951" lon="-122.0331578">
-    <name>WP019</name>
+  <wpt lat="45.790786" lon="15.944994">
+    <name>WP016</name>
     <time>2018-03-27T18:54:17Z</time>
   </wpt>
-  <wpt lat="37.3249569" lon="-122.0343783">
-    <name>WP020</name>
+  <wpt lat="45.787730" lon="15.949608">
+    <name>WP017</name>
     <time>2018-03-27T18:55:34Z</time>
+  </wpt>
+  <wpt lat="45.787794" lon="15.949604">
+    <name>WP018</name>
+    <time>2018-03-27T18:52:57Z</time>
+  </wpt>
+  <wpt lat="45.787487" lon="15.952571">
+    <name>WP019</name>
+    <time>2018-03-27T18:48:12Z</time>
+  </wpt>
+  <wpt lat="45.788342" lon="15.954752">
+    <name>WP020</name>
+    <time>2018-03-27T18:47:06Z</time>
   </wpt>
 </gpx>

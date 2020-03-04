@@ -9,7 +9,7 @@
 import Foundation
 import Firebase
 
-class User: NSObject, NSCoding, Decodable {
+class User: NSObject, NSCoding {
     var firstName: String?
     var lastName: String?
     var email: String?
@@ -17,7 +17,7 @@ class User: NSObject, NSCoding, Decodable {
     var lastCheckInDateAndTime: Date?
     var lastCheckOutDateAndTime: Date?
     
-    var boss: User?
+    var company: Company?
     
     required init?(coder: NSCoder) {
         firstName = coder.decodeObject(forKey: "firstName") as? String

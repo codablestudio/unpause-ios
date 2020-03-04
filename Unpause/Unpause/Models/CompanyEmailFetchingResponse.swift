@@ -1,5 +1,5 @@
 //
-//  EmailFetchingResponse.swift
+//  CompanyEmailFetchingResponse.swift
 //  Unpause
 //
 //  Created by Krešimir Baković on 04/03/2020.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum EmailFetchingResponse {
+enum CompanyEmailFetchingResponse {
     case success(String)
     case error(Error)
 }

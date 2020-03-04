@@ -7,3 +7,9 @@
 //
 
 import Foundation
+import Firebase
+
+enum CompanyReferenceFetchingResponse {
+    case success(DocumentReference)
+    case error(Error)
+}

@@ -7,3 +7,10 @@
 //
 
 import Foundation
+import Firebase
+
+class Company {
+    var email: String?
+    var name: String?
+    var locations: [GeoPoint]?
+}

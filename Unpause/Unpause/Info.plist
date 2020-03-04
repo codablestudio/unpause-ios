@@ -2,20 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>1</string>
-	<key>NSLocationUsageDescription</key>
-	<string>2</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>3</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>4</string>
-	<key>FirebaseScreenReportingEnabled</key>
-	<false/>
-	<key>LSSupportsOpeningDocumentsInPlace</key>
-	<true/>
-	<key>UIFileSharingEnabled</key>
-	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -32,8 +18,20 @@
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>FirebaseScreenReportingEnabled</key>
+	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<true/>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>This app works best when you allow background location updates. Your location data never leaves the device.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This app works best when you allow background location updates. Your location data never leaves the device.</string>
+	<key>NSLocationUsageDescription</key>
+	<string>This app works best when you allow background location updates. Your location data never leaves the device.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app works best when you allow background location updates. Your location data never leaves the device.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -51,6 +49,14 @@
 			</array>
 		</dict>
 	</dict>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>location</string>
+		<string>remote-notification</string>
+	</array>
+	<key>UIFileSharingEnabled</key>
+	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>

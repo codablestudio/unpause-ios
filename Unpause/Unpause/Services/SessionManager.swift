@@ -10,9 +10,9 @@ import Foundation
 
 class SessionManager {
     
+    static var shared = SessionManager()
     
     private let currentUserKey = "currentUserKey"
-    static var shared = SessionManager()
     
     var currentUser: User?
     

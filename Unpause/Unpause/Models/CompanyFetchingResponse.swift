@@ -7,3 +7,8 @@
 //
 
 import Foundation
+
+enum CompanyFetchingResponse {
+    case success(Company?)
+    case error(Error)
+}

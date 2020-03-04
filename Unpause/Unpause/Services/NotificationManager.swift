@@ -1,5 +1,5 @@
 //
-//  LocationAndNotificationManager.swift
+//  NotificationManager.swift
 //  Unpause
 //
 //  Created by Krešimir Baković on 03/03/2020.
@@ -8,7 +8,6 @@
 
 import UIKit
 import UserNotifications
-import CoreLocation
 
 class NotificationManager {
     
@@ -17,9 +16,9 @@ class NotificationManager {
     let notificationCenter = UNUserNotificationCenter.current()
     
     init() {
-        NotificationManager.shared.notificationCenter.delegate = self as? UNUserNotificationCenterDelegate
+        notificationCenter.delegate = self as? UNUserNotificationCenterDelegate
     }
-
+    
     func scheduleNotification() {
         notificationCenter.removeAllPendingNotificationRequests()
         
