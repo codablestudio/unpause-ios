@@ -220,8 +220,7 @@ class ActivityViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Send as email", style: .default, handler:{ [weak self] _ in
             guard let `self` = self else { return }
             if SessionManager.shared.currentUser?.company?.email == nil {
-                // Provjeri sve komapnije i pridjeli mu kompaniju ako mozes
-                //Coordinator.shared.presentAddBossInfoViewController(from: self)
+                self.showAlert(title: "Alert", message: "There is no company associated with you.", actionTitle: "OK")
             } else {
                 self.sendEmailWithExcelSheetToCompany()
             }

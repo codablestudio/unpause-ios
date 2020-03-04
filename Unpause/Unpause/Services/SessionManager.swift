@@ -27,7 +27,6 @@ class SessionManager {
 }
 
 // MARK: Login / Logout
-
 extension SessionManager {
     func logIn(_ user: User) {
         currentUser = user

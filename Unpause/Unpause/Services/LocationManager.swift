@@ -21,11 +21,13 @@ class LocationManager {
     
     func makeSpecificCircularRegion(latitude: CLLocationDegrees,
                                     longitude: CLLocationDegrees,
-                                    radius: CLLocationDistance) -> CLCircularRegion {
+                                    radius: CLLocationDistance,
+                                    notifyOnEntry: Bool,
+                                    notifyOnExit: Bool) -> CLCircularRegion {
         let centerLocation = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         let region = CLCircularRegion(center: centerLocation, radius: radius, identifier: UUID().uuidString)
-        region.notifyOnEntry = true
-        region.notifyOnExit = true
+        region.notifyOnEntry = notifyOnEntry
+        region.notifyOnExit = notifyOnExit
         return region
     }
 }

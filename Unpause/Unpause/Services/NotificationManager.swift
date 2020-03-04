@@ -8,6 +8,7 @@
 
 import UIKit
 import UserNotifications
+import CoreLocation
 
 class NotificationManager {
     
@@ -21,20 +22,17 @@ class NotificationManager {
     
     func scheduleNotification() {
         notificationCenter.removeAllPendingNotificationRequests()
-        
-        let content = UNMutableNotificationContent()
-        content.title = "Job alert 📍"
-        content.body = "Your location has changed."
-        content.categoryIdentifier = "alarm"
-        content.sound = UNNotificationSound.default
-        
-        let region = LocationManager.shared.makeSpecificCircularRegion(latitude: 45.787730,
-                                                                       longitude: 15.949608,
-                                                                       radius: 50.0)
-        
-        let trigger = UNLocationNotificationTrigger(region: region, repeats: true)
-        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-        notificationCenter.add(request) { (error) in
+        let entranceRequest = makeLocationBasedNotificationRequest(notificationBody: "You entered job area.",
+                                                                   latitude: 45.787730,
+                                                                   longitude: 15.949608,
+                                                                   notifyOnEntry: true,
+                                                                   notifyOnExit: false)
+        let exitRequest = makeLocationBasedNotificationRequest(notificationBody: "You left job area.",
+                                                               latitude: 45.787730,
+                                                               longitude: 15.949608,
+                                                               notifyOnEntry: false,
+                                                               notifyOnExit: true)
+        notificationCenter.add(entranceRequest) { (error) in
             DispatchQueue.main.async {
                 guard let error = error else {
                     return
@@ -42,5 +40,28 @@ class NotificationManager {
                 print("\(error)")
             }
         }
+        notificationCenter.add(exitRequest, withCompletionHandler: nil)
+    }
+    
+    func makeLocationBasedNotificationRequest(notificationBody: String,
+                                              latitude: CLLocationDegrees,
+                                              longitude: CLLocationDegrees,
+                                              notifyOnEntry: Bool,
+                                              notifyOnExit: Bool) -> UNNotificationRequest {
+        let content = UNMutableNotificationContent()
+        content.title = "Job alert 📍"
+        content.body = notificationBody
+        content.categoryIdentifier = "alarm"
+        content.sound = UNNotificationSound.default
+        
+        let region = LocationManager.shared.makeSpecificCircularRegion(latitude: latitude,
+                                                                       longitude: longitude,
+                                                                       radius: 50.0,
+                                                                       notifyOnEntry: notifyOnEntry,
+                                                                       notifyOnExit: notifyOnExit)
+        
+        let trigger = UNLocationNotificationTrigger(region: region, repeats: true)
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        return request
     }
 }

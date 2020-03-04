@@ -17,10 +17,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="unpause_white_textLogo_1024x1024" translatesAutoresizingMaskIntoConstraints="NO" id="qLw-NV-vWx">
-                                <rect key="frame" x="57" y="298" width="300" height="300"/>
+                                <rect key="frame" x="82" y="323" width="250" height="250"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="300" id="GFX-Gs-Evy"/>
-                                    <constraint firstAttribute="width" constant="300" id="adb-jg-jEP"/>
+                                    <constraint firstAttribute="height" constant="250" id="GFX-Gs-Evy"/>
+                                    <constraint firstAttribute="width" constant="250" id="adb-jg-jEP"/>
                                 </constraints>
                             </imageView>
                         </subviews>
