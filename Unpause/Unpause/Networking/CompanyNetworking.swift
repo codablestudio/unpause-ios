@@ -26,7 +26,7 @@ class CompanyNetworking {
             .getDocument()
             .map { documnetSnapshot -> CompanyReferenceFetchingResponse in
                 do {
-                    guard let companyReference = try UserFactory.createCompanyReference(from: documnetSnapshot) else {
+                    guard let companyReference = try CompanyFactory.createCompanyReference(from: documnetSnapshot) else {
                         return CompanyReferenceFetchingResponse.error(UnpauseError.emptyError)
                     }
                     return CompanyReferenceFetchingResponse.success(companyReference)
@@ -49,7 +49,7 @@ class CompanyNetworking {
         }
         .map { documentSnapshot -> CompanyFetchingResponse in
             do {
-                guard let company = try UserFactory.createCompany(from: documentSnapshot) else {
+                guard let company = try CompanyFactory.createCompany(from: documentSnapshot) else {
                     return CompanyFetchingResponse.error(UnpauseError.emptyError)
                 }
                 return CompanyFetchingResponse.success(company)

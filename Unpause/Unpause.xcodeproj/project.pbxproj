@@ -45,6 +45,7 @@
 		C12F7A45240FE3E30074362F /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12F7A44240FE3E30074362F /* Company.swift */; };
 		C12F7A47240FEDD00074362F /* CompanyFetchingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12F7A46240FEDD00074362F /* CompanyFetchingResponse.swift */; };
 		C12F7A49241001040074362F /* CompanyNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12F7A48241001040074362F /* CompanyNetworking.swift */; };
+		C12F7A4B241003980074362F /* CompanyFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12F7A4A241003980074362F /* CompanyFactory.swift */; };
 		C13105E723B0ADF200A509D9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13105E623B0ADF200A509D9 /* User.swift */; };
 		C133DE5223C871A90096F5B2 /* UpdatePasswordNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C133DE5123C871A90096F5B2 /* UpdatePasswordNetworking.swift */; };
 		C133DE5423C89F2A0096F5B2 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = C133DE5323C89F2A0096F5B2 /* Response.swift */; };
@@ -136,6 +137,7 @@
 		C12F7A44240FE3E30074362F /* Company.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
 		C12F7A46240FEDD00074362F /* CompanyFetchingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyFetchingResponse.swift; sourceTree = "<group>"; };
 		C12F7A48241001040074362F /* CompanyNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyNetworking.swift; sourceTree = "<group>"; };
+		C12F7A4A241003980074362F /* CompanyFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyFactory.swift; sourceTree = "<group>"; };
 		C13105E623B0ADF200A509D9 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C133DE5123C871A90096F5B2 /* UpdatePasswordNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePasswordNetworking.swift; sourceTree = "<group>"; };
 		C133DE5323C89F2A0096F5B2 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
@@ -293,6 +295,7 @@
 			children = (
 				C138411123C5C58100A347F9 /* UserFactory.swift */,
 				C1437B4023F3EF43007BD7DA /* ShiftFactory.swift */,
+				C12F7A4A241003980074362F /* CompanyFactory.swift */,
 			);
 			path = Factories;
 			sourceTree = "<group>";
@@ -637,6 +640,7 @@
 				C1707B2023F190AE002E1A10 /* DescriptionViewController.swift in Sources */,
 				C12F7A49241001040074362F /* CompanyNetworking.swift in Sources */,
 				C14334EC2407F4BD00C49E16 /* DataMakingResponse.swift in Sources */,
+				C12F7A4B241003980074362F /* CompanyFactory.swift in Sources */,
 				C13C412823ABBC8900B674E9 /* SettingsViewModel.swift in Sources */,
 				C1B0B2B323B0BF9700CE5D05 /* SessionManager.swift in Sources */,
 				C12F7A47240FEDD00074362F /* CompanyFetchingResponse.swift in Sources */,
