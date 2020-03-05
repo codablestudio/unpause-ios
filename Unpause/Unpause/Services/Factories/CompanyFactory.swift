@@ -17,15 +17,12 @@ class CompanyFactory {
     }
     
     static func createCompany(from document: DocumentSnapshot) throws -> Company? {
-        guard let documentData = document.data() else { return Company() }
+        guard let documentData = document.data() else { return nil }
         guard let email = document.get("email") as? String else { throw UnpauseError.defaultError }
         guard let name = document.get("name") as? String else { throw UnpauseError.defaultError }
         let locationsData = documentData["locations"] as? [[String: Any]] ?? []
         let locations = createGeoPoints(from: locationsData)
-        let company = Company()
-        company.email = email
-        company.name = name
-        company.locations = locations
+        let company = Company(email: email, name: name, locations: locations)
         return company
     }
     

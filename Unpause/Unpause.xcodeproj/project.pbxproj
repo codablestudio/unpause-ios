@@ -52,6 +52,7 @@
 		C137F48223B8B6AC00358E30 /* RegisterNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C137F48123B8B6AC00358E30 /* RegisterNetworking.swift */; };
 		C138411223C5C58100A347F9 /* UserFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C138411123C5C58100A347F9 /* UserFactory.swift */; };
 		C138411423C5DA3E00A347F9 /* UpdatePersonalInfoNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C138411323C5DA3E00A347F9 /* UpdatePersonalInfoNetworking.swift */; };
+		C138C38824111F9A00FAB84E /* UserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C138C38724111F9A00FAB84E /* UserResponse.swift */; };
 		C13B4B1223BF8A62006E1E0E /* FirebaseDocumentResponeObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13B4B1123BF8A62006E1E0E /* FirebaseDocumentResponeObject.swift */; };
 		C13B7738240E489E004DD8FB /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13B7737240E489E004DD8FB /* NotificationManager.swift */; };
 		C13C412023AB93D600B674E9 /* FirebaseResponseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C411F23AB93D600B674E9 /* FirebaseResponseObject.swift */; };
@@ -144,6 +145,7 @@
 		C137F48123B8B6AC00358E30 /* RegisterNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterNetworking.swift; sourceTree = "<group>"; };
 		C138411123C5C58100A347F9 /* UserFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFactory.swift; sourceTree = "<group>"; };
 		C138411323C5DA3E00A347F9 /* UpdatePersonalInfoNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePersonalInfoNetworking.swift; sourceTree = "<group>"; };
+		C138C38724111F9A00FAB84E /* UserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResponse.swift; sourceTree = "<group>"; };
 		C13B4B1123BF8A62006E1E0E /* FirebaseDocumentResponeObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDocumentResponeObject.swift; sourceTree = "<group>"; };
 		C13B7737240E489E004DD8FB /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		C13B7739240E5FA7004DD8FB /* MojaRuta.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MojaRuta.gpx; sourceTree = "<group>"; };
@@ -408,6 +410,7 @@
 				C12F7A42240FB63D0074362F /* CompanyReferenceFetchingResponse.swift */,
 				C12F7A44240FE3E30074362F /* Company.swift */,
 				C12F7A46240FEDD00074362F /* CompanyFetchingResponse.swift */,
+				C138C38724111F9A00FAB84E /* UserResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -601,6 +604,7 @@
 				C1FF2A8E23C4B3EA00ACCF29 /* Coordinator+Settings.swift in Sources */,
 				C10F78DB23A3D79200783476 /* UILabel+Extension.swift in Sources */,
 				C12F7A45240FE3E30074362F /* Company.swift in Sources */,
+				C138C38824111F9A00FAB84E /* UserResponse.swift in Sources */,
 				C116D39524055A2400A6FEC5 /* CSVMakingResponse.swift in Sources */,
 				C12CDDB723FA999F002A19C8 /* LoadingTableViewCell.swift in Sources */,
 				C1F2CD1F23F2E6D600BD23DC /* LastCheckInResponse.swift in Sources */,

@@ -23,6 +23,7 @@ class User: NSObject, NSCoding {
         firstName = coder.decodeObject(forKey: "firstName") as? String
         lastName = coder.decodeObject(forKey: "lastName") as? String
         email = coder.decodeObject(forKey: "email") as? String
+        company = coder.decodeObject(forKey: "company") as? Company
     }
     
     init(firstName: String?, lastName: String?, email: String?) {
@@ -35,5 +36,6 @@ class User: NSObject, NSCoding {
         coder.encode(firstName, forKey: "firstName")
         coder.encode(lastName, forKey: "lastName")
         coder.encode(email, forKey: "email")
+        coder.encode(company, forKey: "company")
     }
 }

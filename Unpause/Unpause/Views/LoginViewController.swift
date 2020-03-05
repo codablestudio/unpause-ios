@@ -93,10 +93,10 @@ class LoginViewController: UIViewController {
         }).disposed(by: disposeBag)
         
         loginViewModel.loginDocument
-            .subscribe(onNext: { [weak self] (firebaseDocumentResponseObject) in
+            .subscribe(onNext: { [weak self] response in
                 guard let `self` = self else { return }
-                switch firebaseDocumentResponseObject {
-                case .documentSnapshot( _):
+                switch response {
+                case .success:
                     Coordinator.shared.navigateToHomeViewController(from: self)
                 case .error(let error):
                     self.showAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")

@@ -116,16 +116,6 @@ class ActivityViewController: UIViewController {
         .bind(to: activityViewModel.activityStarted)
         .disposed(by: disposeBag)
         
-        activityViewModel.companyFetchingResponse
-            .subscribe(onNext: { companyFetchingResponse in
-                switch companyFetchingResponse {
-                case .success(let company):
-                    SessionManager.shared.currentUser?.company = company
-                case .error(let error):
-                    print("ERROR: \(error.localizedDescription)")
-                }
-            }).disposed(by: disposeBag)
-        
         observeDeletions()
     }
     

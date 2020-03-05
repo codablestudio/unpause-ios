@@ -22,16 +22,18 @@ protocol LoginViewModelProtocol {
     var registerNowButtonTapped: PublishSubject<Void>  { get }
     
     var loginRequest: Observable<FirebaseResponseObject>! { get }
-    var loginDocument: Observable<FirebaseDocumentResponseObject>! { get }
+    var loginDocument: Observable<Response>! { get }
 }
 
 class LoginViewModel: LoginViewModelProtocol {
     
     private let disposeBag = DisposeBag()
     private let loginNetworking = LoginNetworking()
+    private let companyNetworking = CompanyNetworking()
     
     private var textInEmailTextField: String?
     private var textInPasswordTextField: String?
+    private var privateUser: User?
     
     var textInEmailTextFieldChanges = PublishSubject<String?>()
     var textInPasswordTextFieldChanges = PublishSubject<String?>()
@@ -41,7 +43,7 @@ class LoginViewModel: LoginViewModelProtocol {
     var registerNowButtonTapped = PublishSubject<Void>()
     
     var loginRequest: Observable<FirebaseResponseObject>!
-    var loginDocument: Observable<FirebaseDocumentResponseObject>!
+    var loginDocument: Observable<Response>!
     
     init() {
         setUpObservables()
@@ -55,22 +57,42 @@ class LoginViewModel: LoginViewModelProtocol {
                 
                 return self.loginNetworking.signInUserWith(email: email, password: password)
             })
-            .flatMapLatest({ [weak self] (firebaseResponseObject) -> Observable<FirebaseDocumentResponseObject> in
+            .flatMapLatest({ [weak self] firebaseResponseObject -> Observable<FirebaseDocumentResponseObject> in
                 guard let `self` = self else { return Observable.empty() }
                 return self.loginNetworking.getInfoFromUserWitha(firebaseResponseObject: firebaseResponseObject)
             })
-            .map({ firebaseResponse -> FirebaseDocumentResponseObject in
+            .map({ firebaseResponse -> UserResponse in
                 switch firebaseResponse {
                 case .documentSnapshot(let document):
                     do {
                         let newUser = try UserFactory.createUser(from: document)
                         SessionManager.shared.logIn(newUser)
+                        return UserResponse.success(newUser)
                     } catch(let error) {
-                        return FirebaseDocumentResponseObject.error(error)
+                        return UserResponse.error(error)
                     }
-                    return firebaseResponse
-                default:
-                    return firebaseResponse
+                case .error(let error):
+                    return UserResponse.error(error)
+                }
+            })
+            .flatMapLatest({ [weak self] userResponse -> Observable<CompanyFetchingResponse> in
+                guard let `self` = self else { return Observable.empty() }
+                switch userResponse {
+                case .success(let user):
+                    self.privateUser = user
+                case .error(let error):
+                    print("ERROR: \(error.localizedDescription)")
+                }
+                return self.companyNetworking.fetchCompany()
+            })
+            .map({ companyFetchingResponse -> Response in
+                switch companyFetchingResponse {
+                case .success(let company):
+                    SessionManager.shared.currentUser?.company = company
+                    SessionManager.shared.logIn(SessionManager.shared.currentUser!)
+                    return Response.success
+                case .error(let error):
+                    return Response.error(error)
                 }
             })
     }
@@ -93,3 +115,6 @@ class LoginViewModel: LoginViewModelProtocol {
         }).disposed(by: disposeBag)
     }
 }
+
+
+

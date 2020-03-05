@@ -23,7 +23,6 @@ class ActivityViewModel {
     var shiftToDelete = PublishSubject<Shift>()
     
     var deleteRequest: Observable<ShiftDeletionResponse>!
-    var companyFetchingResponse: Observable<CompanyFetchingResponse>!
     
     private var dateInFromDatePicker: Date?
     private var dateInToDatePicker: Date?
@@ -76,12 +75,6 @@ class ActivityViewModel {
                     print("error \(error)")
                 }
                 return []
-            })
-        
-        companyFetchingResponse = activityStarted
-            .flatMapLatest({ [weak self] _ -> Observable<CompanyFetchingResponse> in
-                guard let `self` = self else { return Observable.empty() }
-                return self.companyNetworking.fetchCompany()
             })
         
         deleteRequest = shiftToDelete

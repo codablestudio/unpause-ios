@@ -39,7 +39,11 @@ class LoginNetworking {
         case .error(let error):
             return Observable.just(FirebaseDocumentResponseObject.error(error))
         }
-        return dataBaseReference.collection("users").document(email).rx.getDocument()
+        return dataBaseReference
+            .collection("users")
+            .document(email)
+            .rx
+            .getDocument()
             .flatMapLatest({ (document) -> Observable<FirebaseDocumentResponseObject> in
                 return Observable.just(FirebaseDocumentResponseObject.documentSnapshot(document))
             })
