@@ -58,4 +58,8 @@ class CompanyNetworking {
             }
         }
     }
+    
+    func addCompanyToCurrentUser() -> Observable<Response> {
+        return Observable.empty()
+    }
 }

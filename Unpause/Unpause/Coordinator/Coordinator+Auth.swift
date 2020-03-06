@@ -13,6 +13,7 @@ extension Coordinator {
     func presentRegistrationViewController(from viewController: UIViewController) {
         let registerViewModel = RegisterViewModel()
         let registerViewController = RegisterViewController(registerViewModel: registerViewModel)
-        viewController.present(registerViewController, animated: true, completion: nil)
+        let navigationController = UINavigationController(rootViewController: registerViewController)
+        viewController.present(navigationController, animated: true)
     }
 }

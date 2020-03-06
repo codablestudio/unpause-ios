@@ -63,6 +63,9 @@
 		C13D7C392406D1A200E56C77 /* BossFetchingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13D7C382406D1A200E56C77 /* BossFetchingResponse.swift */; };
 		C13DDCEB23F36D050043E242 /* Shift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13DDCEA23F36D050043E242 /* Shift.swift */; };
 		C13EFBA423FECC5D0081ACF0 /* Formatter+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13EFBA323FECC5D0081ACF0 /* Formatter+Date.swift */; };
+		C1419F6C241253B4001B5817 /* Coordinator+Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1419F6B241253B4001B5817 /* Coordinator+Register.swift */; };
+		C1419F6E24125414001B5817 /* AddCompanyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1419F6D24125414001B5817 /* AddCompanyViewModel.swift */; };
+		C1419F702412543E001B5817 /* AddCompanyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1419F6F2412543E001B5817 /* AddCompanyViewController.swift */; };
 		C14334EC2407F4BD00C49E16 /* DataMakingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14334EB2407F4BD00C49E16 /* DataMakingResponse.swift */; };
 		C1437B4123F3EF43007BD7DA /* ShiftFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1437B4023F3EF43007BD7DA /* ShiftFactory.swift */; };
 		C1437B4323F40B0A007BD7DA /* ShiftNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1437B4223F40B0A007BD7DA /* ShiftNetworking.swift */; };
@@ -88,7 +91,6 @@
 		C1B0B2B323B0BF9700CE5D05 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B0B2B223B0BF9700CE5D05 /* SessionManager.swift */; };
 		C1B131FA23F581E7009C3C59 /* ShiftTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B131F923F581E7009C3C59 /* ShiftTableViewCell.swift */; };
 		C1B131FC23F59150009C3C59 /* ShitfsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B131FB23F59150009C3C59 /* ShitfsResponse.swift */; };
-		C1C210B52409341C002B5ACA /* Route.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C1C210B42409341C002B5ACA /* Route.gpx */; };
 		C1C41B7623A9594F009288CA /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C41B7523A9594F009288CA /* UITextField+Extension.swift */; };
 		C1D0CA0B23F6AC9600A20D6F /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D0CA0A23F6AC9600A20D6F /* DataSource.swift */; };
 		C1F2CD1F23F2E6D600BD23DC /* LastCheckInResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F2CD1E23F2E6D600BD23DC /* LastCheckInResponse.swift */; };
@@ -148,9 +150,7 @@
 		C138C38724111F9A00FAB84E /* UserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResponse.swift; sourceTree = "<group>"; };
 		C13B4B1123BF8A62006E1E0E /* FirebaseDocumentResponeObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDocumentResponeObject.swift; sourceTree = "<group>"; };
 		C13B7737240E489E004DD8FB /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
-		C13B7739240E5FA7004DD8FB /* MojaRuta.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MojaRuta.gpx; sourceTree = "<group>"; };
 		C13B773A240E636A004DD8FB /* BrzaRuta.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = BrzaRuta.gpx; sourceTree = "<group>"; };
-		C13B773B240E68FA004DD8FB /* DugaLokacija.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = DugaLokacija.gpx; sourceTree = "<group>"; };
 		C13C411F23AB93D600B674E9 /* FirebaseResponseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseResponseObject.swift; sourceTree = "<group>"; };
 		C13C412123ABBC4100B674E9 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		C13C412323ABBC5400B674E9 /* ActivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewModel.swift; sourceTree = "<group>"; };
@@ -159,6 +159,9 @@
 		C13D7C382406D1A200E56C77 /* BossFetchingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BossFetchingResponse.swift; sourceTree = "<group>"; };
 		C13DDCEA23F36D050043E242 /* Shift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shift.swift; sourceTree = "<group>"; };
 		C13EFBA323FECC5D0081ACF0 /* Formatter+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Formatter+Date.swift"; sourceTree = "<group>"; };
+		C1419F6B241253B4001B5817 /* Coordinator+Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinator+Register.swift"; sourceTree = "<group>"; };
+		C1419F6D24125414001B5817 /* AddCompanyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCompanyViewModel.swift; sourceTree = "<group>"; };
+		C1419F6F2412543E001B5817 /* AddCompanyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCompanyViewController.swift; sourceTree = "<group>"; };
 		C14334EB2407F4BD00C49E16 /* DataMakingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataMakingResponse.swift; sourceTree = "<group>"; };
 		C1437B4023F3EF43007BD7DA /* ShiftFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftFactory.swift; sourceTree = "<group>"; };
 		C1437B4223F40B0A007BD7DA /* ShiftNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftNetworking.swift; sourceTree = "<group>"; };
@@ -186,7 +189,6 @@
 		C1B131F923F581E7009C3C59 /* ShiftTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftTableViewCell.swift; sourceTree = "<group>"; };
 		C1B131FB23F59150009C3C59 /* ShitfsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShitfsResponse.swift; sourceTree = "<group>"; };
 		C1C210AE240913E7002B5ACA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C1C210B42409341C002B5ACA /* Route.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Route.gpx; sourceTree = "<group>"; };
 		C1C41B7523A9594F009288CA /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		C1D0CA0A23F6AC9600A20D6F /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		C1F2CD1E23F2E6D600BD23DC /* LastCheckInResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastCheckInResponse.swift; sourceTree = "<group>"; };
@@ -323,10 +325,7 @@
 		C146991023A112F100A84818 /* Unpause */ = {
 			isa = PBXGroup;
 			children = (
-				C13B7739240E5FA7004DD8FB /* MojaRuta.gpx */,
 				C13B773A240E636A004DD8FB /* BrzaRuta.gpx */,
-				C13B773B240E68FA004DD8FB /* DugaLokacija.gpx */,
-				C1C210B42409341C002B5ACA /* Route.gpx */,
 				C13105E823B0B4E600A509D9 /* Services */,
 				C146992A23A1181300A84818 /* Networking */,
 				C146992923A1180100A84818 /* Coordinator */,
@@ -358,6 +357,7 @@
 			children = (
 				C146992D23A11DBE00A84818 /* LoginViewModel.swift */,
 				C16A2EF423A7853800CBA43F /* RegisterViewModel.swift */,
+				C1419F6D24125414001B5817 /* AddCompanyViewModel.swift */,
 				C1FBC46E23AA521C00579913 /* HomeViewModel.swift */,
 				C13C412323ABBC5400B674E9 /* ActivityViewModel.swift */,
 				C13C412723ABBC8900B674E9 /* SettingsViewModel.swift */,
@@ -374,6 +374,7 @@
 			children = (
 				C146992B23A11D5200A84818 /* LoginViewController.swift */,
 				C16A2EF223A784A700CBA43F /* RegisterViewController.swift */,
+				C1419F6F2412543E001B5817 /* AddCompanyViewController.swift */,
 				C1FBC46C23AA51E100579913 /* HomeViewController.swift */,
 				C13C412123ABBC4100B674E9 /* ActivityViewController.swift */,
 				C1B131F923F581E7009C3C59 /* ShiftTableViewCell.swift */,
@@ -420,6 +421,7 @@
 			children = (
 				C16A2EF023A77B1200CBA43F /* Coordinator.swift */,
 				C198B8EE23B0CACA00FBD3C6 /* Coordinator+Auth.swift */,
+				C1419F6B241253B4001B5817 /* Coordinator+Register.swift */,
 				C198B8F023B0CB4C00FBD3C6 /* Coordinator+Tabbar.swift */,
 				C1FF2A8D23C4B3EA00ACCF29 /* Coordinator+Settings.swift */,
 				C111931E23CF523D007E2866 /* Coordinator+Home.swift */,
@@ -521,7 +523,6 @@
 			files = (
 				C146991E23A112F200A84818 /* LaunchScreen.storyboard in Resources */,
 				C102D7BA23ACCFB4000B9E80 /* Colors.xcassets in Resources */,
-				C1C210B52409341C002B5ACA /* Route.gpx in Resources */,
 				C146991B23A112F200A84818 /* Assets.xcassets in Resources */,
 				C1480A6023A7672D00437772 /* GoogleService-Info.plist in Resources */,
 			);
@@ -607,9 +608,11 @@
 				C138C38824111F9A00FAB84E /* UserResponse.swift in Sources */,
 				C116D39524055A2400A6FEC5 /* CSVMakingResponse.swift in Sources */,
 				C12CDDB723FA999F002A19C8 /* LoadingTableViewCell.swift in Sources */,
+				C1419F702412543E001B5817 /* AddCompanyViewController.swift in Sources */,
 				C1F2CD1F23F2E6D600BD23DC /* LastCheckInResponse.swift in Sources */,
 				C13B4B1223BF8A62006E1E0E /* FirebaseDocumentResponeObject.swift in Sources */,
 				C13C412223ABBC4100B674E9 /* ActivityViewController.swift in Sources */,
+				C1419F6C241253B4001B5817 /* Coordinator+Register.swift in Sources */,
 				C10F78DA23A3D79200783476 /* UIColor+Extension.swift in Sources */,
 				C12D289823A536BC004BC57A /* LoginNetworking.swift in Sources */,
 				C1FBC46D23AA51E100579913 /* HomeViewController.swift in Sources */,
@@ -628,6 +631,7 @@
 				C10F78E123A3D79200783476 /* UIViewController+Extension.swift in Sources */,
 				C1C41B7623A9594F009288CA /* UITextField+Extension.swift in Sources */,
 				C1707B1C23F18AE3002E1A10 /* HomeNetworking.swift in Sources */,
+				C1419F6E24125414001B5817 /* AddCompanyViewModel.swift in Sources */,
 				C133DE5423C89F2A0096F5B2 /* Response.swift in Sources */,
 				C10F78DD23A3D79200783476 /* UIButton+Extension.swift in Sources */,
 				C1B131FC23F59150009C3C59 /* ShitfsResponse.swift in Sources */,

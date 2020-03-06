@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SnapKit
 import RxSwift
 import RxKeyboard
 import SVProgressHUD
@@ -22,6 +21,7 @@ class RegisterViewController: UIViewController {
     private let containerView = UIView()
     
     private let registrationLabel = UILabel()
+    private let registrationSeparator = UIView()
     
     private let firstNameTextField = UITextField()
     private let firstNameSeparator = UIView()
@@ -35,10 +35,9 @@ class RegisterViewController: UIViewController {
     private let newPasswordTextField = UITextField()
     private let newPasswordSeparator = UIView()
     
-    private let registerButton = UIButton()
+    private let registerButton = OrangeButton(title: "Register")
     
     private let closeButton = UIButton()
-    
     
     init(registerViewModel: RegisterViewModel) {
         self.registerViewModel = registerViewModel
@@ -64,7 +63,7 @@ class RegisterViewController: UIViewController {
     
     private func render() {
         configureScrollViewAndContainerView()
-        renderRegistrationLabel()
+        renderRegistrationLabelAndRegistrationSeparator()
         renderFirstNameTextFieldAndFirstNameSeparator()
         renderLastNameTextFieldAndLastNameSeparator()
         renderEmailTextFieldAndEmailSeparator()
@@ -86,26 +85,28 @@ class RegisterViewController: UIViewController {
         newPasswordTextField.rx.text.bind(to: registerViewModel.textInNewPasswordTextFieldChanges)
             .disposed(by: disposeBag)
         
-        registerButton.rx.tap.bind(to: registerViewModel.registerButtonTapped)
+        registerButton.rx.tap
+            .do(onNext: { _ in
+                SVProgressHUD.show()
+            })
+            .bind(to: registerViewModel.registerButtonTapped)
             .disposed(by: disposeBag)
         
-        registerButton.rx.tap.subscribe(onNext: { _ in
-            SVProgressHUD.show()
-        }).disposed(by: disposeBag)
-        
-        registerViewModel.registerResponse.subscribe(onNext: { [weak self] (firebaseResponseObject) in
-            switch firebaseResponseObject {
-            case .authDataResult(let authDataResult):
-                print("\(authDataResult.user.email!)")
-                SVProgressHUD.dismiss()
-                SVProgressHUD.showSuccess(withStatus: "Success")
-                SVProgressHUD.dismiss(withDelay: 0.3)
-                self?.dismiss(animated: true, completion: nil)
-            case .error(let error):
-                SVProgressHUD.dismiss()
-                self?.showAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
-            }
-        }).disposed(by: disposeBag)
+        registerViewModel.registerResponse
+            .subscribe(onNext: { [weak self] firebaseResponseObject in
+                guard let `self` = self else { return }
+                switch firebaseResponseObject {
+                case .authDataResult(let authDataResult):
+                    print("\(authDataResult.user.email!)")
+                    SVProgressHUD.dismiss()
+                    SVProgressHUD.showSuccess(withStatus: "Success")
+                    SVProgressHUD.dismiss(withDelay: 0.3)
+                    Coordinator.shared.navigateToAddCompanyViewController(from: self)
+                case .error(let error):
+                    SVProgressHUD.dismiss()
+                    self.showAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
+                }
+            }).disposed(by: disposeBag)
         
         closeButton.rx.tap.subscribe(onNext: { [weak self] _ in
             self?.dismiss(animated: true, completion: nil)
@@ -138,13 +139,12 @@ class RegisterViewController: UIViewController {
     }
     
     private func hideNavigationBar() {
-        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
 }
 
 // MARK: - UI rendering
 private extension RegisterViewController {
-    
     func configureScrollViewAndContainerView() {
         view.backgroundColor = UIColor.whiteUnpauseTextAndBackgroundColor
         
@@ -163,20 +163,30 @@ private extension RegisterViewController {
         }
     }
     
-    func renderRegistrationLabel() {
+    func renderRegistrationLabelAndRegistrationSeparator() {
         containerView.addSubview(registrationLabel)
         registrationLabel.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(160)
-            make.left.equalToSuperview().offset(50)
+            make.top.equalToSuperview().offset(40)
+            make.centerX.equalToSuperview()
         }
         registrationLabel.text = "Registration"
-        registrationLabel.font = UIFont.boldSystemFont(ofSize: 30)
+        registrationLabel.textColor = UIColor.orange
+        registrationLabel.font = UIFont.boldSystemFont(ofSize: 25)
+        
+        containerView.addSubview(registrationSeparator)
+        registrationSeparator.snp.makeConstraints { (make) in
+            make.top.equalTo(registrationLabel.snp.bottom).offset(30)
+            make.left.equalToSuperview().offset(30)
+            make.right.equalToSuperview().inset(30)
+            make.height.equalTo(1)
+        }
+        registrationSeparator.backgroundColor = UIColor.orange
     }
-    
+
     func renderFirstNameTextFieldAndFirstNameSeparator() {
         containerView.addSubview(firstNameTextField)
         firstNameTextField.snp.makeConstraints { (make) in
-            make.top.equalTo(registrationLabel.snp.bottom).offset(40)
+            make.top.equalTo(registrationSeparator.snp.bottom).offset(80)
             make.left.equalToSuperview().offset(50)
             make.right.equalToSuperview().inset(50)
         }
@@ -261,22 +271,19 @@ private extension RegisterViewController {
     
     func renderRegisterButton() {
         containerView.addSubview(registerButton)
-        registerButton.snp.makeConstraints { (make) in
-            make.top.equalTo(newPasswordSeparator).offset(30)
+        registerButton.snp.makeConstraints { make in
+            make.top.equalTo(newPasswordSeparator.snp.bottom).offset(50)
             make.left.equalToSuperview().offset(42)
             make.right.equalToSuperview().inset(42)
             make.bottom.equalToSuperview()
             make.height.equalTo(40)
         }
-        registerButton.setTitle("Register", for: .normal)
-        registerButton.backgroundColor = UIColor.orange
-        registerButton.layer.cornerRadius = 5
     }
     
     func renderCloseButton() {
         containerView.addSubview(closeButton)
-        closeButton.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(25)
+        closeButton.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(25)
             make.left.equalToSuperview().offset(15)
         }
         closeButton.setImage(UIImage(named: "close_25x25"), for: .normal)

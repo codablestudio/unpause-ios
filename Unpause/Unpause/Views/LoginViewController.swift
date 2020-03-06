@@ -58,6 +58,7 @@ class LoginViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         hideNavigationBar()
+        present(AddCompanyViewController(addCompanyViewModel: AddCompanyViewModel()), animated: true)
     }
     
     private func render() {
@@ -286,8 +287,9 @@ private extension LoginViewController {
             make.bottom.equalToSuperview()
             make.height.equalTo(20)
         }
-        let underlinedText = NSAttributedString(string: "Register now", attributes:
-            [.underlineStyle: NSUnderlineStyle.single.rawValue, NSAttributedString.Key.foregroundColor : UIColor.orange])
+        let underlinedText = NSAttributedString(string: "Register now",
+                                                attributes: [.underlineStyle: NSUnderlineStyle.single.rawValue,
+                                                             NSAttributedString.Key.foregroundColor : UIColor.orange])
         registerButton.setAttributedTitle(underlinedText, for: .normal)
     }
 }
