@@ -16,8 +16,6 @@ protocol LoginViewModelProtocol {
     
     var textInEmailTextFieldChanges: PublishSubject<String?> { get }
     var textInPasswordTextFieldChanges: PublishSubject<String?>  { get }
-    var forgotPasswordButtonTapped: PublishSubject<Void>  { get }
-    var signInWithGoogleButtonTapped: PublishSubject<Void>  { get }
     var logInButtonTapped: PublishSubject<Void>  { get }
     var registerNowButtonTapped: PublishSubject<Void>  { get }
     
@@ -37,8 +35,6 @@ class LoginViewModel: LoginViewModelProtocol {
     
     var textInEmailTextFieldChanges = PublishSubject<String?>()
     var textInPasswordTextFieldChanges = PublishSubject<String?>()
-    var forgotPasswordButtonTapped = PublishSubject<Void>()
-    var signInWithGoogleButtonTapped = PublishSubject<Void>()
     var logInButtonTapped = PublishSubject<Void>()
     var registerNowButtonTapped = PublishSubject<Void>()
     
@@ -105,16 +101,5 @@ class LoginViewModel: LoginViewModelProtocol {
         textInPasswordTextFieldChanges.subscribe(onNext: { [weak self] (newValue) in
             self?.textInPasswordTextField = newValue
         }).disposed(by: disposeBag)
-        
-        forgotPasswordButtonTapped.subscribe(onNext: { _ in
-            // TODO: Do networking for forgot password
-        }).disposed(by: disposeBag)
-        
-        signInWithGoogleButtonTapped.subscribe(onNext: { _ in
-            // TODO: Do networking for sign in with Google
-        }).disposed(by: disposeBag)
     }
 }
-
-
-

@@ -8,6 +8,7 @@
 
 import Foundation
 import Firebase
+import GoogleSignIn
 
 class UserFactory {
     
@@ -15,6 +16,13 @@ class UserFactory {
         guard let email = document.get("email") as? String else { throw UnpauseError.defaultError }
         guard let firstName = document.get("firstName") as? String else { throw UnpauseError.defaultError }
         guard let lastName = document.get("lastName") as? String else { throw UnpauseError.defaultError }
+        return User(firstName: firstName, lastName: lastName, email: email)
+    }
+    
+    static func createUser(from googleUser: GIDGoogleUser) -> User {
+        let email = googleUser.profile.email
+        let firstName = googleUser.profile.name
+        let lastName = googleUser.profile.familyName
         return User(firstName: firstName, lastName: lastName, email: email)
     }
     

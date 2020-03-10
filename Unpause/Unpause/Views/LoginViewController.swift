@@ -12,6 +12,7 @@ import RxSwift
 import RxKeyboard
 import RxGesture
 import SVProgressHUD
+import GoogleSignIn
 
 class LoginViewController: UIViewController {
     
@@ -53,6 +54,7 @@ class LoginViewController: UIViewController {
         addGestureRecognizer()
         setUpTextFields()
         setUpKeyboard()
+        setUpGoogleDelegate()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,6 +84,12 @@ class LoginViewController: UIViewController {
         forgotPasswordButton.rx.tap.subscribe(onNext: { _ in
             Coordinator.shared.presentForgotPasswordViewController(from: self)
         }).disposed(by: disposeBag)
+        
+        signInWithGoogleButton.rx.tap
+            .subscribe(onNext: { _ in
+                GIDSignIn.sharedInstance()?.presentingViewController = self
+                GIDSignIn.sharedInstance().signIn()
+            }).disposed(by: disposeBag)
         
         loginButton.rx.tap
             .bind(to: loginViewModel.logInButtonTapped)
@@ -130,6 +138,10 @@ class LoginViewController: UIViewController {
                 make.height.equalTo(20)
             }
         }).disposed(by: disposeBag)
+    }
+    
+    private func setUpGoogleDelegate() {
+        GIDSignIn.sharedInstance().delegate = self
     }
     
     private func hideNavigationBar() {
@@ -294,5 +306,28 @@ private extension LoginViewController {
                                                 attributes: [.underlineStyle: NSUnderlineStyle.single.rawValue,
                                                              NSAttributedString.Key.foregroundColor : UIColor.orange])
         registerButton.setAttributedTitle(underlinedText, for: .normal)
+    }
+}
+
+extension LoginViewController: GIDSignInDelegate {
+    @available(iOS 9.0, *)
+    func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])
+        -> Bool {
+            return GIDSignIn.sharedInstance().handle(url)
+    }
+    
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        return GIDSignIn.sharedInstance().handle(url)
+    }
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
+        if let error = error {
+            print("ERROR: \(error.localizedDescription)")
+            return
+        }
+        
+        let newUser = UserFactory.createUser(from: user)
+        SessionManager.shared.logIn(newUser)
+        Coordinator.shared.navigateToHomeViewController(from: self)
     }
 }

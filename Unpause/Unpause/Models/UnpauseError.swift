@@ -12,4 +12,15 @@ enum UnpauseError: Error {
     case defaultError
     case emptyError
     case noUser
+    
+    var errorMessage: String {
+        switch self {
+        case .defaultError:
+            return "Default error"
+        case .emptyError:
+            return "Empty error"
+        case .noUser:
+            return "No user"
+        }
+    }
 }
