@@ -51,4 +51,14 @@ class LoginNetworking {
                 return Observable.just(FirebaseDocumentResponseObject.error(error))
         }
     }
+    
+    func sendPasswordResetTo(email: String) -> Observable<Response> {
+        return Auth.auth().rx.sendPasswordReset(withEmail: email)
+            .flatMapLatest { _ -> Observable<Response> in
+                return Observable.just(Response.success)
+        }
+        .catchError ({ error -> Observable<Response> in
+            return Observable.just(Response.error(error))
+        })
+    }
 }

@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import SVProgressHUD
 
 class ForgotPasswordViewController: UIViewController {
     
@@ -59,6 +60,31 @@ class ForgotPasswordViewController: UIViewController {
         closeButton.rx.tap.subscribe(onNext: { _ in
             self.dismiss(animated: true)
         }).disposed(by: disposeBag)
+        
+        emailTextField.rx.text
+            .bind(to: forgotPasswordViewModel.textInEmailTextFieldChanges)
+            .disposed(by: disposeBag)
+        
+        sendRecoveryEmailButton.rx.tap
+            .do(onNext: { _ in
+                SVProgressHUD.show()
+            })
+            .bind(to: forgotPasswordViewModel.sendRecoveryEmailButtonTapped)
+            .disposed(by: disposeBag)
+        
+        forgotPasswordViewModel.recoveryMailSendingResponse
+            .subscribe(onNext: { response in
+                switch response {
+                case .success:
+                    self.dismiss(animated: true)
+                    SVProgressHUD.showSuccess(withStatus: "Email sent successfully")
+                    SVProgressHUD.dismiss(withDelay: 0.6)
+                case .error(let error):
+                    SVProgressHUD.dismiss()
+                    self.showAlert(title: "Alert", message: "\(error.localizedDescription)", actionTitle: "OK")
+                }
+            }).disposed(by: disposeBag)
+        
     }
     
     private func addGestureRecognizer() {
@@ -122,7 +148,8 @@ private extension ForgotPasswordViewController {
         }
         emailTextField.placeholder = "Enter email"
         emailTextField.autocorrectionType = .no
-        emailTextField.autocapitalizationType = .words
+        emailTextField.autocapitalizationType = .none
+        emailTextField.keyboardType = .emailAddress
         
         containerView.addSubview(emailSeparator)
         emailSeparator.snp.makeConstraints { (make) in
