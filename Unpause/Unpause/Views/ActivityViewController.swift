@@ -296,6 +296,7 @@ private extension ActivityViewController {
             make.topMargin.equalToSuperview().offset(23)
             make.left.equalTo(fromDateLabel.snp.right).offset(5)
         }
+        fromDateTextField.tintColor = .clear
     }
     
     func renderToDateLabelAndToDateTextField() {
@@ -315,6 +316,7 @@ private extension ActivityViewController {
             make.left.equalTo(toDateLabel.snp.right).offset(5)
             make.bottom.equalToSuperview().inset(10)
         }
+        toDateTextField.tintColor = .clear
     }
     
     func configureTableView() {

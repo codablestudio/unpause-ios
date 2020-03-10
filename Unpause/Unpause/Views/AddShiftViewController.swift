@@ -561,12 +561,14 @@ private extension AddShiftViewController {
             make.top.equalTo(youArrivedAtLabel.snp.bottom).offset(40)
             make.left.equalTo(arriveImageView.snp.right).offset(30)
         }
+        arrivalDateTextField.tintColor = .clear
         
         containerView.addSubview(arrivalTimeTextField)
         arrivalTimeTextField.snp.makeConstraints { (make) in
             make.top.equalTo(arrivalDateTextField.snp.bottom).offset(15)
             make.left.equalTo(arriveImageView.snp.right).offset(30)
         }
+        arrivalTimeTextField.tintColor = .clear
     }
     
     func renderLeavingAtLabelAndLeavingImageView() {
@@ -595,12 +597,14 @@ private extension AddShiftViewController {
             make.top.equalTo(youAreLeavingAtLabel.snp.bottom).offset(40)
             make.left.equalTo(leavingImageView.snp.right).offset(45)
         }
+        leavingDateTextField.tintColor = .clear
         
         containerView.addSubview(leavingTimeTextField)
         leavingTimeTextField.snp.makeConstraints { (make) in
             make.top.equalTo(leavingDateTextField.snp.bottom).offset(15)
             make.left.equalTo(leavingImageView.snp.right).offset(45)
         }
+        leavingTimeTextField.tintColor = .clear
     }
     
     func renderSeparatorAndDescription() {
