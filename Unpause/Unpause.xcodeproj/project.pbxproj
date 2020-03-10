@@ -69,6 +69,8 @@
 		C14334EC2407F4BD00C49E16 /* DataMakingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14334EB2407F4BD00C49E16 /* DataMakingResponse.swift */; };
 		C1437B4123F3EF43007BD7DA /* ShiftFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1437B4023F3EF43007BD7DA /* ShiftFactory.swift */; };
 		C1437B4323F40B0A007BD7DA /* ShiftNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1437B4223F40B0A007BD7DA /* ShiftNetworking.swift */; };
+		C14466C62417AD0800CD52B6 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14466C52417AD0800CD52B6 /* ForgotPasswordViewController.swift */; };
+		C14466C82417AD2A00CD52B6 /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14466C72417AD2A00CD52B6 /* ForgotPasswordViewModel.swift */; };
 		C146991223A112F100A84818 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C146991123A112F100A84818 /* AppDelegate.swift */; };
 		C146991B23A112F200A84818 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C146991A23A112F200A84818 /* Assets.xcassets */; };
 		C146991E23A112F200A84818 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C146991C23A112F200A84818 /* LaunchScreen.storyboard */; };
@@ -171,6 +173,8 @@
 		C14334EB2407F4BD00C49E16 /* DataMakingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataMakingResponse.swift; sourceTree = "<group>"; };
 		C1437B4023F3EF43007BD7DA /* ShiftFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftFactory.swift; sourceTree = "<group>"; };
 		C1437B4223F40B0A007BD7DA /* ShiftNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftNetworking.swift; sourceTree = "<group>"; };
+		C14466C52417AD0800CD52B6 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
+		C14466C72417AD2A00CD52B6 /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
 		C146990E23A112F100A84818 /* Unpause.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Unpause.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C146991123A112F100A84818 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C146991A23A112F200A84818 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -377,6 +381,7 @@
 				C1FF2A8B23C4B14200ACCF29 /* UpdatePersonalInfoViewModel.swift */,
 				C111932223CF6008007E2866 /* AddShiftViewModel.swift */,
 				C1707B2123F19129002E1A10 /* DescriptionViewModel.swift */,
+				C14466C72417AD2A00CD52B6 /* ForgotPasswordViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -398,6 +403,7 @@
 				C1FF2A8923C4B0E500ACCF29 /* UpdatePersonalInfoViewController.swift */,
 				C111932023CF56B7007E2866 /* AddShiftViewController.swift */,
 				C1707B1F23F190AE002E1A10 /* DescriptionViewController.swift */,
+				C14466C52417AD0800CD52B6 /* ForgotPasswordViewController.swift */,
 				C102D7BD23ACFE5C000B9E80 /* CustomUIElements */,
 			);
 			path = Views;
@@ -622,12 +628,14 @@
 				C111932323CF6008007E2866 /* AddShiftViewModel.swift in Sources */,
 				C14731432416982000477ECA /* CompaniesValidationDataResponse.swift in Sources */,
 				C1FF2A8E23C4B3EA00ACCF29 /* Coordinator+Settings.swift in Sources */,
+				C14466C82417AD2A00CD52B6 /* ForgotPasswordViewModel.swift in Sources */,
 				C10F78DB23A3D79200783476 /* UILabel+Extension.swift in Sources */,
 				C12F7A45240FE3E30074362F /* Company.swift in Sources */,
 				C138C38824111F9A00FAB84E /* UserResponse.swift in Sources */,
 				C116D39524055A2400A6FEC5 /* CSVMakingResponse.swift in Sources */,
 				C12CDDB723FA999F002A19C8 /* LoadingTableViewCell.swift in Sources */,
 				C1419F702412543E001B5817 /* AddCompanyViewController.swift in Sources */,
+				C14466C62417AD0800CD52B6 /* ForgotPasswordViewController.swift in Sources */,
 				C1F2CD1F23F2E6D600BD23DC /* LastCheckInResponse.swift in Sources */,
 				C13B4B1223BF8A62006E1E0E /* FirebaseDocumentResponeObject.swift in Sources */,
 				C13C412223ABBC4100B674E9 /* ActivityViewController.swift in Sources */,

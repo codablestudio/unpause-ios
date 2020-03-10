@@ -47,6 +47,7 @@ class AddCompanyViewController: UIViewController {
         render()
         setUpObservables()
         addBarButtonItem()
+        addGestureRecognizer()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -106,6 +107,13 @@ class AddCompanyViewController: UIViewController {
         skipButton.rx.tap.subscribe(onNext: { [weak self] _ in
             guard let `self` = self else { return }
             self.dismiss(animated: true, completion: nil)
+        }).disposed(by: disposeBag)
+    }
+    
+    private func addGestureRecognizer() {
+        view.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else { return }
+            self.view.endEditing(true)
         }).disposed(by: disposeBag)
     }
     

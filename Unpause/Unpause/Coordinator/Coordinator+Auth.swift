@@ -16,4 +16,11 @@ extension Coordinator {
         let navigationController = UINavigationController(rootViewController: registerViewController)
         viewController.present(navigationController, animated: true)
     }
+    
+    func presentForgotPasswordViewController(from viewController: UIViewController) {
+        let forgotPasswordViewModel = ForgotPasswordViewModel()
+        let forgotPasswordViewController = ForgotPasswordViewController(forgotPasswordViewModel: forgotPasswordViewModel)
+        let navigationController = UINavigationController(rootViewController: forgotPasswordViewController)
+        viewController.present(navigationController, animated: true)
+    }
 }

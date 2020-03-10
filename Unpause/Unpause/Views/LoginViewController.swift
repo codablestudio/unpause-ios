@@ -79,6 +79,10 @@ class LoginViewController: UIViewController {
             .bind(to: loginViewModel.textInPasswordTextFieldChanges)
             .disposed(by: disposeBag)
         
+        forgotPasswordButton.rx.tap.subscribe(onNext: { _ in
+            Coordinator.shared.presentForgotPasswordViewController(from: self)
+        }).disposed(by: disposeBag)
+        
         loginButton.rx.tap
             .bind(to: loginViewModel.logInButtonTapped)
             .disposed(by: disposeBag)
