@@ -59,7 +59,7 @@ class LoginViewModel: LoginViewModelProtocol {
             })
             .map({ firebaseResponse -> UserResponse in
                 switch firebaseResponse {
-                case .documentSnapshot(let document):
+                case .success(let document):
                     do {
                         let newUser = try UserFactory.createUser(from: document)
                         SessionManager.shared.logIn(newUser)

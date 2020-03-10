@@ -32,9 +32,7 @@ extension SessionManager {
     func logIn(_ user: User) {
         currentUser = user
         
-        let userDefaults = UserDefaults.standard
-        let data = NSKeyedArchiver.archivedData(withRootObject: currentUser as Any)
-        userDefaults.set(data, forKey: currentUserKey)
+        saveCurrentUserToUserDefaults()
     }
     
     func logOut() {
@@ -44,5 +42,11 @@ extension SessionManager {
     
     func userLoggedIn() -> Bool {
         return currentUser != nil
+    }
+    
+    func saveCurrentUserToUserDefaults() {
+        let userDefaults = UserDefaults.standard
+        let data = NSKeyedArchiver.archivedData(withRootObject: currentUser as Any)
+        userDefaults.set(data, forKey: currentUserKey)
     }
 }

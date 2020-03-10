@@ -197,6 +197,7 @@ private extension AddCompanyViewController {
         companyPassCodeTextField.placeholder = "Enter company passcode"
         companyPassCodeTextField.autocorrectionType = .no
         companyPassCodeTextField.autocapitalizationType = .none
+        companyPassCodeTextField.isSecureTextEntry = true
         
         containerView.addSubview(companyPassCodeSeparator)
         companyPassCodeSeparator.snp.makeConstraints { (make) in

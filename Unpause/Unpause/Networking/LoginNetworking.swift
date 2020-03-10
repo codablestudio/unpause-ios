@@ -45,7 +45,7 @@ class LoginNetworking {
             .rx
             .getDocument()
             .flatMapLatest({ (document) -> Observable<FirebaseDocumentResponseObject> in
-                return Observable.just(FirebaseDocumentResponseObject.documentSnapshot(document))
+                return Observable.just(FirebaseDocumentResponseObject.success(document))
             })
             .catchError { (error) -> Observable<FirebaseDocumentResponseObject> in
                 return Observable.just(FirebaseDocumentResponseObject.error(error))

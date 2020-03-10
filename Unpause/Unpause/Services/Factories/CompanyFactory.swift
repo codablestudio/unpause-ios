@@ -16,7 +16,7 @@ class CompanyFactory {
         return companyReference
     }
     
-    static func createCompany(from document: DocumentSnapshot) throws -> Company? {
+    static func createCompanyFromDocument(document: DocumentSnapshot) throws -> Company? {
         guard let documentData = document.data() else { return nil }
         guard let email = document.get("email") as? String else { throw UnpauseError.defaultError }
         guard let name = document.get("name") as? String else { throw UnpauseError.defaultError }
@@ -26,7 +26,7 @@ class CompanyFactory {
         return company
     }
     
-    static func createCompany(from queryDocument: QueryDocumentSnapshot) throws -> Company? {
+    static func createCompanyFromQueryDocument(queryDocument: QueryDocumentSnapshot) throws -> Company? {
         let documentData = queryDocument.data()
         guard let email = queryDocument.get("email") as? String else { throw UnpauseError.defaultError }
         guard let name = queryDocument.get("name") as? String else { throw UnpauseError.defaultError }
@@ -40,7 +40,7 @@ class CompanyFactory {
         var newCompanyArray = [Company]()
         for documentData in queryDocuments {
             do {
-                guard let company = try createCompany(from: documentData) else { return [] }
+                guard let company = try createCompanyFromQueryDocument(queryDocument: documentData) else { return [] }
                 newCompanyArray.append(company)
             } catch (let error) {
                 print("ERROR: \(error.localizedDescription)")

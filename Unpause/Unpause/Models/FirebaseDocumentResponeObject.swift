@@ -10,6 +10,6 @@ import Foundation
 import FirebaseFirestore
 
 enum FirebaseDocumentResponseObject {
-    case documentSnapshot(DocumentSnapshot)
+    case success(DocumentSnapshot)
     case error(Error)
 }

@@ -14,6 +14,8 @@ class CompanyNetworking {
     
     private let dataBaseReference = Firestore.firestore()
     
+    private var privateCompanyReference: DocumentReference?
+    
     func fetchCompanyReference() -> Observable<CompanyReferenceFetchingResponse> {
         guard let currentUserEmail = SessionManager.shared.currentUser?.email else {
             return Observable.just(CompanyReferenceFetchingResponse.error(UnpauseError.noUser))
@@ -49,7 +51,7 @@ class CompanyNetworking {
         }
         .map { documentSnapshot -> CompanyFetchingResponse in
             do {
-                guard let company = try CompanyFactory.createCompany(from: documentSnapshot) else {
+                guard let company = try CompanyFactory.createCompanyFromDocument(document: documentSnapshot) else {
                     return CompanyFetchingResponse.error(UnpauseError.emptyError)
                 }
                 return CompanyFetchingResponse.success(company)
@@ -65,9 +67,10 @@ class CompanyNetworking {
                 guard let `self` = self else { return Observable.empty() }
                 switch companiesValidationDataResponse {
                 case .success(let allCompaniesValidationData):
-                    guard let companyReference = self.findCompanyWithNameAndPassCode(allCompaniesValidationData: allCompaniesValidationData,
-                                                                                     companyName: companyName,
-                                                                                     companyPassCode: companyPassCode)
+                    guard let companyReference = self
+                        .findCompanyWithNameAndPassCode(allCompaniesValidationData: allCompaniesValidationData,
+                                                        companyName: companyName,
+                                                        companyPassCode: companyPassCode)
                         else {
                             return Observable.just(DocumentReferenceFetchingResponse.error(UnpauseError.emptyError))
                     }
@@ -76,17 +79,52 @@ class CompanyNetworking {
                     return Observable.just(DocumentReferenceFetchingResponse.error(error))
                 }
             })
-            .flatMapLatest ({ [weak self] documentReferenceFetchingResponse -> Observable<Response> in
-                guard let `self` = self,
-                    let userEmail = userEmail else { return Observable.just(Response.error(UnpauseError.emptyError)) }
+            .flatMapLatest ({ [weak self] documentReferenceFetchingResponse -> Observable<DocumentReferenceFetchingResponse> in
+                guard let `self` = self else {
+                    return Observable.just(DocumentReferenceFetchingResponse.error(UnpauseError.emptyError))
+                }
                 switch documentReferenceFetchingResponse {
                 case .success(let companyDocumentReference):
                     guard let companyReference = companyDocumentReference else {
-                        return Observable.just(Response.error(UnpauseError.emptyError))
+                        return Observable.just(DocumentReferenceFetchingResponse.error(UnpauseError.emptyError))
                     }
-                    return self.saveCompanyReferenceToUser(companyReference: companyReference, userEmail: userEmail)
+                    self.privateCompanyReference = companyReference
+                    return Observable.just(DocumentReferenceFetchingResponse.success(companyReference))
                 case .error(let error):
                     print("ERROR: \(error.localizedDescription)")
+                    return Observable.just(DocumentReferenceFetchingResponse.error(error))
+                }
+            })
+            .flatMapLatest ({ documentReferenceFetchingResponse -> Observable<FirebaseDocumentResponseObject> in
+                switch documentReferenceFetchingResponse {
+                case .success(let documentReference):
+                    guard let document = documentReference?.rx.getDocument() else {
+                        return Observable.just(FirebaseDocumentResponseObject.error(UnpauseError.emptyError))
+                    }
+                    return document
+                        .flatMapLatest({ documentSnapshot -> Observable<FirebaseDocumentResponseObject> in
+                            return Observable.just(FirebaseDocumentResponseObject.success(documentSnapshot))
+                        })
+                case .error(let error):
+                    return Observable.just(FirebaseDocumentResponseObject.error(error))
+                }
+            })
+            .flatMapLatest ({ [weak self] firebaseDocumentResponseObject -> Observable<Response> in
+                guard let `self` = self else { return Observable.empty() }
+                switch firebaseDocumentResponseObject {
+                case .success(let documentSnapshot):
+                    do {
+                        guard let newCompany = try CompanyFactory.createCompanyFromDocument(document: documentSnapshot),
+                            let companyReference = self.privateCompanyReference,
+                            let userEmail = userEmail else {
+                                return Observable.just(Response.error(UnpauseError.emptyError))
+                        }
+                        self.saveNewCompanyToCurrentUser(newCompany: newCompany)
+                        return self.saveCompanyReferenceToUserOnServer(companyReference: companyReference, userEmail: userEmail)
+                    } catch (let error) {
+                        return Observable.just(Response.error(error))
+                    }
+                case .error(let error):
                     return Observable.just(Response.error(error))
                 }
             })
@@ -110,7 +148,7 @@ class CompanyNetworking {
             })
     }
     
-    func saveCompanyReferenceToUser(companyReference: DocumentReference, userEmail: String) -> Observable<Response> {
+    func saveCompanyReferenceToUserOnServer(companyReference: DocumentReference, userEmail: String) -> Observable<Response> {
         return dataBaseReference
             .collection("users")
             .document("\(userEmail)")
@@ -137,5 +175,10 @@ class CompanyNetworking {
         }
         guard let companyDataBaseReference = companyReference else { return nil }
         return dataBaseReference.collection("companies").document("\(companyDataBaseReference)")
+    }
+    
+    private func saveNewCompanyToCurrentUser(newCompany: Company) {
+        SessionManager.shared.currentUser?.company = newCompany
+        SessionManager.shared.saveCurrentUserToUserDefaults()
     }
 }
