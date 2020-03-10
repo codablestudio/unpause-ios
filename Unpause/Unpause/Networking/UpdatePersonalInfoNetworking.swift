@@ -24,7 +24,8 @@ class UpdatePersonalInfoNetworking {
                 return Observable.just(Response.error(UnpauseError.emptyError))
         }
         
-        let response = dataBaseReference.collection("users")
+        let response = dataBaseReference
+            .collection("users")
             .document(currentUserEmail)
             .rx
             .updateData([

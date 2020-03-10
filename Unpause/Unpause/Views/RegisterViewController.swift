@@ -101,7 +101,7 @@ class RegisterViewController: UIViewController {
                     SVProgressHUD.dismiss()
                     SVProgressHUD.showSuccess(withStatus: "Success")
                     SVProgressHUD.dismiss(withDelay: 0.3)
-                    Coordinator.shared.navigateToAddCompanyViewController(from: self)
+                    Coordinator.shared.navigateToAddCompanyViewController(from: self, registeredUserEmail: authDataResult.user.email)
                 case .error(let error):
                     SVProgressHUD.dismiss()
                     self.showAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")

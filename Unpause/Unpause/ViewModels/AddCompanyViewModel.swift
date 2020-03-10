@@ -24,7 +24,14 @@ class AddCompanyViewModel {
     private var textInCompanyNameTextField: String?
     private var textInCompanyPassCodeTextField: String?
     
-    init() {
+    var registeredUserEmail: String?
+    
+    init(registeredUserEmail: String?) {
+        self.registeredUserEmail = registeredUserEmail
+        setUpObservables()
+    }
+    
+    private func setUpObservables() {
         textInCompanyNameTextFieldChanges.subscribe(onNext: { [weak self] newText in
             guard let `self` = self else { return }
             self.textInCompanyNameTextField = newText
@@ -38,7 +45,9 @@ class AddCompanyViewModel {
         companyAddingResponse = addCompanyButtonTapped
             .flatMapLatest({ [weak self] _ -> Observable<Response> in
                 guard let `self` = self else { return Observable.empty() }
-                return self.companyNetworking.addCompanyToCurrentUser()
+                return self.companyNetworking.addCompanyReferenceToUser(userEmail: self.registeredUserEmail,
+                                                                        companyName: self.textInCompanyNameTextField,
+                                                                        companyPassCode: self.textInCompanyPassCodeTextField)
             })
     }
 }

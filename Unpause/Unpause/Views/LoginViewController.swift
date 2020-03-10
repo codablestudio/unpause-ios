@@ -58,7 +58,6 @@ class LoginViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         hideNavigationBar()
-        present(AddCompanyViewController(addCompanyViewModel: AddCompanyViewModel()), animated: true)
     }
     
     private func render() {

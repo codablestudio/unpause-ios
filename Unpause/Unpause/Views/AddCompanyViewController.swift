@@ -29,6 +29,8 @@ class AddCompanyViewController: UIViewController {
     
     private let addCompanyButton = OrangeButton(title: "Add company")
     
+    private let closeButton = UIButton()
+    
     private let skipButton = UIBarButtonItem(title: "Skip", style: .plain, target: self, action: nil)
     
     init(addCompanyViewModel: AddCompanyViewModel) {
@@ -58,6 +60,7 @@ class AddCompanyViewController: UIViewController {
         renderCompanyNameTextFieldAndCompanyNameSeparator()
         renderCompanyPasscodeTextFieldAndSeparator()
         renderAddCompanyButton()
+        renderCloseButton()
     }
     
     private func setUpObservables() {
@@ -84,11 +87,17 @@ class AddCompanyViewController: UIViewController {
                     SVProgressHUD.dismiss()
                     SVProgressHUD.showSuccess(withStatus: "Company successfully added.")
                     SVProgressHUD.dismiss(withDelay: 0.6)
+                    self.dismiss(animated: true)
                 case .error(let error):
                     SVProgressHUD.dismiss()
                     self.showAlert(title: "Alert", message: "\(error.localizedDescription)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)
+        
+        closeButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else { return }
+            self.dismiss(animated: true)
+        }).disposed(by: disposeBag)
     }
     
     private func addBarButtonItem() {
@@ -179,7 +188,7 @@ private extension AddCompanyViewController {
         }
         companyPassCodeTextField.placeholder = "Enter company passcode"
         companyPassCodeTextField.autocorrectionType = .no
-        companyPassCodeTextField.autocapitalizationType = .sentences
+        companyPassCodeTextField.autocapitalizationType = .none
         
         containerView.addSubview(companyPassCodeSeparator)
         companyPassCodeSeparator.snp.makeConstraints { (make) in
@@ -200,5 +209,14 @@ private extension AddCompanyViewController {
             make.bottom.equalToSuperview()
             make.height.equalTo(40)
         }
+    }
+    
+    func renderCloseButton() {
+        view.addSubview(closeButton)
+        closeButton.snp.makeConstraints { (make) in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(25)
+            make.left.equalToSuperview().offset(15)
+        }
+        closeButton.setImage(UIImage(named: "close_25x25"), for: .normal)
     }
 }

@@ -19,6 +19,7 @@ class SettingsViewController: UIViewController {
     private let containerView = UIView()
     private let changePersonalInfoButton = OrangeButton(title: "Change personal info")
     private let changePasswordButton = OrangeButton(title: "Change password")
+    private let addCompanyButton = OrangeButton(title: "Add company")
     private let logOutButton = OrangeButton(title: "Log out")
     
     init(settingsViewModel: SettingsViewModel) {
@@ -41,22 +42,27 @@ class SettingsViewController: UIViewController {
         configureScrollViewAndContainerView()
         renderChangePersonalInfoButton()
         renderChangePasswordButton()
+        renderAddCompanyButton()
         renderLogOutButton()
     }
     
     private func setUpObservables() {
-        logOutButton.rx.tap.bind(to: settingsViewModel.logOutButtonTapped)
-            .disposed(by: disposeBag)
+        changePersonalInfoButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else { return }
+            Coordinator.shared.presentChangePersonalInfoViewController(from: self)
+        }).disposed(by: disposeBag)
         
         changePasswordButton.rx.tap.subscribe(onNext: { [weak self] _ in
             guard let `self` = self else { return }
             Coordinator.shared.presentChangePasswordViewController(from: self)
-            }).disposed(by: disposeBag)
+        }).disposed(by: disposeBag)
         
-        changePersonalInfoButton.rx.tap.subscribe(onNext: { [weak self] _ in
-            guard let `self` = self else { return }
-            Coordinator.shared.presentChangePersonalInfoViewController(from: self)
-            }).disposed(by: disposeBag)
+        addCompanyButton.rx.tap.subscribe(onNext: { _ in
+            Coordinator.shared.presentAddCompanyViewController(from: self)
+        }).disposed(by: disposeBag)
+        
+        logOutButton.rx.tap.bind(to: settingsViewModel.logOutButtonTapped)
+            .disposed(by: disposeBag)
     }
     
     private func showTitleInNavigationBar() {
@@ -71,7 +77,7 @@ private extension SettingsViewController {
         
         view.addSubview(scrollView)
         
-        scrollView.snp.makeConstraints { (make) in
+        scrollView.snp.makeConstraints { make in
             make.topMargin.equalToSuperview()
             make.left.right.equalToSuperview()
             make.bottomMargin.equalToSuperview()
@@ -79,7 +85,7 @@ private extension SettingsViewController {
         scrollView.alwaysBounceVertical = true
         
         scrollView.addSubview(containerView)
-        containerView.snp.makeConstraints { (make) in
+        containerView.snp.makeConstraints { make in
             make.top.left.right.bottom.equalToSuperview()
             make.width.equalTo(UIScreen.main.bounds.width)
         }
@@ -87,7 +93,7 @@ private extension SettingsViewController {
     
     func renderChangePersonalInfoButton() {
         containerView.addSubview(changePersonalInfoButton)
-        changePersonalInfoButton.snp.makeConstraints { (make) in
+        changePersonalInfoButton.snp.makeConstraints { make in
             make.topMargin.equalToSuperview().offset(50)
             make.left.equalToSuperview().offset(20)
             make.right.equalToSuperview().inset(20)
@@ -97,8 +103,18 @@ private extension SettingsViewController {
     
     func renderChangePasswordButton() {
         containerView.addSubview(changePasswordButton)
-        changePasswordButton.snp.makeConstraints { (make) in
+        changePasswordButton.snp.makeConstraints { make in
             make.top.equalTo(changePersonalInfoButton.snp.bottom).offset(20)
+            make.left.equalToSuperview().offset(20)
+            make.right.equalToSuperview().inset(20)
+            make.height.equalTo(35)
+        }
+    }
+    
+    func renderAddCompanyButton() {
+        containerView.addSubview(addCompanyButton)
+        addCompanyButton.snp.makeConstraints { make in
+            make.top.equalTo(changePasswordButton.snp.bottom).offset(20)
             make.left.equalToSuperview().offset(20)
             make.right.equalToSuperview().inset(20)
             make.height.equalTo(35)
@@ -107,8 +123,8 @@ private extension SettingsViewController {
     
     func renderLogOutButton() {
         containerView.addSubview(logOutButton)
-        logOutButton.snp.makeConstraints { (make) in
-            make.top.equalTo(changePasswordButton.snp.bottom).offset(20)
+        logOutButton.snp.makeConstraints { make in
+            make.top.equalTo(addCompanyButton.snp.bottom).offset(20)
             make.left.equalToSuperview().offset(20)
             make.right.equalToSuperview().inset(20)
             make.height.equalTo(35)

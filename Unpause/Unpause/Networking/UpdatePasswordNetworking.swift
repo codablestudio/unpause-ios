@@ -33,7 +33,8 @@ class UpdatePasswordNetworking {
         }
         .flatMapLatest { _ -> Observable<Response> in
             return Observable.just(Response.success)
-        }.catchError { (error) -> Observable<Response> in
+        }
+        .catchError { (error) -> Observable<Response> in
             return Observable.just(Response.error(error))
         }
     }

@@ -21,4 +21,10 @@ extension Coordinator {
         let updatePasswordViewController = UpdatePasswordViewController(updatePasswordViewModel: updatePasswordViewModel)
         viewController.present(updatePasswordViewController, animated: true)
     }
+    
+    func presentAddCompanyViewController(from viewController: UIViewController) {
+        let addCompanyViewModel = AddCompanyViewModel(registeredUserEmail: SessionManager.shared.currentUser?.email)
+        let addCompanyViewController = AddCompanyViewController(addCompanyViewModel: addCompanyViewModel)
+        viewController.present(addCompanyViewController, animated: true)
+    }
 }

@@ -59,7 +59,83 @@ class CompanyNetworking {
         }
     }
     
-    func addCompanyToCurrentUser() -> Observable<Response> {
-        return Observable.empty()
+    func addCompanyReferenceToUser(userEmail: String?, companyName: String?, companyPassCode: String?) -> Observable<Response> {
+        return fetchAllCompaniesValidationDataFromServer()
+            .flatMapLatest ({ [weak self] companiesValidationDataResponse -> Observable<DocumentReferenceFetchingResponse> in
+                guard let `self` = self else { return Observable.empty() }
+                switch companiesValidationDataResponse {
+                case .success(let allCompaniesValidationData):
+                    guard let companyReference = self.findCompanyWithNameAndPassCode(allCompaniesValidationData: allCompaniesValidationData,
+                                                                                     companyName: companyName,
+                                                                                     companyPassCode: companyPassCode)
+                        else {
+                            return Observable.just(DocumentReferenceFetchingResponse.error(UnpauseError.emptyError))
+                    }
+                    return Observable.just(DocumentReferenceFetchingResponse.success(companyReference))
+                case .error(let error):
+                    return Observable.just(DocumentReferenceFetchingResponse.error(error))
+                }
+            })
+            .flatMapLatest ({ [weak self] documentReferenceFetchingResponse -> Observable<Response> in
+                guard let `self` = self,
+                    let userEmail = userEmail else { return Observable.just(Response.error(UnpauseError.emptyError)) }
+                switch documentReferenceFetchingResponse {
+                case .success(let companyDocumentReference):
+                    guard let companyReference = companyDocumentReference else {
+                        return Observable.just(Response.error(UnpauseError.emptyError))
+                    }
+                    return self.saveCompanyReferenceToUser(companyReference: companyReference, userEmail: userEmail)
+                case .error(let error):
+                    print("ERROR: \(error.localizedDescription)")
+                    return Observable.just(Response.error(error))
+                }
+            })
+    }
+    
+    func fetchAllCompaniesValidationDataFromServer() -> Observable<CompaniesValidationDataResponse> {
+        return dataBaseReference
+            .collection("companies")
+            .rx
+            .getDocuments()
+            .map ({ querySnapshot -> CompaniesValidationDataResponse in
+                do {
+                    guard let companiesValidationData = try CompanyFactory.createCompaniesValidationData(from: querySnapshot.documents) else {
+                        return CompaniesValidationDataResponse.error(UnpauseError.emptyError)
+                    }
+                    return CompaniesValidationDataResponse.success(companiesValidationData)
+                } catch (let error) {
+                    print("ERROR: \(error.localizedDescription)")
+                    return CompaniesValidationDataResponse.error(error)
+                }
+            })
+    }
+    
+    func saveCompanyReferenceToUser(companyReference: DocumentReference, userEmail: String) -> Observable<Response> {
+        return dataBaseReference
+            .collection("users")
+            .document("\(userEmail)")
+            .rx
+            .updateData([
+                "companyReference": companyReference
+            ])
+            .flatMapLatest ({ _ -> Observable<Response> in
+                return Observable.just(Response.success)
+            })
+            .catchError ({ error -> Observable<Response> in
+                return Observable.just(Response.error(error))
+            })
+    }
+    
+    private func findCompanyWithNameAndPassCode(allCompaniesValidationData: [CompanyValidationData],
+                                                companyName: String?,
+                                                companyPassCode: String?) -> DocumentReference? {
+        var companyReference: String?
+        for companyValidationData in allCompaniesValidationData {
+            if companyValidationData.companyName == companyName && companyValidationData.companyPassCode == companyPassCode {
+                companyReference = companyValidationData.companyReference
+            }
+        }
+        guard let companyDataBaseReference = companyReference else { return nil }
+        return dataBaseReference.collection("companies").document("\(companyDataBaseReference)")
     }
 }
