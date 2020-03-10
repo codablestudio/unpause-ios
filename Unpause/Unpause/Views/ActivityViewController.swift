@@ -22,8 +22,6 @@ class ActivityViewController: UIViewController {
     
     private let containerView = UIView()
     
-    private let datesAndSearchContainer = UIView()
-    
     private let datesContainer = UIView()
     
     private let fromDateLabel = UILabel()
@@ -72,7 +70,6 @@ class ActivityViewController: UIViewController {
     private func render() {
         configureContainerView()
         configureDatesAndSearchContainer()
-        configureDatesContainer()
         renderFromDateLabelAndFromDateTextField()
         renderToDateLabelAndToDateTextField()
         configureTableView()
@@ -275,29 +272,19 @@ private extension ActivityViewController {
     }
     
     func configureDatesAndSearchContainer() {
-        containerView.addSubview(datesAndSearchContainer)
+        containerView.addSubview(datesContainer)
         
-        datesAndSearchContainer.snp.makeConstraints { (make) in
+        datesContainer.snp.makeConstraints { make in
             make.top.left.right.equalToSuperview()
         }
-        datesAndSearchContainer.addBottomBorder(.lightGray)
-    }
-    
-    func configureDatesContainer() {
-        datesAndSearchContainer.addSubview(datesContainer)
-        
-        datesContainer.snp.makeConstraints { (make) in
-            make.topMargin.equalToSuperview()
-            make.left.equalToSuperview()
-            make.bottom.equalToSuperview()
-        }
+        datesContainer.addBottomBorder(.lightGray)
     }
     
     func renderFromDateLabelAndFromDateTextField() {
         datesContainer.addSubview(fromDateLabel)
         
         fromDateLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(20)
+            make.topMargin.equalToSuperview().offset(20)
             make.left.equalToSuperview().offset(15)
         }
         fromDateLabel.text = "From:"
@@ -308,7 +295,6 @@ private extension ActivityViewController {
         fromDateTextField.snp.makeConstraints { make in
             make.topMargin.equalToSuperview().offset(23)
             make.left.equalTo(fromDateLabel.snp.right).offset(5)
-            make.right.equalToSuperview()
         }
     }
     
@@ -327,7 +313,6 @@ private extension ActivityViewController {
         toDateTextField.snp.makeConstraints { make in
             make.top.equalTo(fromDateTextField.snp.bottom).offset(17)
             make.left.equalTo(toDateLabel.snp.right).offset(5)
-            make.right.equalToSuperview()
             make.bottom.equalToSuperview().inset(10)
         }
     }
@@ -337,7 +322,7 @@ private extension ActivityViewController {
         
         containerView.addSubview(tableView)
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(datesAndSearchContainer.snp.bottom)
+            make.top.equalTo(datesContainer.snp.bottom)
             make.left.right.equalToSuperview()
             make.bottomMargin.equalToSuperview()
         }
