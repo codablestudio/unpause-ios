@@ -24,9 +24,11 @@ class ActivityViewController: UIViewController {
     
     private let datesContainer = UIView()
     
+    private let fromDateStackView = UIStackView()
     private let fromDateLabel = UILabel()
     private let fromDateTextField = UITextField()
     
+    private let toDateStackView = UIStackView()
     private let toDateLabel = UILabel()
     private let toDateTextField = UITextField()
     
@@ -69,7 +71,7 @@ class ActivityViewController: UIViewController {
     
     private func render() {
         configureContainerView()
-        configureDatesAndSearchContainer()
+        configureDatesContainer()
         renderFromDateLabelAndFromDateTextField()
         renderToDateLabelAndToDateTextField()
         configureTableView()
@@ -271,52 +273,98 @@ private extension ActivityViewController {
         }
     }
     
-    func configureDatesAndSearchContainer() {
+    func configureDatesContainer() {
         containerView.addSubview(datesContainer)
         
         datesContainer.snp.makeConstraints { make in
-            make.top.left.right.equalToSuperview()
+            make.topMargin.equalToSuperview()
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
         }
-        datesContainer.addBottomBorder(.lightGray)
+        datesContainer.backgroundColor = .orange
+        datesContainer.layer.cornerRadius = 25
+        datesContainer.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
     }
     
     func renderFromDateLabelAndFromDateTextField() {
-        datesContainer.addSubview(fromDateLabel)
+        datesContainer.addSubview(fromDateStackView)
         
-        fromDateLabel.snp.makeConstraints { make in
-            make.topMargin.equalToSuperview().offset(20)
-            make.left.equalToSuperview().offset(15)
+        fromDateStackView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(15)
+            make.bottom.equalToSuperview().inset(15)
+            make.right.equalTo(datesContainer.snp.centerX).inset(50)
         }
-        fromDateLabel.text = "From:"
+        
+        fromDateStackView.axis = .vertical
+        fromDateStackView.alignment = .center
+        fromDateStackView.distribution = .equalSpacing
+        fromDateStackView.spacing = 5
+        
+        fromDateStackView.addArrangedSubview(fromDateLabel)
+        fromDateLabel.text = "From"
         fromDateLabel.font = UIFont.boldSystemFont(ofSize: 20)
         
-        datesContainer.addSubview(fromDateTextField)
-        
-        fromDateTextField.snp.makeConstraints { make in
-            make.topMargin.equalToSuperview().offset(23)
-            make.left.equalTo(fromDateLabel.snp.right).offset(5)
-        }
+        fromDateStackView.addArrangedSubview(fromDateTextField)
         fromDateTextField.tintColor = .clear
+        
+        
+//        datesContainer.addSubview(fromDateLabel)
+//
+//        fromDateLabel.snp.makeConstraints { make in
+//            make.topMargin.equalToSuperview().offset(20)
+//            make.left.equalToSuperview().offset(15)
+//        }
+//        fromDateLabel.text = "From:"
+//        fromDateLabel.font = UIFont.boldSystemFont(ofSize: 20)
+//
+//        datesContainer.addSubview(fromDateTextField)
+//
+//        fromDateTextField.snp.makeConstraints { make in
+//            make.topMargin.equalToSuperview().offset(23)
+//            make.left.equalTo(fromDateLabel.snp.right).offset(5)
+//        }
+//        fromDateTextField.tintColor = .clear
     }
     
     func renderToDateLabelAndToDateTextField() {
-        datesContainer.addSubview(toDateLabel)
+        datesContainer.addSubview(toDateStackView)
         
-        toDateLabel.snp.makeConstraints { make in
-            make.top.equalTo(fromDateLabel.snp.bottom).offset(15)
-            make.left.equalToSuperview().offset(15)
+        toDateStackView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(15)
+            make.bottom.equalToSuperview().inset(15)
+            make.left.equalTo(datesContainer.snp.centerX).offset(50)
         }
-        toDateLabel.text = "To:"
+        
+        toDateStackView.axis = .vertical
+        toDateStackView.alignment = .center
+        toDateStackView.distribution = .equalSpacing
+        toDateStackView.spacing = 5
+        
+        toDateStackView.addArrangedSubview(toDateLabel)
+        toDateLabel.text = "To"
         toDateLabel.font = UIFont.boldSystemFont(ofSize: 20)
         
-        datesContainer.addSubview(toDateTextField)
-        
-        toDateTextField.snp.makeConstraints { make in
-            make.top.equalTo(fromDateTextField.snp.bottom).offset(17)
-            make.left.equalTo(toDateLabel.snp.right).offset(5)
-            make.bottom.equalToSuperview().inset(10)
-        }
+        toDateStackView.addArrangedSubview(toDateTextField)
         toDateTextField.tintColor = .clear
+        
+        
+//        datesContainer.addSubview(toDateLabel)
+//
+//        toDateLabel.snp.makeConstraints { make in
+//            make.top.equalTo(fromDateLabel.snp.bottom).offset(15)
+//            make.left.equalToSuperview().offset(15)
+//        }
+//        toDateLabel.text = "To:"
+//        toDateLabel.font = UIFont.boldSystemFont(ofSize: 20)
+//
+//        datesContainer.addSubview(toDateTextField)
+//
+//        toDateTextField.snp.makeConstraints { make in
+//            make.top.equalTo(fromDateTextField.snp.bottom).offset(17)
+//            make.left.equalTo(toDateLabel.snp.right).offset(5)
+//            make.bottom.equalToSuperview().inset(10)
+//        }
+//        toDateTextField.tintColor = .clear
     }
     
     func configureTableView() {

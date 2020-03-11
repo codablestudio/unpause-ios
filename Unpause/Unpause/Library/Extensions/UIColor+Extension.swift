@@ -26,6 +26,10 @@ extension UIColor {
         return UIColor(named: "lightGray") ?? UIColor.fallbackColor("lightGray")
     }
     
+    static var unpauseGray: UIColor {
+        return UIColor(named: "unpauseGray") ?? UIColor.fallbackColor("lightGray")
+    }
+    
     static func fallbackColor(_ forColor: String) -> UIColor {
         print("fallbackColor \(forColor)")
         return .red
