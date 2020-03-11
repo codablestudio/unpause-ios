@@ -67,8 +67,8 @@ class LoginViewController: UIViewController {
         renderLogo()
         renderEmailTextFieldAndEmailSeparator()
         renderPasswordTextFieldAndPasswordSeparator()
-        renderForgotPasswordButtonAndSignInWithGoogleButton()
-        renderLoginButtonAndNewHereLabel()
+        renderForgotPasswordButtonAndLoginButton()
+        renderSignInWithGoogleButtonAndNewHereLabel()
         renderRegisterButton()
     }
     
@@ -160,13 +160,14 @@ private extension LoginViewController {
         scrollView.snp.makeConstraints { (make) in
             make.topMargin.equalToSuperview()
             make.left.right.equalToSuperview()
-            make.bottomMargin.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
         scrollView.alwaysBounceVertical = true
         
         scrollView.addSubview(containerView)
         containerView.snp.makeConstraints { (make) in
-            make.top.left.right.bottom.equalToSuperview()
+            make.top.left.right.equalToSuperview()
+            make.bottom.equalToSuperview().inset(30)
             make.width.equalTo(UIScreen.main.bounds.width)
         }
     }
@@ -174,7 +175,7 @@ private extension LoginViewController {
     func renderLogo() {
         containerView.addSubview(titleStackView)
         titleStackView.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(120)
+            make.top.equalToSuperview().offset(UIScreen.main.bounds.height / 8)
             make.centerX.equalToSuperview()
         }
         titleStackView.axis = .horizontal
@@ -247,7 +248,7 @@ private extension LoginViewController {
         passwordSeparator.backgroundColor = UIColor.lightGray
     }
     
-    func renderForgotPasswordButtonAndSignInWithGoogleButton() {
+    func renderForgotPasswordButtonAndLoginButton() {
         containerView.addSubview(forgotPasswordButton)
         forgotPasswordButton.snp.makeConstraints { (make) in
             make.height.equalTo(20)
@@ -258,9 +259,22 @@ private extension LoginViewController {
         forgotPasswordButton.titleLabel?.font = forgotPasswordButton.titleLabel?.font.withSize(13)
         forgotPasswordButton.setTitleColor(UIColor.orange, for: .normal)
         
+        containerView.addSubview(loginButton)
+        loginButton.snp.makeConstraints { (make) in
+            make.top.equalTo(forgotPasswordButton.snp.bottom).offset(25)
+            make.left.equalToSuperview().offset(55)
+            make.right.equalToSuperview().inset(55)
+            make.height.equalTo(40)
+        }
+        loginButton.setTitle("Login", for: .normal)
+        loginButton.backgroundColor = UIColor.orange
+        loginButton.layer.cornerRadius = 20
+    }
+    
+    func renderSignInWithGoogleButtonAndNewHereLabel() {
         containerView.addSubview(signInWithGoogleButton)
         signInWithGoogleButton.snp.makeConstraints { (make) in
-            make.top.equalTo(forgotPasswordButton.snp.bottom).offset(20)
+            make.top.equalTo(loginButton.snp.bottom).offset(50)
             make.left.equalToSuperview().offset(110)
             make.right.equalToSuperview().inset(110)
             make.centerX.equalToSuperview()
@@ -268,25 +282,12 @@ private extension LoginViewController {
         signInWithGoogleButton.setTitle("Sign in with Google", for: .normal)
         signInWithGoogleButton.titleLabel?.font = signInWithGoogleButton.titleLabel?.font.withSize(15)
         signInWithGoogleButton.backgroundColor = UIColor.orange
-        signInWithGoogleButton.layer.cornerRadius = 5
+        signInWithGoogleButton.layer.cornerRadius = 15
         signInWithGoogleButton.titleEdgeInsets = UIEdgeInsets(top: 4, left: 7, bottom: 4, right: 7)
-    }
-    
-    func renderLoginButtonAndNewHereLabel() {
-        containerView.addSubview(loginButton)
-        loginButton.snp.makeConstraints { (make) in
-            make.top.equalTo(signInWithGoogleButton.snp.bottom).offset(75)
-            make.left.equalToSuperview().offset(55)
-            make.right.equalToSuperview().inset(55)
-            make.height.equalTo(40)
-        }
-        loginButton.setTitle("Login", for: .normal)
-        loginButton.backgroundColor = UIColor.orange
-        loginButton.layer.cornerRadius = 5
         
         containerView.addSubview(newHereLabel)
         newHereLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(loginButton.snp.bottom).offset(32)
+            make.top.equalTo(signInWithGoogleButton.snp.bottom).offset(32)
             make.centerX.equalToSuperview()
         }
         newHereLabel.text = "New here?"

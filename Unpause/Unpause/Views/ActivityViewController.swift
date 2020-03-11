@@ -292,7 +292,7 @@ private extension ActivityViewController {
         fromDateStackView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(15)
             make.bottom.equalToSuperview().inset(15)
-            make.right.equalTo(datesContainer.snp.centerX).inset(50)
+            make.left.equalToSuperview().offset(50)
         }
         
         fromDateStackView.axis = .vertical
@@ -332,7 +332,7 @@ private extension ActivityViewController {
         toDateStackView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(15)
             make.bottom.equalToSuperview().inset(15)
-            make.left.equalTo(datesContainer.snp.centerX).offset(50)
+            make.right.equalToSuperview().inset(50)
         }
         
         toDateStackView.axis = .vertical

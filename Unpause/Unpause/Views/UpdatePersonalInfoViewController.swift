@@ -24,7 +24,7 @@ class UpdatePersonalInfoViewController: UIViewController {
     private let newLastNameTextField = UITextField()
     private let newLastNameSeparator = UIView()
     
-    private let updateInfoButton = OrangeButton(title: "Update info")
+    private let updateInfoButton = OrangeButton(title: "Update info", height: 40)
     
     private let closeButton = UIButton()
     

@@ -35,7 +35,7 @@ class RegisterViewController: UIViewController {
     private let newPasswordTextField = UITextField()
     private let newPasswordSeparator = UIView()
     
-    private let registerButton = OrangeButton(title: "Register")
+    private let registerButton = OrangeButton(title: "Register", height: 40)
     
     private let closeButton = UIButton()
     
