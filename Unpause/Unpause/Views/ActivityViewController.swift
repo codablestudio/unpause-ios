@@ -66,6 +66,7 @@ class ActivityViewController: UIViewController {
         setUpTableView()
         setUpObservables()
         addBarButtonItem()
+        makeNavigationBarOpaque()
         activityStarted.onNext(())
     }
     
@@ -112,8 +113,8 @@ class ActivityViewController: UIViewController {
             .disposed(by: disposeBag)
         
         activityStarted
-        .bind(to: activityViewModel.activityStarted)
-        .disposed(by: disposeBag)
+            .bind(to: activityViewModel.activityStarted)
+            .disposed(by: disposeBag)
         
         observeDeletions()
     }
@@ -193,7 +194,11 @@ class ActivityViewController: UIViewController {
         addButton.rx.tap.subscribe(onNext: { [weak self] _ in
             guard let `self` = self else { return }
             self.showActionSheet()
-            }).disposed(by: disposeBag)
+        }).disposed(by: disposeBag)
+    }
+    
+    private func makeNavigationBarOpaque() {
+        navigationController?.navigationBar.isTranslucent = false
     }
     
     private func setUpDocumentInteractionController() {
@@ -268,7 +273,7 @@ private extension ActivityViewController {
         view.addSubview(containerView)
         
         containerView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.left.right.equalToSuperview()
             make.bottomMargin.equalToSuperview()
         }
@@ -278,7 +283,7 @@ private extension ActivityViewController {
         containerView.addSubview(datesContainer)
         
         datesContainer.snp.makeConstraints { make in
-            make.topMargin.equalToSuperview()
+            make.top.equalToSuperview()
             make.left.equalToSuperview()
             make.right.equalToSuperview()
         }
@@ -437,11 +442,11 @@ extension ActivityViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0{
             changeTabBarVisibility(hidden: true, animated: true)
-            changeUIViewVisibility(uiView: datesContainer, hidden: true, animated: true)
+            changeDatesContainerVisibility(hidden: true, animated: true)
         }
         else{
             changeTabBarVisibility(hidden: false, animated: true)
-            changeUIViewVisibility(uiView: datesContainer, hidden: false, animated: true)
+            changeDatesContainerVisibility(hidden: false, animated: true)
         }
     }
 }
@@ -458,14 +463,34 @@ extension ActivityViewController {
                        completion: nil)
     }
     
-    func changeUIViewVisibility(uiView: UIView, hidden: Bool, animated: Bool) {
-        let offset = (hidden ? (self.navigationController?.navigationBar.frame.size.height)! - uiView.bounds.size.height - 100 : uiView.frame.size.height)
-        if offset == uiView.frame.origin.y { return }
+    func changeDatesContainerVisibility(hidden: Bool, animated: Bool) {
+        let offset = (hidden ? view.safeAreaInsets.top - datesContainer.bounds.height : view.safeAreaInsets.top)
+        if offset == datesContainer.frame.origin.y { return }
         let duration: TimeInterval = (animated ? 0.5 : 0.0)
         UIView.animate(withDuration: duration,
                        delay: 0,
                        options: .curveEaseInOut,
-                       animations: { uiView.frame.origin.y = offset },
+                       animations: { [weak self] in
+                        guard let `self` = self else { return }
+                        self.datesContainer.frame.origin.y = offset
+                        self.remakeTableViewConstraints(hidden: hidden)
+            },
                        completion: nil)
+    }
+    
+    private func remakeTableViewConstraints(hidden: Bool) {
+        if hidden {
+            tableView.snp.remakeConstraints { make in
+                make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+                make.left.right.equalToSuperview()
+                make.bottom.equalToSuperview()
+            }
+        } else {
+            tableView.snp.remakeConstraints { make in
+                make.top.equalTo(self.datesContainer.snp.bottom)
+                make.left.right.equalToSuperview()
+                make.bottom.equalToSuperview()
+            }
+        }
     }
 }
