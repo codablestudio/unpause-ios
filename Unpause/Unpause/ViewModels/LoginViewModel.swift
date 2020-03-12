@@ -85,7 +85,7 @@ class LoginViewModel: LoginViewModelProtocol {
                 switch companyFetchingResponse {
                 case .success(let company):
                     SessionManager.shared.currentUser?.company = company
-                    SessionManager.shared.logIn(SessionManager.shared.currentUser!)
+                    SessionManager.shared.saveCurrentUserToUserDefaults()
                     return Response.success
                 case .error(let error):
                     return Response.error(error)
