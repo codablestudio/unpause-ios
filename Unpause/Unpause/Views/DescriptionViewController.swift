@@ -23,8 +23,8 @@ class DescriptionViewController: UIViewController {
     private let descriptionTextView = UITextView()
     
     private let stackView = UIStackView()
-    private let cancelButton = OrangeButton(title: "Cancle", height: 20)
-    private let saveButton = OrangeButton(title: "Save", height: 20)
+    private let cancelButton = OrangeButton(title: "Cancle", height: 30)
+    private let saveButton = OrangeButton(title: "Save", height: 30)
     
     var shiftToEdit = PublishSubject<ShiftsTableViewItem>()
     

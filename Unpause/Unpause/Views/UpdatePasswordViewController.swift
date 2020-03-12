@@ -24,7 +24,7 @@ class UpdatePasswordViewController: UIViewController {
     private let newPasswordTextField = UITextField()
     private let newPasswordSeparator = UIView()
     
-    private let updatePasswordButton = OrangeButton(title: "Update password", height: 40)
+    private let updatePasswordButton = OrangeButton(title: "Update password", height: 35)
     
     private let closeButton = UIButton()
     
