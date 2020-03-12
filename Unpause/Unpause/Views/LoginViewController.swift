@@ -274,8 +274,8 @@ private extension LoginViewController {
         containerView.addSubview(signInWithGoogleButton)
         signInWithGoogleButton.snp.makeConstraints { (make) in
             make.top.equalTo(loginButton.snp.bottom).offset(50)
-            make.left.equalToSuperview().offset(110)
-            make.right.equalToSuperview().inset(110)
+            make.left.equalToSuperview().offset(85)
+            make.right.equalToSuperview().inset(85)
             make.centerX.equalToSuperview()
         }
         signInWithGoogleButton.setTitle("Sign in with Google", for: .normal)
