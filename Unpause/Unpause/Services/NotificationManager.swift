@@ -63,7 +63,7 @@ class NotificationManager {
         
         let region = LocationManager.shared.makeSpecificCircularRegion(latitude: latitude,
                                                                        longitude: longitude,
-                                                                       radius: 50.0,
+                                                                       radius: 100.0,
                                                                        notifyOnEntry: notifyOnEntry,
                                                                        notifyOnExit: notifyOnExit)
         

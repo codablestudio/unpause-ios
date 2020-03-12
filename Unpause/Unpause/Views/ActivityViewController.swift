@@ -178,6 +178,7 @@ class ActivityViewController: UIViewController {
         tableView.register(LoadingTableViewCell.self, forCellReuseIdentifier: "LoadingTableViewCell")
         
         tableView.refreshControl = refresherControl
+        tableView.contentInsetAdjustmentBehavior = .never
     }
     
     private func setFromPickerAndTextFieldInitialDate() {
@@ -267,7 +268,7 @@ private extension ActivityViewController {
         view.addSubview(containerView)
         
         containerView.snp.makeConstraints { make in
-            make.topMargin.equalToSuperview()
+            make.top.equalToSuperview()
             make.left.right.equalToSuperview()
             make.bottomMargin.equalToSuperview()
         }
@@ -306,24 +307,6 @@ private extension ActivityViewController {
         
         fromDateStackView.addArrangedSubview(fromDateTextField)
         fromDateTextField.tintColor = .clear
-        
-        
-//        datesContainer.addSubview(fromDateLabel)
-//
-//        fromDateLabel.snp.makeConstraints { make in
-//            make.topMargin.equalToSuperview().offset(20)
-//            make.left.equalToSuperview().offset(15)
-//        }
-//        fromDateLabel.text = "From:"
-//        fromDateLabel.font = UIFont.boldSystemFont(ofSize: 20)
-//
-//        datesContainer.addSubview(fromDateTextField)
-//
-//        fromDateTextField.snp.makeConstraints { make in
-//            make.topMargin.equalToSuperview().offset(23)
-//            make.left.equalTo(fromDateLabel.snp.right).offset(5)
-//        }
-//        fromDateTextField.tintColor = .clear
     }
     
     func renderToDateLabelAndToDateTextField() {
@@ -346,25 +329,6 @@ private extension ActivityViewController {
         
         toDateStackView.addArrangedSubview(toDateTextField)
         toDateTextField.tintColor = .clear
-        
-        
-//        datesContainer.addSubview(toDateLabel)
-//
-//        toDateLabel.snp.makeConstraints { make in
-//            make.top.equalTo(fromDateLabel.snp.bottom).offset(15)
-//            make.left.equalToSuperview().offset(15)
-//        }
-//        toDateLabel.text = "To:"
-//        toDateLabel.font = UIFont.boldSystemFont(ofSize: 20)
-//
-//        datesContainer.addSubview(toDateTextField)
-//
-//        toDateTextField.snp.makeConstraints { make in
-//            make.top.equalTo(fromDateTextField.snp.bottom).offset(17)
-//            make.left.equalTo(toDateLabel.snp.right).offset(5)
-//            make.bottom.equalToSuperview().inset(10)
-//        }
-//        toDateTextField.tintColor = .clear
     }
     
     func configureTableView() {
@@ -374,7 +338,7 @@ private extension ActivityViewController {
         tableView.snp.makeConstraints { make in
             make.top.equalTo(datesContainer.snp.bottom)
             make.left.right.equalToSuperview()
-            make.bottomMargin.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
     }
 }
@@ -464,5 +428,42 @@ extension ActivityViewController: MFMailComposeViewControllerDelegate {
             break
         }
         controller.dismiss(animated: true, completion: nil)
+    }
+}
+
+//MARK: - UIScrollView delegate
+extension ActivityViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0{
+            changeTabBarVisibility(hidden: true, animated: true)
+            changeUIViewVisibility(uiView: datesContainer, hidden: true, animated: true)
+        }
+        else{
+            changeTabBarVisibility(hidden: false, animated: true)
+            changeUIViewVisibility(uiView: datesContainer, hidden: false, animated: true)
+        }
+    }
+}
+
+//MARK: - Animations
+extension ActivityViewController {
+    func changeTabBarVisibility(hidden: Bool, animated: Bool){
+        let tabBar = self.tabBarController?.tabBar
+        let offset = (hidden ? UIScreen.main.bounds.size.height : UIScreen.main.bounds.size.height - (tabBar?.frame.size.height)!)
+        if offset == tabBar?.frame.origin.y { return }
+        let duration: TimeInterval = (animated ? 0.5 : 0.0)
+        UIView.animate(withDuration: duration,
+                       animations: { tabBar!.frame.origin.y = offset },
+                       completion: nil)
+    }
+    
+    func changeUIViewVisibility(uiView: UIView, hidden: Bool, animated: Bool) {
+        let offset = (hidden ? (self.navigationController?.navigationBar.frame.size.height)! - uiView.bounds.size.height : uiView.frame.size.height)
+        if offset == uiView.frame.origin.y { return }
+        let duration: TimeInterval = (animated ? 0.5 : 0.0)
+        UIView.animate(withDuration: duration,
+                       animations: { uiView.frame.origin.y = offset },
+                       completion: nil)
     }
 }
