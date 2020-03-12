@@ -1,5 +1,5 @@
 //
-//  UpdatePasswordNetworking.swift
+//  ChangePasswordNetworking.swift
 //  Unpause
 //
 //  Created by Krešimir Baković on 10/01/2020.
@@ -11,7 +11,7 @@ import RxSwift
 import FirebaseFirestore
 import FirebaseAuth
 
-class UpdatePasswordNetworking {
+class ChangePasswordNetworking {
     
     private let dataBaseReference = Auth.auth()
     

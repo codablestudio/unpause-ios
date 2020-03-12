@@ -30,8 +30,8 @@
 		C10F78E823A3D79200783476 /* CGFloat+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10F78D523A3D79200783476 /* CGFloat+Extension.swift */; };
 		C10F78E923A3D79200783476 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10F78D623A3D79200783476 /* Array+Extension.swift */; };
 		C10F78EB23A3DD9A00783476 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10F78EA23A3DD9A00783476 /* SceneDelegate.swift */; };
-		C110AE2823C34E420066C394 /* UpdatePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C110AE2723C34E420066C394 /* UpdatePasswordViewController.swift */; };
-		C110AE2A23C34E770066C394 /* UpdatePasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C110AE2923C34E770066C394 /* UpdatePasswordViewModel.swift */; };
+		C110AE2823C34E420066C394 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C110AE2723C34E420066C394 /* ChangePasswordViewController.swift */; };
+		C110AE2A23C34E770066C394 /* ChangePasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C110AE2923C34E770066C394 /* ChangePasswordViewModel.swift */; };
 		C111931F23CF523D007E2866 /* Coordinator+Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = C111931E23CF523D007E2866 /* Coordinator+Home.swift */; };
 		C111932123CF56B7007E2866 /* AddShiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C111932023CF56B7007E2866 /* AddShiftViewController.swift */; };
 		C111932323CF6008007E2866 /* AddShiftViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C111932223CF6008007E2866 /* AddShiftViewModel.swift */; };
@@ -47,7 +47,7 @@
 		C12F7A49241001040074362F /* CompanyNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12F7A48241001040074362F /* CompanyNetworking.swift */; };
 		C12F7A4B241003980074362F /* CompanyFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12F7A4A241003980074362F /* CompanyFactory.swift */; };
 		C13105E723B0ADF200A509D9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13105E623B0ADF200A509D9 /* User.swift */; };
-		C133DE5223C871A90096F5B2 /* UpdatePasswordNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C133DE5123C871A90096F5B2 /* UpdatePasswordNetworking.swift */; };
+		C133DE5223C871A90096F5B2 /* ChangePasswordNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C133DE5123C871A90096F5B2 /* ChangePasswordNetworking.swift */; };
 		C133DE5423C89F2A0096F5B2 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = C133DE5323C89F2A0096F5B2 /* Response.swift */; };
 		C137F48223B8B6AC00358E30 /* RegisterNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C137F48123B8B6AC00358E30 /* RegisterNetworking.swift */; };
 		C138411223C5C58100A347F9 /* UserFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C138411123C5C58100A347F9 /* UserFactory.swift */; };
@@ -133,8 +133,8 @@
 		C10F78D523A3D79200783476 /* CGFloat+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extension.swift"; sourceTree = "<group>"; };
 		C10F78D623A3D79200783476 /* Array+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		C10F78EA23A3DD9A00783476 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C110AE2723C34E420066C394 /* UpdatePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePasswordViewController.swift; sourceTree = "<group>"; };
-		C110AE2923C34E770066C394 /* UpdatePasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePasswordViewModel.swift; sourceTree = "<group>"; };
+		C110AE2723C34E420066C394 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
+		C110AE2923C34E770066C394 /* ChangePasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewModel.swift; sourceTree = "<group>"; };
 		C111931E23CF523D007E2866 /* Coordinator+Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinator+Home.swift"; sourceTree = "<group>"; };
 		C111932023CF56B7007E2866 /* AddShiftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddShiftViewController.swift; sourceTree = "<group>"; };
 		C111932223CF6008007E2866 /* AddShiftViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddShiftViewModel.swift; sourceTree = "<group>"; };
@@ -150,7 +150,7 @@
 		C12F7A48241001040074362F /* CompanyNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyNetworking.swift; sourceTree = "<group>"; };
 		C12F7A4A241003980074362F /* CompanyFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyFactory.swift; sourceTree = "<group>"; };
 		C13105E623B0ADF200A509D9 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		C133DE5123C871A90096F5B2 /* UpdatePasswordNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePasswordNetworking.swift; sourceTree = "<group>"; };
+		C133DE5123C871A90096F5B2 /* ChangePasswordNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordNetworking.swift; sourceTree = "<group>"; };
 		C133DE5323C89F2A0096F5B2 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		C137F48123B8B6AC00358E30 /* RegisterNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterNetworking.swift; sourceTree = "<group>"; };
 		C138411123C5C58100A347F9 /* UserFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFactory.swift; sourceTree = "<group>"; };
@@ -377,7 +377,7 @@
 				C1FBC46E23AA521C00579913 /* HomeViewModel.swift */,
 				C13C412323ABBC5400B674E9 /* ActivityViewModel.swift */,
 				C13C412723ABBC8900B674E9 /* SettingsViewModel.swift */,
-				C110AE2923C34E770066C394 /* UpdatePasswordViewModel.swift */,
+				C110AE2923C34E770066C394 /* ChangePasswordViewModel.swift */,
 				C1FF2A8B23C4B14200ACCF29 /* UpdatePersonalInfoViewModel.swift */,
 				C111932223CF6008007E2866 /* AddShiftViewModel.swift */,
 				C1707B2123F19129002E1A10 /* DescriptionViewModel.swift */,
@@ -399,7 +399,7 @@
 				C12CDDB623FA999F002A19C8 /* LoadingTableViewCell.swift */,
 				C13C412523ABBC7000B674E9 /* SettingsViewController.swift */,
 				C198B8F323B0CFC100FBD3C6 /* CustomTabBarController.swift */,
-				C110AE2723C34E420066C394 /* UpdatePasswordViewController.swift */,
+				C110AE2723C34E420066C394 /* ChangePasswordViewController.swift */,
 				C1FF2A8923C4B0E500ACCF29 /* UpdatePersonalInfoViewController.swift */,
 				C111932023CF56B7007E2866 /* AddShiftViewController.swift */,
 				C1707B1F23F190AE002E1A10 /* DescriptionViewController.swift */,
@@ -460,7 +460,7 @@
 				C12D289723A536BC004BC57A /* LoginNetworking.swift */,
 				C137F48123B8B6AC00358E30 /* RegisterNetworking.swift */,
 				C138411323C5DA3E00A347F9 /* UpdatePersonalInfoNetworking.swift */,
-				C133DE5123C871A90096F5B2 /* UpdatePasswordNetworking.swift */,
+				C133DE5123C871A90096F5B2 /* ChangePasswordNetworking.swift */,
 				C1707B1B23F18AE3002E1A10 /* HomeNetworking.swift */,
 				C1437B4223F40B0A007BD7DA /* ShiftNetworking.swift */,
 				C12F7A48241001040074362F /* CompanyNetworking.swift */,
@@ -620,7 +620,7 @@
 			files = (
 				C198B8F623B0D57C00FBD3C6 /* UnpauseError.swift in Sources */,
 				C10F78E023A3D79200783476 /* UIImage+Extension.swift in Sources */,
-				C110AE2823C34E420066C394 /* UpdatePasswordViewController.swift in Sources */,
+				C110AE2823C34E420066C394 /* ChangePasswordViewController.swift in Sources */,
 				C1437B4123F3EF43007BD7DA /* ShiftFactory.swift in Sources */,
 				C137F48223B8B6AC00358E30 /* RegisterNetworking.swift in Sources */,
 				C1437B4323F40B0A007BD7DA /* ShiftNetworking.swift in Sources */,
@@ -686,7 +686,7 @@
 				C12F7A3F240F9D590074362F /* LocationManager.swift in Sources */,
 				C146992E23A11DBE00A84818 /* LoginViewModel.swift in Sources */,
 				C14731412416950100477ECA /* CompanyValidationDataResponse.swift in Sources */,
-				C110AE2A23C34E770066C394 /* UpdatePasswordViewModel.swift in Sources */,
+				C110AE2A23C34E770066C394 /* ChangePasswordViewModel.swift in Sources */,
 				C13EFBA423FECC5D0081ACF0 /* Formatter+Date.swift in Sources */,
 				C1707B2223F19129002E1A10 /* DescriptionViewModel.swift in Sources */,
 				C10F78DC23A3D79200783476 /* Thread+Extension.swift in Sources */,
@@ -711,7 +711,7 @@
 				C1FBC46F23AA521C00579913 /* HomeViewModel.swift in Sources */,
 				C10F78E723A3D79200783476 /* UIButton+Rx.swift in Sources */,
 				C14731472416A4EB00477ECA /* CompanyReferenceSavingResponse.swift in Sources */,
-				C133DE5223C871A90096F5B2 /* UpdatePasswordNetworking.swift in Sources */,
+				C133DE5223C871A90096F5B2 /* ChangePasswordNetworking.swift in Sources */,
 				C176A55A23FED4F900631E39 /* ShiftDeletionResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

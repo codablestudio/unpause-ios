@@ -1,5 +1,5 @@
 //
-//  UpdatePasswordViewModel.swift
+//  ChangePasswordViewModel.swift
 //  Unpause
 //
 //  Created by Krešimir Baković on 06/01/2020.
@@ -9,19 +9,19 @@
 import Foundation
 import RxSwift
 
-class UpdatePasswordViewModel {
+class ChangePasswordViewModel {
     
     private let disposeBag = DisposeBag()
-    private let updatePasswordNetworking = UpdatePasswordNetworking()
+    private let changePasswordNetworking = ChangePasswordNetworking()
     
     var textInCurrentPasswordTextFieldChanges = PublishSubject<String?>()
     var textInNewPasswordTextFieldChanges = PublishSubject<String?>()
-    var updatePasswordButtonTapped = PublishSubject<Void>()
+    var changePasswordButtonTapped = PublishSubject<Void>()
     
     private var textInCurrentPasswordTextField: String?
     private var textInNewPasswordTextField: String?
     
-    var updatePasswordResponse: Observable<Response>!
+    var changePasswordResponse: Observable<Response>!
     
     
     init() {
@@ -37,10 +37,10 @@ class UpdatePasswordViewModel {
             self?.textInNewPasswordTextField = text
         }).disposed(by: disposeBag)
         
-        updatePasswordResponse = updatePasswordButtonTapped
+        changePasswordResponse = changePasswordButtonTapped
             .flatMapLatest({ [weak self] _ -> Observable<Response> in
                 guard let `self` = self else { return Observable.empty() }
-                return self.updatePasswordNetworking.updateCurrentUserPassword(self.textInCurrentPasswordTextField,
+                return self.changePasswordNetworking.updateCurrentUserPassword(self.textInCurrentPasswordTextField,
                                                                                with: self.textInNewPasswordTextField)
             })
     }

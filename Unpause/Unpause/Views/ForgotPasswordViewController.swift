@@ -26,7 +26,7 @@ class ForgotPasswordViewController: UIViewController {
     
     private let closeButton = UIButton()
     
-    private let sendRecoveryEmailButton = OrangeButton(title: "Send recovery email", height: 40)
+    private let sendRecoveryEmailButton = OrangeButton(title: "Send recovery email", height: 35)
 
     override func viewDidLoad() {
         super.viewDidLoad()

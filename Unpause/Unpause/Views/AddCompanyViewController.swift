@@ -152,7 +152,7 @@ private extension AddCompanyViewController {
             make.top.equalToSuperview().offset(40)
             make.centerX.equalToSuperview()
         }
-        addCompanyLabel.text = "Adding company"
+        addCompanyLabel.text = "Add company"
         addCompanyLabel.textColor = UIColor.orange
         addCompanyLabel.font = UIFont.boldSystemFont(ofSize: 25)
         
@@ -213,8 +213,8 @@ private extension AddCompanyViewController {
         containerView.addSubview(addCompanyButton)
         addCompanyButton.snp.makeConstraints { make in
             make.top.equalTo(companyPassCodeSeparator.snp.bottom).offset(50)
-            make.left.equalToSuperview().offset(42)
-            make.right.equalToSuperview().inset(42)
+            make.left.equalToSuperview().offset(33)
+            make.right.equalToSuperview().inset(33)
             make.bottom.equalToSuperview()
         }
     }

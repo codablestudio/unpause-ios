@@ -273,8 +273,8 @@ private extension RegisterViewController {
         containerView.addSubview(registerButton)
         registerButton.snp.makeConstraints { make in
             make.top.equalTo(newPasswordSeparator.snp.bottom).offset(50)
-            make.left.equalToSuperview().offset(42)
-            make.right.equalToSuperview().inset(42)
+            make.left.equalToSuperview().offset(33)
+            make.right.equalToSuperview().inset(33)
             make.bottom.equalToSuperview()
             make.height.equalTo(40)
         }

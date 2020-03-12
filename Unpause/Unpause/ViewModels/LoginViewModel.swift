@@ -64,7 +64,7 @@ class LoginViewModel: LoginViewModelProtocol {
                         let newUser = try UserFactory.createUser(from: document)
                         SessionManager.shared.logIn(newUser)
                         return UserResponse.success(newUser)
-                    } catch(let error) {
+                    } catch (let error) {
                         return UserResponse.error(error)
                     }
                 case .error(let error):

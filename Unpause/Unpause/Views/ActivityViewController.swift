@@ -459,10 +459,12 @@ extension ActivityViewController {
     }
     
     func changeUIViewVisibility(uiView: UIView, hidden: Bool, animated: Bool) {
-        let offset = (hidden ? (self.navigationController?.navigationBar.frame.size.height)! - uiView.bounds.size.height : uiView.frame.size.height)
+        let offset = (hidden ? (self.navigationController?.navigationBar.frame.size.height)! - uiView.bounds.size.height - 100 : uiView.frame.size.height)
         if offset == uiView.frame.origin.y { return }
         let duration: TimeInterval = (animated ? 0.5 : 0.0)
         UIView.animate(withDuration: duration,
+                       delay: 0,
+                       options: .curveEaseInOut,
                        animations: { uiView.frame.origin.y = offset },
                        completion: nil)
     }

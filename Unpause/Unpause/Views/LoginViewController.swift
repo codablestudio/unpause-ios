@@ -92,12 +92,11 @@ class LoginViewController: UIViewController {
             }).disposed(by: disposeBag)
         
         loginButton.rx.tap
+            .do(onNext: { _ in
+                SVProgressHUD.show()
+            })
             .bind(to: loginViewModel.logInButtonTapped)
             .disposed(by: disposeBag)
-        
-        loginButton.rx.tap.subscribe(onNext: { _ in
-            SVProgressHUD.show()
-        }).disposed(by: disposeBag)
         
         registerButton.rx.tap.subscribe(onNext: { [weak self] _ in
             guard let `self` = self else { return }

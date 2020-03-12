@@ -18,6 +18,9 @@ class UpdatePersonalInfoViewController: UIViewController {
     private let scrollView = UIScrollView()
     private let containerView = UIView()
     
+    private let updatePersonalInfoLabel = UILabel()
+    private let updatePersonalInfoSeparator = UIView()
+    
     private let newFirstNameTextField = UITextField()
     private let newFirstNameSeparator = UIView()
     
@@ -47,6 +50,7 @@ class UpdatePersonalInfoViewController: UIViewController {
     
     private func render() {
         configureScrollViewAndContainerView()
+        renderupdatePersonalInfoLabelAndSeparator()
         renderNewFirstNameTextFieldAndNewFirstNameSeparator()
         renderNewLastNameTextFieldAndNewLastNameSeparator()
         renderUpdateInfoButton()
@@ -128,10 +132,30 @@ private extension UpdatePersonalInfoViewController {
         }
     }
     
+    func renderupdatePersonalInfoLabelAndSeparator() {
+        containerView.addSubview(updatePersonalInfoLabel)
+        updatePersonalInfoLabel.snp.makeConstraints { (make) in
+            make.top.equalToSuperview().offset(40)
+            make.centerX.equalToSuperview()
+        }
+        updatePersonalInfoLabel.text = "Change personal info"
+        updatePersonalInfoLabel.textColor = UIColor.orange
+        updatePersonalInfoLabel.font = UIFont.boldSystemFont(ofSize: 25)
+        
+        containerView.addSubview(updatePersonalInfoSeparator)
+        updatePersonalInfoSeparator.snp.makeConstraints { (make) in
+            make.top.equalTo(updatePersonalInfoLabel.snp.bottom).offset(30)
+            make.left.equalToSuperview().offset(30)
+            make.right.equalToSuperview().inset(30)
+            make.height.equalTo(1)
+        }
+        updatePersonalInfoSeparator.backgroundColor = UIColor.orange
+    }
+    
     func renderNewFirstNameTextFieldAndNewFirstNameSeparator() {
         containerView.addSubview(newFirstNameTextField)
         newFirstNameTextField.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(260)
+            make.top.equalTo(updatePersonalInfoSeparator.snp.bottom).offset(80)
             make.left.equalToSuperview().offset(35)
             make.right.equalToSuperview().inset(35)
         }
@@ -175,7 +199,7 @@ private extension UpdatePersonalInfoViewController {
     func renderUpdateInfoButton() {
         containerView.addSubview(updateInfoButton)
         updateInfoButton.snp.makeConstraints { (make) in
-            make.top.equalTo(newLastNameSeparator.snp.bottom).offset(70)
+            make.top.equalTo(newLastNameSeparator.snp.bottom).offset(50)
             make.left.equalToSuperview().offset(33)
             make.right.equalToSuperview().inset(33)
             make.bottom.equalToSuperview()

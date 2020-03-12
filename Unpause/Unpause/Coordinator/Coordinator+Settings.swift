@@ -17,9 +17,9 @@ extension Coordinator {
     }
     
     func presentChangePasswordViewController(from viewController: UIViewController) {
-        let updatePasswordViewModel = UpdatePasswordViewModel()
-        let updatePasswordViewController = UpdatePasswordViewController(updatePasswordViewModel: updatePasswordViewModel)
-        viewController.present(updatePasswordViewController, animated: true)
+        let changePasswordViewModel = ChangePasswordViewModel()
+        let changePasswordViewController = ChangePasswordViewController(changePasswordViewModel: changePasswordViewModel)
+        viewController.present(changePasswordViewController, animated: true)
     }
     
     func presentAddCompanyViewController(from viewController: UIViewController) {

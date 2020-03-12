@@ -1,5 +1,5 @@
 //
-//  UpdatePasswordViewController.swift
+//  ChangePasswordViewController.swift
 //  Unpause
 //
 //  Created by Krešimir Baković on 06/01/2020.
@@ -10,13 +10,16 @@ import UIKit
 import RxSwift
 import SVProgressHUD
 
-class UpdatePasswordViewController: UIViewController {
+class ChangePasswordViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
-    private let updatePasswordViewModel: UpdatePasswordViewModel
+    private let changePasswordViewModel: ChangePasswordViewModel
     
     private let scrollView = UIScrollView()
     private let containerView = UIView()
+    
+    private let changePasswordLabel = UILabel()
+    private let changePasswordSeparator = UIView()
     
     private let currentPasswordTextField = UITextField()
     private let currentPasswordSeparator = UIView()
@@ -24,12 +27,12 @@ class UpdatePasswordViewController: UIViewController {
     private let newPasswordTextField = UITextField()
     private let newPasswordSeparator = UIView()
     
-    private let updatePasswordButton = OrangeButton(title: "Update password", height: 35)
+    private let changePasswordButton = OrangeButton(title: "Change password", height: 35)
     
     private let closeButton = UIButton()
     
-    init(updatePasswordViewModel: UpdatePasswordViewModel) {
-        self.updatePasswordViewModel = updatePasswordViewModel
+    init(changePasswordViewModel: ChangePasswordViewModel) {
+        self.changePasswordViewModel = changePasswordViewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -47,29 +50,30 @@ class UpdatePasswordViewController: UIViewController {
     
     private func render() {
         configureScrollViewAndContainerView()
+        renderChangePasswordLabelAndSeparator()
         renderCurrentPasswordAndCurrentPasswordSeparator()
         renderNewPasswordAndNewPasswordSeparator()
-        renderUpdatePasswordButton()
+        renderChangePasswordButton()
         renderCloseButton()
     }
     
     private func setUpObservables() {
         currentPasswordTextField.rx.text
-            .bind(to: updatePasswordViewModel.textInCurrentPasswordTextFieldChanges)
+            .bind(to: changePasswordViewModel.textInCurrentPasswordTextFieldChanges)
             .disposed(by: disposeBag)
         
         newPasswordTextField.rx.text
-            .bind(to: updatePasswordViewModel.textInNewPasswordTextFieldChanges)
+            .bind(to: changePasswordViewModel.textInNewPasswordTextFieldChanges)
             .disposed(by: disposeBag)
         
-        updatePasswordButton.rx.tap
+        changePasswordButton.rx.tap
             .do(onNext: { _ in
                 SVProgressHUD.show()
             })
-            .bind(to: updatePasswordViewModel.updatePasswordButtonTapped)
+            .bind(to: changePasswordViewModel.changePasswordButtonTapped)
             .disposed(by: disposeBag)
 
-        updatePasswordViewModel.updatePasswordResponse
+        changePasswordViewModel.changePasswordResponse
             .subscribe(onNext: { [weak self] response in
                 guard let `self` = self else { return }
                 switch response {
@@ -107,7 +111,7 @@ class UpdatePasswordViewController: UIViewController {
 }
 
 // MARK: - UI rendering
-private extension UpdatePasswordViewController {
+private extension ChangePasswordViewController {
     
     func configureScrollViewAndContainerView() {
         view.backgroundColor = UIColor.whiteUnpauseTextAndBackgroundColor
@@ -127,12 +131,32 @@ private extension UpdatePasswordViewController {
         }
     }
     
+    func renderChangePasswordLabelAndSeparator() {
+        containerView.addSubview(changePasswordLabel)
+        changePasswordLabel.snp.makeConstraints { (make) in
+            make.top.equalToSuperview().offset(40)
+            make.centerX.equalToSuperview()
+        }
+        changePasswordLabel.text = "Change password"
+        changePasswordLabel.textColor = UIColor.orange
+        changePasswordLabel.font = UIFont.boldSystemFont(ofSize: 25)
+        
+        containerView.addSubview(changePasswordSeparator)
+        changePasswordSeparator.snp.makeConstraints { (make) in
+            make.top.equalTo(changePasswordLabel.snp.bottom).offset(30)
+            make.left.equalToSuperview().offset(30)
+            make.right.equalToSuperview().inset(30)
+            make.height.equalTo(1)
+        }
+        changePasswordSeparator.backgroundColor = UIColor.orange
+    }
+    
     func renderCurrentPasswordAndCurrentPasswordSeparator() {
         containerView.addSubview(currentPasswordTextField)
         currentPasswordTextField.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(260)
-            make.left.equalToSuperview().offset(35)
-            make.right.equalToSuperview().inset(35)
+            make.top.equalTo(changePasswordSeparator.snp.bottom).offset(80)
+            make.left.equalToSuperview().offset(50)
+            make.right.equalToSuperview().inset(50)
         }
         currentPasswordTextField.placeholder = "Enter current password"
         currentPasswordTextField.autocorrectionType = .no
@@ -142,8 +166,8 @@ private extension UpdatePasswordViewController {
         containerView.addSubview(currentPasswordSeparator)
         currentPasswordSeparator.snp.makeConstraints { (make) in
             make.top.equalTo(currentPasswordTextField.snp.bottom).offset(5)
-            make.left.equalToSuperview().offset(33)
-            make.right.equalToSuperview().inset(33)
+            make.left.equalToSuperview().offset(42)
+            make.right.equalToSuperview().inset(42)
             make.height.equalTo(1)
         }
         currentPasswordSeparator.backgroundColor = UIColor.lightGray
@@ -153,8 +177,8 @@ private extension UpdatePasswordViewController {
         containerView.addSubview(newPasswordTextField)
         newPasswordTextField.snp.makeConstraints { (make) in
             make.top.equalTo(currentPasswordSeparator.snp.bottom).offset(25)
-            make.left.equalToSuperview().offset(35)
-            make.right.equalToSuperview().inset(35)
+            make.left.equalToSuperview().offset(50)
+            make.right.equalToSuperview().inset(50)
         }
         newPasswordTextField.placeholder = "Enter new password"
         newPasswordTextField.autocorrectionType = .no
@@ -164,17 +188,17 @@ private extension UpdatePasswordViewController {
         containerView.addSubview(newPasswordSeparator)
         newPasswordSeparator.snp.makeConstraints { (make) in
             make.top.equalTo(newPasswordTextField.snp.bottom).offset(5)
-            make.left.equalToSuperview().offset(33)
-            make.right.equalToSuperview().inset(33)
+            make.left.equalToSuperview().offset(42)
+            make.right.equalToSuperview().inset(42)
             make.height.equalTo(1)
         }
         newPasswordSeparator.backgroundColor = UIColor.lightGray
     }
     
-    func renderUpdatePasswordButton() {
-        containerView.addSubview(updatePasswordButton)
-        updatePasswordButton.snp.makeConstraints { (make) in
-            make.top.equalTo(newPasswordSeparator.snp.bottom).offset(70)
+    func renderChangePasswordButton() {
+        containerView.addSubview(changePasswordButton)
+        changePasswordButton.snp.makeConstraints { (make) in
+            make.top.equalTo(newPasswordSeparator.snp.bottom).offset(50)
             make.left.equalToSuperview().offset(33)
             make.right.equalToSuperview().inset(33)
             make.bottom.equalToSuperview()
