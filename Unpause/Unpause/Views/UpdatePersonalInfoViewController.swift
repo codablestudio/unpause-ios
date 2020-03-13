@@ -27,7 +27,7 @@ class UpdatePersonalInfoViewController: UIViewController {
     private let newLastNameTextField = UITextField()
     private let newLastNameSeparator = UIView()
     
-    private let updateInfoButton = OrangeButton(title: "Update info", height: 35)
+    private let updateInfoButton = OrangeButton(title: "Update info")
     
     private let closeButton = UIButton()
     
@@ -202,8 +202,10 @@ private extension UpdatePersonalInfoViewController {
             make.top.equalTo(newLastNameSeparator.snp.bottom).offset(50)
             make.left.equalToSuperview().offset(33)
             make.right.equalToSuperview().inset(33)
+            make.height.equalTo(50)
             make.bottom.equalToSuperview()
         }
+        updateInfoButton.layer.cornerRadius = 25
     }
     
     func renderCloseButton() {

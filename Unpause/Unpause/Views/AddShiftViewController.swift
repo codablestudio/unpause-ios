@@ -38,8 +38,8 @@ class AddShiftViewController: UIViewController {
     
     private let stackView = UIStackView()
     
-    private let cancleButton = OrangeButton(title: "Cancel", height: 30)
-    private let continueButton = OrangeButton(title: "Continue", height: 30)
+    private let cancleButton = OrangeButton(title: "Cancel")
+    private let continueButton = OrangeButton(title: "Continue")
     
     private let closeButton = UIButton()
     
@@ -642,6 +642,9 @@ private extension AddShiftViewController {
         stackView.alignment = .center
         stackView.distribution = .fillEqually
         stackView.spacing = 10
+        
+        cancleButton.layer.cornerRadius = 15
+        continueButton.layer.cornerRadius = 15
     }
     
     func renderCloseButton() {

@@ -10,10 +10,10 @@ import UIKit
 
 class OrangeButton: UIButton {
     
-    init(title: String, height: CGFloat) {
+    init(title: String) {
         super.init(frame: .zero)
         setTitle(title, for: .normal)
-        setUpButton(height: height)
+        setUpButton()
     }
     
     required init?(coder: NSCoder) {
@@ -21,9 +21,7 @@ class OrangeButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setUpButton(height: CGFloat) {
-        self.frame.size.height = height
-        layer.cornerRadius = height / 2
+    func setUpButton() {
         backgroundColor = UIColor.orange
         setTitleColor(.white, for: .normal)
         setTitleColor(UIColor.init(white: 1, alpha: 0.7), for: .highlighted)

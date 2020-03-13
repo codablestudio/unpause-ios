@@ -27,7 +27,7 @@ class ChangePasswordViewController: UIViewController {
     private let newPasswordTextField = UITextField()
     private let newPasswordSeparator = UIView()
     
-    private let changePasswordButton = OrangeButton(title: "Change password", height: 35)
+    private let changePasswordButton = OrangeButton(title: "Change password")
     
     private let closeButton = UIButton()
     
@@ -201,8 +201,10 @@ private extension ChangePasswordViewController {
             make.top.equalTo(newPasswordSeparator.snp.bottom).offset(50)
             make.left.equalToSuperview().offset(33)
             make.right.equalToSuperview().inset(33)
+            make.height.equalTo(50)
             make.bottom.equalToSuperview()
         }
+        changePasswordButton.layer.cornerRadius = 25
     }
     
     func renderCloseButton() {

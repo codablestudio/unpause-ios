@@ -263,11 +263,11 @@ private extension LoginViewController {
             make.top.equalTo(forgotPasswordButton.snp.bottom).offset(25)
             make.left.equalToSuperview().offset(55)
             make.right.equalToSuperview().inset(55)
-            make.height.equalTo(40)
+            make.height.equalTo(50)
         }
         loginButton.setTitle("Login", for: .normal)
         loginButton.backgroundColor = UIColor.orange
-        loginButton.layer.cornerRadius = 20
+        loginButton.layer.cornerRadius = 25
     }
     
     func renderSignInWithGoogleButtonAndNewHereLabel() {

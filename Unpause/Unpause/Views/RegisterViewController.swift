@@ -35,7 +35,7 @@ class RegisterViewController: UIViewController {
     private let newPasswordTextField = UITextField()
     private let newPasswordSeparator = UIView()
     
-    private let registerButton = OrangeButton(title: "Register", height: 40)
+    private let registerButton = OrangeButton(title: "Register")
     
     private let closeButton = UIButton()
     
@@ -54,7 +54,6 @@ class RegisterViewController: UIViewController {
         setUpObservables()
         addGestureRecognizer()
         setUpTextFields()
-        setUpKeyboard()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -126,18 +125,6 @@ class RegisterViewController: UIViewController {
         newPasswordTextField.resignWhenFinished(disposeBag)
     }
     
-    private func setUpKeyboard() {
-        RxKeyboard.instance.visibleHeight.drive(onNext: { [weak self] (keyboardVisibleHeight) in
-            self?.registerButton.snp.remakeConstraints { (make) in
-                make.top.equalTo((self?.newPasswordSeparator)!).offset(30)
-                make.left.equalToSuperview().offset(42)
-                make.right.equalToSuperview().inset(42)
-                make.bottom.equalToSuperview().inset(keyboardVisibleHeight)
-                make.height.equalTo(40)
-            }
-        }).disposed(by: disposeBag)
-    }
-    
     private func hideNavigationBar() {
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
@@ -152,7 +139,7 @@ private extension RegisterViewController {
         scrollView.snp.makeConstraints { (make) in
             make.topMargin.equalToSuperview()
             make.left.right.equalToSuperview()
-            make.bottomMargin.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
         scrollView.alwaysBounceVertical = true
         
@@ -275,9 +262,11 @@ private extension RegisterViewController {
             make.top.equalTo(newPasswordSeparator.snp.bottom).offset(50)
             make.left.equalToSuperview().offset(33)
             make.right.equalToSuperview().inset(33)
+            make.height.equalTo(50)
             make.bottom.equalToSuperview()
-            make.height.equalTo(40)
+            
         }
+        registerButton.layer.cornerRadius = 25
     }
     
     func renderCloseButton() {

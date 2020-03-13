@@ -17,10 +17,10 @@ class SettingsViewController: UIViewController {
     
     private let scrollView = UIScrollView()
     private let containerView = UIView()
-    private let changePersonalInfoButton = OrangeButton(title: "Change personal info", height: 35)
-    private let changePasswordButton = OrangeButton(title: "Change password", height: 35)
-    private let addCompanyButton = OrangeButton(title: "Add company", height: 35)
-    private let logOutButton = OrangeButton(title: "Log out", height: 35)
+    private let changePersonalInfoButton = OrangeButton(title: "Change personal info")
+    private let changePasswordButton = OrangeButton(title: "Change password")
+    private let addCompanyButton = OrangeButton(title: "Add company")
+    private let logOutButton = OrangeButton(title: "Log out")
     
     init(settingsViewModel: SettingsViewModel) {
         self.settingsViewModel = settingsViewModel
@@ -97,7 +97,9 @@ private extension SettingsViewController {
             make.topMargin.equalToSuperview().offset(50)
             make.left.equalToSuperview().offset(20)
             make.right.equalToSuperview().inset(20)
+            make.height.equalTo(50)
         }
+        changePersonalInfoButton.layer.cornerRadius = 25
     }
     
     func renderChangePasswordButton() {
@@ -106,7 +108,9 @@ private extension SettingsViewController {
             make.top.equalTo(changePersonalInfoButton.snp.bottom).offset(20)
             make.left.equalToSuperview().offset(20)
             make.right.equalToSuperview().inset(20)
+            make.height.equalTo(50)
         }
+        changePasswordButton.layer.cornerRadius = 25
     }
     
     func renderAddCompanyButton() {
@@ -115,7 +119,9 @@ private extension SettingsViewController {
             make.top.equalTo(changePasswordButton.snp.bottom).offset(20)
             make.left.equalToSuperview().offset(20)
             make.right.equalToSuperview().inset(20)
+            make.height.equalTo(50)
         }
+        addCompanyButton.layer.cornerRadius = 25
     }
     
     func renderLogOutButton() {
@@ -124,7 +130,9 @@ private extension SettingsViewController {
             make.top.equalTo(addCompanyButton.snp.bottom).offset(20)
             make.left.equalToSuperview().offset(20)
             make.right.equalToSuperview().inset(20)
+            make.height.equalTo(50)
             make.bottom.equalToSuperview()
         }
+        logOutButton.layer.cornerRadius = 25
     }
 }

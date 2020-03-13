@@ -101,6 +101,7 @@
 		C1C18E482413E8880066EB5F /* CompaniesFetchingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C18E472413E8880066EB5F /* CompaniesFetchingResponse.swift */; };
 		C1C41B7623A9594F009288CA /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C41B7523A9594F009288CA /* UITextField+Extension.swift */; };
 		C1D0CA0B23F6AC9600A20D6F /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D0CA0A23F6AC9600A20D6F /* DataSource.swift */; };
+		C1D568FE241C0793004C8A89 /* PaddedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D568FD241C0793004C8A89 /* PaddedTextField.swift */; };
 		C1F2CD1F23F2E6D600BD23DC /* LastCheckInResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F2CD1E23F2E6D600BD23DC /* LastCheckInResponse.swift */; };
 		C1FBC46D23AA51E100579913 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBC46C23AA51E100579913 /* HomeViewController.swift */; };
 		C1FBC46F23AA521C00579913 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBC46E23AA521C00579913 /* HomeViewModel.swift */; };
@@ -207,6 +208,7 @@
 		C1C210AE240913E7002B5ACA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C1C41B7523A9594F009288CA /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		C1D0CA0A23F6AC9600A20D6F /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
+		C1D568FD241C0793004C8A89 /* PaddedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedTextField.swift; sourceTree = "<group>"; };
 		C1F2CD1E23F2E6D600BD23DC /* LastCheckInResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastCheckInResponse.swift; sourceTree = "<group>"; };
 		C1FBC46C23AA51E100579913 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		C1FBC46E23AA521C00579913 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 		C102D7BD23ACFE5C000B9E80 /* CustomUIElements */ = {
 			isa = PBXGroup;
 			children = (
+				C1D568FC241C0762004C8A89 /* UITextFields */,
 				C198B8F223B0CF7300FBD3C6 /* UIButtons */,
 			);
 			path = CustomUIElements;
@@ -476,6 +479,14 @@
 			path = UIButtons;
 			sourceTree = "<group>";
 		};
+		C1D568FC241C0762004C8A89 /* UITextFields */ = {
+			isa = PBXGroup;
+			children = (
+				C1D568FD241C0793004C8A89 /* PaddedTextField.swift */,
+			);
+			path = UITextFields;
+			sourceTree = "<group>";
+		};
 		E1A48A0D56D7177F3A55A730 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -709,6 +720,7 @@
 				C13C412423ABBC5400B674E9 /* ActivityViewModel.swift in Sources */,
 				C146991223A112F100A84818 /* AppDelegate.swift in Sources */,
 				C1FBC46F23AA521C00579913 /* HomeViewModel.swift in Sources */,
+				C1D568FE241C0793004C8A89 /* PaddedTextField.swift in Sources */,
 				C10F78E723A3D79200783476 /* UIButton+Rx.swift in Sources */,
 				C14731472416A4EB00477ECA /* CompanyReferenceSavingResponse.swift in Sources */,
 				C133DE5223C871A90096F5B2 /* ChangePasswordNetworking.swift in Sources */,

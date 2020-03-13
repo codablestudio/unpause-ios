@@ -26,7 +26,7 @@ class ForgotPasswordViewController: UIViewController {
     
     private let closeButton = UIButton()
     
-    private let sendRecoveryEmailButton = OrangeButton(title: "Send recovery email", height: 35)
+    private let sendRecoveryEmailButton = OrangeButton(title: "Send recovery email")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -167,8 +167,10 @@ private extension ForgotPasswordViewController {
             make.top.equalTo(emailSeparator.snp.bottom).offset(50)
             make.left.equalToSuperview().offset(33)
             make.right.equalToSuperview().inset(33)
+            make.height.equalTo(50)
             make.bottom.equalToSuperview()
         }
+        sendRecoveryEmailButton.layer.cornerRadius = 25
     }
     
     func renderCloseButton() {

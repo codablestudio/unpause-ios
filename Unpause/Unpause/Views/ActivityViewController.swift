@@ -24,13 +24,17 @@ class ActivityViewController: UIViewController {
     
     private let datesContainer = UIView()
     
+    private let workingIntervalLabel = UILabel()
+    
     private let fromDateStackView = UIStackView()
     private let fromDateLabel = UILabel()
-    private let fromDateTextField = UITextField()
+    private let fromDateArrowImageView = UIImageView()
+    private let fromDateTextField = PaddedTextField()
     
     private let toDateStackView = UIStackView()
     private let toDateLabel = UILabel()
-    private let toDateTextField = UITextField()
+    private let toDateArrowImageView = UIImageView()
+    private let toDateTextField = PaddedTextField()
     
     private let separator = UIView()
     
@@ -311,7 +315,6 @@ private extension ActivityViewController {
         fromDateLabel.font = UIFont.boldSystemFont(ofSize: 20)
         
         fromDateStackView.addArrangedSubview(fromDateTextField)
-        fromDateTextField.tintColor = .clear
     }
     
     func renderToDateLabelAndToDateTextField() {
@@ -333,7 +336,6 @@ private extension ActivityViewController {
         toDateLabel.font = UIFont.boldSystemFont(ofSize: 20)
         
         toDateStackView.addArrangedSubview(toDateTextField)
-        toDateTextField.tintColor = .clear
     }
     
     func configureTableView() {
@@ -457,7 +459,7 @@ extension ActivityViewController {
         let tabBar = self.tabBarController?.tabBar
         let offset = (hidden ? UIScreen.main.bounds.size.height : UIScreen.main.bounds.size.height - (tabBar?.frame.size.height)!)
         if offset == tabBar?.frame.origin.y { return }
-        let duration: TimeInterval = (animated ? 0.5 : 0.0)
+        let duration: TimeInterval = (animated ? 0.2 : 0.0)
         UIView.animate(withDuration: duration,
                        animations: { tabBar!.frame.origin.y = offset },
                        completion: nil)
@@ -466,7 +468,7 @@ extension ActivityViewController {
     func changeDatesContainerVisibility(hidden: Bool, animated: Bool) {
         let offset = (hidden ? view.safeAreaInsets.top - datesContainer.bounds.height : view.safeAreaInsets.top)
         if offset == datesContainer.frame.origin.y { return }
-        let duration: TimeInterval = (animated ? 0.5 : 0.0)
+        let duration: TimeInterval = (animated ? 0.2 : 0.0)
         UIView.animate(withDuration: duration,
                        delay: 0,
                        options: .curveEaseInOut,

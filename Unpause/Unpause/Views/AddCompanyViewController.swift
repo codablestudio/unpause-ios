@@ -27,7 +27,7 @@ class AddCompanyViewController: UIViewController {
     private let companyPassCodeTextField = UITextField()
     private let companyPassCodeSeparator = UIView()
     
-    private let addCompanyButton = OrangeButton(title: "Add company", height: 35)
+    private let addCompanyButton = OrangeButton(title: "Add company")
     
     private let closeButton = UIButton()
     
@@ -215,8 +215,10 @@ private extension AddCompanyViewController {
             make.top.equalTo(companyPassCodeSeparator.snp.bottom).offset(50)
             make.left.equalToSuperview().offset(33)
             make.right.equalToSuperview().inset(33)
+            make.height.equalTo(50)
             make.bottom.equalToSuperview()
         }
+        addCompanyButton.layer.cornerRadius = 25
     }
     
     func renderCloseButton() {
