@@ -444,17 +444,21 @@ extension ActivityViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0{
             changeTabBarVisibility(hidden: true, animated: true)
+            changeNavigatioBarVisibility(hidden: true)
             changeDatesContainerVisibility(hidden: true, animated: true)
+            
         }
         else{
             changeTabBarVisibility(hidden: false, animated: true)
+            changeNavigatioBarVisibility(hidden: false)
             changeDatesContainerVisibility(hidden: false, animated: true)
+            
         }
     }
 }
 
 //MARK: - Animations
-extension ActivityViewController {
+private extension ActivityViewController {
     func changeTabBarVisibility(hidden: Bool, animated: Bool){
         let tabBar = self.tabBarController?.tabBar
         let offset = (hidden ? UIScreen.main.bounds.size.height : UIScreen.main.bounds.size.height - (tabBar?.frame.size.height)!)
@@ -466,7 +470,7 @@ extension ActivityViewController {
     }
     
     func changeDatesContainerVisibility(hidden: Bool, animated: Bool) {
-        let offset = (hidden ? view.safeAreaInsets.top - datesContainer.bounds.height : view.safeAreaInsets.top)
+        let offset = (hidden ?  view.safeAreaInsets.top - (UIApplication.shared.keyWindow?.safeAreaInsets.top)! : view.safeAreaInsets.top)
         if offset == datesContainer.frame.origin.y { return }
         let duration: TimeInterval = (animated ? 0.2 : 0.0)
         UIView.animate(withDuration: duration,
@@ -480,10 +484,10 @@ extension ActivityViewController {
                        completion: nil)
     }
     
-    private func remakeTableViewConstraints(hidden: Bool) {
+    func remakeTableViewConstraints(hidden: Bool) {
         if hidden {
             tableView.snp.remakeConstraints { make in
-                make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+                make.top.equalTo(view.safeAreaInsets.top - (UIApplication.shared.keyWindow?.safeAreaInsets.top)!)
                 make.left.right.equalToSuperview()
                 make.bottom.equalToSuperview()
             }
@@ -494,5 +498,9 @@ extension ActivityViewController {
                 make.bottom.equalToSuperview()
             }
         }
+    }
+    
+    func changeNavigatioBarVisibility(hidden: Bool) {
+        navigationController?.navigationBar.isHidden = hidden
     }
 }

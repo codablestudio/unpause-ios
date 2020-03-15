@@ -35,6 +35,7 @@ class UpdatePersonalInfoNetworking {
         
         return response.flatMapLatest { _ -> Observable<Response> in
             let userWithNewData = User(firstName: newFirstName, lastName: newLastName, email: currentUserEmail)
+            userWithNewData.company = SessionManager.shared.currentUser?.company
             SessionManager.shared.logIn(userWithNewData)
             return Observable.just(Response.success)
         }
