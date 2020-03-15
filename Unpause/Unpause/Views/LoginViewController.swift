@@ -98,22 +98,23 @@ class LoginViewController: UIViewController {
             .bind(to: loginViewModel.logInButtonTapped)
             .disposed(by: disposeBag)
         
-        registerButton.rx.tap.subscribe(onNext: { [weak self] _ in
-            guard let `self` = self else { return }
-            Coordinator.shared.presentRegistrationViewController(from: self)
-        }).disposed(by: disposeBag)
-        
         loginViewModel.loginDocument
             .subscribe(onNext: { [weak self] response in
                 guard let `self` = self else { return }
                 switch response {
                 case .success:
+                    SVProgressHUD.dismiss()
                     Coordinator.shared.navigateToHomeViewController(from: self)
                 case .error(let error):
+                    SVProgressHUD.dismiss()
                     self.showAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
                 }
-                SVProgressHUD.dismiss()
             }).disposed(by: disposeBag)
+        
+        registerButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else { return }
+            Coordinator.shared.presentRegistrationViewController(from: self)
+        }).disposed(by: disposeBag)
     }
     
     private func addGestureRecognizer() {

@@ -46,11 +46,11 @@ class LoginViewModel: LoginViewModelProtocol {
         
         loginDocument = logInButtonTapped
             .flatMapLatest({ [weak self] _ -> Observable<FirebaseResponseObject> in
-                guard let `self` = self else { return Observable.empty() }
-                
-                let email = self.textInEmailTextField ?? ""
-                let password = self.textInPasswordTextField ?? ""
-                
+                guard let `self` = self,
+                    let email = self.textInEmailTextField,
+                    let password = self.textInPasswordTextField else {
+                        return Observable.just(FirebaseResponseObject.error(UnpauseError.emptyError))
+                }
                 return self.loginNetworking.signInUserWith(email: email, password: password)
             })
             .flatMapLatest({ [weak self] firebaseResponseObject -> Observable<FirebaseDocumentResponseObject> in
@@ -76,10 +76,10 @@ class LoginViewModel: LoginViewModelProtocol {
                 switch userResponse {
                 case .success(let user):
                     self.privateUser = user
+                    return self.companyNetworking.fetchCompany()
                 case .error(let error):
-                    print("ERROR: \(error.localizedDescription)")
+                    return Observable.just(CompanyFetchingResponse.error(error))
                 }
-                return self.companyNetworking.fetchCompany()
             })
             .map({ companyFetchingResponse -> Response in
                 switch companyFetchingResponse {

@@ -32,23 +32,23 @@ class LoginNetworking {
     }
     
     func getInfoFromUserWitha(firebaseResponseObject: FirebaseResponseObject) -> Observable<FirebaseDocumentResponseObject> {
-        var email = ""
         switch firebaseResponseObject {
         case .authDataResult(let authDataResult):
-            email = authDataResult.user.email!
+            guard let userEmail = authDataResult.user.email else { return Observable.just(FirebaseDocumentResponseObject.error(UnpauseError.noUser))
+            }
+            return dataBaseReference
+                .collection("users")
+                .document("\(userEmail)")
+                .rx
+                .getDocument()
+                .flatMapLatest({ document -> Observable<FirebaseDocumentResponseObject> in
+                    return Observable.just(FirebaseDocumentResponseObject.success(document))
+                })
+                .catchError { error -> Observable<FirebaseDocumentResponseObject> in
+                    return Observable.just(FirebaseDocumentResponseObject.error(error))
+            }
         case .error(let error):
             return Observable.just(FirebaseDocumentResponseObject.error(error))
-        }
-        return dataBaseReference
-            .collection("users")
-            .document(email)
-            .rx
-            .getDocument()
-            .flatMapLatest({ (document) -> Observable<FirebaseDocumentResponseObject> in
-                return Observable.just(FirebaseDocumentResponseObject.success(document))
-            })
-            .catchError { (error) -> Observable<FirebaseDocumentResponseObject> in
-                return Observable.just(FirebaseDocumentResponseObject.error(error))
         }
     }
     
