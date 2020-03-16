@@ -8,7 +8,6 @@
 
 import UIKit
 import RxSwift
-import SVProgressHUD
 
 class DescriptionViewController: UIViewController {
     
@@ -79,8 +78,7 @@ class DescriptionViewController: UIViewController {
                 guard let `self` = self else { return }
                 switch response {
                 case .success:
-                    SVProgressHUD.showSuccess(withStatus: "Shift successfully added.")
-                    SVProgressHUD.dismiss(withDelay: 0.6)
+                    ActivityIndicatorView.shared.show(on: self.view)
                     ActivityViewModel.forceRefresh.onNext(())
                     self.dismiss(animated: true)
                 case .error(let error):
@@ -93,8 +91,7 @@ class DescriptionViewController: UIViewController {
                 guard let `self` = self else { return }
                 switch response {
                 case .success:
-                    SVProgressHUD.showSuccess(withStatus: "Shift successfully edited.")
-                    SVProgressHUD.dismiss(withDelay: 0.6)
+                    ActivityIndicatorView.shared.show(on: self.view)
                     ActivityViewModel.forceRefresh.onNext(())
                     self.dismiss(animated: true)
                 case .error(let error):
@@ -106,15 +103,17 @@ class DescriptionViewController: UIViewController {
     func handleSaveButtonTap() {
         if navigationFromTableView {
             saveButton.rx.tap
-                .do(onNext: { _ in
-                    SVProgressHUD.show()
+                .do(onNext: { [weak self] _ in
+                    guard let `self` = self else { return }
+                    ActivityIndicatorView.shared.show(on: self.view)
                 })
                 .bind(to: descriptionViewModel.saveButtonFromTableViewTapped)
                 .disposed(by: disposeBag)
         } else {
             saveButton.rx.tap
-                .do(onNext: { _ in
-                    SVProgressHUD.show()
+                .do(onNext: { [weak self] _ in
+                    guard let `self` = self else { return }
+                    ActivityIndicatorView.shared.show(on: self.view)
                 })
                 .bind(to: descriptionViewModel.saveButtonTapped)
                 .disposed(by: disposeBag)
@@ -140,7 +139,7 @@ class DescriptionViewController: UIViewController {
 // MARK: - UI rendering
 private extension DescriptionViewController {
     func configureScrollViewAndContainerView() {
-        view.backgroundColor = UIColor.whiteUnpauseTextAndBackgroundColor
+        view.backgroundColor = UIColor.unpauseWhite
         
         view.addSubview(scrollView)
         
@@ -179,7 +178,7 @@ private extension DescriptionViewController {
             make.right.equalToSuperview().inset(15)
             make.height.equalTo(200)
         }
-        descriptionTextView.backgroundColor = UIColor.whiteUnpauseTextAndBackgroundColor
+        descriptionTextView.backgroundColor = UIColor.unpauseWhite
         descriptionTextView.font = .systemFont(ofSize: 18)
         descriptionTextView.autocorrectionType = .no
         descriptionTextView.autocapitalizationType = .sentences

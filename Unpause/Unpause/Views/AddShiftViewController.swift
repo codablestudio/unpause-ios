@@ -405,14 +405,14 @@ class AddShiftViewController: UIViewController {
     private func createDatePickerAndBarForPicker(for textField: UITextField, with picker: UIDatePicker) {
         picker.datePickerMode = UIDatePicker.Mode.date
         textField.inputView = picker
-        picker.backgroundColor = UIColor.whiteUnpauseTextAndBackgroundColor
+        picker.backgroundColor = UIColor.unpauseWhite
         addBarOnTopOfPicker(for: textField)
     }
     
     private func createTimePickerAndBarForPicker(for textField: UITextField, with picker: UIDatePicker) {
         picker.datePickerMode = UIDatePicker.Mode.time
         textField.inputView = picker
-        picker.backgroundColor = UIColor.whiteUnpauseTextAndBackgroundColor
+        picker.backgroundColor = UIColor.unpauseWhite
         addBarOnTopOfPicker(for: textField)
     }
     
@@ -492,7 +492,7 @@ class AddShiftViewController: UIViewController {
 // MARK: - UI rendering
 private extension AddShiftViewController {
     func configureScrollViewAndContainerView() {
-        view.backgroundColor = UIColor.whiteUnpauseTextAndBackgroundColor
+        view.backgroundColor = UIColor.unpauseWhite
         
         view.addSubview(scrollView)
         scrollView.snp.makeConstraints { (make) in

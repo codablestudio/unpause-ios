@@ -8,7 +8,6 @@
 
 import UIKit
 import RxSwift
-import SVProgressHUD
 
 class ChangePasswordViewController: UIViewController {
     
@@ -67,8 +66,9 @@ class ChangePasswordViewController: UIViewController {
             .disposed(by: disposeBag)
         
         changePasswordButton.rx.tap
-            .do(onNext: { _ in
-                SVProgressHUD.show()
+            .do(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                ActivityIndicatorView.shared.show(on: self.view)
             })
             .bind(to: changePasswordViewModel.changePasswordButtonTapped)
             .disposed(by: disposeBag)
@@ -78,8 +78,7 @@ class ChangePasswordViewController: UIViewController {
                 guard let `self` = self else { return }
                 switch response {
                 case .success:
-                    SVProgressHUD.showSuccess(withStatus: "Password updated successfully")
-                    SVProgressHUD.dismiss(withDelay: 0.6)
+                    ActivityIndicatorView.shared.dissmis()
                     self.dismiss(animated: true)
                 case .error(let error):
                     if let error = error as? UnpauseError, error == UnpauseError.emptyError {
@@ -87,7 +86,7 @@ class ChangePasswordViewController: UIViewController {
                     } else {
                         self.showAlert(title: "Error", message: error.localizedDescription, actionTitle: "OK")
                     }
-                    SVProgressHUD.dismiss()
+                    ActivityIndicatorView.shared.dissmis()
                 }
             })
             .disposed(by: disposeBag)
@@ -114,7 +113,7 @@ class ChangePasswordViewController: UIViewController {
 private extension ChangePasswordViewController {
     
     func configureScrollViewAndContainerView() {
-        view.backgroundColor = UIColor.whiteUnpauseTextAndBackgroundColor
+        view.backgroundColor = UIColor.unpauseWhite
         
         view.addSubview(scrollView)
         scrollView.snp.makeConstraints { (make) in

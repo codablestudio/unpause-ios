@@ -9,7 +9,6 @@
 import UIKit
 import RxSwift
 import RxKeyboard
-import SVProgressHUD
 import RxGesture
 
 class RegisterViewController: UIViewController {
@@ -85,8 +84,9 @@ class RegisterViewController: UIViewController {
             .disposed(by: disposeBag)
         
         registerButton.rx.tap
-            .do(onNext: { _ in
-                SVProgressHUD.show()
+            .do(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                ActivityIndicatorView.shared.show(on: self.view)
             })
             .bind(to: registerViewModel.registerButtonTapped)
             .disposed(by: disposeBag)
@@ -97,12 +97,10 @@ class RegisterViewController: UIViewController {
                 switch firebaseResponseObject {
                 case .authDataResult(let authDataResult):
                     print("\(authDataResult.user.email!)")
-                    SVProgressHUD.dismiss()
-                    SVProgressHUD.showSuccess(withStatus: "Success")
-                    SVProgressHUD.dismiss(withDelay: 0.3)
+                    ActivityIndicatorView.shared.dissmis()
                     Coordinator.shared.navigateToAddCompanyViewController(from: self, registeredUserEmail: authDataResult.user.email)
                 case .error(let error):
-                    SVProgressHUD.dismiss()
+                    ActivityIndicatorView.shared.dissmis()
                     self.showAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)
@@ -133,7 +131,7 @@ class RegisterViewController: UIViewController {
 // MARK: - UI rendering
 private extension RegisterViewController {
     func configureScrollViewAndContainerView() {
-        view.backgroundColor = UIColor.whiteUnpauseTextAndBackgroundColor
+        view.backgroundColor = UIColor.unpauseWhite
         
         view.addSubview(scrollView)
         scrollView.snp.makeConstraints { (make) in

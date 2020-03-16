@@ -8,7 +8,6 @@
 
 import UIKit
 import RxSwift
-import SVProgressHUD
 
 class UpdatePersonalInfoViewController: UIViewController {
     
@@ -69,8 +68,9 @@ class UpdatePersonalInfoViewController: UIViewController {
             .disposed(by: disposeBag)
         
         updateInfoButton.rx.tap
-            .do(onNext: { _ in
-                SVProgressHUD.dismiss()
+            .do(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                ActivityIndicatorView.shared.show(on: self.view)
             })
             .bind(to: updatePersonalInfoViewModel.updateInfoButtonTapped)
             .disposed(by: disposeBag)
@@ -85,8 +85,7 @@ class UpdatePersonalInfoViewController: UIViewController {
                 guard let `self` = self else { return }
                 switch response {
                 case .success:
-                    SVProgressHUD.showSuccess(withStatus: "Info updated successfully")
-                    SVProgressHUD.dismiss(withDelay: 0.6)
+                    ActivityIndicatorView.shared.dissmis()
                     self.dismiss(animated: true)
                 case .error(let error):
                     if let error = error as? UnpauseError, error == UnpauseError.emptyError {
@@ -94,7 +93,7 @@ class UpdatePersonalInfoViewController: UIViewController {
                     } else {
                         self.showAlert(title: "Error", message: error.localizedDescription, actionTitle: "OK")
                     }
-                    SVProgressHUD.dismiss()
+                    ActivityIndicatorView.shared.dissmis()
                 }
             }).disposed(by: disposeBag)
     }
@@ -115,7 +114,7 @@ class UpdatePersonalInfoViewController: UIViewController {
 private extension UpdatePersonalInfoViewController {
     
     func configureScrollViewAndContainerView() {
-        view.backgroundColor = UIColor.whiteUnpauseTextAndBackgroundColor
+        view.backgroundColor = UIColor.unpauseWhite
         
         view.addSubview(scrollView)
         scrollView.snp.makeConstraints { (make) in

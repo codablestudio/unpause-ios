@@ -377,7 +377,6 @@ PODS:
     - RxSwift (~> 5)
   - RxSwift (5.1.0)
   - SnapKit (5.0.1)
-  - SVProgressHUD (2.2.5)
 
 DEPENDENCIES:
   - DifferenceKit
@@ -397,7 +396,6 @@ DEPENDENCIES:
   - RxKeyboard
   - RxSwift (~> 5)
   - SnapKit (~> 5.0.0)
-  - SVProgressHUD
 
 SPEC REPOS:
   trunk:
@@ -447,7 +445,6 @@ SPEC REPOS:
     - RxRelay
     - RxSwift
     - SnapKit
-    - SVProgressHUD
 
 SPEC CHECKSUMS:
   abseil: 18063d773f5366ff8736a050fe035a28f635fd27
@@ -496,8 +493,7 @@ SPEC CHECKSUMS:
   RxRelay: a168bd6caf712d00c676ac344e9295afc93b418e
   RxSwift: ad5874f24bb0dbffd1e9bb8443604e3578796c7a
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
-  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: 574dc39e491652e77d10127e646a202870f00d80
+PODFILE CHECKSUM: d388098ec667d3c60af382ba2bd6fbb39edfcf0f
 
 COCOAPODS: 1.8.4

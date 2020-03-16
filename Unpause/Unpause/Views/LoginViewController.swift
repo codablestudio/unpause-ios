@@ -11,7 +11,6 @@ import SnapKit
 import RxSwift
 import RxKeyboard
 import RxGesture
-import SVProgressHUD
 import GoogleSignIn
 
 class LoginViewController: UIViewController {
@@ -92,8 +91,9 @@ class LoginViewController: UIViewController {
             }).disposed(by: disposeBag)
         
         loginButton.rx.tap
-            .do(onNext: { _ in
-                SVProgressHUD.show()
+            .do(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                ActivityIndicatorView.shared.show(on: self.view)
             })
             .bind(to: loginViewModel.logInButtonTapped)
             .disposed(by: disposeBag)
@@ -103,10 +103,10 @@ class LoginViewController: UIViewController {
                 guard let `self` = self else { return }
                 switch response {
                 case .success:
-                    SVProgressHUD.dismiss()
+                    ActivityIndicatorView.shared.dissmis()
                     Coordinator.shared.navigateToHomeViewController(from: self)
                 case .error(let error):
-                    SVProgressHUD.dismiss()
+                    ActivityIndicatorView.shared.dissmis()
                     self.showAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)
@@ -153,7 +153,7 @@ class LoginViewController: UIViewController {
 private extension LoginViewController {
     
     func configureScrollViewAndContainerView() {
-        view.backgroundColor = UIColor.whiteUnpauseTextAndBackgroundColor
+        view.backgroundColor = UIColor.unpauseWhite
         
         view.addSubview(scrollView)
         

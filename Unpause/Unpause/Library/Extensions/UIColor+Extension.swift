@@ -10,8 +10,8 @@ import UIKit
 
 extension UIColor {
     
-    static var whiteUnpauseTextAndBackgroundColor: UIColor {
-        return UIColor(named: "whiteUnpauseTextAndBackgroundColor") ?? UIColor.fallbackColor("whiteUnpauseTextAndBackgroundColor")
+    static var unpauseWhite: UIColor {
+        return UIColor(named: "unpauseWhite") ?? UIColor.fallbackColor("unpauseWhite")
     }
     
     static var orange: UIColor {
@@ -28,6 +28,10 @@ extension UIColor {
     
     static var unpauseGray: UIColor {
         return UIColor(named: "unpauseGray") ?? UIColor.fallbackColor("lightGray")
+    }
+    
+    static var indicatorBackgroundColor: UIColor {
+        return UIColor(named: "indicatorBackgroundColor") ?? UIColor.fallbackColor("indicatorBackgroundColor")
     }
     
     static func fallbackColor(_ forColor: String) -> UIColor {

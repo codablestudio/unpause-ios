@@ -49,6 +49,7 @@
 		C13105E723B0ADF200A509D9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13105E623B0ADF200A509D9 /* User.swift */; };
 		C133DE5223C871A90096F5B2 /* ChangePasswordNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C133DE5123C871A90096F5B2 /* ChangePasswordNetworking.swift */; };
 		C133DE5423C89F2A0096F5B2 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = C133DE5323C89F2A0096F5B2 /* Response.swift */; };
+		C1372BE4241EF96C00CF6CA3 /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1372BE3241EF96C00CF6CA3 /* ActivityIndicatorView.swift */; };
 		C137F48223B8B6AC00358E30 /* RegisterNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C137F48123B8B6AC00358E30 /* RegisterNetworking.swift */; };
 		C138411223C5C58100A347F9 /* UserFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C138411123C5C58100A347F9 /* UserFactory.swift */; };
 		C138411423C5DA3E00A347F9 /* UpdatePersonalInfoNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C138411323C5DA3E00A347F9 /* UpdatePersonalInfoNetworking.swift */; };
@@ -153,6 +154,7 @@
 		C13105E623B0ADF200A509D9 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C133DE5123C871A90096F5B2 /* ChangePasswordNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordNetworking.swift; sourceTree = "<group>"; };
 		C133DE5323C89F2A0096F5B2 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
+		C1372BE3241EF96C00CF6CA3 /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
 		C137F48123B8B6AC00358E30 /* RegisterNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterNetworking.swift; sourceTree = "<group>"; };
 		C138411123C5C58100A347F9 /* UserFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFactory.swift; sourceTree = "<group>"; };
 		C138411323C5DA3E00A347F9 /* UpdatePersonalInfoNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePersonalInfoNetworking.swift; sourceTree = "<group>"; };
@@ -243,6 +245,7 @@
 		C102D7BD23ACFE5C000B9E80 /* CustomUIElements */ = {
 			isa = PBXGroup;
 			children = (
+				C13D4C80241F772500170AF0 /* ActivityIndicators */,
 				C1D568FC241C0762004C8A89 /* UITextFields */,
 				C198B8F223B0CF7300FBD3C6 /* UIButtons */,
 			);
@@ -311,6 +314,14 @@
 				C1437B3F23F3EF35007BD7DA /* Factories */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		C13D4C80241F772500170AF0 /* ActivityIndicators */ = {
+			isa = PBXGroup;
+			children = (
+				C1372BE3241EF96C00CF6CA3 /* ActivityIndicatorView.swift */,
+			);
+			path = ActivityIndicators;
 			sourceTree = "<group>";
 		};
 		C1437B3F23F3EF35007BD7DA /* Factories */ = {
@@ -715,6 +726,7 @@
 				C10F78DE23A3D79200783476 /* ObservableType+Extension.swift in Sources */,
 				C138411423C5DA3E00A347F9 /* UpdatePersonalInfoNetworking.swift in Sources */,
 				C138411223C5C58100A347F9 /* UserFactory.swift in Sources */,
+				C1372BE4241EF96C00CF6CA3 /* ActivityIndicatorView.swift in Sources */,
 				C16A2EF323A784A700CBA43F /* RegisterViewController.swift in Sources */,
 				C13C412623ABBC7000B674E9 /* SettingsViewController.swift in Sources */,
 				C13C412423ABBC5400B674E9 /* ActivityViewModel.swift in Sources */,

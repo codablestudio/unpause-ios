@@ -8,7 +8,6 @@
 
 import UIKit
 import RxSwift
-import SVProgressHUD
 
 class AddCompanyViewController: UIViewController {
     
@@ -74,8 +73,9 @@ class AddCompanyViewController: UIViewController {
             .disposed(by: disposeBag)
         
         addCompanyButton.rx.tap
-            .do(onNext: { _ in
-                SVProgressHUD.show()
+            .do(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                ActivityIndicatorView.shared.show(on: self.view)
             })
             .bind(to: addCompanyViewModel.addCompanyButtonTapped)
             .disposed(by: disposeBag)
@@ -85,12 +85,10 @@ class AddCompanyViewController: UIViewController {
                 guard let `self` = self else { return }
                 switch response {
                 case .success:
-                    SVProgressHUD.dismiss()
-                    SVProgressHUD.showSuccess(withStatus: "Company successfully added.")
-                    SVProgressHUD.dismiss(withDelay: 0.6)
+                    ActivityIndicatorView.shared.dissmis()
                     self.dismiss(animated: true)
                 case .error(let error):
-                    SVProgressHUD.dismiss()
+                    ActivityIndicatorView.shared.dissmis()
                     self.showAlert(title: "Alert", message: "\(error.localizedDescription)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)
@@ -129,7 +127,7 @@ class AddCompanyViewController: UIViewController {
 // MARK: - UI rendering
 private extension AddCompanyViewController {
     func configureScrollViewAndContainerView() {
-        view.backgroundColor = UIColor.whiteUnpauseTextAndBackgroundColor
+        view.backgroundColor = UIColor.unpauseWhite
         
         view.addSubview(scrollView)
         scrollView.snp.makeConstraints { (make) in

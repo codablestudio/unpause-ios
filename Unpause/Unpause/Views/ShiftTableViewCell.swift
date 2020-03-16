@@ -118,7 +118,7 @@ private extension ShiftTableViewCell {
             make.top.left.equalToSuperview().offset(15)
             make.right.bottom.equalToSuperview().inset(15)
         }
-        containerView.backgroundColor = .whiteUnpauseTextAndBackgroundColor
+        containerView.backgroundColor = .unpauseWhite
         containerView.layer.cornerRadius = 10
         containerView.dropShadow(color: .lightGray, opacity: 0.5, offSet: .zero, radius: 3)
     }

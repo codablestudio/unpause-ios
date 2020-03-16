@@ -44,6 +44,6 @@ class CustomTabBarController: UITabBarController {
                                                                selectedImage: UIImage(named: "settings_25x25_selected"))
         
         UITabBar.appearance().tintColor = UIColor.orange
-        UITabBar.appearance().backgroundColor = UIColor.whiteUnpauseTextAndBackgroundColor
+        UITabBar.appearance().backgroundColor = UIColor.unpauseWhite
     }
 }

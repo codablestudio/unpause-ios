@@ -9,7 +9,6 @@
 import UIKit
 import RxSwift
 import DifferenceKit
-import SVProgressHUD
 import MessageUI
 
 class ActivityViewController: UIViewController {
@@ -127,7 +126,7 @@ class ActivityViewController: UIViewController {
         activityViewModel.deleteRequest
             .subscribe(onNext: { [weak self] shiftDeletionsResponse in
                 guard let `self` = self else { return }
-                SVProgressHUD.dismiss()
+                ActivityIndicatorView.shared.dissmis()
                 
                 switch shiftDeletionsResponse {
                 case .success(let deletedShift):
@@ -154,7 +153,7 @@ class ActivityViewController: UIViewController {
     private func createDatePickerAndBarForPicker(for textField: UITextField, with picker: UIDatePicker) {
         picker.datePickerMode = UIDatePicker.Mode.date
         textField.inputView = picker
-        picker.backgroundColor = UIColor.whiteUnpauseTextAndBackgroundColor
+        picker.backgroundColor = UIColor.unpauseWhite
         addBarOnTopOfPicker(for: textField)
     }
     
@@ -272,7 +271,7 @@ class ActivityViewController: UIViewController {
 // MARK: - UI rendering
 private extension ActivityViewController {
     func configureContainerView() {
-        view.backgroundColor = UIColor.whiteUnpauseTextAndBackgroundColor
+        view.backgroundColor = UIColor.unpauseWhite
         
         view.addSubview(containerView)
         
@@ -366,13 +365,13 @@ extension ActivityViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete else { return }
-        SVProgressHUD.show()
+        ActivityIndicatorView.shared.show(on: self.view)
         
         switch dataSource[indexPath.row] {
         case .shift(let shift):
             shiftToDelete.onNext(shift)
         default:
-            SVProgressHUD.dismiss()
+            ActivityIndicatorView.shared.dissmis()
         }
     }
 }
@@ -421,12 +420,10 @@ extension ActivityViewController: MFMailComposeViewControllerDelegate {
             print("Cancelled")
             
         case MFMailComposeResult.saved.rawValue:
-            SVProgressHUD.showSuccess(withStatus: "Email saved")
-            SVProgressHUD.dismiss(withDelay: 0.6)
+            ActivityIndicatorView.shared.dissmis()
             
         case MFMailComposeResult.sent.rawValue:
-            SVProgressHUD.showSuccess(withStatus: "Email successfully sent")
-            SVProgressHUD.dismiss(withDelay: 0.6)
+            ActivityIndicatorView.shared.dissmis()
             
         case MFMailComposeResult.failed.rawValue:
             showAlert(title: "Alert", message: error!.localizedDescription, actionTitle: "OK")
@@ -470,7 +467,7 @@ private extension ActivityViewController {
     }
     
     func changeDatesContainerVisibility(hidden: Bool, animated: Bool) {
-        let offset = (hidden ?  view.safeAreaInsets.top - (UIApplication.shared.keyWindow?.safeAreaInsets.top)! : view.safeAreaInsets.top)
+        let offset = (hidden ? view.safeAreaInsets.top - (UIApplication.shared.keyWindow?.safeAreaInsets.top)! : view.safeAreaInsets.top)
         if offset == datesContainer.frame.origin.y { return }
         let duration: TimeInterval = (animated ? 0.2 : 0.0)
         UIView.animate(withDuration: duration,
