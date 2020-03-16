@@ -105,7 +105,7 @@ class HomeViewController: UIViewController {
             .subscribe(onNext: { [weak self] (lastCheckInResponse) in
                 guard let `self` = self else { return }
                 switch lastCheckInResponse {
-                case .lastCheckIn(let lastCheckInDate):
+                case .success(let lastCheckInDate):
                     SessionManager.shared.currentUser?.lastCheckInDateAndTime = lastCheckInDate
                     if lastCheckInDate != nil {
                         self.checkInButton.setTitle("Check out", for: .normal)
@@ -232,6 +232,6 @@ private extension HomeViewController {
         checkInButton.layer.cornerRadius = 70
         checkInButton.titleLabel?.font = .systemFont(ofSize: 25)
         checkInButton.setTitleColor(.white, for: UIControl.State())
-        checkInButton.dropShadow(color: .unpauseLightGray, opacity: 0.5, offSet: .zero, radius: 3)
+        checkInButton.dropShadow(color: .unpauseLightGray, opacity: 0.5, offSet: .zero, radius: 5)
     }
 }

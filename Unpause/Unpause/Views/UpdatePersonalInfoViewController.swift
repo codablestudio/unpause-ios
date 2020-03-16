@@ -88,11 +88,7 @@ class UpdatePersonalInfoViewController: UIViewController {
                     ActivityIndicatorView.shared.dissmis()
                     self.dismiss(animated: true)
                 case .error(let error):
-                    if let error = error as? UnpauseError, error == UnpauseError.emptyError {
-                        self.showAlert(title: "Error", message: "Please fill empty fields.", actionTitle: "OK")
-                    } else {
-                        self.showAlert(title: "Error", message: error.localizedDescription, actionTitle: "OK")
-                    }
+                    self.showAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
                     ActivityIndicatorView.shared.dissmis()
                 }
             }).disposed(by: disposeBag)

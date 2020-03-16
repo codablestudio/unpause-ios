@@ -27,36 +27,40 @@ class CompanyNetworking {
             .rx
             .getDocument()
             .map { documnetSnapshot -> CompanyReferenceFetchingResponse in
-                do {
-                    guard let companyReference = try CompanyFactory.createCompanyReference(from: documnetSnapshot) else {
-                        return CompanyReferenceFetchingResponse.error(UnpauseError.emptyError)
-                    }
-                    return CompanyReferenceFetchingResponse.success(companyReference)
-                } catch (let error) {
-                    print("ERROR: \(error.localizedDescription)")
-                    return CompanyReferenceFetchingResponse.error(error)
-                }
+                let companyReference = try CompanyFactory.createCompanyReference(from: documnetSnapshot)
+                return CompanyReferenceFetchingResponse.success(companyReference)
         }
     }
     
     func fetchCompany() -> Observable<CompanyFetchingResponse> {
         return fetchCompanyReference()
-            .flatMapLatest { companyReferenceFetchingResponse -> Observable<DocumentSnapshot> in
+            .flatMapLatest { companyReferenceFetchingResponse -> Observable<FirebaseDocumentResponseObject> in
                 switch companyReferenceFetchingResponse {
                 case .success(let documentReference):
+                    guard let documentReference = documentReference else {
+                        return Observable.just(FirebaseDocumentResponseObject.error(UnpauseError.noCompany))
+                    }
                     return documentReference.rx.getDocument()
-                case .error(_):
-                    return Observable.empty()
+                        .flatMapLatest ({ documentSnapshot -> Observable<FirebaseDocumentResponseObject> in
+                            return Observable.just(FirebaseDocumentResponseObject.success(documentSnapshot))
+                        })
+                case .error(let error):
+                    return Observable.just(FirebaseDocumentResponseObject.error(UnpauseError.otherError(error)))
                 }
         }
-        .map { documentSnapshot -> CompanyFetchingResponse in
-            do {
-                guard let company = try CompanyFactory.createCompanyFromDocument(document: documentSnapshot) else {
-                    return CompanyFetchingResponse.error(UnpauseError.emptyError)
+        .map { firebaseDocumentResponseObject -> CompanyFetchingResponse in
+            switch firebaseDocumentResponseObject {
+            case .success(let documentSnapshot):
+                do {
+                    guard let company = try CompanyFactory.createCompanyFromDocument(document: documentSnapshot) else {
+                        return CompanyFetchingResponse.error(UnpauseError.emptyError)
+                    }
+                    return CompanyFetchingResponse.success(company)
+                } catch (let error){
+                    return CompanyFetchingResponse.error(UnpauseError.otherError(error))
                 }
-                return CompanyFetchingResponse.success(company)
-            } catch (let error){
-                return CompanyFetchingResponse.error(error)
+            case .error(let error):
+                return CompanyFetchingResponse.error(UnpauseError.otherError(error))
             }
         }
     }
@@ -106,7 +110,7 @@ class CompanyNetworking {
                             return Observable.just(FirebaseDocumentResponseObject.success(documentSnapshot))
                         })
                 case .error(let error):
-                    return Observable.just(FirebaseDocumentResponseObject.error(error))
+                    return Observable.just(FirebaseDocumentResponseObject.error(UnpauseError.otherError(error)))
                 }
             })
             .flatMapLatest ({ [weak self] firebaseDocumentResponseObject -> Observable<Response> in

@@ -10,6 +10,6 @@ import Foundation
 import FirebaseAuth
 
 enum FirebaseResponseObject {
-    case authDataResult(AuthDataResult)
-    case error(Error)
+    case success(AuthDataResult)
+    case error(UnpauseError)
 }

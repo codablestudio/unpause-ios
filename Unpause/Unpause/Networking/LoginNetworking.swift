@@ -21,19 +21,19 @@ class LoginNetworking {
             .flatMapLatest({ authDataResult -> Observable<FirebaseResponseObject> in
                 if let email = authDataResult.user.email {
                     print("\(email)")
-                    return Observable.just(FirebaseResponseObject.authDataResult(authDataResult))
+                    return Observable.just(FirebaseResponseObject.success(authDataResult))
                 } else {
                     return Observable.just(FirebaseResponseObject.error(UnpauseError.defaultError))
                 }
             })
             .catchError({ error -> Observable<FirebaseResponseObject> in
-                return Observable.just(FirebaseResponseObject.error(error))
+                return Observable.just(FirebaseResponseObject.error(UnpauseError.otherError(error)))
             })
     }
     
-    func getInfoFromUserWitha(firebaseResponseObject: FirebaseResponseObject) -> Observable<FirebaseDocumentResponseObject> {
+    func getInfoFromUserWith(firebaseResponseObject: FirebaseResponseObject) -> Observable<FirebaseDocumentResponseObject> {
         switch firebaseResponseObject {
-        case .authDataResult(let authDataResult):
+        case .success(let authDataResult):
             guard let userEmail = authDataResult.user.email else { return Observable.just(FirebaseDocumentResponseObject.error(UnpauseError.noUser))
             }
             return dataBaseReference
@@ -45,7 +45,7 @@ class LoginNetworking {
                     return Observable.just(FirebaseDocumentResponseObject.success(document))
                 })
                 .catchError { error -> Observable<FirebaseDocumentResponseObject> in
-                    return Observable.just(FirebaseDocumentResponseObject.error(error))
+                    return Observable.just(FirebaseDocumentResponseObject.error(UnpauseError.otherError(error)))
             }
         case .error(let error):
             return Observable.just(FirebaseDocumentResponseObject.error(error))

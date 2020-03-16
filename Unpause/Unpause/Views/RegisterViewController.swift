@@ -95,7 +95,7 @@ class RegisterViewController: UIViewController {
             .subscribe(onNext: { [weak self] firebaseResponseObject in
                 guard let `self` = self else { return }
                 switch firebaseResponseObject {
-                case .authDataResult(let authDataResult):
+                case .success(let authDataResult):
                     print("\(authDataResult.user.email!)")
                     ActivityIndicatorView.shared.dissmis()
                     Coordinator.shared.navigateToAddCompanyViewController(from: self, registeredUserEmail: authDataResult.user.email)

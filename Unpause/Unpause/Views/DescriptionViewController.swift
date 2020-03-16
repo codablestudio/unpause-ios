@@ -78,10 +78,11 @@ class DescriptionViewController: UIViewController {
                 guard let `self` = self else { return }
                 switch response {
                 case .success:
-                    ActivityIndicatorView.shared.show(on: self.view)
+                    ActivityIndicatorView.shared.dissmis()
                     ActivityViewModel.forceRefresh.onNext(())
                     self.dismiss(animated: true)
                 case .error(let error):
+                    ActivityIndicatorView.shared.dissmis()
                     self.showAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)
@@ -91,10 +92,11 @@ class DescriptionViewController: UIViewController {
                 guard let `self` = self else { return }
                 switch response {
                 case .success:
-                    ActivityIndicatorView.shared.show(on: self.view)
+                    ActivityIndicatorView.shared.dissmis()
                     ActivityViewModel.forceRefresh.onNext(())
                     self.dismiss(animated: true)
                 case .error(let error):
+                    ActivityIndicatorView.shared.dissmis()
                     self.showAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)

@@ -12,6 +12,7 @@ import Firebase
 import FirebaseAuth
 import FirebaseFirestore
 import RxFirebase
+import GoogleSignIn
 
 class RegisterNetworking {
     
@@ -21,20 +22,47 @@ class RegisterNetworking {
         Auth.auth().rx.createUser(withEmail: email, password: password)
             .flatMapLatest { [weak self] (authDataResult) -> Observable<FirebaseResponseObject> in
                 guard let `self` = self else { return Observable.empty() }
-                if authDataResult.user.email != nil {
-                    self.dataBaseReference
-                        .collection("users")
-                        .document("\(email)")
-                        .setData(["firstName": "\(firstName)",
-                            "lastName": "\(lastName)",
-                            "email": "\(email)"])
-                    return Observable.just(FirebaseResponseObject.authDataResult(authDataResult))
-                } else {
-                    return Observable.just(FirebaseResponseObject.error(UnpauseError.defaultError))
+                guard let _ = authDataResult.user.email else {
+                    return Observable.just(FirebaseResponseObject.error(UnpauseError.noUser))
                 }
+                return self.saveUserInfoOnServer(email: email, firstName: firstName, lastName: lastName)
+                    .flatMapLatest ({ _ -> Observable<FirebaseResponseObject> in
+                        return Observable.just(FirebaseResponseObject.success(authDataResult))
+                    }).catchError ({ error -> Observable<FirebaseResponseObject> in
+                        return Observable.just(FirebaseResponseObject.error(UnpauseError.otherError(error)))
+                    })
         }
-        .catchError { (error) -> Observable<FirebaseResponseObject> in
-            return Observable.just(FirebaseResponseObject.error(error))
+    }
+    
+    func signInGoogleUser(googleUser: GIDGoogleUser) -> Observable<Response> {
+        guard let idToken = googleUser.authentication.idToken,
+            let accessToken = googleUser.authentication.accessToken else {
+                return Observable.just(Response.error(UnpauseError.emptyError))
         }
+        let credentials = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
+        return Auth.auth().rx.signInAndRetrieveData(with: credentials)
+            .flatMapLatest { authDataResult -> Observable<Response> in
+                guard let userEmail = authDataResult.user.email,
+                    let userFirstName = googleUser.profile.givenName,
+                    let userLastName = googleUser.profile.familyName else {
+                        return Observable.just(Response.error(UnpauseError.emptyError))
+                }
+                return self.saveUserInfoOnServer(email: userEmail, firstName: userFirstName, lastName: userLastName)
+                    .flatMapLatest ({ _ -> Observable<Response> in
+                        return Observable.just(Response.success)
+                    }).catchError ({ error -> Observable<Response> in
+                        return Observable.just(Response.error(error))
+                    })
+        }
+    }
+    
+    private func saveUserInfoOnServer(email: String, firstName: String, lastName: String) -> Observable<Void> {
+        return self.dataBaseReference
+            .collection("users")
+            .document("\(email)")
+            .rx
+            .setData(["firstName": "\(firstName)",
+                "lastName": "\(lastName)",
+                "email": "\(email)"])
     }
 }

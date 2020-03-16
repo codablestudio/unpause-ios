@@ -120,7 +120,7 @@ private extension ShiftTableViewCell {
         }
         containerView.backgroundColor = .unpauseWhite
         containerView.layer.cornerRadius = 10
-        containerView.dropShadow(color: .unpauseLightGray, opacity: 0.5, offSet: .zero, radius: 3)
+        containerView.dropShadow(color: .unpauseLightGray, opacity: 0.5, offSet: .zero, radius: 5)
     }
     
     func configureStackViewAndArrivalStackView() {

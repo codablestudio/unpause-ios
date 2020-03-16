@@ -8,19 +8,29 @@
 
 import Foundation
 
-enum UnpauseError: Error {
+enum UnpauseError: Error, Equatable {
+    static func == (lhs: UnpauseError, rhs: UnpauseError) -> Bool {
+        return lhs.errorMessage == rhs.errorMessage
+    }
+    
     case defaultError
     case emptyError
     case noUser
+    case noCompany
+    case otherError(Error)
     
     var errorMessage: String {
         switch self {
         case .defaultError:
-            return "Default error"
+            return "Default error."
         case .emptyError:
-            return "Empty error"
+            return "Empty error."
         case .noUser:
-            return "No user"
+            return "No user."
+        case .noCompany:
+            return "There is no company associated with you."
+        case .otherError(let error):
+            return error.localizedDescription
         }
     }
 }

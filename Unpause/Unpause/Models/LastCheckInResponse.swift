@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum LastCheckInResponse: Error {
-    case lastCheckIn(Date?)
+enum LastCheckInResponse {
+    case success(Date?)
     case error(Error)
 }

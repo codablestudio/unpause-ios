@@ -11,23 +11,14 @@ import RxSwift
 import RxFirebase
 import FirebaseAuth
 import FirebaseFirestore
+import GoogleSignIn
 
-protocol LoginViewModelProtocol {
-    
-    var textInEmailTextFieldChanges: PublishSubject<String?> { get }
-    var textInPasswordTextFieldChanges: PublishSubject<String?>  { get }
-    var logInButtonTapped: PublishSubject<Void>  { get }
-    var registerNowButtonTapped: PublishSubject<Void>  { get }
-    
-    var loginRequest: Observable<FirebaseResponseObject>! { get }
-    var loginDocument: Observable<Response>! { get }
-}
-
-class LoginViewModel: LoginViewModelProtocol {
+class LoginViewModel {
     
     private let disposeBag = DisposeBag()
     private let loginNetworking = LoginNetworking()
     private let companyNetworking = CompanyNetworking()
+    private let registerNetworking = RegisterNetworking()
     
     private var textInEmailTextField: String?
     private var textInPasswordTextField: String?
@@ -37,9 +28,11 @@ class LoginViewModel: LoginViewModelProtocol {
     var textInPasswordTextFieldChanges = PublishSubject<String?>()
     var logInButtonTapped = PublishSubject<Void>()
     var registerNowButtonTapped = PublishSubject<Void>()
+    var googleUserSignInResponse = PublishSubject<GIDGoogleUser>()
     
     var loginRequest: Observable<FirebaseResponseObject>!
-    var loginDocument: Observable<Response>!
+    var loginDocument: Observable<UnpauseResponse>!
+    var googleUserSavingResponse: Observable<Response>!
     
     init() {
         setUpObservables()
@@ -55,7 +48,7 @@ class LoginViewModel: LoginViewModelProtocol {
             })
             .flatMapLatest({ [weak self] firebaseResponseObject -> Observable<FirebaseDocumentResponseObject> in
                 guard let `self` = self else { return Observable.empty() }
-                return self.loginNetworking.getInfoFromUserWitha(firebaseResponseObject: firebaseResponseObject)
+                return self.loginNetworking.getInfoFromUserWith(firebaseResponseObject: firebaseResponseObject)
             })
             .map({ firebaseResponse -> UserResponse in
                 switch firebaseResponse {
@@ -78,17 +71,17 @@ class LoginViewModel: LoginViewModelProtocol {
                     self.privateUser = user
                     return self.companyNetworking.fetchCompany()
                 case .error(let error):
-                    return Observable.just(CompanyFetchingResponse.error(error))
+                    return Observable.just(CompanyFetchingResponse.error(UnpauseError.otherError(error)))
                 }
             })
-            .map({ companyFetchingResponse -> Response in
+            .map({ companyFetchingResponse -> UnpauseResponse in
                 switch companyFetchingResponse {
                 case .success(let company):
                     SessionManager.shared.currentUser?.company = company
                     SessionManager.shared.saveCurrentUserToUserDefaults()
-                    return Response.success
+                    return UnpauseResponse.success
                 case .error(let error):
-                    return Response.error(error)
+                    return UnpauseResponse.error(UnpauseError.otherError(error))
                 }
             })
     }
@@ -101,5 +94,11 @@ class LoginViewModel: LoginViewModelProtocol {
         textInPasswordTextFieldChanges.subscribe(onNext: { [weak self] (newValue) in
             self?.textInPasswordTextField = newValue
         }).disposed(by: disposeBag)
+        
+        googleUserSavingResponse = googleUserSignInResponse
+            .flatMapLatest({ [weak self] googleUser -> Observable<Response> in
+                guard let `self` = self else { return Observable.empty() }
+                return self.registerNetworking.signInGoogleUser(googleUser: googleUser)
+            })
     }
 }

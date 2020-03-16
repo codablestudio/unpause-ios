@@ -12,7 +12,7 @@ import Firebase
 class CompanyFactory {
     
     static func createCompanyReference(from document: DocumentSnapshot) throws -> DocumentReference? {
-        guard let companyReference = document.get("companyReference") as? DocumentReference else { throw UnpauseError.defaultError }
+        let companyReference = document.get("companyReference") as? DocumentReference
         return companyReference
     }
     

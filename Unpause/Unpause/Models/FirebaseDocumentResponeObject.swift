@@ -11,5 +11,5 @@ import FirebaseFirestore
 
 enum FirebaseDocumentResponseObject {
     case success(DocumentSnapshot)
-    case error(Error)
+    case error(UnpauseError)
 }

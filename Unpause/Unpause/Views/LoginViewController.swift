@@ -16,7 +16,7 @@ import GoogleSignIn
 class LoginViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
-    private let loginViewModel: LoginViewModelProtocol
+    private let loginViewModel: LoginViewModel
     
     private let scrollView = UIScrollView()
     private let containerView = UIView()
@@ -37,7 +37,9 @@ class LoginViewController: UIViewController {
     private let newHereLabel = UILabel()
     private let registerButton = UIButton()
     
-    init(loginViewModel: LoginViewModelProtocol) {
+    var googleUserSignInResponse = PublishSubject<GIDGoogleUser>()
+    
+    init(loginViewModel: LoginViewModel) {
         self.loginViewModel = loginViewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -106,10 +108,30 @@ class LoginViewController: UIViewController {
                     ActivityIndicatorView.shared.dissmis()
                     Coordinator.shared.navigateToHomeViewController(from: self)
                 case .error(let error):
-                    ActivityIndicatorView.shared.dissmis()
-                    self.showAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
+                    if error == UnpauseError.noCompany {
+                        ActivityIndicatorView.shared.dissmis()
+                        Coordinator.shared.navigateToHomeViewController(from: self)
+                    } else {
+                        ActivityIndicatorView.shared.dissmis()
+                        self.showAlert(title: "Error", message: "\(error.errorMessage)", actionTitle: "OK")
+                    }
                 }
             }).disposed(by: disposeBag)
+        
+        googleUserSignInResponse
+            .bind(to: loginViewModel.googleUserSignInResponse)
+            .disposed(by: disposeBag)
+        
+        loginViewModel.googleUserSavingResponse
+            .subscribe(onNext: { response in
+                switch response {
+                case .success:
+                    self.dismiss(animated: true)
+                case .error(let error):
+                    self.showAlert(title: "Alert", message: "\(error.localizedDescription)", actionTitle: "OK")
+                }
+            }).disposed(by: disposeBag)
+        
         
         registerButton.rx.tap.subscribe(onNext: { [weak self] _ in
             guard let `self` = self else { return }
@@ -311,21 +333,18 @@ private extension LoginViewController {
 }
 
 extension LoginViewController: GIDSignInDelegate {
-    @available(iOS 9.0, *)
     func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])
         -> Bool {
             return GIDSignIn.sharedInstance().handle(url)
     }
     
-    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        return GIDSignIn.sharedInstance().handle(url)
-    }
-    
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
         if let error = error {
             print("ERROR: \(error.localizedDescription)")
-            return
+            self.showAlert(title: "Alert", message: "\(error.localizedDescription)", actionTitle: "OK")
         }
+        
+        googleUserSignInResponse.onNext(user)
         
         let newUser = UserFactory.createUser(from: user)
         SessionManager.shared.logIn(newUser)

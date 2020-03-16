@@ -21,7 +21,7 @@ class UserFactory {
     
     static func createUser(from googleUser: GIDGoogleUser) -> User {
         let email = googleUser.profile.email
-        let firstName = googleUser.profile.name
+        let firstName = googleUser.profile.givenName
         let lastName = googleUser.profile.familyName
         return User(firstName: firstName, lastName: lastName, email: email)
     }

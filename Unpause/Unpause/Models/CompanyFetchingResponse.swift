@@ -9,6 +9,6 @@
 import Foundation
 
 enum CompanyFetchingResponse {
-    case success(Company)
-    case error(Error)
+    case success(Company?)
+    case error(UnpauseError)
 }
