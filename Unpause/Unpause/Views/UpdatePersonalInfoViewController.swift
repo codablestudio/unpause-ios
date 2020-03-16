@@ -138,7 +138,7 @@ private extension UpdatePersonalInfoViewController {
             make.centerX.equalToSuperview()
         }
         updatePersonalInfoLabel.text = "Change personal info"
-        updatePersonalInfoLabel.textColor = UIColor.orange
+        updatePersonalInfoLabel.textColor = UIColor.unpauseOrange
         updatePersonalInfoLabel.font = UIFont.boldSystemFont(ofSize: 25)
         
         containerView.addSubview(updatePersonalInfoSeparator)
@@ -148,7 +148,7 @@ private extension UpdatePersonalInfoViewController {
             make.right.equalToSuperview().inset(30)
             make.height.equalTo(1)
         }
-        updatePersonalInfoSeparator.backgroundColor = UIColor.orange
+        updatePersonalInfoSeparator.backgroundColor = UIColor.unpauseOrange
     }
     
     func renderNewFirstNameTextFieldAndNewFirstNameSeparator() {
@@ -170,7 +170,7 @@ private extension UpdatePersonalInfoViewController {
             make.right.equalToSuperview().inset(33)
             make.height.equalTo(1)
         }
-        newFirstNameSeparator.backgroundColor = UIColor.lightGray
+        newFirstNameSeparator.backgroundColor = UIColor.unpauseLightGray
     }
     
     func renderNewLastNameTextFieldAndNewLastNameSeparator() {
@@ -192,7 +192,7 @@ private extension UpdatePersonalInfoViewController {
             make.right.equalToSuperview().inset(33)
             make.height.equalTo(1)
         }
-        newLastNameSeparator.backgroundColor = UIColor.lightGray
+        newLastNameSeparator.backgroundColor = UIColor.unpauseLightGray
     }
     
     func renderUpdateInfoButton() {

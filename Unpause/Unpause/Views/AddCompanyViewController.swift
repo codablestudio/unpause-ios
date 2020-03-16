@@ -151,7 +151,7 @@ private extension AddCompanyViewController {
             make.centerX.equalToSuperview()
         }
         addCompanyLabel.text = "Add company"
-        addCompanyLabel.textColor = UIColor.orange
+        addCompanyLabel.textColor = UIColor.unpauseOrange
         addCompanyLabel.font = UIFont.boldSystemFont(ofSize: 25)
         
         containerView.addSubview(addCompanySeparator)
@@ -161,7 +161,7 @@ private extension AddCompanyViewController {
             make.right.equalToSuperview().inset(30)
             make.height.equalTo(1)
         }
-        addCompanySeparator.backgroundColor = UIColor.orange
+        addCompanySeparator.backgroundColor = UIColor.unpauseOrange
     }
     
     func renderCompanyNameTextFieldAndCompanyNameSeparator() {
@@ -182,7 +182,7 @@ private extension AddCompanyViewController {
             make.right.equalToSuperview().inset(42)
             make.height.equalTo(1)
         }
-        companyNameSeparator.backgroundColor = UIColor.lightGray
+        companyNameSeparator.backgroundColor = UIColor.unpauseLightGray
     }
     
     func renderCompanyPasscodeTextFieldAndSeparator() {
@@ -204,7 +204,7 @@ private extension AddCompanyViewController {
             make.right.equalToSuperview().inset(42)
             make.height.equalTo(1)
         }
-        companyPassCodeSeparator.backgroundColor = UIColor.lightGray
+        companyPassCodeSeparator.backgroundColor = UIColor.unpauseLightGray
     }
     
     func renderAddCompanyButton() {

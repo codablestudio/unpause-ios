@@ -290,7 +290,7 @@ private extension ActivityViewController {
             make.left.equalToSuperview()
             make.right.equalToSuperview()
         }
-        datesContainer.backgroundColor = .orange
+        datesContainer.backgroundColor = .unpauseOrange
         datesContainer.layer.cornerRadius = 25
         datesContainer.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
     }
@@ -312,8 +312,10 @@ private extension ActivityViewController {
         fromDateStackView.addArrangedSubview(fromDateLabel)
         fromDateLabel.text = "From"
         fromDateLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        fromDateLabel.textColor = .unpauseWhite
         
         fromDateStackView.addArrangedSubview(fromDateTextField)
+        fromDateTextField.textColor = .unpauseWhite
     }
     
     func renderToDateLabelAndToDateTextField() {
@@ -333,8 +335,10 @@ private extension ActivityViewController {
         toDateStackView.addArrangedSubview(toDateLabel)
         toDateLabel.text = "To"
         toDateLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        toDateLabel.textColor = .unpauseWhite
         
         toDateStackView.addArrangedSubview(toDateTextField)
+        toDateTextField.textColor = .unpauseWhite
     }
     
     func configureTableView() {

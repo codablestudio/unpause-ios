@@ -125,7 +125,7 @@ private extension ForgotPasswordViewController {
             make.centerX.equalToSuperview()
         }
         passwordRecoveryLabel.text = "Password recovery"
-        passwordRecoveryLabel.textColor = UIColor.orange
+        passwordRecoveryLabel.textColor = UIColor.unpauseOrange
         passwordRecoveryLabel.font = UIFont.boldSystemFont(ofSize: 25)
         
         containerView.addSubview(passwordRecoverySeparator)
@@ -135,7 +135,7 @@ private extension ForgotPasswordViewController {
             make.right.equalToSuperview().inset(30)
             make.height.equalTo(1)
         }
-        passwordRecoverySeparator.backgroundColor = UIColor.orange
+        passwordRecoverySeparator.backgroundColor = UIColor.unpauseOrange
     }
 
     func renderEmailTextFieldAndEmailSeparator() {
@@ -157,7 +157,7 @@ private extension ForgotPasswordViewController {
             make.right.equalToSuperview().inset(42)
             make.height.equalTo(1)
         }
-        emailSeparator.backgroundColor = UIColor.lightGray
+        emailSeparator.backgroundColor = UIColor.unpauseLightGray
     }
     
     func renderSendRecoveryEmailButton() {

@@ -137,7 +137,7 @@ private extension ChangePasswordViewController {
             make.centerX.equalToSuperview()
         }
         changePasswordLabel.text = "Change password"
-        changePasswordLabel.textColor = UIColor.orange
+        changePasswordLabel.textColor = UIColor.unpauseOrange
         changePasswordLabel.font = UIFont.boldSystemFont(ofSize: 25)
         
         containerView.addSubview(changePasswordSeparator)
@@ -147,7 +147,7 @@ private extension ChangePasswordViewController {
             make.right.equalToSuperview().inset(30)
             make.height.equalTo(1)
         }
-        changePasswordSeparator.backgroundColor = UIColor.orange
+        changePasswordSeparator.backgroundColor = UIColor.unpauseOrange
     }
     
     func renderCurrentPasswordAndCurrentPasswordSeparator() {
@@ -169,7 +169,7 @@ private extension ChangePasswordViewController {
             make.right.equalToSuperview().inset(42)
             make.height.equalTo(1)
         }
-        currentPasswordSeparator.backgroundColor = UIColor.lightGray
+        currentPasswordSeparator.backgroundColor = UIColor.unpauseLightGray
     }
     
     func renderNewPasswordAndNewPasswordSeparator() {
@@ -191,7 +191,7 @@ private extension ChangePasswordViewController {
             make.right.equalToSuperview().inset(42)
             make.height.equalTo(1)
         }
-        newPasswordSeparator.backgroundColor = UIColor.lightGray
+        newPasswordSeparator.backgroundColor = UIColor.unpauseLightGray
     }
     
     func renderChangePasswordButton() {

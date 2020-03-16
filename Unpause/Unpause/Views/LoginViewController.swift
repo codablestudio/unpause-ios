@@ -190,7 +190,7 @@ private extension LoginViewController {
         titleStackView.addArrangedSubview(unpauseTitleLabel)
         unpauseTitleLabel.text = "Unpause"
         unpauseTitleLabel.font = UIFont.boldSystemFont(ofSize: 30)
-        unpauseTitleLabel.textColor = UIColor.orange
+        unpauseTitleLabel.textColor = UIColor.unpauseOrange
         
         containerView.addSubview(titleDesriptionLabel)
         titleDesriptionLabel.snp.makeConstraints { (make) in
@@ -199,7 +199,7 @@ private extension LoginViewController {
         }
         titleDesriptionLabel.text = "Enjoy managing your workitime"
         titleDesriptionLabel.font = titleDesriptionLabel.font.withSize(13)
-        titleDesriptionLabel.textColor = UIColor.darkGray
+        titleDesriptionLabel.textColor = UIColor.unpauseDarkGray
     }
     
     func renderEmailTextFieldAndEmailSeparator() {
@@ -222,7 +222,7 @@ private extension LoginViewController {
             make.left.equalToSuperview().offset(55)
             make.right.equalToSuperview().inset(55)
         }
-        emailSeparator.backgroundColor = UIColor.lightGray
+        emailSeparator.backgroundColor = UIColor.unpauseLightGray
     }
     
     func renderPasswordTextFieldAndPasswordSeparator() {
@@ -245,7 +245,7 @@ private extension LoginViewController {
             make.left.equalToSuperview().offset(55)
             make.right.equalToSuperview().inset(55)
         }
-        passwordSeparator.backgroundColor = UIColor.lightGray
+        passwordSeparator.backgroundColor = UIColor.unpauseLightGray
     }
     
     func renderForgotPasswordButtonAndLoginButton() {
@@ -257,7 +257,7 @@ private extension LoginViewController {
         }
         forgotPasswordButton.setTitle("Forgot password?", for: .normal)
         forgotPasswordButton.titleLabel?.font = forgotPasswordButton.titleLabel?.font.withSize(13)
-        forgotPasswordButton.setTitleColor(UIColor.orange, for: .normal)
+        forgotPasswordButton.setTitleColor(UIColor.unpauseOrange, for: .normal)
         
         containerView.addSubview(loginButton)
         loginButton.snp.makeConstraints { (make) in
@@ -267,7 +267,7 @@ private extension LoginViewController {
             make.height.equalTo(50)
         }
         loginButton.setTitle("Login", for: .normal)
-        loginButton.backgroundColor = UIColor.orange
+        loginButton.backgroundColor = UIColor.unpauseOrange
         loginButton.layer.cornerRadius = 25
     }
     
@@ -281,7 +281,7 @@ private extension LoginViewController {
         }
         signInWithGoogleButton.setTitle("Sign in with Google", for: .normal)
         signInWithGoogleButton.titleLabel?.font = signInWithGoogleButton.titleLabel?.font.withSize(15)
-        signInWithGoogleButton.backgroundColor = UIColor.orange
+        signInWithGoogleButton.backgroundColor = UIColor.unpauseOrange
         signInWithGoogleButton.layer.cornerRadius = 15
         signInWithGoogleButton.titleEdgeInsets = UIEdgeInsets(top: 4, left: 7, bottom: 4, right: 7)
         
@@ -292,7 +292,7 @@ private extension LoginViewController {
         }
         newHereLabel.text = "New here?"
         newHereLabel.font = newHereLabel.font.withSize(14)
-        newHereLabel.textColor = UIColor.darkGray
+        newHereLabel.textColor = UIColor.unpauseDarkGray
     }
     
     func renderRegisterButton() {
@@ -305,7 +305,7 @@ private extension LoginViewController {
         }
         let underlinedText = NSAttributedString(string: "Register now",
                                                 attributes: [.underlineStyle: NSUnderlineStyle.single.rawValue,
-                                                             NSAttributedString.Key.foregroundColor : UIColor.orange])
+                                                             NSAttributedString.Key.foregroundColor : UIColor.unpauseOrange])
         registerButton.setAttributedTitle(underlinedText, for: .normal)
     }
 }

@@ -17,7 +17,7 @@ class ActivityIndicatorView: UIActivityIndicatorView {
     func show(on view: UIView) {
         loadingView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
         loadingView.center = view.center
-        loadingView.backgroundColor = .indicatorBackgroundColor
+        loadingView.backgroundColor = .unpauseIndicatorGray
         loadingView.clipsToBounds = true
         loadingView.layer.cornerRadius = 10
         self.center = view.center

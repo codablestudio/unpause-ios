@@ -14,24 +14,24 @@ extension UIColor {
         return UIColor(named: "unpauseWhite") ?? UIColor.fallbackColor("unpauseWhite")
     }
     
-    static var orange: UIColor {
-        return UIColor(named: "orange") ?? UIColor.fallbackColor("orange")
+    static var unpauseOrange: UIColor {
+        return UIColor(named: "unpauseOrange") ?? UIColor.fallbackColor("unpauseOrange")
     }
     
-    static var darkGray: UIColor {
-        return UIColor(named: "darkGray") ?? UIColor.fallbackColor("darkGray")
+    static var unpauseDarkGray: UIColor {
+        return UIColor(named: "unpauseDarkGray") ?? UIColor.fallbackColor("unpauseDarkGray")
     }
     
-    static var lightGray: UIColor {
-        return UIColor(named: "lightGray") ?? UIColor.fallbackColor("lightGray")
+    static var unpauseLightGray: UIColor {
+        return UIColor(named: "unpauseLightGray") ?? UIColor.fallbackColor("unpauseLightGray")
     }
     
     static var unpauseGray: UIColor {
-        return UIColor(named: "unpauseGray") ?? UIColor.fallbackColor("lightGray")
+        return UIColor(named: "unpauseGray") ?? UIColor.fallbackColor("unpauseGray")
     }
     
-    static var indicatorBackgroundColor: UIColor {
-        return UIColor(named: "indicatorBackgroundColor") ?? UIColor.fallbackColor("indicatorBackgroundColor")
+    static var unpauseIndicatorGray: UIColor {
+        return UIColor(named: "unpauseIndicatorGray") ?? UIColor.fallbackColor("unpauseIndicatorGray")
     }
     
     static func fallbackColor(_ forColor: String) -> UIColor {

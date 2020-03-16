@@ -517,11 +517,11 @@ private extension AddShiftViewController {
         }
         if navigationFromTableView {
             addingShiftLabel.text = "Editing shift"
-            addingShiftLabel.textColor = UIColor.orange
+            addingShiftLabel.textColor = UIColor.unpauseOrange
             addingShiftLabel.font = UIFont.boldSystemFont(ofSize: 25)
         } else {
             addingShiftLabel.text = "Adding shift"
-            addingShiftLabel.textColor = UIColor.orange
+            addingShiftLabel.textColor = UIColor.unpauseOrange
             addingShiftLabel.font = UIFont.boldSystemFont(ofSize: 25)
         }
         
@@ -532,7 +532,7 @@ private extension AddShiftViewController {
             make.right.equalToSuperview().inset(30)
             make.height.equalTo(1)
         }
-        addingShiftSeparator.backgroundColor = UIColor.orange
+        addingShiftSeparator.backgroundColor = UIColor.unpauseOrange
     }
     
     func renderArrivedAtLabelAndArriveImageView() {
@@ -615,7 +615,7 @@ private extension AddShiftViewController {
             make.right.equalToSuperview().inset(30)
             make.height.equalTo(1)
         }
-        separator.backgroundColor = UIColor.orange
+        separator.backgroundColor = UIColor.unpauseOrange
         
         containerView.addSubview(descriptionLabel)
         descriptionLabel.snp.makeConstraints { (make) in

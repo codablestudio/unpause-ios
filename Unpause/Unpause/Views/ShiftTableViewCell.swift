@@ -120,7 +120,7 @@ private extension ShiftTableViewCell {
         }
         containerView.backgroundColor = .unpauseWhite
         containerView.layer.cornerRadius = 10
-        containerView.dropShadow(color: .lightGray, opacity: 0.5, offSet: .zero, radius: 3)
+        containerView.dropShadow(color: .unpauseLightGray, opacity: 0.5, offSet: .zero, radius: 3)
     }
     
     func configureStackViewAndArrivalStackView() {
@@ -199,7 +199,7 @@ private extension ShiftTableViewCell {
             make.right.equalTo(arrivalTimeStackView.snp.right).offset(15)
             make.height.equalTo(1)
         }
-        firstSeparator.backgroundColor = .lightGray
+        firstSeparator.backgroundColor = .unpauseLightGray
     }
     
     func renderDescriptionStackView() {
@@ -230,7 +230,7 @@ private extension ShiftTableViewCell {
             make.right.equalToSuperview()
             make.height.equalTo(1)
         }
-        secondSetarator.backgroundColor = .lightGray
+        secondSetarator.backgroundColor = .unpauseLightGray
     }
     
     func configureExitStackViewAndRenderExitImageView() {
@@ -303,6 +303,6 @@ private extension ShiftTableViewCell {
         workingHoursLabel.text = "1 hour 34 minutes"
         workingHoursLabel.text = "-"
         workingHoursLabel.font = .systemFont(ofSize: 10, weight: .bold)
-        workingHoursLabel.textColor = .orange
+        workingHoursLabel.textColor = .unpauseOrange
     }
 }

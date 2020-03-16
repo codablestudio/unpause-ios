@@ -155,7 +155,7 @@ private extension RegisterViewController {
             make.centerX.equalToSuperview()
         }
         registrationLabel.text = "Registration"
-        registrationLabel.textColor = UIColor.orange
+        registrationLabel.textColor = UIColor.unpauseOrange
         registrationLabel.font = UIFont.boldSystemFont(ofSize: 25)
         
         containerView.addSubview(registrationSeparator)
@@ -165,7 +165,7 @@ private extension RegisterViewController {
             make.right.equalToSuperview().inset(30)
             make.height.equalTo(1)
         }
-        registrationSeparator.backgroundColor = UIColor.orange
+        registrationSeparator.backgroundColor = UIColor.unpauseOrange
     }
 
     func renderFirstNameTextFieldAndFirstNameSeparator() {
@@ -186,7 +186,7 @@ private extension RegisterViewController {
             make.right.equalToSuperview().inset(42)
             make.height.equalTo(1)
         }
-        firstNameSeparator.backgroundColor = UIColor.lightGray
+        firstNameSeparator.backgroundColor = UIColor.unpauseLightGray
     }
     
     func renderLastNameTextFieldAndLastNameSeparator() {
@@ -207,7 +207,7 @@ private extension RegisterViewController {
             make.right.equalToSuperview().inset(42)
             make.height.equalTo(1)
         }
-        lastNameSeparator.backgroundColor = UIColor.lightGray
+        lastNameSeparator.backgroundColor = UIColor.unpauseLightGray
     }
     
     func renderEmailTextFieldAndEmailSeparator() {
@@ -229,7 +229,7 @@ private extension RegisterViewController {
             make.right.equalToSuperview().inset(42)
             make.height.equalTo(1)
         }
-        emailSeparator.backgroundColor = UIColor.lightGray
+        emailSeparator.backgroundColor = UIColor.unpauseLightGray
     }
     
     func renderNewPasswordTextFieldAndPasswordSeparator() {
@@ -251,7 +251,7 @@ private extension RegisterViewController {
             make.right.equalToSuperview().inset(42)
             make.height.equalTo(1)
         }
-        newPasswordSeparator.backgroundColor = UIColor.lightGray
+        newPasswordSeparator.backgroundColor = UIColor.unpauseLightGray
     }
     
     func renderRegisterButton() {

@@ -22,7 +22,7 @@ class OrangeButton: UIButton {
     }
     
     func setUpButton() {
-        backgroundColor = UIColor.orange
+        backgroundColor = UIColor.unpauseOrange
         setTitleColor(.white, for: .normal)
         setTitleColor(UIColor.init(white: 1, alpha: 0.7), for: .highlighted)
     }

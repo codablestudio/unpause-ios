@@ -169,7 +169,7 @@ private extension HomeViewController {
             make.left.equalToSuperview().offset(40)
         }
         emailLabel.text = "Email:"
-        emailLabel.textColor = UIColor.lightGray
+        emailLabel.textColor = UIColor.unpauseLightGray
         
         containerView.addSubview(userEmailLabel)
         userEmailLabel.snp.makeConstraints { (make) in
@@ -178,7 +178,7 @@ private extension HomeViewController {
             make.right.equalToSuperview()
         }
         userEmailLabel.text = SessionManager.shared.currentUser?.email ?? "No user"
-        userEmailLabel.textColor = UIColor.lightGray
+        userEmailLabel.textColor = UIColor.unpauseLightGray
     }
     
     func renderFirstNameLabelAndUserFirstNameLabel() {
@@ -188,7 +188,7 @@ private extension HomeViewController {
             make.left.equalToSuperview().offset(40)
         }
         firstNameLabel.text = "First name:"
-        firstNameLabel.textColor = UIColor.lightGray
+        firstNameLabel.textColor = UIColor.unpauseLightGray
         
         containerView.addSubview(userFirstNameLabel)
         userFirstNameLabel.snp.makeConstraints { (make) in
@@ -197,7 +197,7 @@ private extension HomeViewController {
             make.right.equalToSuperview()
         }
         userFirstNameLabel.text = SessionManager.shared.currentUser?.firstName ?? "No first name"
-        userFirstNameLabel.textColor = UIColor.lightGray
+        userFirstNameLabel.textColor = UIColor.unpauseLightGray
     }
     
     func renderLastNameLabelAndUserLastNameLabel() {
@@ -207,7 +207,7 @@ private extension HomeViewController {
             make.left.equalToSuperview().offset(40)
         }
         lastNameLabel.text = "Last name:"
-        lastNameLabel.textColor = UIColor.lightGray
+        lastNameLabel.textColor = UIColor.unpauseLightGray
         
         containerView.addSubview(userLastNameLabel)
         userLastNameLabel.snp.makeConstraints { (make) in
@@ -216,7 +216,7 @@ private extension HomeViewController {
             make.right.equalToSuperview()
         }
         userLastNameLabel.text = SessionManager.shared.currentUser?.lastName ?? "No last name"
-        userLastNameLabel.textColor = UIColor.lightGray
+        userLastNameLabel.textColor = UIColor.unpauseLightGray
     }
     
     func renderCheckInButton() {
@@ -228,9 +228,10 @@ private extension HomeViewController {
             make.width.equalTo(140)
             make.bottom.equalToSuperview()
         }
-        checkInButton.backgroundColor = UIColor.orange
+        checkInButton.backgroundColor = UIColor.unpauseOrange
         checkInButton.layer.cornerRadius = 70
         checkInButton.titleLabel?.font = .systemFont(ofSize: 25)
         checkInButton.setTitleColor(.white, for: UIControl.State())
+        checkInButton.dropShadow(color: .unpauseLightGray, opacity: 0.5, offSet: .zero, radius: 3)
     }
 }
