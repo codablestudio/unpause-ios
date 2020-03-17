@@ -23,7 +23,7 @@ class LoginNetworking {
                     print("\(email)")
                     return Observable.just(FirebaseResponseObject.success(authDataResult))
                 } else {
-                    return Observable.just(FirebaseResponseObject.error(UnpauseError.defaultError))
+                    return Observable.just(FirebaseResponseObject.error(UnpauseError.wrongUserData))
                 }
             })
             .catchError({ error -> Observable<FirebaseResponseObject> in

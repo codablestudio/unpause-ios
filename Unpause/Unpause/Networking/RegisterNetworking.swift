@@ -63,6 +63,6 @@ class RegisterNetworking {
             .rx
             .setData(["firstName": "\(firstName)",
                 "lastName": "\(lastName)",
-                "email": "\(email)"])
+                "email": "\(email)"], merge: true)
     }
 }

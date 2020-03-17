@@ -389,6 +389,7 @@ extension ActivityViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch dataSource[indexPath.row] {
         case .shift(let shift):
+            tableView.allowsSelection = true
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ShiftTableViewCell.self),
                                                      for: indexPath) as! ShiftTableViewCell
             cell.configure(shift)
@@ -396,12 +397,14 @@ extension ActivityViewController: UITableViewDataSource {
             
         case .empty:
             tableView.separatorStyle = .none
+            tableView.allowsSelection = false
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: EmptyTableViewCell.self),
                                                      for: indexPath) as! EmptyTableViewCell
             return cell
             
         case .loading:
             tableView.separatorStyle = .none
+            tableView.allowsSelection = false
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: LoadingTableViewCell.self),
                                                      for: indexPath) as! LoadingTableViewCell
             return cell
