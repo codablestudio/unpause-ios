@@ -471,7 +471,7 @@ private extension ActivityViewController {
     }
     
     func changeDatesContainerVisibility(hidden: Bool, animated: Bool) {
-        let offset = (hidden ? view.safeAreaInsets.top - (UIApplication.shared.keyWindow?.safeAreaInsets.top)! : view.safeAreaInsets.top)
+        let offset = (hidden ? view.safeAreaInsets.top - datesContainer.bounds.height : view.safeAreaInsets.top)
         if offset == datesContainer.frame.origin.y { return }
         let duration: TimeInterval = (animated ? 0.2 : 0.0)
         UIView.animate(withDuration: duration,
@@ -488,7 +488,7 @@ private extension ActivityViewController {
     func remakeTableViewConstraints(hidden: Bool) {
         if hidden {
             tableView.snp.remakeConstraints { make in
-                make.top.equalTo(view.safeAreaInsets.top - (UIApplication.shared.keyWindow?.safeAreaInsets.top)!)
+                make.top.equalTo(view.safeAreaInsets.top - datesContainer.bounds.height - 25)
                 make.left.right.equalToSuperview()
                 make.bottom.equalToSuperview()
             }
