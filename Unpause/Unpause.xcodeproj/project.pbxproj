@@ -62,7 +62,6 @@
 		C13C412623ABBC7000B674E9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C412523ABBC7000B674E9 /* SettingsViewController.swift */; };
 		C13C412823ABBC8900B674E9 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C412723ABBC8900B674E9 /* SettingsViewModel.swift */; };
 		C13D4C82241FDBE500170AF0 /* UnpauseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13D4C81241FDBE500170AF0 /* UnpauseResponse.swift */; };
-		C13D7C392406D1A200E56C77 /* BossFetchingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13D7C382406D1A200E56C77 /* BossFetchingResponse.swift */; };
 		C13DDCEB23F36D050043E242 /* Shift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13DDCEA23F36D050043E242 /* Shift.swift */; };
 		C13EFBA423FECC5D0081ACF0 /* Formatter+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13EFBA323FECC5D0081ACF0 /* Formatter+Date.swift */; };
 		C1419F6C241253B4001B5817 /* Coordinator+Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1419F6B241253B4001B5817 /* Coordinator+Register.swift */; };
@@ -100,6 +99,7 @@
 		C1B0B2B323B0BF9700CE5D05 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B0B2B223B0BF9700CE5D05 /* SessionManager.swift */; };
 		C1B131FA23F581E7009C3C59 /* ShiftTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B131F923F581E7009C3C59 /* ShiftTableViewCell.swift */; };
 		C1B131FC23F59150009C3C59 /* ShitfsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B131FB23F59150009C3C59 /* ShitfsResponse.swift */; };
+		C1BE0D1824212B6E00480224 /* DotsUIBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BE0D1724212B6E00480224 /* DotsUIBarButtonItem.swift */; };
 		C1C18E482413E8880066EB5F /* CompaniesFetchingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C18E472413E8880066EB5F /* CompaniesFetchingResponse.swift */; };
 		C1C41B7623A9594F009288CA /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C41B7523A9594F009288CA /* UITextField+Extension.swift */; };
 		C1D0CA0B23F6AC9600A20D6F /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D0CA0A23F6AC9600A20D6F /* DataSource.swift */; };
@@ -169,7 +169,6 @@
 		C13C412523ABBC7000B674E9 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		C13C412723ABBC8900B674E9 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		C13D4C81241FDBE500170AF0 /* UnpauseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnpauseResponse.swift; sourceTree = "<group>"; };
-		C13D7C382406D1A200E56C77 /* BossFetchingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BossFetchingResponse.swift; sourceTree = "<group>"; };
 		C13DDCEA23F36D050043E242 /* Shift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shift.swift; sourceTree = "<group>"; };
 		C13EFBA323FECC5D0081ACF0 /* Formatter+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Formatter+Date.swift"; sourceTree = "<group>"; };
 		C1419F6B241253B4001B5817 /* Coordinator+Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinator+Register.swift"; sourceTree = "<group>"; };
@@ -208,6 +207,7 @@
 		C1B0B2B223B0BF9700CE5D05 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		C1B131F923F581E7009C3C59 /* ShiftTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftTableViewCell.swift; sourceTree = "<group>"; };
 		C1B131FB23F59150009C3C59 /* ShitfsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShitfsResponse.swift; sourceTree = "<group>"; };
+		C1BE0D1724212B6E00480224 /* DotsUIBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotsUIBarButtonItem.swift; sourceTree = "<group>"; };
 		C1C18E472413E8880066EB5F /* CompaniesFetchingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompaniesFetchingResponse.swift; sourceTree = "<group>"; };
 		C1C210AE240913E7002B5ACA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C1C41B7523A9594F009288CA /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
@@ -247,6 +247,7 @@
 		C102D7BD23ACFE5C000B9E80 /* CustomUIElements */ = {
 			isa = PBXGroup;
 			children = (
+				C1BE0D2224215EC200480224 /* UITabBarControllers */,
 				C13D4C80241F772500170AF0 /* ActivityIndicators */,
 				C1D568FC241C0762004C8A89 /* UITextFields */,
 				C198B8F223B0CF7300FBD3C6 /* UIButtons */,
@@ -308,11 +309,9 @@
 		C13105E823B0B4E600A509D9 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				C1B0B2B223B0BF9700CE5D05 /* SessionManager.swift */,
-				C13B7737240E489E004DD8FB /* NotificationManager.swift */,
-				C12F7A3E240F9D590074362F /* LocationManager.swift */,
 				C1707B1923F17605002E1A10 /* Formatter+String.swift */,
 				C13EFBA323FECC5D0081ACF0 /* Formatter+Date.swift */,
+				C1BE0D1924215B7300480224 /* Managers */,
 				C1437B3F23F3EF35007BD7DA /* Factories */,
 			);
 			path = Services;
@@ -387,17 +386,10 @@
 		C146992623A117A600A84818 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				C146992D23A11DBE00A84818 /* LoginViewModel.swift */,
-				C16A2EF423A7853800CBA43F /* RegisterViewModel.swift */,
-				C1419F6D24125414001B5817 /* AddCompanyViewModel.swift */,
-				C1FBC46E23AA521C00579913 /* HomeViewModel.swift */,
-				C13C412323ABBC5400B674E9 /* ActivityViewModel.swift */,
-				C13C412723ABBC8900B674E9 /* SettingsViewModel.swift */,
-				C110AE2923C34E770066C394 /* ChangePasswordViewModel.swift */,
-				C1FF2A8B23C4B14200ACCF29 /* UpdatePersonalInfoViewModel.swift */,
-				C111932223CF6008007E2866 /* AddShiftViewModel.swift */,
-				C1707B2123F19129002E1A10 /* DescriptionViewModel.swift */,
-				C14466C72417AD2A00CD52B6 /* ForgotPasswordViewModel.swift */,
+				C1BE0D2324215F3F00480224 /* Login */,
+				C1BE0D2424215F5700480224 /* Home */,
+				C1BE0D2524215F7A00480224 /* Activity */,
+				C1BE0D2624215FB400480224 /* Settings */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -405,21 +397,10 @@
 		C146992723A117B400A84818 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				C146992B23A11D5200A84818 /* LoginViewController.swift */,
-				C16A2EF223A784A700CBA43F /* RegisterViewController.swift */,
-				C1419F6F2412543E001B5817 /* AddCompanyViewController.swift */,
-				C1FBC46C23AA51E100579913 /* HomeViewController.swift */,
-				C13C412123ABBC4100B674E9 /* ActivityViewController.swift */,
-				C1B131F923F581E7009C3C59 /* ShiftTableViewCell.swift */,
-				C12CDDB423FA8AC5002A19C8 /* EmptyTableViewCell.swift */,
-				C12CDDB623FA999F002A19C8 /* LoadingTableViewCell.swift */,
-				C13C412523ABBC7000B674E9 /* SettingsViewController.swift */,
-				C198B8F323B0CFC100FBD3C6 /* CustomTabBarController.swift */,
-				C110AE2723C34E420066C394 /* ChangePasswordViewController.swift */,
-				C1FF2A8923C4B0E500ACCF29 /* UpdatePersonalInfoViewController.swift */,
-				C111932023CF56B7007E2866 /* AddShiftViewController.swift */,
-				C1707B1F23F190AE002E1A10 /* DescriptionViewController.swift */,
-				C14466C52417AD0800CD52B6 /* ForgotPasswordViewController.swift */,
+				C1BE0D1E24215DDE00480224 /* Login */,
+				C1BE0D1F24215E0400480224 /* Home */,
+				C1BE0D2024215E3800480224 /* Activity */,
+				C1BE0D2124215E8400480224 /* Settings */,
 				C102D7BD23ACFE5C000B9E80 /* CustomUIElements */,
 			);
 			path = Views;
@@ -428,30 +409,16 @@
 		C146992823A117C400A84818 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C1BE0D1D24215CED00480224 /* Error */,
+				C1BE0D1C24215CB900480224 /* Firebase */,
+				C1BE0D1B24215C7A00480224 /* Shift */,
+				C1BE0D1A24215BC200480224 /* Company */,
 				C13105E623B0ADF200A509D9 /* User.swift */,
-				C13C411F23AB93D600B674E9 /* FirebaseResponseObject.swift */,
-				C198B8F523B0D57C00FBD3C6 /* UnpauseError.swift */,
-				C13B4B1123BF8A62006E1E0E /* FirebaseDocumentResponeObject.swift */,
 				C133DE5323C89F2A0096F5B2 /* Response.swift */,
 				C1F2CD1E23F2E6D600BD23DC /* LastCheckInResponse.swift */,
-				C13DDCEA23F36D050043E242 /* Shift.swift */,
-				C1B131FB23F59150009C3C59 /* ShitfsResponse.swift */,
-				C1D0CA0A23F6AC9600A20D6F /* DataSource.swift */,
-				C176A55923FED4F900631E39 /* ShiftDeletionResponse.swift */,
 				C116D39424055A2400A6FEC5 /* CSVMakingResponse.swift */,
-				C13D7C382406D1A200E56C77 /* BossFetchingResponse.swift */,
 				C14334EB2407F4BD00C49E16 /* DataMakingResponse.swift */,
-				C12F7A40240FB0120074362F /* CompanyEmailFetchingResponse.swift */,
-				C12F7A42240FB63D0074362F /* CompanyReferenceFetchingResponse.swift */,
-				C12F7A44240FE3E30074362F /* Company.swift */,
-				C12F7A46240FEDD00074362F /* CompanyFetchingResponse.swift */,
 				C138C38724111F9A00FAB84E /* UserResponse.swift */,
-				C1C18E472413E8880066EB5F /* CompaniesFetchingResponse.swift */,
-				C147313E241694BE00477ECA /* CompanyValidationData.swift */,
-				C14731402416950100477ECA /* CompanyValidationDataResponse.swift */,
-				C14731422416982000477ECA /* CompaniesValidationDataResponse.swift */,
-				C147314424169EAB00477ECA /* DocumentReferenceFetchingResponse.swift */,
-				C14731462416A4EB00477ECA /* CompanyReferenceSavingResponse.swift */,
 				C13D4C81241FDBE500170AF0 /* UnpauseResponse.swift */,
 			);
 			path = Models;
@@ -489,8 +456,153 @@
 			isa = PBXGroup;
 			children = (
 				C102D7BE23AD0063000B9E80 /* OrangeButton.swift */,
+				C1BE0D1724212B6E00480224 /* DotsUIBarButtonItem.swift */,
 			);
 			path = UIButtons;
+			sourceTree = "<group>";
+		};
+		C1BE0D1924215B7300480224 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				C1B0B2B223B0BF9700CE5D05 /* SessionManager.swift */,
+				C13B7737240E489E004DD8FB /* NotificationManager.swift */,
+				C12F7A3E240F9D590074362F /* LocationManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		C1BE0D1A24215BC200480224 /* Company */ = {
+			isa = PBXGroup;
+			children = (
+				C12F7A44240FE3E30074362F /* Company.swift */,
+				C12F7A46240FEDD00074362F /* CompanyFetchingResponse.swift */,
+				C12F7A40240FB0120074362F /* CompanyEmailFetchingResponse.swift */,
+				C12F7A42240FB63D0074362F /* CompanyReferenceFetchingResponse.swift */,
+				C14731462416A4EB00477ECA /* CompanyReferenceSavingResponse.swift */,
+				C14731402416950100477ECA /* CompanyValidationDataResponse.swift */,
+				C147313E241694BE00477ECA /* CompanyValidationData.swift */,
+				C1C18E472413E8880066EB5F /* CompaniesFetchingResponse.swift */,
+				C14731422416982000477ECA /* CompaniesValidationDataResponse.swift */,
+			);
+			path = Company;
+			sourceTree = "<group>";
+		};
+		C1BE0D1B24215C7A00480224 /* Shift */ = {
+			isa = PBXGroup;
+			children = (
+				C13DDCEA23F36D050043E242 /* Shift.swift */,
+				C176A55923FED4F900631E39 /* ShiftDeletionResponse.swift */,
+				C1B131FB23F59150009C3C59 /* ShitfsResponse.swift */,
+				C1D0CA0A23F6AC9600A20D6F /* DataSource.swift */,
+			);
+			path = Shift;
+			sourceTree = "<group>";
+		};
+		C1BE0D1C24215CB900480224 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				C13C411F23AB93D600B674E9 /* FirebaseResponseObject.swift */,
+				C13B4B1123BF8A62006E1E0E /* FirebaseDocumentResponeObject.swift */,
+				C147314424169EAB00477ECA /* DocumentReferenceFetchingResponse.swift */,
+			);
+			path = Firebase;
+			sourceTree = "<group>";
+		};
+		C1BE0D1D24215CED00480224 /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				C198B8F523B0D57C00FBD3C6 /* UnpauseError.swift */,
+			);
+			path = Error;
+			sourceTree = "<group>";
+		};
+		C1BE0D1E24215DDE00480224 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				C146992B23A11D5200A84818 /* LoginViewController.swift */,
+				C16A2EF223A784A700CBA43F /* RegisterViewController.swift */,
+				C14466C52417AD0800CD52B6 /* ForgotPasswordViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		C1BE0D1F24215E0400480224 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				C1FBC46C23AA51E100579913 /* HomeViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		C1BE0D2024215E3800480224 /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				C13C412123ABBC4100B674E9 /* ActivityViewController.swift */,
+				C111932023CF56B7007E2866 /* AddShiftViewController.swift */,
+				C1B131F923F581E7009C3C59 /* ShiftTableViewCell.swift */,
+				C12CDDB423FA8AC5002A19C8 /* EmptyTableViewCell.swift */,
+				C12CDDB623FA999F002A19C8 /* LoadingTableViewCell.swift */,
+				C1707B1F23F190AE002E1A10 /* DescriptionViewController.swift */,
+			);
+			path = Activity;
+			sourceTree = "<group>";
+		};
+		C1BE0D2124215E8400480224 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				C13C412523ABBC7000B674E9 /* SettingsViewController.swift */,
+				C1FF2A8923C4B0E500ACCF29 /* UpdatePersonalInfoViewController.swift */,
+				C110AE2723C34E420066C394 /* ChangePasswordViewController.swift */,
+				C1419F6F2412543E001B5817 /* AddCompanyViewController.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		C1BE0D2224215EC200480224 /* UITabBarControllers */ = {
+			isa = PBXGroup;
+			children = (
+				C198B8F323B0CFC100FBD3C6 /* CustomTabBarController.swift */,
+			);
+			path = UITabBarControllers;
+			sourceTree = "<group>";
+		};
+		C1BE0D2324215F3F00480224 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				C146992D23A11DBE00A84818 /* LoginViewModel.swift */,
+				C16A2EF423A7853800CBA43F /* RegisterViewModel.swift */,
+				C14466C72417AD2A00CD52B6 /* ForgotPasswordViewModel.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		C1BE0D2424215F5700480224 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				C1FBC46E23AA521C00579913 /* HomeViewModel.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		C1BE0D2524215F7A00480224 /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				C13C412323ABBC5400B674E9 /* ActivityViewModel.swift */,
+				C111932223CF6008007E2866 /* AddShiftViewModel.swift */,
+				C1707B2123F19129002E1A10 /* DescriptionViewModel.swift */,
+			);
+			path = Activity;
+			sourceTree = "<group>";
+		};
+		C1BE0D2624215FB400480224 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				C13C412723ABBC8900B674E9 /* SettingsViewModel.swift */,
+				C1FF2A8B23C4B14200ACCF29 /* UpdatePersonalInfoViewModel.swift */,
+				C110AE2923C34E770066C394 /* ChangePasswordViewModel.swift */,
+				C1419F6D24125414001B5817 /* AddCompanyViewModel.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		C1D568FC241C0762004C8A89 /* UITextFields */ = {
@@ -692,7 +804,6 @@
 				C12F7A41240FB0120074362F /* CompanyEmailFetchingResponse.swift in Sources */,
 				C12F7A43240FB63D0074362F /* CompanyReferenceFetchingResponse.swift in Sources */,
 				C10F78E423A3D79200783476 /* UIStackView+Extension.swift in Sources */,
-				C13D7C392406D1A200E56C77 /* BossFetchingResponse.swift in Sources */,
 				C10F78D823A3D79200783476 /* UIImageView+Extension.swift in Sources */,
 				C147314524169EAB00477ECA /* DocumentReferenceFetchingResponse.swift in Sources */,
 				C1707B1E23F19022002E1A10 /* Coordinator+AddShift.swift in Sources */,
@@ -711,6 +822,7 @@
 				C13105E723B0ADF200A509D9 /* User.swift in Sources */,
 				C12F7A3F240F9D590074362F /* LocationManager.swift in Sources */,
 				C146992E23A11DBE00A84818 /* LoginViewModel.swift in Sources */,
+				C1BE0D1824212B6E00480224 /* DotsUIBarButtonItem.swift in Sources */,
 				C14731412416950100477ECA /* CompanyValidationDataResponse.swift in Sources */,
 				C110AE2A23C34E770066C394 /* ChangePasswordViewModel.swift in Sources */,
 				C13EFBA423FECC5D0081ACF0 /* Formatter+Date.swift in Sources */,

@@ -80,7 +80,7 @@ class ForgotPasswordViewController: UIViewController {
                     self.dismiss(animated: true)
                 case .error(let error):
                     ActivityIndicatorView.shared.dissmis()
-                    self.showAlert(title: "Alert", message: "\(error.localizedDescription)", actionTitle: "OK")
+                    self.showOneOptionAlert(title: "Alert", message: "\(error.localizedDescription)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)
         

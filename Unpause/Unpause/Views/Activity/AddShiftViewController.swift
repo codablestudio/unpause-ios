@@ -362,7 +362,7 @@ class AddShiftViewController: UIViewController {
                                                                   leavingTime: exitDateAndTimeInDateFormat,
                                                                   navigationFromCustomShift: navigationFromCustomShift)
         } else {
-            showAlert(title: "Alert", message: "Please enter correct dates and times.", actionTitle: "OK")
+            showOneOptionAlert(title: "Alert", message: "Please enter correct dates and times.", actionTitle: "OK")
         }
     }
     
@@ -381,7 +381,7 @@ class AddShiftViewController: UIViewController {
                                                                   leavingTime: leavingDateAndTimeInDateFormat,
                                                                   with: shiftData)
         } else {
-            showAlert(title: "Alert", message: "Please enter correct dates and times.", actionTitle: "OK")
+            showOneOptionAlert(title: "Alert", message: "Please enter correct dates and times.", actionTitle: "OK")
         }
     }
     

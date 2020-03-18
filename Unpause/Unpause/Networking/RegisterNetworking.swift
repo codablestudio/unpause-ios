@@ -29,7 +29,7 @@ class RegisterNetworking {
                     .flatMapLatest ({ _ -> Observable<FirebaseResponseObject> in
                         return Observable.just(FirebaseResponseObject.success(authDataResult))
                     }).catchError ({ error -> Observable<FirebaseResponseObject> in
-                        return Observable.just(FirebaseResponseObject.error(UnpauseError.otherError(error)))
+                        return Observable.just(FirebaseResponseObject.error(.serverSavingError))
                     })
         }
     }

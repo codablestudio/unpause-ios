@@ -19,22 +19,22 @@ class LoginNetworking {
     func signInUserWith(email: String, password: String) -> Observable<FirebaseResponseObject> {
         Auth.auth().rx.signIn(withEmail: email, password: password)
             .flatMapLatest({ authDataResult -> Observable<FirebaseResponseObject> in
-                if let email = authDataResult.user.email {
-                    print("\(email)")
+                if let _ = authDataResult.user.email {
                     return Observable.just(FirebaseResponseObject.success(authDataResult))
                 } else {
-                    return Observable.just(FirebaseResponseObject.error(UnpauseError.wrongUserData))
+                    return Observable.just(FirebaseResponseObject.error(.wrongUserData))
                 }
             })
             .catchError({ error -> Observable<FirebaseResponseObject> in
-                return Observable.just(FirebaseResponseObject.error(UnpauseError.otherError(error)))
+                return Observable.just(FirebaseResponseObject.error(.otherError(error)))
             })
     }
     
     func getInfoFromUserWith(firebaseResponseObject: FirebaseResponseObject) -> Observable<FirebaseDocumentResponseObject> {
         switch firebaseResponseObject {
         case .success(let authDataResult):
-            guard let userEmail = authDataResult.user.email else { return Observable.just(FirebaseDocumentResponseObject.error(UnpauseError.noUser))
+            guard let userEmail = authDataResult.user.email else {
+                return Observable.just(FirebaseDocumentResponseObject.error(.noUser))
             }
             return dataBaseReference
                 .collection("users")
@@ -45,7 +45,7 @@ class LoginNetworking {
                     return Observable.just(FirebaseDocumentResponseObject.success(document))
                 })
                 .catchError { error -> Observable<FirebaseDocumentResponseObject> in
-                    return Observable.just(FirebaseDocumentResponseObject.error(UnpauseError.otherError(error)))
+                    return Observable.just(FirebaseDocumentResponseObject.error(.otherError(error)))
             }
         case .error(let error):
             return Observable.just(FirebaseDocumentResponseObject.error(error))

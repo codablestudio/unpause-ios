@@ -83,7 +83,7 @@ class DescriptionViewController: UIViewController {
                     self.dismiss(animated: true)
                 case .error(let error):
                     ActivityIndicatorView.shared.dissmis()
-                    self.showAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
+                    self.showOneOptionAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)
         
@@ -97,7 +97,7 @@ class DescriptionViewController: UIViewController {
                     self.dismiss(animated: true)
                 case .error(let error):
                     ActivityIndicatorView.shared.dissmis()
-                    self.showAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
+                    self.showOneOptionAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)
     }

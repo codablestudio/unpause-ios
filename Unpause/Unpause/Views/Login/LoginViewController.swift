@@ -108,12 +108,13 @@ class LoginViewController: UIViewController {
                     ActivityIndicatorView.shared.dissmis()
                     Coordinator.shared.navigateToHomeViewController(from: self)
                 case .error(let error):
-                    if error == UnpauseError.noCompany {
+                    switch error {
+                    case .noCompany:
                         ActivityIndicatorView.shared.dissmis()
                         Coordinator.shared.navigateToHomeViewController(from: self)
-                    } else {
+                    default:
                         ActivityIndicatorView.shared.dissmis()
-                        self.showAlert(title: "Error", message: "\(error.errorMessage)", actionTitle: "OK")
+                        self.showOneOptionAlert(title: "Error", message: "\(error.errorMessage)", actionTitle: "OK")
                     }
                 }
             }).disposed(by: disposeBag)
@@ -128,7 +129,7 @@ class LoginViewController: UIViewController {
                 case .success:
                     self.dismiss(animated: true)
                 case .error(let error):
-                    self.showAlert(title: "Alert", message: "\(error.localizedDescription)", actionTitle: "OK")
+                    self.showOneOptionAlert(title: "Alert", message: "\(error.localizedDescription)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)
         
@@ -341,7 +342,7 @@ extension LoginViewController: GIDSignInDelegate {
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
         if let error = error {
             print("ERROR: \(error.localizedDescription)")
-            self.showAlert(title: "Alert", message: "\(error.localizedDescription)", actionTitle: "OK")
+            self.showOneOptionAlert(title: "Alert", message: "\(error.localizedDescription)", actionTitle: "OK")
         }
         
         googleUserSignInResponse.onNext(user)

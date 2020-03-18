@@ -42,13 +42,18 @@ class LoginViewModel {
                 guard let `self` = self,
                     let email = self.textInEmailTextField,
                     let password = self.textInPasswordTextField else {
-                        return Observable.just(FirebaseResponseObject.error(UnpauseError.emptyError))
+                        return Observable.just(FirebaseResponseObject.error(.emptyError))
                 }
                 return self.loginNetworking.signInUserWith(email: email, password: password)
             })
             .flatMapLatest({ [weak self] firebaseResponseObject -> Observable<FirebaseDocumentResponseObject> in
                 guard let `self` = self else { return Observable.empty() }
-                return self.loginNetworking.getInfoFromUserWith(firebaseResponseObject: firebaseResponseObject)
+                switch firebaseResponseObject {
+                case .success(_):
+                    return self.loginNetworking.getInfoFromUserWith(firebaseResponseObject: firebaseResponseObject)
+                case .error(let error):
+                    return Observable.just(FirebaseDocumentResponseObject.error(error))
+                }
             })
             .map({ firebaseResponse -> UserResponse in
                 switch firebaseResponse {
@@ -58,7 +63,7 @@ class LoginViewModel {
                         SessionManager.shared.logIn(newUser)
                         return UserResponse.success(newUser)
                     } catch (let error) {
-                        return UserResponse.error(error)
+                        return UserResponse.error(.otherError(error))
                     }
                 case .error(let error):
                     return UserResponse.error(error)
@@ -71,7 +76,7 @@ class LoginViewModel {
                     self.privateUser = user
                     return self.companyNetworking.fetchCompany()
                 case .error(let error):
-                    return Observable.just(CompanyFetchingResponse.error(UnpauseError.otherError(error)))
+                    return Observable.just(CompanyFetchingResponse.error(error))
                 }
             })
             .map({ companyFetchingResponse -> UnpauseResponse in
@@ -81,7 +86,7 @@ class LoginViewModel {
                     SessionManager.shared.saveCurrentUserToUserDefaults()
                     return UnpauseResponse.success
                 case .error(let error):
-                    return UnpauseResponse.error(UnpauseError.otherError(error))
+                    return UnpauseResponse.error(error)
                 }
             })
     }

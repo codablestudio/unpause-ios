@@ -88,7 +88,7 @@ class UpdatePersonalInfoViewController: UIViewController {
                     ActivityIndicatorView.shared.dissmis()
                     self.dismiss(animated: true)
                 case .error(let error):
-                    self.showAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
+                    self.showOneOptionAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
                     ActivityIndicatorView.shared.dissmis()
                 }
             }).disposed(by: disposeBag)

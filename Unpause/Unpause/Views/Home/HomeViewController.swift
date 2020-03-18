@@ -97,7 +97,7 @@ class HomeViewController: UIViewController {
                     ActivityViewModel.forceRefresh.onNext(())
                 case .error(let error):
                     print("Error occured: \(error)")
-                    self.showAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
+                    self.showOneOptionAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)
         

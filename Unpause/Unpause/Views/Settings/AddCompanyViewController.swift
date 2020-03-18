@@ -20,6 +20,8 @@ class AddCompanyViewController: UIViewController {
     private let addCompanyLabel = UILabel()
     private let addCompanySeparator = UIView()
     
+    private let descriptionLabel = UILabel()
+    
     private let companyNameTextField = UITextField()
     private let companyNameSeparator = UIView()
     
@@ -60,6 +62,7 @@ class AddCompanyViewController: UIViewController {
         renderCompanyNameTextFieldAndCompanyNameSeparator()
         renderCompanyPasscodeTextFieldAndSeparator()
         renderAddCompanyButton()
+        renderDescriptionLabel()
         renderCloseButton()
     }
     
@@ -89,7 +92,7 @@ class AddCompanyViewController: UIViewController {
                     self.dismiss(animated: true)
                 case .error(let error):
                     ActivityIndicatorView.shared.dissmis()
-                    self.showAlert(title: "Alert", message: "\(error.localizedDescription)", actionTitle: "OK")
+                    self.showOneOptionAlert(title: "Alert", message: "\(error.localizedDescription)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)
         
@@ -214,9 +217,24 @@ private extension AddCompanyViewController {
             make.left.equalToSuperview().offset(33)
             make.right.equalToSuperview().inset(33)
             make.height.equalTo(50)
-            make.bottom.equalToSuperview()
         }
         addCompanyButton.layer.cornerRadius = 25
+    }
+    
+    
+    func renderDescriptionLabel() {
+        containerView.addSubview(descriptionLabel)
+        
+        descriptionLabel.snp.makeConstraints { make in
+            make.top.equalTo(addCompanyButton.snp.bottom).offset(35)
+            make.left.equalToSuperview().offset(30)
+            make.right.equalToSuperview().inset(30)
+            make.bottom.equalToSuperview()
+        }
+        descriptionLabel.text = "Please ask your manager for your company info or contact us at info@codable.studio for help."
+        descriptionLabel.textColor = .unpauseGray
+        descriptionLabel.numberOfLines = 0
+        descriptionLabel.font = descriptionLabel.font.withSize(15)
     }
     
     func renderCloseButton() {

@@ -11,7 +11,7 @@ import Firebase
 
 class CompanyFactory {
     
-    static func createCompanyReference(from document: DocumentSnapshot) throws -> DocumentReference? {
+    static func createCompanyReference(from document: DocumentSnapshot) -> DocumentReference? {
         let companyReference = document.get("companyReference") as? DocumentReference
         return companyReference
     }

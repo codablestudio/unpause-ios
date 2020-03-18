@@ -39,7 +39,7 @@ class ActivityViewController: UIViewController {
     
     private let tableView = UITableView()
     
-    private let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
+    private let dotsButton = DotsUIBarButtonItem()
     
     let documentController = UIDocumentInteractionController()
     
@@ -192,9 +192,9 @@ class ActivityViewController: UIViewController {
     }
     
     private func addBarButtonItem() {
-        navigationItem.rightBarButtonItem = addButton
+        navigationItem.rightBarButtonItem = dotsButton
         
-        addButton.rx.tap.subscribe(onNext: { [weak self] _ in
+        dotsButton.rx.tap.subscribe(onNext: { [weak self] _ in
             guard let `self` = self else { return }
             self.showActionSheet()
         }).disposed(by: disposeBag)
@@ -218,7 +218,7 @@ class ActivityViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Send as email", style: .default, handler:{ [weak self] _ in
             guard let `self` = self else { return }
             if SessionManager.shared.currentUser?.company?.email == nil {
-                self.showAlert(title: "Alert", message: "There is no company associated with you.", actionTitle: "OK")
+                self.showTwoOptionsAlert(title: "Alert", message: "It looks like you didn`t add your company. Would you like too add it?", firstActionTitle: "Cancel", secondActionTitle: "Add")
             } else {
                 self.sendEmailWithExcelSheetToCompany()
             }
@@ -232,7 +232,7 @@ class ActivityViewController: UIViewController {
                 self.documentController.url = url
                 self.documentController.presentPreview(animated: true)
             case .error(let error):
-                self.showAlert(title: "Alert", message: "\(error.localizedDescription)", actionTitle: "OK")
+                self.showOneOptionAlert(title: "Alert", message: "\(error.localizedDescription)", actionTitle: "OK")
             }
         }))
         
@@ -258,12 +258,21 @@ class ActivityViewController: UIViewController {
             case .success(let data):
                 mail.addAttachmentData(data, mimeType: "text/csv", fileName: "\(currentUserFirstName) \(currentuserLastName)")
             case .error(let error):
-                self.showAlert(title: "Alert", message: error.localizedDescription, actionTitle: "OK")
+                self.showOneOptionAlert(title: "Alert", message: error.localizedDescription, actionTitle: "OK")
             }
             self.present(mail, animated: true)
         } else {
-            self.showAlert(title: "Alert", message: "Can not send email.", actionTitle: "OK")
+            self.showOneOptionAlert(title: "Alert", message: "Can not send email.", actionTitle: "OK")
         }
+    }
+    
+    func showTwoOptionsAlert(title: String, message: String, firstActionTitle: String, secondActionTitle: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: firstActionTitle, style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: secondActionTitle, style: .default, handler: { uiAlertAction in
+            Coordinator.shared.presentAddCompanyViewController(from: self)
+        }))
+        self.present(alert, animated: true)
     }
 }
 
@@ -433,7 +442,7 @@ extension ActivityViewController: MFMailComposeViewControllerDelegate {
             ActivityIndicatorView.shared.dissmis()
             
         case MFMailComposeResult.failed.rawValue:
-            showAlert(title: "Alert", message: error!.localizedDescription, actionTitle: "OK")
+            showOneOptionAlert(title: "Alert", message: error!.localizedDescription, actionTitle: "OK")
             
         default:
             break

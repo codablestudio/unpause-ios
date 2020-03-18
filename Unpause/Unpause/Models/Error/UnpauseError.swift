@@ -8,7 +8,7 @@
 
 import Foundation
 
-indirect enum UnpauseError: Error, Equatable {
+enum UnpauseError: Error, Equatable {
     static func == (lhs: UnpauseError, rhs: UnpauseError) -> Bool {
         return lhs.errorMessage == rhs.errorMessage
     }
@@ -18,8 +18,13 @@ indirect enum UnpauseError: Error, Equatable {
     case emptyError
     case noUser
     case noCompany
+    case serverSavingError
+    case fetchingCompanyReferenceError
+    case companyMakingError
+    case fetchingUserInfoError
+    case userCreatingError
+    case companyFetchingError
     case otherError(Error)
-    case unpauseError(UnpauseError)
     
     var errorMessage: String {
         switch self {
@@ -33,10 +38,20 @@ indirect enum UnpauseError: Error, Equatable {
             return "No user."
         case .noCompany:
             return "There is no company associated with you."
+        case .serverSavingError:
+            return "Data is not successfully saved on server."
+        case .fetchingCompanyReferenceError:
+            return "Unable to fetch compnay reference from server."
+        case .companyMakingError:
+            return "Could not make company from given data."
+        case .fetchingUserInfoError:
+            return "Could not fetch user ifo from server."
+        case .userCreatingError:
+            return "Unable to create user."
+        case .companyFetchingError:
+            return "Unable to fetch company."
         case .otherError(let error):
-            return error.localizedDescription
-        case .unpauseError(let error):
-            return error.errorMessage
+            return "\(error.localizedDescription)"
         }
     }
 }

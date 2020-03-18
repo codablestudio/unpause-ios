@@ -101,7 +101,7 @@ class RegisterViewController: UIViewController {
                     Coordinator.shared.navigateToAddCompanyViewController(from: self, registeredUserEmail: authDataResult.user.email)
                 case .error(let error):
                     ActivityIndicatorView.shared.dissmis()
-                    self.showAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
+                    self.showOneOptionAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)
         

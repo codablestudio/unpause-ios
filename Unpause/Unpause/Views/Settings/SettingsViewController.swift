@@ -38,6 +38,10 @@ class SettingsViewController: UIViewController {
         showTitleInNavigationBar()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        showProperTitleOnCompanyButton()
+    }
+    
     private func render() {
         configureScrollViewAndContainerView()
         renderChangePersonalInfoButton()
@@ -67,6 +71,14 @@ class SettingsViewController: UIViewController {
     
     private func showTitleInNavigationBar() {
         self.title = "Settings"
+    }
+    
+    private func showProperTitleOnCompanyButton() {
+        if SessionManager.shared.currentUser?.company == nil {
+            addCompanyButton.setTitle("Add company", for: .normal)
+        } else {
+            addCompanyButton.setTitle("Change company", for: .normal)
+        }
     }
 }
 
