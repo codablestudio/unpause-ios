@@ -334,6 +334,7 @@ private extension LoginViewController {
     }
 }
 
+// MARK: - GIDSignIn delegate
 extension LoginViewController: GIDSignInDelegate {
     func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])
         -> Bool {
@@ -345,7 +346,8 @@ extension LoginViewController: GIDSignInDelegate {
             print("ERROR: \(error.localizedDescription)")
             self.showOneOptionAlert(title: "Alert", message: "\(error.localizedDescription)", actionTitle: "OK")
         }
-        guard let user = user else { return }
-        googleUserSignInResponse.onNext(user)
+        if let user = user {
+            googleUserSignInResponse.onNext(user)
+        }
     }
 }
