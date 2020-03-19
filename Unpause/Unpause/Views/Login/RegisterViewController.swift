@@ -96,7 +96,6 @@ class RegisterViewController: UIViewController {
                 guard let `self` = self else { return }
                 switch firebaseResponseObject {
                 case .success(let authDataResult):
-                    print("\(authDataResult.user.email!)")
                     ActivityIndicatorView.shared.dissmis()
                     Coordinator.shared.navigateToAddCompanyViewController(from: self, registeredUserEmail: authDataResult.user.email)
                 case .error(let error):
@@ -167,7 +166,7 @@ private extension RegisterViewController {
         }
         registrationSeparator.backgroundColor = UIColor.unpauseOrange
     }
-
+    
     func renderFirstNameTextFieldAndFirstNameSeparator() {
         containerView.addSubview(firstNameTextField)
         firstNameTextField.snp.makeConstraints { (make) in
