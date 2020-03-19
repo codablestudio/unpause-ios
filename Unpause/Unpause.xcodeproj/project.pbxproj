@@ -102,6 +102,7 @@
 		C1BE0D1824212B6E00480224 /* DotsUIBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BE0D1724212B6E00480224 /* DotsUIBarButtonItem.swift */; };
 		C1C18E482413E8880066EB5F /* CompaniesFetchingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C18E472413E8880066EB5F /* CompaniesFetchingResponse.swift */; };
 		C1C41B7623A9594F009288CA /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C41B7523A9594F009288CA /* UITextField+Extension.swift */; };
+		C1C6D943242377710037378C /* UnpauseActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C6D942242377710037378C /* UnpauseActivityIndicatorView.swift */; };
 		C1D0CA0B23F6AC9600A20D6F /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D0CA0A23F6AC9600A20D6F /* DataSource.swift */; };
 		C1D568FE241C0793004C8A89 /* PaddedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D568FD241C0793004C8A89 /* PaddedTextField.swift */; };
 		C1F2CD1F23F2E6D600BD23DC /* LastCheckInResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F2CD1E23F2E6D600BD23DC /* LastCheckInResponse.swift */; };
@@ -212,6 +213,7 @@
 		C1C18E472413E8880066EB5F /* CompaniesFetchingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompaniesFetchingResponse.swift; sourceTree = "<group>"; };
 		C1C210AE240913E7002B5ACA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C1C41B7523A9594F009288CA /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
+		C1C6D942242377710037378C /* UnpauseActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnpauseActivityIndicatorView.swift; sourceTree = "<group>"; };
 		C1D0CA0A23F6AC9600A20D6F /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		C1D568FD241C0793004C8A89 /* PaddedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedTextField.swift; sourceTree = "<group>"; };
 		C1F2CD1E23F2E6D600BD23DC /* LastCheckInResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastCheckInResponse.swift; sourceTree = "<group>"; };
@@ -250,7 +252,7 @@
 			isa = PBXGroup;
 			children = (
 				C1BE0D2224215EC200480224 /* UITabBarControllers */,
-				C13D4C80241F772500170AF0 /* ActivityIndicators */,
+				C13D4C80241F772500170AF0 /* UIActivityIndicatorViews */,
 				C1D568FC241C0762004C8A89 /* UITextFields */,
 				C198B8F223B0CF7300FBD3C6 /* UIButtons */,
 			);
@@ -318,12 +320,13 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		C13D4C80241F772500170AF0 /* ActivityIndicators */ = {
+		C13D4C80241F772500170AF0 /* UIActivityIndicatorViews */ = {
 			isa = PBXGroup;
 			children = (
 				C1372BE3241EF96C00CF6CA3 /* ActivityIndicatorView.swift */,
+				C1C6D942242377710037378C /* UnpauseActivityIndicatorView.swift */,
 			);
-			path = ActivityIndicators;
+			path = UIActivityIndicatorViews;
 			sourceTree = "<group>";
 		};
 		C1437B3F23F3EF35007BD7DA /* Factories */ = {
@@ -805,6 +808,7 @@
 				C13C412223ABBC4100B674E9 /* ActivityViewController.swift in Sources */,
 				C1419F6C241253B4001B5817 /* Coordinator+Register.swift in Sources */,
 				C10F78DA23A3D79200783476 /* UIColor+Extension.swift in Sources */,
+				C1C6D943242377710037378C /* UnpauseActivityIndicatorView.swift in Sources */,
 				C12D289823A536BC004BC57A /* LoginNetworking.swift in Sources */,
 				C1FBC46D23AA51E100579913 /* HomeViewController.swift in Sources */,
 				C1B131FA23F581E7009C3C59 /* ShiftTableViewCell.swift in Sources */,

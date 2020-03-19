@@ -95,7 +95,7 @@ class LoginViewController: UIViewController {
         loginButton.rx.tap
             .do(onNext: { [weak self] _ in
                 guard let `self` = self else { return }
-                ActivityIndicatorView.shared.show(on: self.view)
+                UnpauseActivityIndicatorView.shared.show(on: self.view)
             })
             .bind(to: loginViewModel.logInButtonTapped)
             .disposed(by: disposeBag)
@@ -105,15 +105,15 @@ class LoginViewController: UIViewController {
                 guard let `self` = self else { return }
                 switch response {
                 case .success:
-                    ActivityIndicatorView.shared.dissmis()
+                    UnpauseActivityIndicatorView.shared.dissmis()
                     Coordinator.shared.navigateToHomeViewController(from: self)
                 case .error(let error):
                     switch error {
                     case .noCompany:
-                        ActivityIndicatorView.shared.dissmis()
+                        UnpauseActivityIndicatorView.shared.dissmis()
                         Coordinator.shared.navigateToHomeViewController(from: self)
                     default:
-                        ActivityIndicatorView.shared.dissmis()
+                        UnpauseActivityIndicatorView.shared.dissmis()
                         self.showOneOptionAlert(title: "Error", message: "\(error.errorMessage)", actionTitle: "OK")
                     }
                 }

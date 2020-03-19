@@ -78,11 +78,11 @@ class DescriptionViewController: UIViewController {
                 guard let `self` = self else { return }
                 switch response {
                 case .success:
-                    ActivityIndicatorView.shared.dissmis()
+                    UnpauseActivityIndicatorView.shared.dissmis()
                     ActivityViewModel.forceRefresh.onNext(())
                     self.dismiss(animated: true)
                 case .error(let error):
-                    ActivityIndicatorView.shared.dissmis()
+                    UnpauseActivityIndicatorView.shared.dissmis()
                     self.showOneOptionAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)
@@ -92,11 +92,11 @@ class DescriptionViewController: UIViewController {
                 guard let `self` = self else { return }
                 switch response {
                 case .success:
-                    ActivityIndicatorView.shared.dissmis()
+                    UnpauseActivityIndicatorView.shared.dissmis()
                     ActivityViewModel.forceRefresh.onNext(())
                     self.dismiss(animated: true)
                 case .error(let error):
-                    ActivityIndicatorView.shared.dissmis()
+                    UnpauseActivityIndicatorView.shared.dissmis()
                     self.showOneOptionAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)
@@ -107,7 +107,7 @@ class DescriptionViewController: UIViewController {
             saveButton.rx.tap
                 .do(onNext: { [weak self] _ in
                     guard let `self` = self else { return }
-                    ActivityIndicatorView.shared.show(on: self.view)
+                    UnpauseActivityIndicatorView.shared.show(on: self.view)
                 })
                 .bind(to: descriptionViewModel.saveButtonFromTableViewTapped)
                 .disposed(by: disposeBag)
@@ -115,7 +115,7 @@ class DescriptionViewController: UIViewController {
             saveButton.rx.tap
                 .do(onNext: { [weak self] _ in
                     guard let `self` = self else { return }
-                    ActivityIndicatorView.shared.show(on: self.view)
+                    UnpauseActivityIndicatorView.shared.show(on: self.view)
                 })
                 .bind(to: descriptionViewModel.saveButtonTapped)
                 .disposed(by: disposeBag)

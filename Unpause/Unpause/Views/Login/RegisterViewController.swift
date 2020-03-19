@@ -86,7 +86,7 @@ class RegisterViewController: UIViewController {
         registerButton.rx.tap
             .do(onNext: { [weak self] _ in
                 guard let `self` = self else { return }
-                ActivityIndicatorView.shared.show(on: self.view)
+                UnpauseActivityIndicatorView.shared.show(on: self.view)
             })
             .bind(to: registerViewModel.registerButtonTapped)
             .disposed(by: disposeBag)
@@ -96,10 +96,10 @@ class RegisterViewController: UIViewController {
                 guard let `self` = self else { return }
                 switch firebaseResponseObject {
                 case .success(let authDataResult):
-                    ActivityIndicatorView.shared.dissmis()
+                    UnpauseActivityIndicatorView.shared.dissmis()
                     Coordinator.shared.navigateToAddCompanyViewController(from: self, registeredUserEmail: authDataResult.user.email)
                 case .error(let error):
-                    ActivityIndicatorView.shared.dissmis()
+                    UnpauseActivityIndicatorView.shared.dissmis()
                     self.showOneOptionAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)

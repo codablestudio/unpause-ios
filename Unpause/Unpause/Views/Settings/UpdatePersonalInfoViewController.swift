@@ -70,7 +70,7 @@ class UpdatePersonalInfoViewController: UIViewController {
         updateInfoButton.rx.tap
             .do(onNext: { [weak self] _ in
                 guard let `self` = self else { return }
-                ActivityIndicatorView.shared.show(on: self.view)
+                UnpauseActivityIndicatorView.shared.show(on: self.view)
             })
             .bind(to: updatePersonalInfoViewModel.updateInfoButtonTapped)
             .disposed(by: disposeBag)
@@ -85,11 +85,11 @@ class UpdatePersonalInfoViewController: UIViewController {
                 guard let `self` = self else { return }
                 switch response {
                 case .success:
-                    ActivityIndicatorView.shared.dissmis()
+                    UnpauseActivityIndicatorView.shared.dissmis()
                     self.dismiss(animated: true)
                 case .error(let error):
                     self.showOneOptionAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
-                    ActivityIndicatorView.shared.dissmis()
+                    UnpauseActivityIndicatorView.shared.dissmis()
                 }
             }).disposed(by: disposeBag)
     }

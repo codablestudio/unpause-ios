@@ -126,7 +126,7 @@ class ActivityViewController: UIViewController {
         activityViewModel.deleteRequest
             .subscribe(onNext: { [weak self] shiftDeletionsResponse in
                 guard let `self` = self else { return }
-                ActivityIndicatorView.shared.dissmis()
+                UnpauseActivityIndicatorView.shared.dissmis()
                 
                 switch shiftDeletionsResponse {
                 case .success(let deletedShift):
@@ -378,13 +378,13 @@ extension ActivityViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete else { return }
-        ActivityIndicatorView.shared.show(on: self.view)
+        UnpauseActivityIndicatorView.shared.show(on: self.view)
         
         switch dataSource[indexPath.row] {
         case .shift(let shift):
             shiftToDelete.onNext(shift)
         default:
-            ActivityIndicatorView.shared.dissmis()
+            UnpauseActivityIndicatorView.shared.dissmis()
         }
     }
 }
@@ -436,10 +436,10 @@ extension ActivityViewController: MFMailComposeViewControllerDelegate {
             print("Cancelled")
             
         case MFMailComposeResult.saved.rawValue:
-            ActivityIndicatorView.shared.dissmis()
+            UnpauseActivityIndicatorView.shared.dissmis()
             
         case MFMailComposeResult.sent.rawValue:
-            ActivityIndicatorView.shared.dissmis()
+            UnpauseActivityIndicatorView.shared.dissmis()
             
         case MFMailComposeResult.failed.rawValue:
             showOneOptionAlert(title: "Alert", message: error!.localizedDescription, actionTitle: "OK")

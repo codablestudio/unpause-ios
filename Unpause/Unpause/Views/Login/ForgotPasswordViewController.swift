@@ -67,7 +67,7 @@ class ForgotPasswordViewController: UIViewController {
         sendRecoveryEmailButton.rx.tap
             .do(onNext: { [weak self] _ in
                 guard let `self` = self else { return }
-                ActivityIndicatorView.shared.show(on: self.view)
+                UnpauseActivityIndicatorView.shared.show(on: self.view)
             })
             .bind(to: forgotPasswordViewModel.sendRecoveryEmailButtonTapped)
             .disposed(by: disposeBag)
@@ -76,10 +76,10 @@ class ForgotPasswordViewController: UIViewController {
             .subscribe(onNext: { response in
                 switch response {
                 case .success:
-                    ActivityIndicatorView.shared.dissmis()
+                    UnpauseActivityIndicatorView.shared.dissmis()
                     self.dismiss(animated: true)
                 case .error(let error):
-                    ActivityIndicatorView.shared.dissmis()
+                    UnpauseActivityIndicatorView.shared.dissmis()
                     self.showOneOptionAlert(title: "Alert", message: "\(error.localizedDescription)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)
