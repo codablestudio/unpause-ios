@@ -110,7 +110,7 @@ class CompanyNetworking {
                         .flatMapLatest({ documentSnapshot -> Observable<FirebaseDocumentResponseObject> in
                             return Observable.just(FirebaseDocumentResponseObject.success(documentSnapshot))
                         })
-                case .error(let error):
+                case .error(_):
                     return Observable.just(FirebaseDocumentResponseObject.error(UnpauseError.fetchingCompanyReferenceError))
                 }
             })

@@ -32,7 +32,7 @@ class LoginViewModel {
     
     var loginRequest: Observable<FirebaseResponseObject>!
     var loginDocument: Observable<UnpauseResponse>!
-    var googleUserSavingResponse: Observable<Response>!
+    var googleUserSavingResponse: Observable<UnpauseResponse>!
     
     init() {
         setUpObservables()
@@ -101,9 +101,37 @@ class LoginViewModel {
         }).disposed(by: disposeBag)
         
         googleUserSavingResponse = googleUserSignInResponse
-            .flatMapLatest({ [weak self] googleUser -> Observable<Response> in
+            .flatMapLatest({ [weak self] googleUser -> Observable<GoogleUserSavingResponse> in
                 guard let `self` = self else { return Observable.empty() }
                 return self.registerNetworking.signInGoogleUser(googleUser: googleUser)
+            })
+            .flatMapLatest({ googleUserSavingResponse -> Observable<UnpauseResponse> in
+                switch googleUserSavingResponse {
+                case .success(let googleUser):
+                    let newUser = UserFactory.createUser(from: googleUser)
+                    SessionManager.shared.logIn(newUser)
+                    return Observable.just(UnpauseResponse.success)
+                case .error(let error):
+                    return Observable.just(UnpauseResponse.error(error))
+                }
+            })
+            .flatMapLatest({ unpauseResponse -> Observable<CompanyFetchingResponse> in
+                switch unpauseResponse {
+                case .success:
+                    return self.companyNetworking.fetchCompany()
+                case .error(let error):
+                    return Observable.just(CompanyFetchingResponse.error(error))
+                }
+            })
+            .flatMapLatest({ companyFetchingResponse -> Observable<UnpauseResponse> in
+                switch companyFetchingResponse {
+                case .success(let company):
+                    SessionManager.shared.currentUser?.company = company
+                    SessionManager.shared.saveCurrentUserToUserDefaults()
+                    return Observable.just(UnpauseResponse.success)
+                case .error(let error):
+                    return Observable.just(UnpauseResponse.error(error))
+                }
             })
     }
 }

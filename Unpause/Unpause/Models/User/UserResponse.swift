@@ -11,5 +11,4 @@ import Foundation
 enum UserResponse {
     case success(User)
     case error(UnpauseError)
-    // MJENJANO
 }

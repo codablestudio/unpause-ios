@@ -107,6 +107,7 @@
 		C1F2CD1F23F2E6D600BD23DC /* LastCheckInResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F2CD1E23F2E6D600BD23DC /* LastCheckInResponse.swift */; };
 		C1FBC46D23AA51E100579913 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBC46C23AA51E100579913 /* HomeViewController.swift */; };
 		C1FBC46F23AA521C00579913 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBC46E23AA521C00579913 /* HomeViewModel.swift */; };
+		C1FC657C2422D8B500E64AE4 /* GoogleUserSavingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FC657B2422D8B500E64AE4 /* GoogleUserSavingResponse.swift */; };
 		C1FF2A8A23C4B0E500ACCF29 /* UpdatePersonalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FF2A8923C4B0E500ACCF29 /* UpdatePersonalInfoViewController.swift */; };
 		C1FF2A8C23C4B14200ACCF29 /* UpdatePersonalInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FF2A8B23C4B14200ACCF29 /* UpdatePersonalInfoViewModel.swift */; };
 		C1FF2A8E23C4B3EA00ACCF29 /* Coordinator+Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FF2A8D23C4B3EA00ACCF29 /* Coordinator+Settings.swift */; };
@@ -216,6 +217,7 @@
 		C1F2CD1E23F2E6D600BD23DC /* LastCheckInResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastCheckInResponse.swift; sourceTree = "<group>"; };
 		C1FBC46C23AA51E100579913 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		C1FBC46E23AA521C00579913 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		C1FC657B2422D8B500E64AE4 /* GoogleUserSavingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleUserSavingResponse.swift; sourceTree = "<group>"; };
 		C1FF2A8923C4B0E500ACCF29 /* UpdatePersonalInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePersonalInfoViewController.swift; sourceTree = "<group>"; };
 		C1FF2A8B23C4B14200ACCF29 /* UpdatePersonalInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePersonalInfoViewModel.swift; sourceTree = "<group>"; };
 		C1FF2A8D23C4B3EA00ACCF29 /* Coordinator+Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinator+Settings.swift"; sourceTree = "<group>"; };
@@ -309,8 +311,7 @@
 		C13105E823B0B4E600A509D9 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				C1707B1923F17605002E1A10 /* Formatter+String.swift */,
-				C13EFBA323FECC5D0081ACF0 /* Formatter+Date.swift */,
+				C1FC657F2422EF9F00E64AE4 /* Formatter */,
 				C1BE0D1924215B7300480224 /* Managers */,
 				C1437B3F23F3EF35007BD7DA /* Factories */,
 			);
@@ -409,17 +410,12 @@
 		C146992823A117C400A84818 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C1FC657D2422EEF200E64AE4 /* User */,
 				C1BE0D1D24215CED00480224 /* Error */,
 				C1BE0D1C24215CB900480224 /* Firebase */,
 				C1BE0D1B24215C7A00480224 /* Shift */,
 				C1BE0D1A24215BC200480224 /* Company */,
-				C13105E623B0ADF200A509D9 /* User.swift */,
-				C133DE5323C89F2A0096F5B2 /* Response.swift */,
-				C1F2CD1E23F2E6D600BD23DC /* LastCheckInResponse.swift */,
-				C116D39424055A2400A6FEC5 /* CSVMakingResponse.swift */,
-				C14334EB2407F4BD00C49E16 /* DataMakingResponse.swift */,
-				C138C38724111F9A00FAB84E /* UserResponse.swift */,
-				C13D4C81241FDBE500170AF0 /* UnpauseResponse.swift */,
+				C1FC657E2422EF2500E64AE4 /* Other responses */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -504,6 +500,7 @@
 				C13C411F23AB93D600B674E9 /* FirebaseResponseObject.swift */,
 				C13B4B1123BF8A62006E1E0E /* FirebaseDocumentResponeObject.swift */,
 				C147314424169EAB00477ECA /* DocumentReferenceFetchingResponse.swift */,
+				C1FC657B2422D8B500E64AE4 /* GoogleUserSavingResponse.swift */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
@@ -611,6 +608,36 @@
 				C1D568FD241C0793004C8A89 /* PaddedTextField.swift */,
 			);
 			path = UITextFields;
+			sourceTree = "<group>";
+		};
+		C1FC657D2422EEF200E64AE4 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				C13105E623B0ADF200A509D9 /* User.swift */,
+				C138C38724111F9A00FAB84E /* UserResponse.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		C1FC657E2422EF2500E64AE4 /* Other responses */ = {
+			isa = PBXGroup;
+			children = (
+				C133DE5323C89F2A0096F5B2 /* Response.swift */,
+				C13D4C81241FDBE500170AF0 /* UnpauseResponse.swift */,
+				C1F2CD1E23F2E6D600BD23DC /* LastCheckInResponse.swift */,
+				C14334EB2407F4BD00C49E16 /* DataMakingResponse.swift */,
+				C116D39424055A2400A6FEC5 /* CSVMakingResponse.swift */,
+			);
+			path = "Other responses";
+			sourceTree = "<group>";
+		};
+		C1FC657F2422EF9F00E64AE4 /* Formatter */ = {
+			isa = PBXGroup;
+			children = (
+				C1707B1923F17605002E1A10 /* Formatter+String.swift */,
+				C13EFBA323FECC5D0081ACF0 /* Formatter+Date.swift */,
+			);
+			path = Formatter;
 			sourceTree = "<group>";
 		};
 		E1A48A0D56D7177F3A55A730 /* Frameworks */ = {
@@ -812,6 +839,7 @@
 				C10F78DF23A3D79200783476 /* UIView+Extension.swift in Sources */,
 				C102D7BF23AD0063000B9E80 /* OrangeButton.swift in Sources */,
 				C1707B2023F190AE002E1A10 /* DescriptionViewController.swift in Sources */,
+				C1FC657C2422D8B500E64AE4 /* GoogleUserSavingResponse.swift in Sources */,
 				C12F7A49241001040074362F /* CompanyNetworking.swift in Sources */,
 				C14334EC2407F4BD00C49E16 /* DataMakingResponse.swift in Sources */,
 				C12F7A4B241003980074362F /* CompanyFactory.swift in Sources */,

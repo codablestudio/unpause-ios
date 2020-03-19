@@ -124,9 +124,10 @@ class LoginViewController: UIViewController {
             .disposed(by: disposeBag)
         
         loginViewModel.googleUserSavingResponse
-            .subscribe(onNext: { response in
-                switch response {
+            .subscribe(onNext: { unpauseResponse in
+                switch unpauseResponse {
                 case .success:
+                    Coordinator.shared.navigateToHomeViewController(from: self)
                     self.dismiss(animated: true)
                 case .error(let error):
                     self.showOneOptionAlert(title: "Alert", message: "\(error.localizedDescription)", actionTitle: "OK")
@@ -344,11 +345,7 @@ extension LoginViewController: GIDSignInDelegate {
             print("ERROR: \(error.localizedDescription)")
             self.showOneOptionAlert(title: "Alert", message: "\(error.localizedDescription)", actionTitle: "OK")
         }
-        
+        guard let user = user else { return }
         googleUserSignInResponse.onNext(user)
-        
-        let newUser = UserFactory.createUser(from: user)
-        SessionManager.shared.logIn(newUser)
-        Coordinator.shared.navigateToHomeViewController(from: self)
     }
 }
