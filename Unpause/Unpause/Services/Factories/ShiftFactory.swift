@@ -11,7 +11,7 @@ import FirebaseFirestore
 
 class ShiftFactory {
     
-    func createShift(from shiftData: [String: Any]) -> Shift? {
+    static func createShift(from shiftData: [String: Any]) -> Shift? {
         guard let arrivalTimestamp = shiftData["arrivalTime"] as? Timestamp else { return nil }
         let newShift = Shift()
         newShift.arrivalTime = arrivalTimestamp
@@ -20,19 +20,19 @@ class ShiftFactory {
         return newShift
     }
     
-    func createShifts(_ data: [String: Any]) -> [Shift] {
+    static func createShifts(_ data: [String: Any]) -> [Shift] {
         var shifts = [Shift]()
         let shiftsData = data["shifts"] as? [[String: Any]] ?? []
         
         for shiftData in shiftsData {
-            if let newShift = createShift(from: shiftData) {
+            if let newShift = ShiftFactory.createShift(from: shiftData) {
                 shifts.append(newShift)
             }
         }
         return shifts
     }
     
-    func createShiftData(from shift: Shift) -> [String: Any] {
+    static func createShiftData(from shift: Shift) -> [String: Any] {
         var newShiftData = [String: Any]()
         newShiftData["arrivalTime"] = shift.arrivalTime
         newShiftData["exitTime"] = shift.exitTime
@@ -40,23 +40,36 @@ class ShiftFactory {
         return newShiftData
     }
     
-    func createShiftsData(from shifts: [Shift]) -> [[String: Any]] {
+    static func createShiftsData(from shifts: [Shift]) -> [[String: Any]] {
         var shiftsData = [[String: Any]]()
         for shift in shifts {
-            let newShiftData = createShiftData(from: shift)
+            let newShiftData = ShiftFactory.createShiftData(from: shift)
             shiftsData.append(newShiftData)
         }
         return shiftsData
     }
-}
-
-extension ObservableType where Element == DocumentSnapshot {
-    func mapShifts() -> Observable<[Shift]> {
-        return map({ document -> [Shift] in
-            if let data = document.data() {
-                return ShiftFactory().createShifts(data)
+    
+    static func addShiftOnRightPlaceInShiftArray(shifts: [Shift], newShift: Shift) -> [Shift] {
+        var newShiftArray = [Shift]()
+        var shiftInserted = false
+        for shift in shifts {
+            guard let shiftArrivalDateAndTime = Formatter.shared.convertTimeStampIntoDate(timeStamp: shift.arrivalTime),
+                let newShiftArrivalDateAndTime = Formatter.shared.convertTimeStampIntoDate(timeStamp: newShift.arrivalTime) else {
+                    return []
             }
-            return []
-        })
+            
+            if newShiftArrivalDateAndTime < shiftArrivalDateAndTime && !shiftInserted {
+                newShiftArray.append(newShift)
+                newShiftArray.append(shift)
+                shiftInserted = true
+            } else {
+                newShiftArray.append(shift)
+            }
+        }
+        
+        if !shiftInserted {
+            newShiftArray.append(newShift)
+        }
+        return newShiftArray
     }
 }

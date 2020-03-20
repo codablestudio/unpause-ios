@@ -84,7 +84,7 @@ class DescriptionViewModel {
                 
                 switch shiftResponse {
                 case .success(let shifts):
-                    let newShiftArray = self.findAndEditShiftInShiftsArray(shiftToFind: shiftToEdit, shifts: shifts)
+                    let newShiftArray = self.editShiftAndSaveItToArray(shiftToFind: shiftToEdit, shifts: shifts)
                     return Observable.just(ShiftsResponse.success(newShiftArray))
                 case .error(let error):
                     return Observable.just(ShiftsResponse.error(error))
@@ -117,6 +117,21 @@ class DescriptionViewModel {
                 newShiftsArray.append(shift)
             }
         }
+        return newShiftsArray
+    }
+    
+    private func editShiftAndSaveItToArray(shiftToFind: Shift, shifts: [Shift]) -> [Shift] {
+        var newShiftsArray = shifts
+        for (index, element) in shifts.enumerated() {
+            if element == shiftToFind {
+                newShiftsArray.remove(at: index)
+            }
+        }
+        let newShift = Shift()
+        newShift.arrivalTime = Formatter.shared.convertDateIntoTimeStamp(date: arrivalDateAndTime)
+        newShift.exitTime = Formatter.shared.convertDateIntoTimeStamp(date: leavingDateAndTime)
+        newShift.description = textInDescriptionTextView
+        newShiftsArray = ShiftFactory.addShiftOnRightPlaceInShiftArray(shifts: newShiftsArray, newShift: newShift)
         return newShiftsArray
     }
 }

@@ -60,9 +60,8 @@ class ShiftNetworking {
                     return ([],Shift())
                 }
             })
-            .map({ [weak self] (shifts, newShift) ->  [Shift] in
-                guard let `self` = self else { return [] }
-                return self.addShiftOnRightPlaceInShiftArray(shifts: shifts, newShift: newShift)
+            .map({ (shifts, newShift) ->  [Shift] in
+                return ShiftFactory.addShiftOnRightPlaceInShiftArray(shifts: shifts, newShift: newShift)
             })
             .flatMapLatest ({ [weak self] (newShiftArray) -> Observable<Response> in
                 guard let `self` = self else { return Observable.empty() }
@@ -148,7 +147,7 @@ class ShiftNetworking {
             return Observable.just(())
         }
         
-        let shiftsData = ShiftFactory().createShiftsData(from: newShiftArray)
+        let shiftsData = ShiftFactory.createShiftsData(from: newShiftArray)
         
         return self.dataBaseReference
             .collection("users")
@@ -193,29 +192,29 @@ class ShiftNetworking {
         return Observable.just(newShiftArray)
     }
     
-    private func addShiftOnRightPlaceInShiftArray(shifts: [Shift], newShift: Shift) -> [Shift] {
-        var newShiftArray = [Shift]()
-        var shiftInserted = false
-        for shift in shifts {
-            guard let shiftArrivalDateAndTime = Formatter.shared.convertTimeStampIntoDate(timeStamp: shift.arrivalTime),
-                let newShiftArrivalDateAndTime = Formatter.shared.convertTimeStampIntoDate(timeStamp: newShift.arrivalTime) else {
-                    return []
-            }
-            
-            if newShiftArrivalDateAndTime < shiftArrivalDateAndTime && !shiftInserted {
-                newShiftArray.append(newShift)
-                newShiftArray.append(shift)
-                shiftInserted = true
-            } else {
-                newShiftArray.append(shift)
-            }
-        }
-        
-        if !shiftInserted {
-            newShiftArray.append(newShift)
-        }
-        return newShiftArray
-    }
+//    private func addShiftOnRightPlaceInShiftArray(shifts: [Shift], newShift: Shift) -> [Shift] {
+//        var newShiftArray = [Shift]()
+//        var shiftInserted = false
+//        for shift in shifts {
+//            guard let shiftArrivalDateAndTime = Formatter.shared.convertTimeStampIntoDate(timeStamp: shift.arrivalTime),
+//                let newShiftArrivalDateAndTime = Formatter.shared.convertTimeStampIntoDate(timeStamp: newShift.arrivalTime) else {
+//                    return []
+//            }
+//            
+//            if newShiftArrivalDateAndTime < shiftArrivalDateAndTime && !shiftInserted {
+//                newShiftArray.append(newShift)
+//                newShiftArray.append(shift)
+//                shiftInserted = true
+//            } else {
+//                newShiftArray.append(shift)
+//            }
+//        }
+//        
+//        if !shiftInserted {
+//            newShiftArray.append(newShift)
+//        }
+//        return newShiftArray
+//    }
     
     private func findShiftWithOutExitTime(shifts: [Shift]) -> Shift {
         var shiftWithOutExitTime = Shift()
