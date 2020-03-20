@@ -14,9 +14,10 @@ class Shift: Differentiable, Equatable {
     typealias DifferenceIdentifier = String
     
      var differenceIdentifier: String {
-        let arrivalDateAndTimeInDateFormat = Formatter.shared.convertTimeStampIntoString(timeStamp: arrivalTime)
-        let exitDateAndTimeInDateFormat = Formatter.shared.convertTimeStampIntoString(timeStamp: exitTime)
-        return "\(arrivalDateAndTimeInDateFormat)+\(exitDateAndTimeInDateFormat)"
+        let arrivalDateAndTimeInStringFormat = Formatter.shared.convertTimeStampIntoString(timeStamp: arrivalTime)
+        let exitDateAndTimeInStringFormat = Formatter.shared.convertTimeStampIntoString(timeStamp: exitTime)
+        guard let description = description else { return "" }
+        return "\(arrivalDateAndTimeInStringFormat)+\(exitDateAndTimeInStringFormat)+\(description)"
     }
     
     var arrivalTime: Timestamp?

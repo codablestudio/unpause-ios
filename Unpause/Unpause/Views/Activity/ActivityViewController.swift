@@ -351,13 +351,13 @@ private extension ActivityViewController {
     }
     
     func configureTableView() {
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 25, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 15, right: 0)
         
         containerView.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.top.equalTo(datesContainer.snp.bottom)
             make.left.right.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
     }
 }
