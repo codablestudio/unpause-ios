@@ -78,11 +78,11 @@ class ChangePasswordViewController: UIViewController {
                 guard let `self` = self else { return }
                 switch response {
                 case .success:
-                    UnpauseActivityIndicatorView.shared.dissmis()
+                    UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
                     self.dismiss(animated: true)
                 case .error(let error):
                     self.showOneOptionAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
-                    UnpauseActivityIndicatorView.shared.dissmis()
+                    UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
                 }
             })
             .disposed(by: disposeBag)

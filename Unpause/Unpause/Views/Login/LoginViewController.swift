@@ -105,15 +105,15 @@ class LoginViewController: UIViewController {
                 guard let `self` = self else { return }
                 switch response {
                 case .success:
-                    UnpauseActivityIndicatorView.shared.dissmis()
+                    UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
                     Coordinator.shared.navigateToHomeViewController(from: self)
                 case .error(let error):
                     switch error {
                     case .noCompany:
-                        UnpauseActivityIndicatorView.shared.dissmis()
+                        UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
                         Coordinator.shared.navigateToHomeViewController(from: self)
                     default:
-                        UnpauseActivityIndicatorView.shared.dissmis()
+                        UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
                         self.showOneOptionAlert(title: "Error", message: "\(error.errorMessage)", actionTitle: "OK")
                     }
                 }
@@ -345,9 +345,10 @@ extension LoginViewController: GIDSignInDelegate {
         if let error = error {
             print("ERROR: \(error.localizedDescription)")
             self.showOneOptionAlert(title: "Alert", message: "\(error.localizedDescription)", actionTitle: "OK")
-        }
-        if let user = user {
-            googleUserSignInResponse.onNext(user)
+        } else {
+            if let user = user {
+                googleUserSignInResponse.onNext(user)
+            }
         }
     }
 }

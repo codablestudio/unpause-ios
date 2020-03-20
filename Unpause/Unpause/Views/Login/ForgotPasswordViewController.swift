@@ -73,13 +73,14 @@ class ForgotPasswordViewController: UIViewController {
             .disposed(by: disposeBag)
         
         forgotPasswordViewModel.recoveryMailSendingResponse
-            .subscribe(onNext: { response in
+            .subscribe(onNext: { [weak self] response in
+                guard let `self` = self else { return }
                 switch response {
                 case .success:
-                    UnpauseActivityIndicatorView.shared.dissmis()
+                    UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
                     self.dismiss(animated: true)
                 case .error(let error):
-                    UnpauseActivityIndicatorView.shared.dissmis()
+                    UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
                     self.showOneOptionAlert(title: "Alert", message: "\(error.localizedDescription)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)

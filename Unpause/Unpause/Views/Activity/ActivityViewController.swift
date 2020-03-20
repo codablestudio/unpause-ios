@@ -126,7 +126,7 @@ class ActivityViewController: UIViewController {
         activityViewModel.deleteRequest
             .subscribe(onNext: { [weak self] shiftDeletionsResponse in
                 guard let `self` = self else { return }
-                UnpauseActivityIndicatorView.shared.dissmis()
+                UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
                 
                 switch shiftDeletionsResponse {
                 case .success(let deletedShift):
@@ -384,7 +384,7 @@ extension ActivityViewController: UITableViewDelegate {
         case .shift(let shift):
             shiftToDelete.onNext(shift)
         default:
-            UnpauseActivityIndicatorView.shared.dissmis()
+            UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
         }
     }
 }
@@ -436,10 +436,10 @@ extension ActivityViewController: MFMailComposeViewControllerDelegate {
             print("Cancelled")
             
         case MFMailComposeResult.saved.rawValue:
-            UnpauseActivityIndicatorView.shared.dissmis()
+            UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
             
         case MFMailComposeResult.sent.rawValue:
-            UnpauseActivityIndicatorView.shared.dissmis()
+            UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
             
         case MFMailComposeResult.failed.rawValue:
             showOneOptionAlert(title: "Alert", message: error!.localizedDescription, actionTitle: "OK")
@@ -448,72 +448,5 @@ extension ActivityViewController: MFMailComposeViewControllerDelegate {
             break
         }
         controller.dismiss(animated: true, completion: nil)
-    }
-}
-
-//MARK: - UIScrollView delegate
-extension ActivityViewController: UIScrollViewDelegate {
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0{
-            changeTabBarVisibility(hidden: true, animated: true)
-            changeNavigatioBarVisibility(hidden: true)
-            changeDatesContainerVisibility(hidden: true, animated: true)
-            
-        }
-        else{
-            changeTabBarVisibility(hidden: false, animated: true)
-            changeNavigatioBarVisibility(hidden: false)
-            changeDatesContainerVisibility(hidden: false, animated: true)
-            
-        }
-    }
-}
-
-//MARK: - Animations
-private extension ActivityViewController {
-    func changeTabBarVisibility(hidden: Bool, animated: Bool){
-        let tabBar = self.tabBarController?.tabBar
-        let offset = (hidden ? UIScreen.main.bounds.size.height : UIScreen.main.bounds.size.height - (tabBar?.frame.size.height)!)
-        if offset == tabBar?.frame.origin.y { return }
-        let duration: TimeInterval = (animated ? 0.2 : 0.0)
-        UIView.animate(withDuration: duration,
-                       animations: { tabBar!.frame.origin.y = offset },
-                       completion: nil)
-    }
-    
-    func changeDatesContainerVisibility(hidden: Bool, animated: Bool) {
-        let offset = (hidden ? view.safeAreaInsets.top - datesContainer.bounds.height : view.safeAreaInsets.top)
-        if offset == datesContainer.frame.origin.y { return }
-        let duration: TimeInterval = (animated ? 0.2 : 0.0)
-        UIView.animate(withDuration: duration,
-                       delay: 0,
-                       options: .curveEaseInOut,
-                       animations: { [weak self] in
-                        guard let `self` = self else { return }
-                        self.datesContainer.frame.origin.y = offset
-                        self.remakeTableViewConstraints(hidden: hidden)
-            },
-                       completion: nil)
-    }
-    
-    func remakeTableViewConstraints(hidden: Bool) {
-        if hidden {
-            tableView.snp.remakeConstraints { make in
-                make.top.equalTo(view.safeAreaInsets.top - datesContainer.bounds.height - 25)
-                make.left.right.equalToSuperview()
-                make.bottom.equalToSuperview()
-            }
-        } else {
-            tableView.snp.remakeConstraints { make in
-                make.top.equalTo(self.datesContainer.snp.bottom)
-                make.left.right.equalToSuperview()
-                make.bottom.equalToSuperview()
-            }
-        }
-    }
-    
-    func changeNavigatioBarVisibility(hidden: Bool) {
-        navigationController?.navigationBar.isHidden = hidden
     }
 }

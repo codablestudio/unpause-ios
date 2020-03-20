@@ -17,13 +17,16 @@ class UnpauseActivityIndicatorView: UIActivityIndicatorView {
     let unpauseLogo = UIImageView()
     
     func show(on view: UIView) {
+        view.addBlurEffect()
         view.addSubview(loadingView)
         loadingView.snp.makeConstraints { make in
-            make.center.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().offset(-40)
             make.height.equalTo(80)
             make.width.equalTo(80)
         }
         loadingView.backgroundColor = .clear
+        loadingView.layer.cornerRadius = 40
         loadingView.clipsToBounds = true
         
         loadingView.addSubview(unpauseLogo)
@@ -46,8 +49,9 @@ class UnpauseActivityIndicatorView: UIActivityIndicatorView {
         UIApplication.shared.beginIgnoringInteractionEvents()
     }
     
-    func dissmis() {
+    func dissmis(from view: UIView) {
         loadingView.removeFromSuperview()
+        view.removeBlurEffect()
         UIApplication.shared.endIgnoringInteractionEvents()
     }
 }
