@@ -192,30 +192,6 @@ class ShiftNetworking {
         return Observable.just(newShiftArray)
     }
     
-//    private func addShiftOnRightPlaceInShiftArray(shifts: [Shift], newShift: Shift) -> [Shift] {
-//        var newShiftArray = [Shift]()
-//        var shiftInserted = false
-//        for shift in shifts {
-//            guard let shiftArrivalDateAndTime = Formatter.shared.convertTimeStampIntoDate(timeStamp: shift.arrivalTime),
-//                let newShiftArrivalDateAndTime = Formatter.shared.convertTimeStampIntoDate(timeStamp: newShift.arrivalTime) else {
-//                    return []
-//            }
-//            
-//            if newShiftArrivalDateAndTime < shiftArrivalDateAndTime && !shiftInserted {
-//                newShiftArray.append(newShift)
-//                newShiftArray.append(shift)
-//                shiftInserted = true
-//            } else {
-//                newShiftArray.append(shift)
-//            }
-//        }
-//        
-//        if !shiftInserted {
-//            newShiftArray.append(newShift)
-//        }
-//        return newShiftArray
-//    }
-    
     private func findShiftWithOutExitTime(shifts: [Shift]) -> Shift {
         var shiftWithOutExitTime = Shift()
         for shift in shifts {
