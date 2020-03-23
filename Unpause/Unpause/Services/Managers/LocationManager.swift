@@ -17,6 +17,7 @@ class LocationManager {
     
     init() {
         locationManager.delegate = self as? CLLocationManagerDelegate
+        locationManager.showsBackgroundLocationIndicator = false
     }
     
     func makeSpecificCircularRegion(latitude: CLLocationDegrees,
