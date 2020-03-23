@@ -328,3 +328,34 @@ extension UIView {
         view.edgesEqualToSuperview()
     }
 }
+
+// MARK: - Rotate animation
+extension UIView {
+    func rotate() {
+        let rotation : CABasicAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
+        rotation.toValue = NSNumber(value: Double.pi * 2)
+        rotation.duration = 1
+        rotation.isCumulative = true
+        rotation.repeatCount = .greatestFiniteMagnitude
+        self.layer.add(rotation, forKey: "rotationAnimation")
+    }
+}
+
+// MARK: - Blur effect
+extension UIView {
+    func addBlurEffect() {
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.regular)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = self.bounds
+
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.addSubview(blurEffectView)
+    }
+    
+    func removeBlurEffect() {
+        let blurredEffectViews = self.subviews.filter{$0 is UIVisualEffectView}
+        blurredEffectViews.forEach{ blurView in
+            blurView.removeFromSuperview()
+        }
+    }
+}

@@ -13,6 +13,14 @@ extension Coordinator {
     func presentRegistrationViewController(from viewController: UIViewController) {
         let registerViewModel = RegisterViewModel()
         let registerViewController = RegisterViewController(registerViewModel: registerViewModel)
-        viewController.present(registerViewController, animated: true, completion: nil)
+        let navigationController = UINavigationController(rootViewController: registerViewController)
+        viewController.present(navigationController, animated: true)
+    }
+    
+    func presentForgotPasswordViewController(from viewController: UIViewController) {
+        let forgotPasswordViewModel = ForgotPasswordViewModel()
+        let forgotPasswordViewController = ForgotPasswordViewController(forgotPasswordViewModel: forgotPasswordViewModel)
+        let navigationController = UINavigationController(rootViewController: forgotPasswordViewController)
+        viewController.present(navigationController, animated: true)
     }
 }

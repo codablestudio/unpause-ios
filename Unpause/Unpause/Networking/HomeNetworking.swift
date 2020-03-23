@@ -33,7 +33,7 @@ class HomeNetworking {
                 let lastArrivalDateAndTime = Formatter
                     .shared
                     .convertTimeStampIntoDate(timeStamp: lastShiftWithoutExitTime?.arrivalTime)
-                return Observable.just(LastCheckInResponse.lastCheckIn(lastArrivalDateAndTime))
+                return Observable.just(LastCheckInResponse.success(lastArrivalDateAndTime))
             })
     }
 }

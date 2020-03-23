@@ -24,7 +24,8 @@ class UpdatePersonalInfoNetworking {
                 return Observable.just(Response.error(UnpauseError.emptyError))
         }
         
-        let response = dataBaseReference.collection("users")
+        let response = dataBaseReference
+            .collection("users")
             .document(currentUserEmail)
             .rx
             .updateData([
@@ -32,10 +33,12 @@ class UpdatePersonalInfoNetworking {
                 "lastName": newLastName,
             ])
         
-        return response.flatMapLatest { _ -> Observable<Response> in
-            let userWithNewData = User(firstName: newFirstName, lastName: newLastName, email: currentUserEmail)
-            SessionManager.shared.logIn(userWithNewData)
-            return Observable.just(Response.success)
+        return response
+            .flatMapLatest { _ -> Observable<Response> in
+                let userWithNewData = User(firstName: newFirstName, lastName: newLastName, email: currentUserEmail)
+                userWithNewData.company = SessionManager.shared.currentUser?.company
+                SessionManager.shared.logIn(userWithNewData)
+                return Observable.just(Response.success)
         }
         .catchError { (error) -> Observable<Response> in
             return Observable.just(Response.error(error))

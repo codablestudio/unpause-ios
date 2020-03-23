@@ -22,8 +22,7 @@ class OrangeButton: UIButton {
     }
     
     func setUpButton() {
-        layer.cornerRadius = 5
-        backgroundColor = UIColor.orange
+        backgroundColor = UIColor.unpauseOrange
         setTitleColor(.white, for: .normal)
         setTitleColor(UIColor.init(white: 1, alpha: 0.7), for: .highlighted)
     }

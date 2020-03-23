@@ -37,8 +37,20 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>FirebaseScreenReportingEnabled</key>
+	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<true/>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>This app works best when you allow background location updates. Your location data never leaves the device.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This app works best when you allow background location updates. Your location data never leaves the device.</string>
+	<key>NSLocationUsageDescription</key>
+	<string>This app works best when you allow background location updates. Your location data never leaves the device.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app works best when you allow background location updates. Your location data never leaves the device.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -56,6 +68,14 @@
 			</array>
 		</dict>
 	</dict>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>location</string>
+		<string>remote-notification</string>
+	</array>
+	<key>UIFileSharingEnabled</key>
+	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>

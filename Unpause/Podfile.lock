@@ -175,27 +175,27 @@ PODS:
   - DifferenceKit/Core (1.1.5)
   - DifferenceKit/UIKitExtension (1.1.5):
     - DifferenceKit/Core
-  - Firebase/Analytics (6.17.0):
+  - Firebase/Analytics (6.18.0):
     - Firebase/Core
-  - Firebase/Auth (6.17.0):
+  - Firebase/Auth (6.18.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 6.4.3)
-  - Firebase/Core (6.17.0):
+  - Firebase/Core (6.18.0):
     - Firebase/CoreOnly
-    - FirebaseAnalytics (= 6.2.2)
-  - Firebase/CoreOnly (6.17.0):
-    - FirebaseCore (= 6.6.2)
-  - Firebase/Firestore (6.17.0):
+    - FirebaseAnalytics (= 6.3.0)
+  - Firebase/CoreOnly (6.18.0):
+    - FirebaseCore (= 6.6.3)
+  - Firebase/Firestore (6.18.0):
     - Firebase/CoreOnly
-    - FirebaseFirestore (~> 1.10.2)
+    - FirebaseFirestore (~> 1.11.0)
   - FirebaseABTesting (3.1.2):
     - FirebaseAnalyticsInterop (~> 1.3)
     - FirebaseCore (~> 6.1)
     - Protobuf (>= 3.9.2, ~> 3.9)
-  - FirebaseAnalytics (6.2.2):
+  - FirebaseAnalytics (6.3.0):
     - FirebaseCore (~> 6.6)
-    - FirebaseInstanceID (~> 4.3)
-    - GoogleAppMeasurement (= 6.2.2)
+    - FirebaseInstallations (~> 1.1)
+    - GoogleAppMeasurement (= 6.3.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
     - GoogleUtilities/MethodSwizzler (~> 6.0)
     - GoogleUtilities/Network (~> 6.0)
@@ -209,12 +209,12 @@ PODS:
     - GoogleUtilities/Environment (~> 6.5)
     - GTMSessionFetcher/Core (~> 1.1)
   - FirebaseAuthInterop (1.0.0)
-  - FirebaseCore (6.6.2):
+  - FirebaseCore (6.6.3):
     - FirebaseCoreDiagnostics (~> 1.2)
     - FirebaseCoreDiagnosticsInterop (~> 1.2)
     - GoogleUtilities/Environment (~> 6.5)
     - GoogleUtilities/Logger (~> 6.5)
-  - FirebaseCoreDiagnostics (1.2.0):
+  - FirebaseCoreDiagnostics (1.2.1):
     - FirebaseCoreDiagnosticsInterop (~> 1.2)
     - GoogleDataTransportCCTSupport (~> 1.3)
     - GoogleUtilities/Environment (~> 6.5)
@@ -225,7 +225,7 @@ PODS:
     - FirebaseAuthInterop (~> 1.0)
     - FirebaseCore (~> 6.0)
     - leveldb-library (~> 1.22)
-  - FirebaseFirestore (1.10.2):
+  - FirebaseFirestore (1.11.0):
     - abseil/algorithm (= 0.20190808)
     - abseil/base (= 0.20190808)
     - abseil/memory (= 0.20190808)
@@ -246,12 +246,12 @@ PODS:
     - FirebaseCore (~> 6.6)
     - GoogleUtilities/UserDefaults (~> 6.5)
     - PromisesObjC (~> 1.2)
-  - FirebaseInstanceID (4.3.1):
+  - FirebaseInstanceID (4.3.2):
     - FirebaseCore (~> 6.6)
     - FirebaseInstallations (~> 1.0)
     - GoogleUtilities/Environment (~> 6.5)
     - GoogleUtilities/UserDefaults (~> 6.5)
-  - FirebaseRemoteConfig (4.4.7):
+  - FirebaseRemoteConfig (4.4.8):
     - FirebaseABTesting (~> 3.1)
     - FirebaseAnalyticsInterop (~> 1.4)
     - FirebaseCore (~> 6.2)
@@ -263,14 +263,14 @@ PODS:
     - FirebaseAuthInterop (~> 1.0)
     - FirebaseCore (~> 6.0)
     - GTMSessionFetcher/Core (~> 1.1)
-  - GoogleAppMeasurement (6.2.2):
+  - GoogleAppMeasurement (6.3.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
     - GoogleUtilities/MethodSwizzler (~> 6.0)
     - GoogleUtilities/Network (~> 6.0)
     - "GoogleUtilities/NSData+zlib (~> 6.0)"
     - nanopb (= 0.3.9011)
-  - GoogleDataTransport (4.0.0)
-  - GoogleDataTransportCCTSupport (1.4.0):
+  - GoogleDataTransport (4.0.1)
+  - GoogleDataTransportCCTSupport (1.4.1):
     - GoogleDataTransport (~> 4.0)
     - nanopb (~> 0.3.901)
   - GoogleSignIn (5.0.2):
@@ -327,7 +327,7 @@ PODS:
   - nanopb/encode (0.3.9011)
   - PromisesObjC (1.2.8)
   - Protobuf (3.11.4)
-  - RxCocoa (5.0.1):
+  - RxCocoa (5.1.0):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
   - RxFirebase/Auth (0.3.8):
@@ -373,11 +373,10 @@ PODS:
   - RxKeyboard (1.0.0):
     - RxCocoa (~> 5.0)
     - RxSwift (~> 5.0)
-  - RxRelay (5.0.1):
+  - RxRelay (5.1.0):
     - RxSwift (~> 5)
-  - RxSwift (5.0.1)
+  - RxSwift (5.1.0)
   - SnapKit (5.0.1)
-  - SVProgressHUD (2.2.6)
 
 DEPENDENCIES:
   - DifferenceKit
@@ -397,7 +396,6 @@ DEPENDENCIES:
   - RxKeyboard
   - RxSwift (~> 5)
   - SnapKit (~> 5.0.0)
-  - SVProgressHUD (from `https://github.com/SVProgressHUD/SVProgressHUD.git`)
 
 SPEC REPOS:
   trunk:
@@ -448,39 +446,30 @@ SPEC REPOS:
     - RxSwift
     - SnapKit
 
-EXTERNAL SOURCES:
-  SVProgressHUD:
-    :git: https://github.com/SVProgressHUD/SVProgressHUD.git
-
-CHECKOUT OPTIONS:
-  SVProgressHUD:
-    :commit: 4fdf3fdc8703fd9915dae33fc1363c604a06b24e
-    :git: https://github.com/SVProgressHUD/SVProgressHUD.git
-
 SPEC CHECKSUMS:
   abseil: 18063d773f5366ff8736a050fe035a28f635fd27
   AppAuth: 73574f3013a1e65b9601a3ddc8b3158cce68c09d
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
   DifferenceKit: 516f12e336ed65a3a0665847b5c3cb5cad4bd4ea
-  Firebase: 2672e5636b42f977177716317e68346ae5e9de25
+  Firebase: 0490eca762a72e4f1582319539153897f1508dee
   FirebaseABTesting: 0d10f3cdc3fa00f3f175b5b56c1003c8e888299f
-  FirebaseAnalytics: cf95d3aab897612783020fbd98401d5366f135ee
+  FirebaseAnalytics: 058d71e714a1a6804d9e0f25e3bb18e377a51579
   FirebaseAnalyticsInterop: 3f86269c38ae41f47afeb43ebf32a001f58fcdae
   FirebaseAuth: 5ce2b03a3d7fe56b7a6e4c5ec7ff1522890b1d6f
   FirebaseAuthInterop: 0ffa57668be100582bb7643d4fcb7615496c41fc
-  FirebaseCore: a1dd9dd6355a8356dd30a8f076839e242285a81c
-  FirebaseCoreDiagnostics: 5e78803ab276bc5b50340e3c539c06c3de35c649
+  FirebaseCore: 78276943ad85e616dfa54dafa6c89512987d9d60
+  FirebaseCoreDiagnostics: 2109d10c35e8289b1ee6cabf44d9ffb055620194
   FirebaseCoreDiagnosticsInterop: 296e2c5f5314500a850ad0b83e9e7c10b011a850
   FirebaseDatabase: 0144e0706a4761f1b0e8679572eba8095ddb59be
-  FirebaseFirestore: 2ee644acccde18e49b2fb5d434c709b1f1171b13
+  FirebaseFirestore: a23d596ae3a8c13d3b8353b565d2adfb690f9032
   FirebaseFunctions: 5af7c35d1c5e41608fecbb667eb6c4e672e318d0
   FirebaseInstallations: 575cd32f2aec0feeb0e44f5d0110a09e5e60b47b
-  FirebaseInstanceID: 031d7d0c8e7b5c030bbeb4d2a690550375e83fec
-  FirebaseRemoteConfig: 4890e58b0e33c8328b8c5e8b7a5a237b9d851d8e
+  FirebaseInstanceID: 7ee0d6777013bb952f377b41965bf132b6a075be
+  FirebaseRemoteConfig: 83d34cb1fa6fed2277370029b59b1883ae4861a4
   FirebaseStorage: 6c5263796af3b1be82ed173598aade47535fe125
-  GoogleAppMeasurement: d0560d915abf15e692e8538ba1d58442217b6aff
-  GoogleDataTransport: 47fe3b8e1673e5187dfd615656a3c5034f150d69
-  GoogleDataTransportCCTSupport: 36f69887fd212db6d7ef4dd45ba44523717a434e
+  GoogleAppMeasurement: 39ecba10918b21c83877d392246157f65db351cf
+  GoogleDataTransport: 653963cf5be60fb59cf051e070f0836fdc305f81
+  GoogleDataTransportCCTSupport: 84e4d4bbab642f2e9d83ee65d78aca2b5527d314
   GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
   GoogleUtilities: 06eb53bb579efe7099152735900dd04bf09e7275
   "gRPC-C++": 9dfe7b44821e7b3e44aacad2af29d2c21f7cde83
@@ -491,7 +480,7 @@ SPEC CHECKSUMS:
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   Protobuf: 176220c526ad8bd09ab1fb40a978eac3fef665f7
-  RxCocoa: e741b9749968e8a143e2b787f1dfbff2b63d0a5c
+  RxCocoa: 13d2a4d7546a34b8ececae8c281e4ea1dbb94f2b
   RxFirebase: 45e6448c69c7212e21f8ba89144443f916437861
   RxFirebaseAuthentication: 5d0573fd641947ed857346624d1c849bbd86bdff
   RxFirebaseDatabase: 5c1d3d31c9858f05ff6ad92e5b4b696354d1497b
@@ -501,11 +490,10 @@ SPEC CHECKSUMS:
   RxFirebaseStorage: 271184ff8f8d3660bfc751dcafdbb4dd01d0b8a1
   RxGesture: a3f8dd6adf078110ed5e1c9c30d09d705a09852e
   RxKeyboard: 6683c4344304a00f943c158bd8a43ce5469c82a7
-  RxRelay: 89d54507f4fd4d969e6ec1d4bd7f3673640b4640
-  RxSwift: e2dc62b366a3adf6a0be44ba9f405efd4c94e0c4
+  RxRelay: a168bd6caf712d00c676ac344e9295afc93b418e
+  RxSwift: ad5874f24bb0dbffd1e9bb8443604e3578796c7a
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
-  SVProgressHUD: 6ed134667e9ebb2f33679e8273cd48fd3fa349e5
 
-PODFILE CHECKSUM: 4d07862b3d92d7f56f8d9cd323571f74b014213b
+PODFILE CHECKSUM: d388098ec667d3c60af382ba2bd6fbb39edfcf0f
 
 COCOAPODS: 1.8.4
