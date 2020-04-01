@@ -11,7 +11,7 @@ import RxSwift
 import FirebaseFirestore
 import FirebaseAuth
 
-class ChangePasswordNetworking {
+class ChangePasswordNetworking: ChangePasswordNetworkingProtocol {
     
     private let dataBaseReference = Auth.auth()
     

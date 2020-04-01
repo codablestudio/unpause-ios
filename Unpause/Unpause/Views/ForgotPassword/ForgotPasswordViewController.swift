@@ -11,7 +11,7 @@ import RxSwift
 
 class ForgotPasswordViewController: UIViewController {
     
-    private let forgotPasswordViewModel: ForgotPasswordViewModel
+    private let forgotPasswordViewModel: ForgotPasswordViewModelProtocol
     private let disposeBag = DisposeBag()
     
     private let scrollView = UIScrollView()
@@ -26,6 +26,15 @@ class ForgotPasswordViewController: UIViewController {
     private let closeButton = UIButton()
     
     private let sendRecoveryEmailButton = OrangeButton(title: "Send recovery email")
+    
+    init(forgotPasswordViewModel: ForgotPasswordViewModelProtocol) {
+        self.forgotPasswordViewModel = forgotPasswordViewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,15 +45,6 @@ class ForgotPasswordViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         hideNavigationBar()
-    }
-    
-    init(forgotPasswordViewModel: ForgotPasswordViewModel) {
-        self.forgotPasswordViewModel = forgotPasswordViewModel
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     private func render() {

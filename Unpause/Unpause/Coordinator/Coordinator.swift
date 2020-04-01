@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Firebase
 
 class Coordinator {
     
@@ -31,7 +32,13 @@ class Coordinator {
     }
     
     private func startAuth() {
-        let loginViewController = LoginViewController(loginViewModel: LoginViewModel())
+        let loginNetworking = LoginNetworking()
+        let companyNetworking = CompanyNetworking()
+        let registerNetworking = RegisterNetworking()
+        let loginViewModel = LoginViewModel(loginNetworking: loginNetworking,
+                                            companyNetworking: companyNetworking,
+                                            registerNetworking: registerNetworking)
+        let loginViewController = LoginViewController(loginViewModel: loginViewModel)
         let navigationController = UINavigationController(rootViewController: loginViewController)
         window.rootViewController = navigationController
     }

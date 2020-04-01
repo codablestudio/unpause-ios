@@ -9,20 +9,21 @@
 import Foundation
 import RxSwift
 
-class ForgotPasswordViewModel {
+class ForgotPasswordViewModel: ForgotPasswordViewModelProtocol {
     
     private let disposeBag = DisposeBag()
-    private let loginNetworking = LoginNetworking()
+    private let loginNetworking: LoginNetworkingProtocol
     
     var textInEmailTextFieldChanges = PublishSubject<String?>()
     var sendRecoveryEmailButtonTapped = PublishSubject<Void>()
     
-    var textInEmailTextField: String?
-    
     var recoveryMailSendingResponse: Observable<Response>!
     
+    var textInEmailTextField: String?
     
-    init() {
+    init(loginNetworking: LoginNetworkingProtocol) {
+        self.loginNetworking = loginNetworking
+        
         setUpObservables()
     }
     

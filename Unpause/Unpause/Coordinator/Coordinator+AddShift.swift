@@ -14,7 +14,9 @@ extension Coordinator {
                                             arrivalTime: Date?,
                                             leavingTime: Date?,
                                             navigationFromCustomShift: Bool) {
-        let descriptionViewModel = DescriptionViewModel(arrivalDateAndTime: arrivalTime,
+        let shiftNetworking = ShiftNetworking()
+        let descriptionViewModel = DescriptionViewModel(shiftNetworking: shiftNetworking,
+                                                        arrivalDateAndTime: arrivalTime,
                                                         leavingDateAndTime: leavingTime,
                                                         navigationFromCustomShift: navigationFromCustomShift)
         let descriptionViewController = DescriptionViewController(descriptionViewModel: descriptionViewModel,
@@ -23,7 +25,9 @@ extension Coordinator {
     }
     
     func navigateToDecriptionViewController(from viewController: UIViewController, arrivalTime: Date?, leavingTime: Date?, with shiftData: ShiftsTableViewItem) {
-        let descriptionViewModel = DescriptionViewModel(arrivalDateAndTime: arrivalTime,
+        let shiftNetworking = ShiftNetworking()
+        let descriptionViewModel = DescriptionViewModel(shiftNetworking: shiftNetworking,
+                                                        arrivalDateAndTime: arrivalTime,
                                                         leavingDateAndTime: leavingTime,
                                                         cellToEdit: shiftData)
         let descriptionViewController = DescriptionViewController(descriptionViewModel: descriptionViewModel,

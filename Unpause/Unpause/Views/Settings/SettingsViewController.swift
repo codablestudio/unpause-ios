@@ -13,7 +13,7 @@ import RxSwift
 class SettingsViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
-    private let settingsViewModel: SettingsViewModel
+    private let settingsViewModel: SettingsViewModelProtocol
     
     private let scrollView = UIScrollView()
     private let containerView = UIView()
@@ -22,7 +22,7 @@ class SettingsViewController: UIViewController {
     private let addCompanyButton = OrangeButton(title: "Add company")
     private let logOutButton = OrangeButton(title: "Log out")
     
-    init(settingsViewModel: SettingsViewModel) {
+    init(settingsViewModel: SettingsViewModelProtocol) {
         self.settingsViewModel = settingsViewModel
         super.init(nibName: nil, bundle: nil)
     }

@@ -14,7 +14,7 @@ import FirebaseFirestore
 import RxFirebase
 import GoogleSignIn
 
-class RegisterNetworking {
+class RegisterNetworking: RegisterNetworkingProtocol {
     
     private let dataBaseReference = Firestore.firestore()
     
@@ -68,7 +68,7 @@ class RegisterNetworking {
             })
     }
     
-    private func saveUserInfoOnServer(email: String, firstName: String, lastName: String) -> Observable<Response> {
+    internal func saveUserInfoOnServer(email: String, firstName: String, lastName: String) -> Observable<Response> {
         return self.dataBaseReference
             .collection("users")
             .document("\(email)")

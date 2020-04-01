@@ -14,7 +14,7 @@ import RxGesture
 class RegisterViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
-    private let registerViewModel: RegisterViewModel
+    private let registerViewModel: RegisterViewModelProtocol
     
     private let scrollView = UIScrollView()
     private let containerView = UIView()
@@ -38,7 +38,7 @@ class RegisterViewController: UIViewController {
     
     private let closeButton = UIButton()
     
-    init(registerViewModel: RegisterViewModel) {
+    init(registerViewModel: RegisterViewModelProtocol) {
         self.registerViewModel = registerViewModel
         super.init(nibName: nil, bundle: nil)
     }

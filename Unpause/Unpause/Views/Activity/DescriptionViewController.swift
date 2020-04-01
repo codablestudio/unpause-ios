@@ -11,7 +11,7 @@ import RxSwift
 
 class DescriptionViewController: UIViewController {
     
-    private let descriptionViewModel: DescriptionViewModel
+    private let descriptionViewModel: DescriptionViewModelProtocol
     private let disposeBag = DisposeBag()
     
     private let scrollView = UIScrollView()
@@ -29,7 +29,7 @@ class DescriptionViewController: UIViewController {
     
     let navigationFromTableView: Bool
     
-    init(descriptionViewModel: DescriptionViewModel, navigationFromTableView: Bool) {
+    init(descriptionViewModel: DescriptionViewModelProtocol, navigationFromTableView: Bool) {
         self.navigationFromTableView = navigationFromTableView
         self.descriptionViewModel = descriptionViewModel
         super.init(nibName: nil, bundle: nil)

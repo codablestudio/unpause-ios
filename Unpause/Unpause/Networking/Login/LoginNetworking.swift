@@ -12,7 +12,7 @@ import FirebaseFirestore
 import RxSwift
 import RxFirebase
 
-class LoginNetworking {
+class LoginNetworking: LoginNetworkingProtocol {
     
     private let dataBaseReference = Firestore.firestore()
     

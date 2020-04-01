@@ -11,7 +11,7 @@ import RxSwift
 
 class UpdatePersonalInfoViewController: UIViewController {
     
-    private let updatePersonalInfoViewModel: UpdatePersonalInfoViewModel
+    private let updatePersonalInfoViewModel: UpdatePersonalInfoViewModelProtocol
     private let disposeBag = DisposeBag()
     
     private let scrollView = UIScrollView()
@@ -30,7 +30,7 @@ class UpdatePersonalInfoViewController: UIViewController {
     
     private let closeButton = UIButton()
     
-    init(updatePersonalInfoViewModel: UpdatePersonalInfoViewModel) {
+    init(updatePersonalInfoViewModel: UpdatePersonalInfoViewModelProtocol) {
         self.updatePersonalInfoViewModel = updatePersonalInfoViewModel
         super.init(nibName: nil, bundle: nil)
     }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class AddShiftViewModel {
+class AddShiftViewModel: AddShiftViewModelProtocol {
     
     var cellToEdit: ShiftsTableViewItem?
     

@@ -9,10 +9,10 @@
 import Foundation
 import RxSwift
 
-class RegisterViewModel {
+class RegisterViewModel: RegisterViewModelProtocol {
     
     private let disposeBag = DisposeBag()
-    private let registerNetworking = RegisterNetworking()
+    private let registerNetworking: RegisterNetworkingProtocol
     
     private var textInFirstNameTextField: String?
     private var textInLastNameTextField: String?
@@ -27,7 +27,9 @@ class RegisterViewModel {
     
     var registerResponse: Observable<FirebaseResponseObject>!
     
-    init() {
+    init(registerNetworking: RegisterNetworkingProtocol) {
+        self.registerNetworking = registerNetworking
+        
         setUpObservables()
     }
     

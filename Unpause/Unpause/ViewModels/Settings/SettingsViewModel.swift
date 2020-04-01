@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 
-class SettingsViewModel {
+class SettingsViewModel: SettingsViewModelProtocol {
     
     private let disposeBag = DisposeBag()
     

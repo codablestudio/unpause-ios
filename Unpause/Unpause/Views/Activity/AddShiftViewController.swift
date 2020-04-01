@@ -12,7 +12,7 @@ import RxGesture
 
 class AddShiftViewController: UIViewController {
     
-    private let addShiftViewModel: AddShiftViewModel
+    private let addShiftViewModel: AddShiftViewModelProtocol
     private let disposeBag = DisposeBag()
     
     private let scrollView = UIScrollView()
@@ -60,7 +60,7 @@ class AddShiftViewController: UIViewController {
     var navigationFromTableView: Bool
     var navigationFromCustomShift: Bool
     
-    init(addShiftViewModel: AddShiftViewModel, navigationFromTableView: Bool, navigationFromCustomShift: Bool) {
+    init(addShiftViewModel: AddShiftViewModelProtocol, navigationFromTableView: Bool, navigationFromCustomShift: Bool) {
         self.addShiftViewModel = addShiftViewModel
         self.navigationFromTableView = navigationFromTableView
         self.navigationFromCustomShift = navigationFromCustomShift

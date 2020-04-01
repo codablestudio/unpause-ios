@@ -10,7 +10,7 @@ import Foundation
 import FirebaseFirestore
 import RxSwift
 
-class ShiftNetworking {
+class ShiftNetworking: ShiftNetworkingProtocol {
     
     private let dataBaseReference = Firestore.firestore()
     

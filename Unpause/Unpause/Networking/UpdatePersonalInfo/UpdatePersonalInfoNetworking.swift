@@ -11,7 +11,7 @@ import RxSwift
 import RxFirebase
 import FirebaseFirestore
 
-class UpdatePersonalInfoNetworking {
+class UpdatePersonalInfoNetworking: UpdatePersonalInfoNetworkingProtocol {
     
     private let dataBaseReference = Firestore.firestore()
     

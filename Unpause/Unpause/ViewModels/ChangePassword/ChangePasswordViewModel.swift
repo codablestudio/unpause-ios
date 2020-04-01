@@ -9,22 +9,23 @@
 import Foundation
 import RxSwift
 
-class ChangePasswordViewModel {
+class ChangePasswordViewModel: ChangePasswordViewModelProtocol {
     
     private let disposeBag = DisposeBag()
-    private let changePasswordNetworking = ChangePasswordNetworking()
+    private let changePasswordNetworking: ChangePasswordNetworkingProtocol
     
     var textInCurrentPasswordTextFieldChanges = PublishSubject<String?>()
     var textInNewPasswordTextFieldChanges = PublishSubject<String?>()
     var changePasswordButtonTapped = PublishSubject<Void>()
     
+    var changePasswordResponse: Observable<Response>!
+    
     private var textInCurrentPasswordTextField: String?
     private var textInNewPasswordTextField: String?
     
-    var changePasswordResponse: Observable<Response>!
-    
-    
-    init() {
+    init(changePasswordNetworking: ChangePasswordNetworkingProtocol) {
+        self.changePasswordNetworking = changePasswordNetworking
+        
         setUpObservables()
     }
     

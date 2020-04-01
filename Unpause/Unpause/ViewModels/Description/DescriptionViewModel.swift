@@ -8,10 +8,10 @@
 
 import RxSwift
 
-class DescriptionViewModel {
+class DescriptionViewModel: DescriptionViewModelProtocol {
     
     private let disposeBag = DisposeBag()
-    private let shiftNetworking = ShiftNetworking()
+    private let shiftNetworking: ShiftNetworkingProtocol
     
     private let arrivalDateAndTime: Date?
     private let leavingDateAndTime: Date?
@@ -28,17 +28,24 @@ class DescriptionViewModel {
     var shiftSavingResponse: Observable<Response>!
     var shiftEditingResponse: Observable<Response>!
     
-    init(arrivalDateAndTime: Date?, leavingDateAndTime: Date?, navigationFromCustomShift: Bool) {
+    init(shiftNetworking: ShiftNetworkingProtocol,
+         arrivalDateAndTime: Date?,
+         leavingDateAndTime: Date?,
+         navigationFromCustomShift: Bool) {
+        self.shiftNetworking = shiftNetworking
         self.arrivalDateAndTime = arrivalDateAndTime
         self.leavingDateAndTime = leavingDateAndTime
         self.navigationFromCustomShift = navigationFromCustomShift
+        
         setUpObservables()
     }
     
-    init(arrivalDateAndTime: Date?, leavingDateAndTime: Date?, cellToEdit: ShiftsTableViewItem) {
+    init(shiftNetworking: ShiftNetworkingProtocol, arrivalDateAndTime: Date?, leavingDateAndTime: Date?, cellToEdit: ShiftsTableViewItem) {
+        self.shiftNetworking = shiftNetworking
         self.arrivalDateAndTime = arrivalDateAndTime
         self.leavingDateAndTime = leavingDateAndTime
         self.cellToEdit = cellToEdit
+        
         setUpObservables()
     }
     

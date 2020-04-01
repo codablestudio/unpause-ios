@@ -15,7 +15,7 @@ class LocationManager {
     
     let locationManager = CLLocationManager()
     
-    init() {
+    private init() {
         locationManager.delegate = self as? CLLocationManagerDelegate
         locationManager.showsBackgroundLocationIndicator = false
     }

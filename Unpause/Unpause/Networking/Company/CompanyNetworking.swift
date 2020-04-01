@@ -11,12 +11,12 @@ import Firebase
 import RxSwift
 import FirebaseFirestore
 
-class CompanyNetworking {
+class CompanyNetworking: CompanyNetworkingProtocol {
     
     private let dataBaseReference = Firestore.firestore()
     
     private var privateCompanyReference: DocumentReference?
-    
+
     func fetchCompanyReference() -> Observable<CompanyReferenceFetchingResponse> {
         guard let currentUserEmail = SessionManager.shared.currentUser?.email else {
             return Observable.just(CompanyReferenceFetchingResponse.error(.noUser))
@@ -169,7 +169,7 @@ class CompanyNetworking {
             })
     }
     
-    private func findCompanyWithNameAndPassCode(allCompaniesValidationData: [CompanyValidationData],
+     internal func findCompanyWithNameAndPassCode(allCompaniesValidationData: [CompanyValidationData],
                                                 companyName: String?,
                                                 companyPassCode: String?) -> DocumentReference? {
         var companyReference: String?
@@ -182,12 +182,12 @@ class CompanyNetworking {
         return dataBaseReference.collection("companies").document("\(companyDataBaseReference)")
     }
     
-    private func saveNewCompanyToCurrentUser(newCompany: Company) {
+    internal func saveNewCompanyToCurrentUser(newCompany: Company) {
         SessionManager.shared.currentUser?.company = newCompany
         SessionManager.shared.saveCurrentUserToUserDefaults()
     }
     
-    private func getCompanyDataFromCompanyReference(companyReference: DocumentReference) -> Observable<FirebaseDocumentResponseObject> {
+    internal func getCompanyDataFromCompanyReference(companyReference: DocumentReference) -> Observable<FirebaseDocumentResponseObject> {
         return companyReference.rx.getDocument()
             .flatMapLatest ({ documentSnapshot -> Observable<FirebaseDocumentResponseObject> in
                 return Observable.just(FirebaseDocumentResponseObject.success(documentSnapshot))

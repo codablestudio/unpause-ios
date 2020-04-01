@@ -9,14 +9,13 @@
 import Foundation
 import RxSwift
 
-class AddCompanyViewModel {
+class AddCompanyViewModel: AddCompanyViewModelProtocol {
     
     private let disposeBag = DisposeBag()
-    private let companyNetworking = CompanyNetworking()
+    private let companyNetworking: CompanyNetworkingProtocol
     
     var textInCompanyNameTextFieldChanges = PublishSubject<String?>()
     var textInCompanyPassCodeTextFieldChanges = PublishSubject<String?>()
-    
     var addCompanyButtonTapped = PublishSubject<Void>()
     
     var companyAddingResponse: Observable<Response>!
@@ -26,8 +25,11 @@ class AddCompanyViewModel {
     
     var registeredUserEmail: String?
     
-    init(registeredUserEmail: String?) {
+    init(companyNetworking: CompanyNetworkingProtocol,
+         registeredUserEmail: String?) {
+        self.companyNetworking = companyNetworking
         self.registeredUserEmail = registeredUserEmail
+        
         setUpObservables()
     }
     

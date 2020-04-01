@@ -12,7 +12,7 @@ import FirebaseFirestore
 import RxSwift
 import RxFirebase
 
-class HomeNetworking {
+class HomeNetworking: HomeNetworkingProtocol {
     
     private let dataBaseReference = Firestore.firestore()
     

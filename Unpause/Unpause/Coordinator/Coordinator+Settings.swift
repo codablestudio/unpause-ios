@@ -11,19 +11,23 @@ import UIKit
 
 extension Coordinator {
     func presentChangePersonalInfoViewController(from viewController: UIViewController) {
-        let updatePersonalInfoViewModel = UpdatePersonalInfoViewModel()
+        let updatePersonalInfoNetworking = UpdatePersonalInfoNetworking()
+        let updatePersonalInfoViewModel = UpdatePersonalInfoViewModel(updatePersonalInfoNetworking: updatePersonalInfoNetworking)
         let updatePersonalInfoViewController = UpdatePersonalInfoViewController(updatePersonalInfoViewModel: updatePersonalInfoViewModel)
         viewController.present(updatePersonalInfoViewController, animated: true)
     }
     
     func presentChangePasswordViewController(from viewController: UIViewController) {
-        let changePasswordViewModel = ChangePasswordViewModel()
+        let changePasswordNetworking = ChangePasswordNetworking()
+        let changePasswordViewModel = ChangePasswordViewModel(changePasswordNetworking: changePasswordNetworking)
         let changePasswordViewController = ChangePasswordViewController(changePasswordViewModel: changePasswordViewModel)
         viewController.present(changePasswordViewController, animated: true)
     }
     
     func presentAddCompanyViewController(from viewController: UIViewController) {
-        let addCompanyViewModel = AddCompanyViewModel(registeredUserEmail: SessionManager.shared.currentUser?.email)
+        let companyNetworking = CompanyNetworking()
+        let addCompanyViewModel = AddCompanyViewModel(companyNetworking: companyNetworking,
+                                                      registeredUserEmail: SessionManager.shared.currentUser?.email)
         let addCompanyViewController = AddCompanyViewController(addCompanyViewModel: addCompanyViewModel)
         viewController.present(addCompanyViewController, animated: true)
     }

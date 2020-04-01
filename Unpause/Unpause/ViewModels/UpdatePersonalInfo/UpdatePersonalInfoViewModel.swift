@@ -9,10 +9,10 @@
 import Foundation
 import RxSwift
 
-class UpdatePersonalInfoViewModel {
+class UpdatePersonalInfoViewModel: UpdatePersonalInfoViewModelProtocol {
     
     private let disposeBag = DisposeBag()
-    private let updatePersonalInfoNetworking = UpdatePersonalInfoNetworking()
+    private let updatePersonalInfoNetworking: UpdatePersonalInfoNetworkingProtocol
     
     private var textInNewFirstNameTextField: String?
     private var textInNewLastNameTextField: String?
@@ -23,7 +23,9 @@ class UpdatePersonalInfoViewModel {
     
     var updateInfoResponse: Observable<Response>!
     
-    init() {
+    init(updatePersonalInfoNetworking: UpdatePersonalInfoNetworkingProtocol) {
+        self.updatePersonalInfoNetworking = updatePersonalInfoNetworking
+        
         setUpObservables()
     }
     
