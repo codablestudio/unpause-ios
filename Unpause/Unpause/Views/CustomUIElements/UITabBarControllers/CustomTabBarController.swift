@@ -16,10 +16,15 @@ class CustomTabBarController: UITabBarController {
     }
     
     private func setUpTabBarController() {
-        let homeViewController = HomeViewController(homeViewModel: HomeViewModel())
+        let homeNetworking = HomeNetworking()
+        let shiftNetworking = ShiftNetworking()
+        let homeViewModel = HomeViewModel(homeNetworking: homeNetworking, shiftNetworking: shiftNetworking)
+        let homeViewController = HomeViewController(homeViewModel: homeViewModel)
         let homeNavigationController = UINavigationController(rootViewController: homeViewController)
         
-        let activityViewController = ActivityViewController(activityViewModel: ActivityViewModel())
+        let companyNetworking = CompanyNetworking()
+        let activityViewModel = ActivityViewModel(shiftNetworking: shiftNetworking, companyNetworking: companyNetworking)
+        let activityViewController = ActivityViewController(activityViewModel: activityViewModel)
         let activityNavigationController = UINavigationController(rootViewController: activityViewController)
         
         let settingsViewController = SettingsViewController(settingsViewModel: SettingsViewModel())

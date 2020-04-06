@@ -9,7 +9,7 @@
 import Foundation
 import GoogleSignIn
 
-enum GoogleUserSavingResponse {
+enum GoogleUserSavingResponse: Equatable {
     case success(GIDGoogleUser)
     case error(UnpauseError)
 }

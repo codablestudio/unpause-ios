@@ -16,7 +16,7 @@ import GoogleSignIn
 class LoginViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
-    private let loginViewModel: LoginViewModel
+    private let loginViewModel: LoginViewModelProtocol
     
     private let scrollView = UIScrollView()
     private let containerView = UIView()
@@ -39,7 +39,7 @@ class LoginViewController: UIViewController {
     
     var googleUserSignInResponse = PublishSubject<GIDGoogleUser>()
     
-    init(loginViewModel: LoginViewModel) {
+    init(loginViewModel: LoginViewModelProtocol) {
         self.loginViewModel = loginViewModel
         super.init(nibName: nil, bundle: nil)
     }

@@ -13,7 +13,7 @@ import MessageUI
 
 class ActivityViewController: UIViewController {
     
-    private let activityViewModel: ActivityViewModel
+    private let activityViewModel: ActivityViewModelProtocol
     private let disposeBag = DisposeBag()
     private let shiftNetworking = ShiftNetworking()
     
@@ -51,7 +51,7 @@ class ActivityViewController: UIViewController {
     
     private var dataSource: [ShiftsTableViewItem] = [.loading]
     
-    init(activityViewModel: ActivityViewModel) {
+    init(activityViewModel: ActivityViewModelProtocol) {
         self.activityViewModel = activityViewModel
         super.init(nibName: nil, bundle: nil)
     }

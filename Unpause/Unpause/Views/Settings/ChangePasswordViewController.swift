@@ -12,7 +12,7 @@ import RxSwift
 class ChangePasswordViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
-    private let changePasswordViewModel: ChangePasswordViewModel
+    private let changePasswordViewModel: ChangePasswordViewModelProtocol
     
     private let scrollView = UIScrollView()
     private let containerView = UIView()
@@ -30,7 +30,7 @@ class ChangePasswordViewController: UIViewController {
     
     private let closeButton = UIButton()
     
-    init(changePasswordViewModel: ChangePasswordViewModel) {
+    init(changePasswordViewModel: ChangePasswordViewModelProtocol) {
         self.changePasswordViewModel = changePasswordViewModel
         super.init(nibName: nil, bundle: nil)
     }

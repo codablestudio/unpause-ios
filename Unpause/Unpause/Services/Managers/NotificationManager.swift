@@ -16,7 +16,7 @@ class NotificationManager {
     
     let notificationCenter = UNUserNotificationCenter.current()
     
-    init() {
+    private init() {
         notificationCenter.delegate = self as? UNUserNotificationCenterDelegate
         registerCategories()
     }

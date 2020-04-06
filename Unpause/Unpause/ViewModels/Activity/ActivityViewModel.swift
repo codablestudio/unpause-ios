@@ -8,13 +8,14 @@
 
 import RxSwift
 
-class ActivityViewModel {
+class ActivityViewModel: ActivityViewModelProtocol {
     
-    private let shiftNetworking = ShiftNetworking()
-    private let companyNetworking = CompanyNetworking()
+    private let shiftNetworking: ShiftNetworkingProtocol
+    private let companyNetworking: CompanyNetworkingProtocol
     private let disposeBag = DisposeBag()
     
     var shiftsRequest: Observable<[ShiftsTableViewItem]>!
+    var deleteRequest: Observable<ShiftDeletionResponse>!
     
     var refreshTrigger = PublishSubject<Void>()
     var dateInFromDatePickerChanges = PublishSubject<Date>()
@@ -22,14 +23,20 @@ class ActivityViewModel {
     var activityStarted = PublishSubject<Void>()
     var shiftToDelete = PublishSubject<Shift>()
     
-    var deleteRequest: Observable<ShiftDeletionResponse>!
-    
     private var dateInFromDatePicker: Date?
     private var dateInToDatePicker: Date?
     
     static var forceRefresh = PublishSubject<()>()
     
-    init() {
+    init(shiftNetworking: ShiftNetworkingProtocol,
+         companyNetworking: CompanyNetworkingProtocol) {
+        self.shiftNetworking = shiftNetworking
+        self.companyNetworking = companyNetworking
+        
+        setUpObservables()
+    }
+    
+    private func setUpObservables() {
         dateInFromDatePickerChanges
             .subscribe(onNext: { [weak self] date in
                 guard let `self` = self else { return }

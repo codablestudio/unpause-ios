@@ -14,7 +14,6 @@ import CoreLocation
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
-    var networking = CompanyNetworking()
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
@@ -25,7 +24,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             Coordinator.shared.start(newWindow)
             LocationManager.shared.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
             LocationManager.shared.locationManager.pausesLocationUpdatesAutomatically = false
-            LocationManager.shared.locationManager.allowsBackgroundLocationUpdates = true
             LocationManager.shared.locationManager.requestAlwaysAuthorization()
             NotificationManager.shared.notificationCenter.requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
                 if let error = error {

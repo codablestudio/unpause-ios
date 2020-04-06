@@ -12,7 +12,7 @@ import RxSwift
 class AddCompanyViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
-    private let addCompanyViewModel: AddCompanyViewModel
+    private let addCompanyViewModel: AddCompanyViewModelProtocol
     
     private let scrollView = UIScrollView()
     private let containerView = UIView()
@@ -34,7 +34,7 @@ class AddCompanyViewController: UIViewController {
     
     private let skipButton = UIBarButtonItem(title: "Skip", style: .plain, target: self, action: nil)
     
-    init(addCompanyViewModel: AddCompanyViewModel) {
+    init(addCompanyViewModel: AddCompanyViewModelProtocol) {
         self.addCompanyViewModel = addCompanyViewModel
         super.init(nibName: nil, bundle: nil)
     }

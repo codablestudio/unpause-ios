@@ -13,12 +13,12 @@ import FirebaseAuth
 import FirebaseFirestore
 import GoogleSignIn
 
-class LoginViewModel {
+class LoginViewModel: LoginViewModelProtocol {
     
     private let disposeBag = DisposeBag()
-    private let loginNetworking = LoginNetworking()
-    private let companyNetworking = CompanyNetworking()
-    private let registerNetworking = RegisterNetworking()
+    private let loginNetworking: LoginNetworkingProtocol
+    private let companyNetworking: CompanyNetworkingProtocol
+    private let registerNetworking: RegisterNetworkingProtocol
     
     private var textInEmailTextField: String?
     private var textInPasswordTextField: String?
@@ -34,9 +34,17 @@ class LoginViewModel {
     var loginDocument: Observable<UnpauseResponse>!
     var googleUserSavingResponse: Observable<UnpauseResponse>!
     
-    init() {
-        setUpObservables()
+    init(loginNetworking: LoginNetworkingProtocol,
+         companyNetworking: CompanyNetworkingProtocol,
+         registerNetworking: RegisterNetworkingProtocol) {
+        self.loginNetworking = loginNetworking
+        self.companyNetworking = companyNetworking
+        self.registerNetworking = registerNetworking
         
+        setUpObservables()
+    }
+    
+    private func setUpObservables() {
         loginDocument = logInButtonTapped
             .flatMapLatest({ [weak self] _ -> Observable<FirebaseResponseObject> in
                 guard let `self` = self,
@@ -89,9 +97,7 @@ class LoginViewModel {
                     return UnpauseResponse.error(error)
                 }
             })
-    }
-    
-    private func setUpObservables() {
+        
         textInEmailTextFieldChanges.subscribe(onNext: { [weak self] (newValue) in
             self?.textInEmailTextField = newValue
         }).disposed(by: disposeBag)

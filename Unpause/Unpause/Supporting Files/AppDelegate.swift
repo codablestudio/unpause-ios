@@ -27,7 +27,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.makeKeyAndVisible()
             LocationManager.shared.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
             LocationManager.shared.locationManager.pausesLocationUpdatesAutomatically = false
-            LocationManager.shared.locationManager.allowsBackgroundLocationUpdates = true
             LocationManager.shared.locationManager.requestAlwaysAuthorization()
             NotificationManager.shared.notificationCenter.requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
                 if let error = error {

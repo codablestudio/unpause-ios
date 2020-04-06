@@ -12,7 +12,7 @@ import RxSwift
 class HomeViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
-    private let homeViewModel: HomeViewModel
+    private let homeViewModel: HomeViewModelProtocol
     
     private let scrollView = UIScrollView()
     private let containerView = UIView()
@@ -32,7 +32,7 @@ class HomeViewController: UIViewController {
     
     var userChecksIn = PublishSubject<Bool>()
     
-    init(homeViewModel: HomeViewModel) {
+    init(homeViewModel: HomeViewModelProtocol) {
         self.homeViewModel = homeViewModel
         super.init(nibName: nil, bundle: nil)
     }

@@ -11,14 +11,16 @@ import UIKit
 
 extension Coordinator {
     func presentRegistrationViewController(from viewController: UIViewController) {
-        let registerViewModel = RegisterViewModel()
+        let registerNetworking = RegisterNetworking()
+        let registerViewModel = RegisterViewModel(registerNetworking: registerNetworking)
         let registerViewController = RegisterViewController(registerViewModel: registerViewModel)
         let navigationController = UINavigationController(rootViewController: registerViewController)
         viewController.present(navigationController, animated: true)
     }
     
     func presentForgotPasswordViewController(from viewController: UIViewController) {
-        let forgotPasswordViewModel = ForgotPasswordViewModel()
+        let loginNetworking = LoginNetworking()
+        let forgotPasswordViewModel = ForgotPasswordViewModel(loginNetworking: loginNetworking)
         let forgotPasswordViewController = ForgotPasswordViewController(forgotPasswordViewModel: forgotPasswordViewModel)
         let navigationController = UINavigationController(rootViewController: forgotPasswordViewController)
         viewController.present(navigationController, animated: true)

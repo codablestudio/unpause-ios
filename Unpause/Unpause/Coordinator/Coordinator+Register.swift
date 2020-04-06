@@ -11,7 +11,9 @@ import UIKit
 
 extension Coordinator {
     func navigateToAddCompanyViewController(from viewController: UIViewController, registeredUserEmail: String?) {
-        let addCompanyViewModel = AddCompanyViewModel(registeredUserEmail: registeredUserEmail)
+        let companyNetworking = CompanyNetworking()
+        let addCompanyViewModel = AddCompanyViewModel(companyNetworking: companyNetworking,
+                                                      registeredUserEmail: registeredUserEmail)
         let addCompanyViewController = AddCompanyViewController(addCompanyViewModel: addCompanyViewModel)
         viewController.navigationController?.pushViewController(addCompanyViewController, animated: true)
     }
