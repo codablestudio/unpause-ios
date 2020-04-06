@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum UnpauseResponse {
+enum UnpauseResponse: Equatable {
     case success
     case error(UnpauseError)
 }

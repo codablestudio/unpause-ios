@@ -24,6 +24,8 @@ enum UnpauseError: Error, Equatable {
     case fetchingUserInfoError
     case userCreatingError
     case companyFetchingError
+    case registrationError
+    case googleUserSignInError
     case otherError(Error)
     
     var errorMessage: String {
@@ -50,6 +52,10 @@ enum UnpauseError: Error, Equatable {
             return "Unable to create user."
         case .companyFetchingError:
             return "Unable to fetch company."
+        case .registrationError:
+            return "Unable to register user. Reason: unknown."
+        case .googleUserSignInError:
+            return "Google user sign in error. Please try again."
         case .otherError(let error):
             return "\(error.localizedDescription)"
         }

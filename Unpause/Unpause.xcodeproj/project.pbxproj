@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4B005F101E034FA83A58D384 /* Pods_UnpauseTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE4303FF8A698CEC13347652 /* Pods_UnpauseTests.framework */; };
 		B2B29F715C80199B18013F95 /* Pods_Unpause.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE3FC3210F1CDFC45FF7DBE1 /* Pods_Unpause.framework */; };
 		C102D7BA23ACCFB4000B9E80 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C102D7B923ACCFB4000B9E80 /* Colors.xcassets */; };
 		C102D7BF23AD0063000B9E80 /* OrangeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C102D7BE23AD0063000B9E80 /* OrangeButton.swift */; };
@@ -72,6 +73,7 @@
 		C1437B4323F40B0A007BD7DA /* ShiftNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1437B4223F40B0A007BD7DA /* ShiftNetworking.swift */; };
 		C14466C62417AD0800CD52B6 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14466C52417AD0800CD52B6 /* ForgotPasswordViewController.swift */; };
 		C14466C82417AD2A00CD52B6 /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14466C72417AD2A00CD52B6 /* ForgotPasswordViewModel.swift */; };
+		C14557C5243B29320068518C /* MockUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14557C4243B29320068518C /* MockUser.swift */; };
 		C146991223A112F100A84818 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C146991123A112F100A84818 /* AppDelegate.swift */; };
 		C146991B23A112F200A84818 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C146991A23A112F200A84818 /* Assets.xcassets */; };
 		C146991E23A112F200A84818 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C146991C23A112F200A84818 /* LaunchScreen.storyboard */; };
@@ -119,6 +121,11 @@
 		C1B131FC23F59150009C3C59 /* ShitfsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B131FB23F59150009C3C59 /* ShitfsResponse.swift */; };
 		C1BE0D1824212B6E00480224 /* DotsUIBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BE0D1724212B6E00480224 /* DotsUIBarButtonItem.swift */; };
 		C1C18E482413E8880066EB5F /* CompaniesFetchingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C18E472413E8880066EB5F /* CompaniesFetchingResponse.swift */; };
+		C1C1D2DE2437381F000BC698 /* LoginViewModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C1D2DD2437381F000BC698 /* LoginViewModelMock.swift */; };
+		C1C1D2E024373A57000BC698 /* CompanyNetworkingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C1D2DF24373A57000BC698 /* CompanyNetworkingMock.swift */; };
+		C1C1D2E224373A72000BC698 /* RegisterNetworkingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C1D2E124373A72000BC698 /* RegisterNetworkingMock.swift */; };
+		C1C1D2E424373A8B000BC698 /* LoginNetworkingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C1D2E324373A8B000BC698 /* LoginNetworkingMock.swift */; };
+		C1C1D2EC24375257000BC698 /* LoginViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C1D2EB24375257000BC698 /* LoginViewModelTest.swift */; };
 		C1C41B7623A9594F009288CA /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C41B7523A9594F009288CA /* UITextField+Extension.swift */; };
 		C1C6D943242377710037378C /* UnpauseActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C6D942242377710037378C /* UnpauseActivityIndicatorView.swift */; };
 		C1D0CA0B23F6AC9600A20D6F /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D0CA0A23F6AC9600A20D6F /* DataSource.swift */; };
@@ -132,8 +139,20 @@
 		C1FF2A8E23C4B3EA00ACCF29 /* Coordinator+Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FF2A8D23C4B3EA00ACCF29 /* Coordinator+Settings.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		C1C1D2EE24375257000BC698 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C146990623A112F100A84818 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C146990D23A112F100A84818;
+			remoteInfo = Unpause;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		7A22B2694C577AAD4753E790 /* Pods-Unpause.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Unpause.release.xcconfig"; path = "Target Support Files/Pods-Unpause/Pods-Unpause.release.xcconfig"; sourceTree = "<group>"; };
+		7BD41B1513C996CD7910A4D9 /* Pods-UnpauseTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnpauseTests.debug.xcconfig"; path = "Target Support Files/Pods-UnpauseTests/Pods-UnpauseTests.debug.xcconfig"; sourceTree = "<group>"; };
+		AE4303FF8A698CEC13347652 /* Pods_UnpauseTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnpauseTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C102D7B923ACCFB4000B9E80 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		C102D7BE23AD0063000B9E80 /* OrangeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrangeButton.swift; sourceTree = "<group>"; };
 		C10F78C223A3D79200783476 /* ActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
@@ -199,6 +218,7 @@
 		C1437B4223F40B0A007BD7DA /* ShiftNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftNetworking.swift; sourceTree = "<group>"; };
 		C14466C52417AD0800CD52B6 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		C14466C72417AD2A00CD52B6 /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
+		C14557C4243B29320068518C /* MockUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUser.swift; sourceTree = "<group>"; };
 		C146990E23A112F100A84818 /* Unpause.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Unpause.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C146991123A112F100A84818 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C146991A23A112F200A84818 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -247,6 +267,13 @@
 		C1B131FB23F59150009C3C59 /* ShitfsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShitfsResponse.swift; sourceTree = "<group>"; };
 		C1BE0D1724212B6E00480224 /* DotsUIBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotsUIBarButtonItem.swift; sourceTree = "<group>"; };
 		C1C18E472413E8880066EB5F /* CompaniesFetchingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompaniesFetchingResponse.swift; sourceTree = "<group>"; };
+		C1C1D2DD2437381F000BC698 /* LoginViewModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelMock.swift; sourceTree = "<group>"; };
+		C1C1D2DF24373A57000BC698 /* CompanyNetworkingMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyNetworkingMock.swift; sourceTree = "<group>"; };
+		C1C1D2E124373A72000BC698 /* RegisterNetworkingMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterNetworkingMock.swift; sourceTree = "<group>"; };
+		C1C1D2E324373A8B000BC698 /* LoginNetworkingMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginNetworkingMock.swift; sourceTree = "<group>"; };
+		C1C1D2E924375257000BC698 /* UnpauseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnpauseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1C1D2EB24375257000BC698 /* LoginViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelTest.swift; sourceTree = "<group>"; };
+		C1C1D2ED24375257000BC698 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C1C210AE240913E7002B5ACA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C1C41B7523A9594F009288CA /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		C1C6D942242377710037378C /* UnpauseActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnpauseActivityIndicatorView.swift; sourceTree = "<group>"; };
@@ -260,6 +287,7 @@
 		C1FF2A8B23C4B14200ACCF29 /* UpdatePersonalInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePersonalInfoViewModel.swift; sourceTree = "<group>"; };
 		C1FF2A8D23C4B3EA00ACCF29 /* Coordinator+Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinator+Settings.swift"; sourceTree = "<group>"; };
 		DE3FC3210F1CDFC45FF7DBE1 /* Pods_Unpause.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Unpause.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F42DD9822D04DBA19CEF589D /* Pods-UnpauseTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnpauseTests.release.xcconfig"; path = "Target Support Files/Pods-UnpauseTests/Pods-UnpauseTests.release.xcconfig"; sourceTree = "<group>"; };
 		F56D7C9D8CB0DE7FF265F229 /* Pods-Unpause.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Unpause.debug.xcconfig"; path = "Target Support Files/Pods-Unpause/Pods-Unpause.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -272,6 +300,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C1C1D2E624375257000BC698 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B005F101E034FA83A58D384 /* Pods_UnpauseTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -280,6 +316,8 @@
 			children = (
 				F56D7C9D8CB0DE7FF265F229 /* Pods-Unpause.debug.xcconfig */,
 				7A22B2694C577AAD4753E790 /* Pods-Unpause.release.xcconfig */,
+				7BD41B1513C996CD7910A4D9 /* Pods-UnpauseTests.debug.xcconfig */,
+				F42DD9822D04DBA19CEF589D /* Pods-UnpauseTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -375,10 +413,55 @@
 			path = Factories;
 			sourceTree = "<group>";
 		};
+		C14557C3243B29070068518C /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				C14557C9243B4CE60068518C /* ViewModels */,
+				C14557C7243B43FE0068518C /* Models */,
+				C14557C6243B43BE0068518C /* Networking */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		C14557C6243B43BE0068518C /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				C1C1D2E324373A8B000BC698 /* LoginNetworkingMock.swift */,
+				C1C1D2E124373A72000BC698 /* RegisterNetworkingMock.swift */,
+				C1C1D2DF24373A57000BC698 /* CompanyNetworkingMock.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		C14557C7243B43FE0068518C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C14557C8243B44070068518C /* User */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C14557C8243B44070068518C /* User */ = {
+			isa = PBXGroup;
+			children = (
+				C14557C4243B29320068518C /* MockUser.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		C14557C9243B4CE60068518C /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				C1C1D2DD2437381F000BC698 /* LoginViewModelMock.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		C146990523A112F100A84818 = {
 			isa = PBXGroup;
 			children = (
 				C146991023A112F100A84818 /* Unpause */,
+				C1C1D2EA24375257000BC698 /* UnpauseTests */,
 				C146990F23A112F100A84818 /* Products */,
 				0824E02AECECEDE61A6B389D /* Pods */,
 				E1A48A0D56D7177F3A55A730 /* Frameworks */,
@@ -389,6 +472,7 @@
 			isa = PBXGroup;
 			children = (
 				C146990E23A112F100A84818 /* Unpause.app */,
+				C1C1D2E924375257000BC698 /* UnpauseTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -396,7 +480,7 @@
 		C146991023A112F100A84818 /* Unpause */ = {
 			isa = PBXGroup;
 			children = (
-				C13B773A240E636A004DD8FB /* BrzaRuta.gpx */,
+				C1C1D2DA24373781000BC698 /* GPX Files */,
 				C13105E823B0B4E600A509D9 /* Services */,
 				C146992A23A1181300A84818 /* Networking */,
 				C146992923A1180100A84818 /* Coordinator */,
@@ -485,15 +569,23 @@
 		C146992A23A1181300A84818 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				C17E89172434DA3C00575A7F /* Login */,
+				C17E891D2434DDD500575A7F /* Register */,
 				C17E892B2434E66800575A7F /* Shift */,
 				C17E89282434E62C00575A7F /* Home */,
 				C17E89242434E58C00575A7F /* ChangePassword */,
 				C17E89212434E44C00575A7F /* UpdatePersonalInfo */,
-				C17E891D2434DDD500575A7F /* Register */,
 				C17E891A2434DC4100575A7F /* Company */,
-				C17E89172434DA3C00575A7F /* Login */,
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		C17369CE243B193000F304C1 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				C1C1D2EB24375257000BC698 /* LoginViewModelTest.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		C17E89112434D5CE00575A7F /* Register */ = {
@@ -542,8 +634,8 @@
 		C17E891A2434DC4100575A7F /* Company */ = {
 			isa = PBXGroup;
 			children = (
-				C12F7A48241001040074362F /* CompanyNetworking.swift */,
 				C17E891B2434DC8900575A7F /* CompanyNetworkingProtocol.swift */,
+				C12F7A48241001040074362F /* CompanyNetworking.swift */,
 			);
 			path = Company;
 			sourceTree = "<group>";
@@ -551,8 +643,8 @@
 		C17E891D2434DDD500575A7F /* Register */ = {
 			isa = PBXGroup;
 			children = (
-				C137F48123B8B6AC00358E30 /* RegisterNetworking.swift */,
 				C17E891E2434DDF500575A7F /* RegisterNetworkingProtocol.swift */,
+				C137F48123B8B6AC00358E30 /* RegisterNetworking.swift */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -787,6 +879,24 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		C1C1D2DA24373781000BC698 /* GPX Files */ = {
+			isa = PBXGroup;
+			children = (
+				C13B773A240E636A004DD8FB /* BrzaRuta.gpx */,
+			);
+			path = "GPX Files";
+			sourceTree = "<group>";
+		};
+		C1C1D2EA24375257000BC698 /* UnpauseTests */ = {
+			isa = PBXGroup;
+			children = (
+				C14557C3243B29070068518C /* Mocks */,
+				C17369CE243B193000F304C1 /* ViewModels */,
+				C1C1D2ED24375257000BC698 /* Info.plist */,
+			);
+			path = UnpauseTests;
+			sourceTree = "<group>";
+		};
 		C1D568FC241C0762004C8A89 /* UITextFields */ = {
 			isa = PBXGroup;
 			children = (
@@ -829,6 +939,7 @@
 			isa = PBXGroup;
 			children = (
 				DE3FC3210F1CDFC45FF7DBE1 /* Pods_Unpause.framework */,
+				AE4303FF8A698CEC13347652 /* Pods_UnpauseTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -856,6 +967,26 @@
 			productReference = C146990E23A112F100A84818 /* Unpause.app */;
 			productType = "com.apple.product-type.application";
 		};
+		C1C1D2E824375257000BC698 /* UnpauseTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C1C1D2F024375257000BC698 /* Build configuration list for PBXNativeTarget "UnpauseTests" */;
+			buildPhases = (
+				770B41E809E8A835E6669EB1 /* [CP] Check Pods Manifest.lock */,
+				C1C1D2E524375257000BC698 /* Sources */,
+				C1C1D2E624375257000BC698 /* Frameworks */,
+				C1C1D2E724375257000BC698 /* Resources */,
+				6FE3930C76656A758C35BBFB /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C1C1D2EF24375257000BC698 /* PBXTargetDependency */,
+			);
+			name = UnpauseTests;
+			productName = UnpauseTests;
+			productReference = C1C1D2E924375257000BC698 /* UnpauseTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -868,6 +999,10 @@
 				TargetAttributes = {
 					C146990D23A112F100A84818 = {
 						CreatedOnToolsVersion = 11.2.1;
+					};
+					C1C1D2E824375257000BC698 = {
+						CreatedOnToolsVersion = 11.2.1;
+						TestTargetID = C146990D23A112F100A84818;
 					};
 				};
 			};
@@ -885,6 +1020,7 @@
 			projectRoot = "";
 			targets = (
 				C146990D23A112F100A84818 /* Unpause */,
+				C1C1D2E824375257000BC698 /* UnpauseTests */,
 			);
 		};
 /* End PBXProject section */
@@ -898,6 +1034,13 @@
 				C102D7BA23ACCFB4000B9E80 /* Colors.xcassets in Resources */,
 				C146991B23A112F200A84818 /* Assets.xcassets in Resources */,
 				C1480A6023A7672D00437772 /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C1C1D2E724375257000BC698 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -943,6 +1086,45 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Unpause/Pods-Unpause-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		6FE3930C76656A758C35BBFB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-UnpauseTests/Pods-UnpauseTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-UnpauseTests/Pods-UnpauseTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-UnpauseTests/Pods-UnpauseTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		770B41E809E8A835E6669EB1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-UnpauseTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		B6E8912715F3866E414313B2 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -977,6 +1159,7 @@
 				C111932323CF6008007E2866 /* AddShiftViewModel.swift in Sources */,
 				C14731432416982000477ECA /* CompaniesValidationDataResponse.swift in Sources */,
 				C1FF2A8E23C4B3EA00ACCF29 /* Coordinator+Settings.swift in Sources */,
+				C1C1D2DE2437381F000BC698 /* LoginViewModelMock.swift in Sources */,
 				C14466C82417AD2A00CD52B6 /* ForgotPasswordViewModel.swift in Sources */,
 				C10F78DB23A3D79200783476 /* UILabel+Extension.swift in Sources */,
 				C12F7A45240FE3E30074362F /* Company.swift in Sources */,
@@ -990,6 +1173,7 @@
 				C13B4B1223BF8A62006E1E0E /* FirebaseDocumentResponeObject.swift in Sources */,
 				C13C412223ABBC4100B674E9 /* ActivityViewController.swift in Sources */,
 				C1419F6C241253B4001B5817 /* Coordinator+Register.swift in Sources */,
+				C1C1D2E224373A72000BC698 /* RegisterNetworkingMock.swift in Sources */,
 				C10F78DA23A3D79200783476 /* UIColor+Extension.swift in Sources */,
 				C17E89102434D4CF00575A7F /* LoginViewModelProtocol.swift in Sources */,
 				C1C6D943242377710037378C /* UnpauseActivityIndicatorView.swift in Sources */,
@@ -1069,10 +1253,12 @@
 				C198B8F123B0CB4C00FBD3C6 /* Coordinator+Tabbar.swift in Sources */,
 				C10F78E223A3D79200783476 /* UIScreen+Extension.swift in Sources */,
 				C198B8F423B0CFC100FBD3C6 /* CustomTabBarController.swift in Sources */,
+				C1C1D2E024373A57000BC698 /* CompanyNetworkingMock.swift in Sources */,
 				C146992C23A11D5200A84818 /* LoginViewController.swift in Sources */,
 				C10F78DE23A3D79200783476 /* ObservableType+Extension.swift in Sources */,
 				C138411423C5DA3E00A347F9 /* UpdatePersonalInfoNetworking.swift in Sources */,
 				C138411223C5C58100A347F9 /* UserFactory.swift in Sources */,
+				C1C1D2E424373A8B000BC698 /* LoginNetworkingMock.swift in Sources */,
 				C1372BE4241EF96C00CF6CA3 /* ActivityIndicatorView.swift in Sources */,
 				C16A2EF323A784A700CBA43F /* RegisterViewController.swift in Sources */,
 				C13C412623ABBC7000B674E9 /* SettingsViewController.swift in Sources */,
@@ -1088,7 +1274,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C1C1D2E524375257000BC698 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C14557C5243B29320068518C /* MockUser.swift in Sources */,
+				C1C1D2EC24375257000BC698 /* LoginViewModelTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C1C1D2EF24375257000BC698 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C146990D23A112F100A84818 /* Unpause */;
+			targetProxy = C1C1D2EE24375257000BC698 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C146991C23A112F200A84818 /* LaunchScreen.storyboard */ = {
@@ -1260,6 +1463,50 @@
 			};
 			name = Release;
 		};
+		C1C1D2F124375257000BC698 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7BD41B1513C996CD7910A4D9 /* Pods-UnpauseTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Q2P9VVU3YH;
+				"HEADER_SEARCH_PATHS[arch=*]" = "${PODS_ROOT}/Firebase/CoreOnly/Sources";
+				INFOPLIST_FILE = UnpauseTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = co.Codable.Studio.cs.UnpauseTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Unpause.app/Unpause";
+			};
+			name = Debug;
+		};
+		C1C1D2F224375257000BC698 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F42DD9822D04DBA19CEF589D /* Pods-UnpauseTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Q2P9VVU3YH;
+				"HEADER_SEARCH_PATHS[arch=*]" = "${PODS_ROOT}/Firebase/CoreOnly/Sources";
+				INFOPLIST_FILE = UnpauseTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = co.Codable.Studio.cs.UnpauseTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Unpause.app/Unpause";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1277,6 +1524,15 @@
 			buildConfigurations = (
 				C146992323A112F200A84818 /* Debug */,
 				C146992423A112F200A84818 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C1C1D2F024375257000BC698 /* Build configuration list for PBXNativeTarget "UnpauseTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C1C1D2F124375257000BC698 /* Debug */,
+				C1C1D2F224375257000BC698 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
