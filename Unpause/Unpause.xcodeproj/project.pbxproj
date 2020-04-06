@@ -55,6 +55,7 @@
 		C138411223C5C58100A347F9 /* UserFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C138411123C5C58100A347F9 /* UserFactory.swift */; };
 		C138411423C5DA3E00A347F9 /* UpdatePersonalInfoNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C138411323C5DA3E00A347F9 /* UpdatePersonalInfoNetworking.swift */; };
 		C138C38824111F9A00FAB84E /* UserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C138C38724111F9A00FAB84E /* UserResponse.swift */; };
+		C13A7C09243B77AA00FB2A3C /* ForgotPasswordViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13A7C08243B77AA00FB2A3C /* ForgotPasswordViewModelTest.swift */; };
 		C13B4B1223BF8A62006E1E0E /* FirebaseDocumentResponeObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13B4B1123BF8A62006E1E0E /* FirebaseDocumentResponeObject.swift */; };
 		C13B7738240E489E004DD8FB /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13B7737240E489E004DD8FB /* NotificationManager.swift */; };
 		C13C412023AB93D600B674E9 /* FirebaseResponseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C411F23AB93D600B674E9 /* FirebaseResponseObject.swift */; };
@@ -199,6 +200,7 @@
 		C138411123C5C58100A347F9 /* UserFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFactory.swift; sourceTree = "<group>"; };
 		C138411323C5DA3E00A347F9 /* UpdatePersonalInfoNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePersonalInfoNetworking.swift; sourceTree = "<group>"; };
 		C138C38724111F9A00FAB84E /* UserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResponse.swift; sourceTree = "<group>"; };
+		C13A7C08243B77AA00FB2A3C /* ForgotPasswordViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModelTest.swift; sourceTree = "<group>"; };
 		C13B4B1123BF8A62006E1E0E /* FirebaseDocumentResponeObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDocumentResponeObject.swift; sourceTree = "<group>"; };
 		C13B7737240E489E004DD8FB /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		C13B773A240E636A004DD8FB /* BrzaRuta.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = BrzaRuta.gpx; sourceTree = "<group>"; };
@@ -580,12 +582,13 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
-		C17369CE243B193000F304C1 /* ViewModels */ = {
+		C17369CE243B193000F304C1 /* ViewModelTests */ = {
 			isa = PBXGroup;
 			children = (
 				C1C1D2EB24375257000BC698 /* LoginViewModelTest.swift */,
+				C13A7C08243B77AA00FB2A3C /* ForgotPasswordViewModelTest.swift */,
 			);
-			path = ViewModels;
+			path = ViewModelTests;
 			sourceTree = "<group>";
 		};
 		C17E89112434D5CE00575A7F /* Register */ = {
@@ -891,7 +894,7 @@
 			isa = PBXGroup;
 			children = (
 				C14557C3243B29070068518C /* Mocks */,
-				C17369CE243B193000F304C1 /* ViewModels */,
+				C17369CE243B193000F304C1 /* ViewModelTests */,
 				C1C1D2ED24375257000BC698 /* Info.plist */,
 			);
 			path = UnpauseTests;
@@ -1280,6 +1283,7 @@
 			files = (
 				C14557C5243B29320068518C /* MockUser.swift in Sources */,
 				C1C1D2EC24375257000BC698 /* LoginViewModelTest.swift in Sources */,
+				C13A7C09243B77AA00FB2A3C /* ForgotPasswordViewModelTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
