@@ -1500,6 +1500,7 @@
 				DEVELOPMENT_TEAM = Q2P9VVU3YH;
 				"HEADER_SEARCH_PATHS[arch=*]" = "${PODS_ROOT}/Firebase/CoreOnly/Sources";
 				INFOPLIST_FILE = UnpauseTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1522,6 +1523,7 @@
 				DEVELOPMENT_TEAM = Q2P9VVU3YH;
 				"HEADER_SEARCH_PATHS[arch=*]" = "${PODS_ROOT}/Firebase/CoreOnly/Sources";
 				INFOPLIST_FILE = UnpauseTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
