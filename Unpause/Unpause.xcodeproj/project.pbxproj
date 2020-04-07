@@ -131,6 +131,10 @@
 		C1C6D943242377710037378C /* UnpauseActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C6D942242377710037378C /* UnpauseActivityIndicatorView.swift */; };
 		C1D0CA0B23F6AC9600A20D6F /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D0CA0A23F6AC9600A20D6F /* DataSource.swift */; };
 		C1D568FE241C0793004C8A89 /* PaddedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D568FD241C0793004C8A89 /* PaddedTextField.swift */; };
+		C1F1BCC5243C7E10002B7452 /* ChangePasswordViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F1BCC4243C7E10002B7452 /* ChangePasswordViewModelTest.swift */; };
+		C1F1BCC7243C7E86002B7452 /* ChangePasswordNetworkingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F1BCC6243C7E86002B7452 /* ChangePasswordNetworkingMock.swift */; };
+		C1F1BCCA243C831A002B7452 /* ChangePasswordViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F1BCC9243C831A002B7452 /* ChangePasswordViewControllerTest.swift */; };
+		C1F1BCCC243C83A5002B7452 /* ChangePasswordViewModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F1BCCB243C83A5002B7452 /* ChangePasswordViewModelMock.swift */; };
 		C1F2CD1F23F2E6D600BD23DC /* LastCheckInResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F2CD1E23F2E6D600BD23DC /* LastCheckInResponse.swift */; };
 		C1FBC46D23AA51E100579913 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBC46C23AA51E100579913 /* HomeViewController.swift */; };
 		C1FBC46F23AA521C00579913 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBC46E23AA521C00579913 /* HomeViewModel.swift */; };
@@ -281,6 +285,10 @@
 		C1C6D942242377710037378C /* UnpauseActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnpauseActivityIndicatorView.swift; sourceTree = "<group>"; };
 		C1D0CA0A23F6AC9600A20D6F /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		C1D568FD241C0793004C8A89 /* PaddedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedTextField.swift; sourceTree = "<group>"; };
+		C1F1BCC4243C7E10002B7452 /* ChangePasswordViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewModelTest.swift; sourceTree = "<group>"; };
+		C1F1BCC6243C7E86002B7452 /* ChangePasswordNetworkingMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordNetworkingMock.swift; sourceTree = "<group>"; };
+		C1F1BCC9243C831A002B7452 /* ChangePasswordViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewControllerTest.swift; sourceTree = "<group>"; };
+		C1F1BCCB243C83A5002B7452 /* ChangePasswordViewModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewModelMock.swift; sourceTree = "<group>"; };
 		C1F2CD1E23F2E6D600BD23DC /* LastCheckInResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastCheckInResponse.swift; sourceTree = "<group>"; };
 		C1FBC46C23AA51E100579913 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		C1FBC46E23AA521C00579913 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -431,6 +439,7 @@
 				C1C1D2E324373A8B000BC698 /* LoginNetworkingMock.swift */,
 				C1C1D2E124373A72000BC698 /* RegisterNetworkingMock.swift */,
 				C1C1D2DF24373A57000BC698 /* CompanyNetworkingMock.swift */,
+				C1F1BCC6243C7E86002B7452 /* ChangePasswordNetworkingMock.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -455,6 +464,7 @@
 			isa = PBXGroup;
 			children = (
 				C1C1D2DD2437381F000BC698 /* LoginViewModelMock.swift */,
+				C1F1BCCB243C83A5002B7452 /* ChangePasswordViewModelMock.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -587,6 +597,7 @@
 			children = (
 				C1C1D2EB24375257000BC698 /* LoginViewModelTest.swift */,
 				C13A7C08243B77AA00FB2A3C /* ForgotPasswordViewModelTest.swift */,
+				C1F1BCC4243C7E10002B7452 /* ChangePasswordViewModelTest.swift */,
 			);
 			path = ViewModelTests;
 			sourceTree = "<group>";
@@ -895,6 +906,7 @@
 			children = (
 				C14557C3243B29070068518C /* Mocks */,
 				C17369CE243B193000F304C1 /* ViewModelTests */,
+				C1F1BCC8243C82E1002B7452 /* ViewControllerTests */,
 				C1C1D2ED24375257000BC698 /* Info.plist */,
 			);
 			path = UnpauseTests;
@@ -906,6 +918,14 @@
 				C1D568FD241C0793004C8A89 /* PaddedTextField.swift */,
 			);
 			path = UITextFields;
+			sourceTree = "<group>";
+		};
+		C1F1BCC8243C82E1002B7452 /* ViewControllerTests */ = {
+			isa = PBXGroup;
+			children = (
+				C1F1BCC9243C831A002B7452 /* ChangePasswordViewControllerTest.swift */,
+			);
+			path = ViewControllerTests;
 			sourceTree = "<group>";
 		};
 		C1FC657D2422EEF200E64AE4 /* User */ = {
@@ -1282,8 +1302,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C14557C5243B29320068518C /* MockUser.swift in Sources */,
+				C1F1BCC7243C7E86002B7452 /* ChangePasswordNetworkingMock.swift in Sources */,
 				C1C1D2EC24375257000BC698 /* LoginViewModelTest.swift in Sources */,
+				C1F1BCCC243C83A5002B7452 /* ChangePasswordViewModelMock.swift in Sources */,
+				C1F1BCCA243C831A002B7452 /* ChangePasswordViewControllerTest.swift in Sources */,
 				C13A7C09243B77AA00FB2A3C /* ForgotPasswordViewModelTest.swift in Sources */,
+				C1F1BCC5243C7E10002B7452 /* ChangePasswordViewModelTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

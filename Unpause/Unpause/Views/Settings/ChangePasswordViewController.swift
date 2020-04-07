@@ -17,10 +17,11 @@ class ChangePasswordViewController: UIViewController {
     private let scrollView = UIScrollView()
     private let containerView = UIView()
     
-    private let changePasswordLabel = UILabel()
+    let changePasswordLabel = UILabel()
     private let changePasswordSeparator = UIView()
     
     private let currentPasswordTextField = UITextField()
+    
     private let currentPasswordSeparator = UIView()
     
     private let newPasswordTextField = UITextField()
@@ -28,7 +29,7 @@ class ChangePasswordViewController: UIViewController {
     
     private let changePasswordButton = OrangeButton(title: "Change password")
     
-    private let closeButton = UIButton()
+    let closeButton = UIButton()
     
     init(changePasswordViewModel: ChangePasswordViewModelProtocol) {
         self.changePasswordViewModel = changePasswordViewModel
