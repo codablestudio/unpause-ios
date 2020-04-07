@@ -1,19 +1,21 @@
 //
-//  HomeViewModel.swift
-//  Unpause
+//  HomeViewModelMock.swift
+//  UnpauseTests
 //
-//  Created by Krešimir Baković on 18/12/2019.
-//  Copyright © 2019 Krešimir Baković. All rights reserved.
+//  Created by Krešimir Baković on 07/04/2020.
+//  Copyright © 2020 Krešimir Baković. All rights reserved.
 //
 
-import Foundation
+@testable import Unpause
+import XCTest
 import RxSwift
+import RxTest
 
-class HomeViewModel: HomeViewModelProtocol {
-
+class HomeViewModelMock: HomeViewModelProtocol {
+    
+    private let homeNetworking = HomeNetworkingMock()
+    private let shiftNetworking = ShiftNetworkingMock()
     private let disposeBag = DisposeBag()
-    private let homeNetworking: HomeNetworkingProtocol
-    private let shiftNetworking: ShiftNetworkingProtocol
     
     var usersLastCheckInTimeRequest: Observable<LastCheckInResponse>!
     var checkInResponse: Observable<Response>!
@@ -22,15 +24,11 @@ class HomeViewModel: HomeViewModelProtocol {
     }
     
     private let _isFetchingLastShift = ActivityIndicator()
-
+    
     static let forceRefresh = PublishSubject<Void>()
     var userChecksIn = PublishSubject<Bool>()
     
-    init(homeNetworking: HomeNetworkingProtocol,
-         shiftNetworking: ShiftNetworkingProtocol) {
-        self.homeNetworking = homeNetworking
-        self.shiftNetworking = shiftNetworking
-        
+    init() {
         setUpObservables()
     }
     
@@ -58,4 +56,6 @@ class HomeViewModel: HomeViewModelProtocol {
                 }
             })
     }
+    
+    
 }
