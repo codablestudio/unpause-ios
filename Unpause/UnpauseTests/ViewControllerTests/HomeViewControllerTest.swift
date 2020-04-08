@@ -41,7 +41,7 @@ class HomeViewControllerTest: XCTestCase {
         XCTAssertEqual(sut.signedInLabel.text, "Signed in as:")
     }
     
-    func testCheckInButtonText_sholdBe_Check_in_twoTimesCheck_out() {
+    func testCheckInButtonText_withCheckedOutUserAfterThreeTaps_shouldBeCheckOut() {
         sut.viewDidLoad()
         XCTAssertEqual(sut.checkInButton.currentTitle, "Check in")
         

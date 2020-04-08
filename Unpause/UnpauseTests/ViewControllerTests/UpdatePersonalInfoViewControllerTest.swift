@@ -36,10 +36,10 @@ class UpdatePersonalInfoViewControllerTest: XCTestCase {
         scheduler = nil
     }
     
-    func testNewFirstNameTextField_placeholder_and_textChange() {
+    func testNewFirstNameTextFieldText_withNewTextAdded_choludBeEasy() {
         sut.viewDidLoad()
         XCTAssertEqual(sut.newFirstNameTextField.placeholder, "Enter new first name")
-        sut.newFirstNameTextField.text = "haha"
-        XCTAssertEqual(sut.newFirstNameTextField.text, "haha")
+        sut.newFirstNameTextField.text = "Easy"
+        XCTAssertEqual(sut.newFirstNameTextField.text, "Easy")
     }
 }
