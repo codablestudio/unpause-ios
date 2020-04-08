@@ -20,13 +20,13 @@ class UpdatePersonalInfoViewController: UIViewController {
     private let updatePersonalInfoLabel = UILabel()
     private let updatePersonalInfoSeparator = UIView()
     
-    private let newFirstNameTextField = UITextField()
+    let newFirstNameTextField = UITextField()
     private let newFirstNameSeparator = UIView()
     
     private let newLastNameTextField = UITextField()
     private let newLastNameSeparator = UIView()
     
-    private let updateInfoButton = OrangeButton(title: "Update info")
+    let updateInfoButton = OrangeButton(title: "Update info")
     
     private let closeButton = UIButton()
     

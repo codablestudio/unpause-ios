@@ -120,6 +120,9 @@
 		C1B0B2B323B0BF9700CE5D05 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B0B2B223B0BF9700CE5D05 /* SessionManager.swift */; };
 		C1B131FA23F581E7009C3C59 /* ShiftTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B131F923F581E7009C3C59 /* ShiftTableViewCell.swift */; };
 		C1B131FC23F59150009C3C59 /* ShitfsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B131FB23F59150009C3C59 /* ShitfsResponse.swift */; };
+		C1B6B04B243DC53E00AC44D6 /* UpdatePersonalInfoViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B6B04A243DC53E00AC44D6 /* UpdatePersonalInfoViewControllerTest.swift */; };
+		C1B6B04D243DC5B900AC44D6 /* UpdatePersonalInfoViewModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B6B04C243DC5B900AC44D6 /* UpdatePersonalInfoViewModelMock.swift */; };
+		C1B6B04F243DCD0E00AC44D6 /* UpdatePersonalInfoNetworkingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B6B04E243DCD0E00AC44D6 /* UpdatePersonalInfoNetworkingMock.swift */; };
 		C1BE0D1824212B6E00480224 /* DotsUIBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BE0D1724212B6E00480224 /* DotsUIBarButtonItem.swift */; };
 		C1C18E482413E8880066EB5F /* CompaniesFetchingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C18E472413E8880066EB5F /* CompaniesFetchingResponse.swift */; };
 		C1C1D2DE2437381F000BC698 /* LoginViewModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C1D2DD2437381F000BC698 /* LoginViewModelMock.swift */; };
@@ -275,6 +278,9 @@
 		C1B0B2B223B0BF9700CE5D05 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		C1B131F923F581E7009C3C59 /* ShiftTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftTableViewCell.swift; sourceTree = "<group>"; };
 		C1B131FB23F59150009C3C59 /* ShitfsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShitfsResponse.swift; sourceTree = "<group>"; };
+		C1B6B04A243DC53E00AC44D6 /* UpdatePersonalInfoViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePersonalInfoViewControllerTest.swift; sourceTree = "<group>"; };
+		C1B6B04C243DC5B900AC44D6 /* UpdatePersonalInfoViewModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePersonalInfoViewModelMock.swift; sourceTree = "<group>"; };
+		C1B6B04E243DCD0E00AC44D6 /* UpdatePersonalInfoNetworkingMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePersonalInfoNetworkingMock.swift; sourceTree = "<group>"; };
 		C1BE0D1724212B6E00480224 /* DotsUIBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotsUIBarButtonItem.swift; sourceTree = "<group>"; };
 		C1C18E472413E8880066EB5F /* CompaniesFetchingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompaniesFetchingResponse.swift; sourceTree = "<group>"; };
 		C1C1D2DD2437381F000BC698 /* LoginViewModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelMock.swift; sourceTree = "<group>"; };
@@ -450,6 +456,7 @@
 				C1F1BCC6243C7E86002B7452 /* ChangePasswordNetworkingMock.swift */,
 				C1F1BCD1243CC05E002B7452 /* HomeNetworkingMock.swift */,
 				C1F1BCD3243CC24C002B7452 /* ShiftNetworkingMock.swift */,
+				C1B6B04E243DCD0E00AC44D6 /* UpdatePersonalInfoNetworkingMock.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -476,6 +483,7 @@
 				C1C1D2DD2437381F000BC698 /* LoginViewModelMock.swift */,
 				C1F1BCCB243C83A5002B7452 /* ChangePasswordViewModelMock.swift */,
 				C1F1BCCF243CBD6C002B7452 /* HomeViewModelMock.swift */,
+				C1B6B04C243DC5B900AC44D6 /* UpdatePersonalInfoViewModelMock.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -936,6 +944,7 @@
 			children = (
 				C1F1BCC9243C831A002B7452 /* ChangePasswordViewControllerTest.swift */,
 				C1F1BCCD243CBCF7002B7452 /* HomeViewControllerTest.swift */,
+				C1B6B04A243DC53E00AC44D6 /* UpdatePersonalInfoViewControllerTest.swift */,
 			);
 			path = ViewControllerTests;
 			sourceTree = "<group>";
@@ -1317,9 +1326,12 @@
 				C1F1BCC7243C7E86002B7452 /* ChangePasswordNetworkingMock.swift in Sources */,
 				C1C1D2EC24375257000BC698 /* LoginViewModelTest.swift in Sources */,
 				C1F1BCD4243CC24C002B7452 /* ShiftNetworkingMock.swift in Sources */,
+				C1B6B04D243DC5B900AC44D6 /* UpdatePersonalInfoViewModelMock.swift in Sources */,
 				C1F1BCCC243C83A5002B7452 /* ChangePasswordViewModelMock.swift in Sources */,
+				C1B6B04F243DCD0E00AC44D6 /* UpdatePersonalInfoNetworkingMock.swift in Sources */,
 				C1F1BCD2243CC05E002B7452 /* HomeNetworkingMock.swift in Sources */,
 				C1F1BCCA243C831A002B7452 /* ChangePasswordViewControllerTest.swift in Sources */,
+				C1B6B04B243DC53E00AC44D6 /* UpdatePersonalInfoViewControllerTest.swift in Sources */,
 				C13A7C09243B77AA00FB2A3C /* ForgotPasswordViewModelTest.swift in Sources */,
 				C1F1BCD0243CBD6C002B7452 /* HomeViewModelMock.swift in Sources */,
 				C1F1BCC5243C7E10002B7452 /* ChangePasswordViewModelTest.swift in Sources */,
