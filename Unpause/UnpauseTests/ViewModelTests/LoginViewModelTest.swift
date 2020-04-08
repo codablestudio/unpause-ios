@@ -50,8 +50,8 @@ class LoginViewModelTest: XCTestCase {
             .bind(to: sut.textInEmailTextFieldChanges)
             .disposed(by: disposeBag)
         
-        let correctPwdInputEvent = scheduler.createHotObservable([.next(2, "aaaaa")])
-        correctPwdInputEvent
+        let correctPasswordInputEvent = scheduler.createHotObservable([.next(2, "aaaaa")])
+        correctPasswordInputEvent
             .bind(to: sut.textInPasswordTextFieldChanges)
             .disposed(by: disposeBag)
         
@@ -83,13 +83,13 @@ class LoginViewModelTest: XCTestCase {
     
     func testTextInEmailTextFieldChanges() {
         let sutEvents: TestableObserver<String?> = scheduler.createObserver(String?.self)
-        let expectedResult: [Recorded<Event<String?>>] = [Recorded.next(0, "Email@email.com")]
+        let expectedResult: [Recorded<Event<String?>>] = [Recorded.next(0, "\(MockUser.existingUser.email ?? "")")]
         
         sut.textInEmailTextFieldChanges
             .subscribe(sutEvents)
             .disposed(by: disposeBag)
         
-        let expectedPasswordInputEvent = scheduler.createHotObservable([.next(0, "Email@email.com")])
+        let expectedPasswordInputEvent = scheduler.createHotObservable([.next(0, "\(MockUser.existingUser.email ?? "")")])
         expectedPasswordInputEvent
             .bind(to: sut.textInEmailTextFieldChanges)
             .disposed(by: disposeBag)

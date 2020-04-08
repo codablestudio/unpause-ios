@@ -12,7 +12,7 @@ import RxSwift
 protocol HomeViewModelProtocol {
     var usersLastCheckInTimeRequest: Observable<LastCheckInResponse>! { get }
     var checkInResponse: Observable<Response>! { get }
-    var fetchingLastShift: Observable<Bool> { get }
+    var fetchingLastShift: Observable<Bool>! { get }
     
     var userChecksIn: PublishSubject<Bool> { get }
 }

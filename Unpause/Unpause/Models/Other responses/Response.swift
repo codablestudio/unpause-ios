@@ -8,7 +8,18 @@
 
 import Foundation
 
-enum Response {
+enum Response: Equatable {
+    static func == (lhs: Response, rhs: Response) -> Bool {
+        switch (lhs, rhs) {
+        case (.success, .success):
+            return true
+        case (.error(let lhsError), .error(let rhsError)):
+            return lhsError.localizedDescription == rhsError.localizedDescription
+        default:
+            return false
+        }
+    }
+    
     case success
     case error(Error)
 }

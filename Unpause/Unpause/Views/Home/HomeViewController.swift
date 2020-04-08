@@ -17,7 +17,7 @@ class HomeViewController: UIViewController {
     private let scrollView = UIScrollView()
     private let containerView = UIView()
     
-    private let signedInLabel = UILabel()
+    let signedInLabel = UILabel()
     
     private let emailLabel = UILabel()
     private let userEmailLabel = UILabel()
@@ -28,7 +28,7 @@ class HomeViewController: UIViewController {
     private let lastNameLabel = UILabel()
     private let userLastNameLabel = UILabel()
     
-    private let checkInButton = UIButton()
+    let checkInButton = UIButton()
     
     var userChecksIn = PublishSubject<Bool>()
     
@@ -62,7 +62,7 @@ class HomeViewController: UIViewController {
         renderCheckInButton()
     }
     
-    private func setUpObservables() {
+    func setUpObservables() {
         userChecksIn
             .do(onNext: { [weak self] (userChecksIn) in
                 guard let `self` = self else { return }
