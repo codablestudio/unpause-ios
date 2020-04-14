@@ -15,7 +15,6 @@ import RxTest
 class ChangePasswordViewControllerTest: XCTestCase {
     
     var sut: ChangePasswordViewController!
-    var scheduler: TestScheduler!
     var disposeBag: DisposeBag!
     
     var changePasswordNetworkingMock: ChangePasswordNetworkingProtocol!
@@ -26,7 +25,6 @@ class ChangePasswordViewControllerTest: XCTestCase {
         let changePasswordNetworkingMock = ChangePasswordNetworkingMock()
         changePasswordViewModelMock = ChangePasswordViewModelMock(changePasswordNetworking: changePasswordNetworkingMock)
         sut = ChangePasswordViewController(changePasswordViewModel: changePasswordViewModelMock)
-        scheduler = TestScheduler(initialClock: 0)
         disposeBag = DisposeBag()
     }
 
@@ -36,11 +34,15 @@ class ChangePasswordViewControllerTest: XCTestCase {
         changePasswordViewModelMock = nil
         disposeBag = nil
         sut = nil
-        scheduler = nil
     }
     
-    func testChangePasswordLabelText_shouldBe_Change_Password() {
-        _ = sut.view
+    func testChangePasswordLabelText_OnViewDidLoad_shouldBeChangePassword() {
+        sut.viewDidLoad()
         XCTAssertEqual(sut.changePasswordLabel.text, "Change password")
+    }
+    
+    func testNewPasswordTextField_onViewDidLoad_shouldBeFalse() {
+        sut.viewDidLoad()
+        XCTAssertEqual(sut.newPasswordTextField.isFirstResponder, false)
     }
 }

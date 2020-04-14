@@ -24,7 +24,7 @@ class ChangePasswordViewController: UIViewController {
     
     private let currentPasswordSeparator = UIView()
     
-    private let newPasswordTextField = UITextField()
+    let newPasswordTextField = UITextField()
     private let newPasswordSeparator = UIView()
     
     private let changePasswordButton = OrangeButton(title: "Change password")
