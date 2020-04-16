@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import GoogleSignIn
 import CoreLocation
+import GoogleMobileAds
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -37,6 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             LocationManager.shared.locationManager.startUpdatingLocation()
             NotificationManager.shared.scheduleNotification()
+            GADMobileAds.sharedInstance().start(completionHandler: nil)
             return true
         }
         return true

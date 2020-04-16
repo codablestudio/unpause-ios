@@ -9,6 +9,7 @@ import UIKit
 import Firebase
 import GoogleSignIn
 import CoreLocation
+import GoogleMobileAds
 
 @available(iOS 13.0, *)
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -34,6 +35,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             }
             LocationManager.shared.locationManager.startUpdatingLocation()
             NotificationManager.shared.scheduleNotification()
+            GADMobileAds.sharedInstance().start(completionHandler: nil)
         }
     }
     

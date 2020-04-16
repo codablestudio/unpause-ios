@@ -9,8 +9,11 @@
 import UIKit
 import SnapKit
 import RxSwift
+import GoogleMobileAds
 
 class SettingsViewController: UIViewController {
+    
+    //AD ID: ca-app-pub-7121408559206934/4714337412
     
     private let disposeBag = DisposeBag()
     private let settingsViewModel: SettingsViewModelProtocol
@@ -21,6 +24,8 @@ class SettingsViewController: UIViewController {
     private let changePasswordButton = OrangeButton(title: "Change password")
     private let addCompanyButton = OrangeButton(title: "Add company")
     private let logOutButton = OrangeButton(title: "Log out")
+    
+    private let adBannerView = GADBannerView()
     
     init(settingsViewModel: SettingsViewModelProtocol) {
         self.settingsViewModel = settingsViewModel
@@ -36,6 +41,7 @@ class SettingsViewController: UIViewController {
         render()
         setUpObservables()
         showTitleInNavigationBar()
+        setUpBannerView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,6 +54,7 @@ class SettingsViewController: UIViewController {
         renderChangePasswordButton()
         renderAddCompanyButton()
         renderLogOutButton()
+        renderAdBannerView()
     }
     
     private func setUpObservables() {
@@ -71,6 +78,13 @@ class SettingsViewController: UIViewController {
     
     private func showTitleInNavigationBar() {
         self.title = "Settings"
+    }
+    
+    private func setUpBannerView() {
+        adBannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"//"ca-app-pub-7121408559206934/1397715417"
+        adBannerView.rootViewController = self
+        adBannerView.load(GADRequest())
+        adBannerView.delegate = self
     }
     
     private func showProperTitleOnCompanyButton() {
@@ -146,5 +160,26 @@ private extension SettingsViewController {
             make.bottom.equalToSuperview()
         }
         logOutButton.layer.cornerRadius = 25
+    }
+    
+    func renderAdBannerView() {
+        containerView.addSubview(adBannerView)
+        adBannerView.snp.makeConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(320)
+            make.height.equalTo(50)
+        }
+    }
+}
+
+// MARK: - GADBannerView delegate
+extension SettingsViewController: GADBannerViewDelegate {
+    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        print("ADD RECIEVED")
+    }
+    
+    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
+        print("SETTINGS: \(error.localizedDescription)")
     }
 }

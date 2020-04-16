@@ -24,6 +24,7 @@ target 'Unpause' do
     pod 'RxFirebase/Functions'
     pod 'DifferenceKit'
     pod 'RxTest'
+    pod 'Google-Mobile-Ads-SDK'
 
     target 'UnpauseTests' do
         inherit! :search_paths

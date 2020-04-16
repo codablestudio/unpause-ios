@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4B005F101E034FA83A58D384 /* Pods_UnpauseTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE4303FF8A698CEC13347652 /* Pods_UnpauseTests.framework */; };
-		B2B29F715C80199B18013F95 /* Pods_Unpause.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE3FC3210F1CDFC45FF7DBE1 /* Pods_Unpause.framework */; };
+		4B005F101E034FA83A58D384 /* Pods_UnpauseTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE4303FF8A698CEC13347652 /* Pods_UnpauseTests.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		C102D7BA23ACCFB4000B9E80 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C102D7B923ACCFB4000B9E80 /* Colors.xcassets */; };
 		C102D7BF23AD0063000B9E80 /* OrangeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C102D7BE23AD0063000B9E80 /* OrangeButton.swift */; };
 		C10F78D723A3D79200783476 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10F78C223A3D79200783476 /* ActivityIndicator.swift */; };
@@ -113,6 +112,8 @@
 		C17E89412434F15000575A7F /* AddCompanyViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E89402434F15000575A7F /* AddCompanyViewModelProtocol.swift */; };
 		C17E89432434F22100575A7F /* ChangePasswordViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E89422434F22100575A7F /* ChangePasswordViewModelProtocol.swift */; };
 		C17E89452434F2E600575A7F /* UpdatePersonalInfoViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E89442434F2E600575A7F /* UpdatePersonalInfoViewModelProtocol.swift */; };
+		C18F217B24487E62007C9024 /* Pods_Unpause.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE3FC3210F1CDFC45FF7DBE1 /* Pods_Unpause.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		C18F217C24487E62007C9024 /* Pods_Unpause.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DE3FC3210F1CDFC45FF7DBE1 /* Pods_Unpause.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C198B8EF23B0CACA00FBD3C6 /* Coordinator+Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C198B8EE23B0CACA00FBD3C6 /* Coordinator+Auth.swift */; };
 		C198B8F123B0CB4C00FBD3C6 /* Coordinator+Tabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C198B8F023B0CB4C00FBD3C6 /* Coordinator+Tabbar.swift */; };
 		C198B8F423B0CFC100FBD3C6 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C198B8F323B0CFC100FBD3C6 /* CustomTabBarController.swift */; };
@@ -160,6 +161,20 @@
 			remoteInfo = Unpause;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C18F217D24487E62007C9024 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C18F217C24487E62007C9024 /* Pods_Unpause.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		7A22B2694C577AAD4753E790 /* Pods-Unpause.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Unpause.release.xcconfig"; path = "Target Support Files/Pods-Unpause/Pods-Unpause.release.xcconfig"; sourceTree = "<group>"; };
@@ -271,6 +286,7 @@
 		C17E89402434F15000575A7F /* AddCompanyViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCompanyViewModelProtocol.swift; sourceTree = "<group>"; };
 		C17E89422434F22100575A7F /* ChangePasswordViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewModelProtocol.swift; sourceTree = "<group>"; };
 		C17E89442434F2E600575A7F /* UpdatePersonalInfoViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePersonalInfoViewModelProtocol.swift; sourceTree = "<group>"; };
+		C18F218324488999007C9024 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		C198B8EE23B0CACA00FBD3C6 /* Coordinator+Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinator+Auth.swift"; sourceTree = "<group>"; };
 		C198B8F023B0CB4C00FBD3C6 /* Coordinator+Tabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinator+Tabbar.swift"; sourceTree = "<group>"; };
 		C198B8F323B0CFC100FBD3C6 /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
@@ -320,7 +336,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B2B29F715C80199B18013F95 /* Pods_Unpause.framework in Frameworks */,
+				C18F217B24487E62007C9024 /* Pods_Unpause.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -982,6 +998,7 @@
 		E1A48A0D56D7177F3A55A730 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C18F218324488999007C9024 /* XCTest.framework */,
 				DE3FC3210F1CDFC45FF7DBE1 /* Pods_Unpause.framework */,
 				AE4303FF8A698CEC13347652 /* Pods_UnpauseTests.framework */,
 			);
@@ -1001,6 +1018,7 @@
 				C146990C23A112F100A84818 /* Resources */,
 				B6E8912715F3866E414313B2 /* [CP] Embed Pods Frameworks */,
 				698546726C454E1A528ABEE4 /* [CP] Copy Pods Resources */,
+				C18F217D24487E62007C9024 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1526,6 +1544,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q2P9VVU3YH;
+				ENABLE_BITCODE = NO;
 				"HEADER_SEARCH_PATHS[arch=*]" = "${PODS_ROOT}/Firebase/CoreOnly/Sources";
 				INFOPLIST_FILE = UnpauseTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1549,6 +1568,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q2P9VVU3YH;
+				ENABLE_BITCODE = NO;
 				"HEADER_SEARCH_PATHS[arch=*]" = "${PODS_ROOT}/Firebase/CoreOnly/Sources";
 				INFOPLIST_FILE = UnpauseTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
