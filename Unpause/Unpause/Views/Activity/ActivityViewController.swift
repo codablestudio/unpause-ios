@@ -308,8 +308,8 @@ private extension ActivityViewController {
         datesContainer.addSubview(fromDateStackView)
         
         fromDateStackView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(15)
-            make.bottom.equalToSuperview().inset(15)
+            make.top.equalToSuperview().offset(6)
+            make.bottom.equalToSuperview().inset(6)
             make.left.equalToSuperview().offset(50)
         }
         
@@ -331,8 +331,8 @@ private extension ActivityViewController {
         datesContainer.addSubview(toDateStackView)
         
         toDateStackView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(15)
-            make.bottom.equalToSuperview().inset(15)
+            make.top.equalToSuperview().offset(6)
+            make.bottom.equalToSuperview().inset(6)
             make.right.equalToSuperview().inset(50)
         }
         

@@ -28,7 +28,7 @@ class AddCompanyViewController: UIViewController {
     private let companyPassCodeTextField = UITextField()
     private let companyPassCodeSeparator = UIView()
     
-    private let addCompanyButton = OrangeButton(title: "Add company")
+    private let addCompanyButton = OrangeButton(title: "Connect company")
     
     private let closeButton = UIButton()
     
@@ -153,7 +153,7 @@ private extension AddCompanyViewController {
             make.top.equalToSuperview().offset(40)
             make.centerX.equalToSuperview()
         }
-        addCompanyLabel.text = "Add company"
+        addCompanyLabel.text = "Connect company"
         addCompanyLabel.textColor = UIColor.unpauseOrange
         addCompanyLabel.font = UIFont.boldSystemFont(ofSize: 25)
         
