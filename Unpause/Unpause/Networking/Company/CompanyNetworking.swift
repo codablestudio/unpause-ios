@@ -66,7 +66,7 @@ class CompanyNetworking: CompanyNetworkingProtocol {
             })
     }
     
-    func addCompanyReferenceToUser(userEmail: String?, companyName: String?, companyPassCode: String?) -> Observable<Response> {
+    func addCompanyReferenceToUser(userEmail: String?, companyPassCode: String?) -> Observable<Response> {
         return fetchAllCompaniesValidationDataFromServer()
             .flatMapLatest ({ [weak self] companiesValidationDataResponse -> Observable<DocumentReferenceFetchingResponse> in
                 guard let `self` = self else { return Observable.empty() }
@@ -74,7 +74,6 @@ class CompanyNetworking: CompanyNetworkingProtocol {
                 case .success(let allCompaniesValidationData):
                     guard let companyReference = self
                         .findCompanyWithNameAndPassCode(allCompaniesValidationData: allCompaniesValidationData,
-                                                        companyName: companyName,
                                                         companyPassCode: companyPassCode)
                         else {
                             return Observable.just(DocumentReferenceFetchingResponse.error(UnpauseError.emptyError))
@@ -170,11 +169,10 @@ class CompanyNetworking: CompanyNetworkingProtocol {
     }
     
      internal func findCompanyWithNameAndPassCode(allCompaniesValidationData: [CompanyValidationData],
-                                                companyName: String?,
                                                 companyPassCode: String?) -> DocumentReference? {
         var companyReference: String?
         for companyValidationData in allCompaniesValidationData {
-            if companyValidationData.companyName == companyName && companyValidationData.companyPassCode == companyPassCode {
+            if companyValidationData.companyPassCode == companyPassCode {
                 companyReference = companyValidationData.companyReference
             }
         }

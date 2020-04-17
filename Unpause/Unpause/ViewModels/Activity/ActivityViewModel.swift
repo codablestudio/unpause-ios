@@ -121,7 +121,7 @@ extension ActivityViewModel {
             let firstPartOfString = "\(arrivalDateAndTimeInStringFormat),"
             let secondPartOfString = "\(leavingDateAndTimeInStringFormat),"
             let thirdPartOfString = "\(description),"
-            let lastPartOfString = "\(workingHoursInStringFormat),\n"
+            let lastPartOfString = "\(workingHoursInStringFormat)\n"
             
             csvString = csvString.appending("\(firstPartOfString)\(secondPartOfString)\(thirdPartOfString)\(lastPartOfString)")
         }

@@ -53,6 +53,7 @@ class RegisterViewController: UIViewController {
         setUpObservables()
         addGestureRecognizer()
         setUpTextFields()
+        setUpKeyboard()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -122,6 +123,15 @@ class RegisterViewController: UIViewController {
         newPasswordTextField.resignWhenFinished(disposeBag)
     }
     
+    private func setUpKeyboard() {
+        RxKeyboard.instance.visibleHeight.drive(onNext: { [weak self] keyboardVisibleHeight in
+            guard let `self` = self else { return }
+            let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardVisibleHeight, right: 0)
+            self.scrollView.contentInset = contentInsets
+            self.scrollView.scrollIndicatorInsets = contentInsets
+        }).disposed(by: disposeBag)
+    }
+    
     private func hideNavigationBar() {
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
@@ -174,7 +184,7 @@ private extension RegisterViewController {
             make.left.equalToSuperview().offset(50)
             make.right.equalToSuperview().inset(50)
         }
-        firstNameTextField.placeholder = "Enter first name"
+        firstNameTextField.placeholder = "Enter first name(optional)"
         firstNameTextField.autocorrectionType = .no
         firstNameTextField.autocapitalizationType = .words
         
@@ -195,7 +205,7 @@ private extension RegisterViewController {
             make.left.equalToSuperview().offset(50)
             make.right.equalToSuperview().inset(50)
         }
-        lastNameTextField.placeholder = "Enter last name"
+        lastNameTextField.placeholder = "Enter last name(optional)"
         lastNameTextField.autocorrectionType = .no
         lastNameTextField.autocapitalizationType = .words
         

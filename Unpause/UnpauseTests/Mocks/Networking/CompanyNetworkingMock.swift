@@ -20,7 +20,7 @@ class CompanyNetworkingMock: CompanyNetworkingProtocol {
         return Observable.just(CompanyFetchingResponse.error(.companyFetchingError))
     }
     
-    func addCompanyReferenceToUser(userEmail: String?, companyName: String?, companyPassCode: String?) -> Observable<Response> {
+    func addCompanyReferenceToUser(userEmail: String?, companyPassCode: String?) -> Observable<Response> {
         return Observable.just(Response.error(UnpauseError.companyMakingError))
     }
     
@@ -32,7 +32,7 @@ class CompanyNetworkingMock: CompanyNetworkingProtocol {
         return Observable.just(Response.error(UnpauseError.serverSavingError))
     }
     
-    func findCompanyWithNameAndPassCode(allCompaniesValidationData: [CompanyValidationData], companyName: String?, companyPassCode: String?) -> DocumentReference? {
+    func findCompanyWithNameAndPassCode(allCompaniesValidationData: [CompanyValidationData], companyPassCode: String?) -> DocumentReference? {
         return nil
     }
     

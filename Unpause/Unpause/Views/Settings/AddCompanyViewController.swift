@@ -59,7 +59,6 @@ class AddCompanyViewController: UIViewController {
     private func render() {
         configureScrollViewAndContainerView()
         renderAddingCompanyLabelAndAddingCompanySeparator()
-        renderCompanyNameTextFieldAndCompanyNameSeparator()
         renderCompanyPasscodeTextFieldAndSeparator()
         renderAddCompanyButton()
         renderDescriptionLabel()
@@ -167,31 +166,10 @@ private extension AddCompanyViewController {
         addCompanySeparator.backgroundColor = UIColor.unpauseOrange
     }
     
-    func renderCompanyNameTextFieldAndCompanyNameSeparator() {
-        containerView.addSubview(companyNameTextField)
-        companyNameTextField.snp.makeConstraints { (make) in
-            make.top.equalTo(addCompanySeparator.snp.bottom).offset(80)
-            make.left.equalToSuperview().offset(50)
-            make.right.equalToSuperview().inset(50)
-        }
-        companyNameTextField.placeholder = "Enter company name"
-        companyNameTextField.autocorrectionType = .no
-        companyNameTextField.autocapitalizationType = .sentences
-        
-        containerView.addSubview(companyNameSeparator)
-        companyNameSeparator.snp.makeConstraints { (make) in
-            make.top.equalTo(companyNameTextField.snp.bottom).offset(7)
-            make.left.equalToSuperview().offset(42)
-            make.right.equalToSuperview().inset(42)
-            make.height.equalTo(1)
-        }
-        companyNameSeparator.backgroundColor = UIColor.unpauseLightGray
-    }
-    
     func renderCompanyPasscodeTextFieldAndSeparator() {
         containerView.addSubview(companyPassCodeTextField)
         companyPassCodeTextField.snp.makeConstraints { (make) in
-            make.top.equalTo(companyNameSeparator.snp.bottom).offset(35)
+            make.top.equalTo(addCompanySeparator.snp.bottom).offset(80)
             make.left.equalToSuperview().offset(50)
             make.right.equalToSuperview().inset(50)
         }
