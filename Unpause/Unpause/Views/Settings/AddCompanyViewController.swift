@@ -18,6 +18,9 @@ class AddCompanyViewController: UIViewController {
     private let scrollView = UIScrollView()
     private let containerView = UIView()
     
+    private let addCompanyLabel = UILabel()
+    private let addCompanySeparator = UIView()
+    
     private let descriptionButton = UIButton()
     
     private let companyNameTextField = UITextField()
@@ -47,17 +50,19 @@ class AddCompanyViewController: UIViewController {
         setUpObservables()
         addBarButtonItem()
         addGestureRecognizer()
-        configureCloseButtonVisibility()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         showNavigationBar()
         showTitleInNavigationBar()
         hideBackButton()
+        configureCloseButtonVisibility()
+        configureTitleVisibility()
     }
     
     private func render() {
         configureScrollViewAndContainerView()
+        renderAddingCompanyLabelAndAddingCompanySeparator()
         renderCompanyPasscodeTextFieldAndSeparator()
         renderAddCompanyButton()
         renderDescriptionLabel()
@@ -134,6 +139,18 @@ class AddCompanyViewController: UIViewController {
         }
     }
     
+    private func configureTitleVisibility() {
+        if self.navigationController != nil {
+            addCompanyLabel.isHidden = true
+            addCompanySeparator.isHidden = true
+            companyPassCodeTextField.snp.makeConstraints { make in
+                make.top.equalToSuperview().offset(100)
+                make.left.equalToSuperview().offset(50)
+                make.right.equalToSuperview().inset(50)
+            }
+        }
+    }
+    
     private func showNavigationBar() {
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
@@ -167,10 +184,30 @@ private extension AddCompanyViewController {
         }
     }
     
+    func renderAddingCompanyLabelAndAddingCompanySeparator() {
+        containerView.addSubview(addCompanyLabel)
+        addCompanyLabel.snp.makeConstraints { (make) in
+            make.top.equalToSuperview().offset(40)
+            make.centerX.equalToSuperview()
+        }
+        addCompanyLabel.text = "Add company"
+        addCompanyLabel.textColor = UIColor.unpauseOrange
+        addCompanyLabel.font = UIFont.boldSystemFont(ofSize: 25)
+        
+        containerView.addSubview(addCompanySeparator)
+        addCompanySeparator.snp.makeConstraints { (make) in
+            make.top.equalTo(addCompanyLabel.snp.bottom).offset(30)
+            make.left.equalToSuperview().offset(30)
+            make.right.equalToSuperview().inset(30)
+            make.height.equalTo(1)
+        }
+        addCompanySeparator.backgroundColor = UIColor.unpauseOrange
+    }
+    
     func renderCompanyPasscodeTextFieldAndSeparator() {
         containerView.addSubview(companyPassCodeTextField)
         companyPassCodeTextField.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(80)
+            make.top.equalTo(addCompanySeparator.snp.bottom).offset(80)
             make.left.equalToSuperview().offset(50)
             make.right.equalToSuperview().inset(50)
         }
