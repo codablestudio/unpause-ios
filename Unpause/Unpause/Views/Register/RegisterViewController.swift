@@ -227,10 +227,8 @@ private extension RegisterViewController {
             make.right.equalToSuperview().inset(50)
         }
         emailTextField.placeholder = "Enter email"
-        emailTextField.autocorrectionType = .no
-        emailTextField.autocapitalizationType = .none
         emailTextField.keyboardType = .emailAddress
-        
+        emailTextField.textContentType = .emailAddress
         
         containerView.addSubview(emailSeparator)
         emailSeparator.snp.makeConstraints { (make) in
@@ -250,9 +248,10 @@ private extension RegisterViewController {
             make.right.equalToSuperview().inset(50)
         }
         newPasswordTextField.placeholder = "Enter new password"
-        newPasswordTextField.autocorrectionType = .no
-        newPasswordTextField.autocapitalizationType = .none
         newPasswordTextField.isSecureTextEntry = true
+        if #available(iOS 12.0, *) {
+            newPasswordTextField.textContentType = .newPassword
+        }
         
         containerView.addSubview(newPasswordSeparator)
         newPasswordSeparator.snp.makeConstraints { (make) in

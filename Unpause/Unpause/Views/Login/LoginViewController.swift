@@ -95,6 +95,7 @@ class LoginViewController: UIViewController {
         loginButton.rx.tap
             .do(onNext: { [weak self] _ in
                 guard let `self` = self else { return }
+                self.view.endEditing(true)
                 UnpauseActivityIndicatorView.shared.show(on: self.view)
             })
             .bind(to: loginViewModel.logInButtonTapped)

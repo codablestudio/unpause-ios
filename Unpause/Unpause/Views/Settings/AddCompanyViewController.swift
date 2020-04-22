@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import MessageUI
 
 class AddCompanyViewController: UIViewController {
     
@@ -20,7 +21,7 @@ class AddCompanyViewController: UIViewController {
     private let addCompanyLabel = UILabel()
     private let addCompanySeparator = UIView()
     
-    private let descriptionLabel = UILabel()
+    private let descriptionButton = UIButton()
     
     private let companyNameTextField = UITextField()
     private let companyNameSeparator = UIView()
@@ -94,6 +95,18 @@ class AddCompanyViewController: UIViewController {
                     self.showOneOptionAlert(title: "Alert", message: "\(error.localizedDescription)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)
+        
+        descriptionButton.rx.tap.subscribe(onNext: { _ in
+            if MFMailComposeViewController.canSendMail() {
+                let mailViewController = MFMailComposeViewController()
+                mailViewController.mailComposeDelegate = self
+                mailViewController.setToRecipients(["info@codable.studio"])
+                mailViewController.setSubject("Company info")
+                self.present(mailViewController, animated: true)
+            } else {
+                self.showOneOptionAlert(title: "Alert", message: "Can not send email.", actionTitle: "OK")
+            }
+        }).disposed(by: disposeBag)
         
         closeButton.rx.tap.subscribe(onNext: { [weak self] _ in
             guard let `self` = self else { return }
@@ -201,18 +214,18 @@ private extension AddCompanyViewController {
     
     
     func renderDescriptionLabel() {
-        containerView.addSubview(descriptionLabel)
+        containerView.addSubview(descriptionButton)
         
-        descriptionLabel.snp.makeConstraints { make in
+        descriptionButton.snp.makeConstraints { make in
             make.top.equalTo(addCompanyButton.snp.bottom).offset(35)
             make.left.equalToSuperview().offset(30)
             make.right.equalToSuperview().inset(30)
             make.bottom.equalToSuperview()
         }
-        descriptionLabel.text = "Please ask your manager for your company info or contact us at info@codable.studio for help."
-        descriptionLabel.textColor = .unpauseGray
-        descriptionLabel.numberOfLines = 0
-        descriptionLabel.font = descriptionLabel.font.withSize(15)
+        descriptionButton.setTitle("Please ask your manager for your company info or contact us at info@codable.studio for help.", for: .normal)
+        descriptionButton.setTitleColor(.unpauseGray, for: .normal)
+        descriptionButton.titleLabel?.numberOfLines = 0
+        descriptionButton.titleLabel?.font = descriptionButton.titleLabel?.font.withSize(15)
     }
     
     func renderCloseButton() {
@@ -222,5 +235,28 @@ private extension AddCompanyViewController {
             make.left.equalToSuperview().offset(15)
         }
         closeButton.setImage(UIImage(named: "close_25x25"), for: .normal)
+    }
+}
+
+//MARK: - MFMailComposeViewController delegate
+extension AddCompanyViewController: MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        switch result.rawValue {
+        case MFMailComposeResult.cancelled.rawValue:
+            print("Cancelled")
+            
+        case MFMailComposeResult.saved.rawValue:
+            UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
+            
+        case MFMailComposeResult.sent.rawValue:
+            UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
+            
+        case MFMailComposeResult.failed.rawValue:
+            showOneOptionAlert(title: "Alert", message: error!.localizedDescription, actionTitle: "OK")
+            
+        default:
+            break
+        }
+        controller.dismiss(animated: true, completion: nil)
     }
 }

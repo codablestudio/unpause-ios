@@ -65,6 +65,7 @@
 		C13D4C82241FDBE500170AF0 /* UnpauseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13D4C81241FDBE500170AF0 /* UnpauseResponse.swift */; };
 		C13DDCEB23F36D050043E242 /* Shift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13DDCEA23F36D050043E242 /* Shift.swift */; };
 		C13EFBA423FECC5D0081ACF0 /* Formatter+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13EFBA323FECC5D0081ACF0 /* Formatter+Date.swift */; };
+		C13F6B35244B2370009EA1B9 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C13F6B34244B2370009EA1B9 /* AuthenticationServices.framework */; };
 		C1419F6C241253B4001B5817 /* Coordinator+Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1419F6B241253B4001B5817 /* Coordinator+Register.swift */; };
 		C1419F6E24125414001B5817 /* AddCompanyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1419F6D24125414001B5817 /* AddCompanyViewModel.swift */; };
 		C1419F702412543E001B5817 /* AddCompanyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1419F6F2412543E001B5817 /* AddCompanyViewController.swift */; };
@@ -238,6 +239,8 @@
 		C13D4C81241FDBE500170AF0 /* UnpauseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnpauseResponse.swift; sourceTree = "<group>"; };
 		C13DDCEA23F36D050043E242 /* Shift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shift.swift; sourceTree = "<group>"; };
 		C13EFBA323FECC5D0081ACF0 /* Formatter+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Formatter+Date.swift"; sourceTree = "<group>"; };
+		C13F6B33244B1B87009EA1B9 /* Unpause.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Unpause.entitlements; sourceTree = "<group>"; };
+		C13F6B34244B2370009EA1B9 /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
 		C1419F6B241253B4001B5817 /* Coordinator+Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinator+Register.swift"; sourceTree = "<group>"; };
 		C1419F6D24125414001B5817 /* AddCompanyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCompanyViewModel.swift; sourceTree = "<group>"; };
 		C1419F6F2412543E001B5817 /* AddCompanyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCompanyViewController.swift; sourceTree = "<group>"; };
@@ -336,6 +339,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C13F6B35244B2370009EA1B9 /* AuthenticationServices.framework in Frameworks */,
 				C18F217B24487E62007C9024 /* Pods_Unpause.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -527,6 +531,7 @@
 		C146991023A112F100A84818 /* Unpause */ = {
 			isa = PBXGroup;
 			children = (
+				C13F6B33244B1B87009EA1B9 /* Unpause.entitlements */,
 				C1C1D2DA24373781000BC698 /* GPX Files */,
 				C13105E823B0B4E600A509D9 /* Services */,
 				C146992A23A1181300A84818 /* Networking */,
@@ -998,6 +1003,7 @@
 		E1A48A0D56D7177F3A55A730 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C13F6B34244B2370009EA1B9 /* AuthenticationServices.framework */,
 				C18F218324488999007C9024 /* XCTest.framework */,
 				DE3FC3210F1CDFC45FF7DBE1 /* Pods_Unpause.framework */,
 				AE4303FF8A698CEC13347652 /* Pods_UnpauseTests.framework */,
@@ -1498,6 +1504,7 @@
 			baseConfigurationReference = F56D7C9D8CB0DE7FF265F229 /* Pods-Unpause.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Unpause/Unpause.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q2P9VVU3YH;
@@ -1520,6 +1527,7 @@
 			baseConfigurationReference = 7A22B2694C577AAD4753E790 /* Pods-Unpause.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Unpause/Unpause.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q2P9VVU3YH;
