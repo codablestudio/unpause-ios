@@ -30,6 +30,8 @@ class AddCompanyViewController: UIViewController {
     
     private let skipButton = UIBarButtonItem(title: "Skip", style: .plain, target: self, action: nil)
     
+    private let closeButton = UIButton()
+    
     init(addCompanyViewModel: AddCompanyViewModelProtocol) {
         self.addCompanyViewModel = addCompanyViewModel
         super.init(nibName: nil, bundle: nil)
@@ -45,6 +47,7 @@ class AddCompanyViewController: UIViewController {
         setUpObservables()
         addBarButtonItem()
         addGestureRecognizer()
+        configureCloseButtonVisibility()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,6 +61,7 @@ class AddCompanyViewController: UIViewController {
         renderCompanyPasscodeTextFieldAndSeparator()
         renderAddCompanyButton()
         renderDescriptionLabel()
+        renderCloseButton()
     }
     
     private func setUpObservables() {
@@ -101,6 +105,11 @@ class AddCompanyViewController: UIViewController {
                 self.showOneOptionAlert(title: "Alert", message: "Can not send email.", actionTitle: "OK")
             }
         }).disposed(by: disposeBag)
+        
+        closeButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else { return }
+            self.dismiss(animated: true)
+        }).disposed(by: disposeBag)
     }
     
     private func addBarButtonItem() {
@@ -117,6 +126,12 @@ class AddCompanyViewController: UIViewController {
             guard let `self` = self else { return }
             self.view.endEditing(true)
         }).disposed(by: disposeBag)
+    }
+    
+    private func configureCloseButtonVisibility() {
+        if self.navigationController != nil {
+            closeButton.isHidden = true
+        }
     }
     
     private func showNavigationBar() {
@@ -199,6 +214,15 @@ private extension AddCompanyViewController {
         descriptionButton.setTitleColor(.unpauseGray, for: .normal)
         descriptionButton.titleLabel?.numberOfLines = 0
         descriptionButton.titleLabel?.font = descriptionButton.titleLabel?.font.withSize(15)
+    }
+    
+    func renderCloseButton() {
+        view.addSubview(closeButton)
+        closeButton.snp.makeConstraints { (make) in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(25)
+            make.left.equalToSuperview().offset(15)
+        }
+        closeButton.setImage(UIImage(named: "close_25x25"), for: .normal)
     }
 }
 

@@ -131,7 +131,12 @@ class LoginViewController: UIViewController {
                     Coordinator.shared.navigateToHomeViewController(from: self)
                     self.dismiss(animated: true)
                 case .error(let error):
-                    self.showOneOptionAlert(title: "Alert", message: "\(error.localizedDescription)", actionTitle: "OK")
+                    if error == UnpauseError.noCompany {
+                        Coordinator.shared.navigateToHomeViewController(from: self)
+                        self.dismiss(animated: true)
+                    } else {
+                        self.showOneOptionAlert(title: "Alert", message: "\(error.errorMessage)", actionTitle: "OK")
+                    }
                 }
             }).disposed(by: disposeBag)
         
