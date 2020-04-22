@@ -229,6 +229,8 @@ private extension RegisterViewController {
         emailTextField.placeholder = "Enter email"
         emailTextField.keyboardType = .emailAddress
         emailTextField.textContentType = .emailAddress
+        emailTextField.autocorrectionType = .no
+        emailTextField.autocapitalizationType = .none
         
         containerView.addSubview(emailSeparator)
         emailSeparator.snp.makeConstraints { (make) in

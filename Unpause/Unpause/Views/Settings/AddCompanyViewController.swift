@@ -18,9 +18,6 @@ class AddCompanyViewController: UIViewController {
     private let scrollView = UIScrollView()
     private let containerView = UIView()
     
-    private let addCompanyLabel = UILabel()
-    private let addCompanySeparator = UIView()
-    
     private let descriptionButton = UIButton()
     
     private let companyNameTextField = UITextField()
@@ -30,8 +27,6 @@ class AddCompanyViewController: UIViewController {
     private let companyPassCodeSeparator = UIView()
     
     private let addCompanyButton = OrangeButton(title: "Connect company")
-    
-    private let closeButton = UIButton()
     
     private let skipButton = UIBarButtonItem(title: "Skip", style: .plain, target: self, action: nil)
     
@@ -54,16 +49,15 @@ class AddCompanyViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         showNavigationBar()
+        showTitleInNavigationBar()
         hideBackButton()
     }
     
     private func render() {
         configureScrollViewAndContainerView()
-        renderAddingCompanyLabelAndAddingCompanySeparator()
         renderCompanyPasscodeTextFieldAndSeparator()
         renderAddCompanyButton()
         renderDescriptionLabel()
-        renderCloseButton()
     }
     
     private func setUpObservables() {
@@ -107,11 +101,6 @@ class AddCompanyViewController: UIViewController {
                 self.showOneOptionAlert(title: "Alert", message: "Can not send email.", actionTitle: "OK")
             }
         }).disposed(by: disposeBag)
-        
-        closeButton.rx.tap.subscribe(onNext: { [weak self] _ in
-            guard let `self` = self else { return }
-            self.dismiss(animated: true)
-        }).disposed(by: disposeBag)
     }
     
     private func addBarButtonItem() {
@@ -132,6 +121,10 @@ class AddCompanyViewController: UIViewController {
     
     private func showNavigationBar() {
         navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    private func showTitleInNavigationBar() {
+        self.title = "Connect company"
     }
     
     private func hideBackButton() {
@@ -159,30 +152,10 @@ private extension AddCompanyViewController {
         }
     }
     
-    func renderAddingCompanyLabelAndAddingCompanySeparator() {
-        containerView.addSubview(addCompanyLabel)
-        addCompanyLabel.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(40)
-            make.centerX.equalToSuperview()
-        }
-        addCompanyLabel.text = "Connect company"
-        addCompanyLabel.textColor = UIColor.unpauseOrange
-        addCompanyLabel.font = UIFont.boldSystemFont(ofSize: 25)
-        
-        containerView.addSubview(addCompanySeparator)
-        addCompanySeparator.snp.makeConstraints { (make) in
-            make.top.equalTo(addCompanyLabel.snp.bottom).offset(30)
-            make.left.equalToSuperview().offset(30)
-            make.right.equalToSuperview().inset(30)
-            make.height.equalTo(1)
-        }
-        addCompanySeparator.backgroundColor = UIColor.unpauseOrange
-    }
-    
     func renderCompanyPasscodeTextFieldAndSeparator() {
         containerView.addSubview(companyPassCodeTextField)
         companyPassCodeTextField.snp.makeConstraints { (make) in
-            make.top.equalTo(addCompanySeparator.snp.bottom).offset(80)
+            make.top.equalToSuperview().offset(80)
             make.left.equalToSuperview().offset(50)
             make.right.equalToSuperview().inset(50)
         }
@@ -226,15 +199,6 @@ private extension AddCompanyViewController {
         descriptionButton.setTitleColor(.unpauseGray, for: .normal)
         descriptionButton.titleLabel?.numberOfLines = 0
         descriptionButton.titleLabel?.font = descriptionButton.titleLabel?.font.withSize(15)
-    }
-    
-    func renderCloseButton() {
-        view.addSubview(closeButton)
-        closeButton.snp.makeConstraints { (make) in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(25)
-            make.left.equalToSuperview().offset(15)
-        }
-        closeButton.setImage(UIImage(named: "close_25x25"), for: .normal)
     }
 }
 
