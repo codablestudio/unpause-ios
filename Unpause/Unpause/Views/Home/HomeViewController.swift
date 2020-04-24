@@ -12,9 +12,6 @@ import GoogleMobileAds
 
 class HomeViewController: UIViewController {
     
-    // APP ID: ca-app-pub-7121408559206934~2083470498
-    // AD ID: ca-app-pub-7121408559206934/1397715417
-    
     private let disposeBag = DisposeBag()
     private let homeViewModel: HomeViewModelProtocol
     

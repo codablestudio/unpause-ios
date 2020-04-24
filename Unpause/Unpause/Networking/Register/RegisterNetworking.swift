@@ -36,6 +36,8 @@ class RegisterNetworking: RegisterNetworkingProtocol {
                 }
                 switch response {
                 case .success:
+                    let newUser = User(firstName: firstName, lastName: lastName, email: email)
+                    SessionManager.shared.logIn(newUser)
                     return Observable.just(FirebaseResponseObject.success(authDataResult))
                 case .error(let error):
                     return Observable.just(FirebaseResponseObject.error(.otherError(error)))

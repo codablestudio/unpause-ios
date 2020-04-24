@@ -107,12 +107,12 @@ class LoginViewController: UIViewController {
                 switch response {
                 case .success:
                     UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
-                    Coordinator.shared.navigateToHomeViewController(from: self)
+                    Coordinator.shared.navigateToHomeViewController()
                 case .error(let error):
                     switch error {
                     case .noCompany:
                         UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
-                        Coordinator.shared.navigateToHomeViewController(from: self)
+                        Coordinator.shared.navigateToHomeViewController()
                     default:
                         UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
                         self.showOneOptionAlert(title: "Error", message: "\(error.errorMessage)", actionTitle: "OK")
@@ -128,11 +128,11 @@ class LoginViewController: UIViewController {
             .subscribe(onNext: { unpauseResponse in
                 switch unpauseResponse {
                 case .success:
-                    Coordinator.shared.navigateToHomeViewController(from: self)
+                    Coordinator.shared.navigateToHomeViewController()
                     self.dismiss(animated: true)
                 case .error(let error):
                     if error == UnpauseError.noCompany {
-                        Coordinator.shared.navigateToHomeViewController(from: self)
+                        Coordinator.shared.navigateToHomeViewController()
                         self.dismiss(animated: true)
                     } else {
                         self.showOneOptionAlert(title: "Alert", message: "\(error.errorMessage)", actionTitle: "OK")
@@ -356,7 +356,6 @@ extension LoginViewController: GIDSignInDelegate {
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
         if let error = error {
             print("ERROR: \(error.localizedDescription)")
-            self.showOneOptionAlert(title: "Alert", message: "\(error.localizedDescription)", actionTitle: "OK")
         } else {
             if let user = user {
                 googleUserSignInResponse.onNext(user)

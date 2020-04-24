@@ -92,7 +92,11 @@ class AddCompanyViewController: UIViewController {
                 switch response {
                 case .success:
                     UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
-                    self.dismiss(animated: true)
+                    self.dismiss(animated: true) {
+                        if self.navigationController != nil {
+                            Coordinator.shared.navigateToHomeViewController()
+                        }
+                    }
                 case .error(let error):
                     UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
                     self.showOneOptionAlert(title: "Alert", message: "\(error.localizedDescription)", actionTitle: "OK")
@@ -115,15 +119,17 @@ class AddCompanyViewController: UIViewController {
             guard let `self` = self else { return }
             self.dismiss(animated: true)
         }).disposed(by: disposeBag)
+        
+        skipButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else { return }
+            self.dismiss(animated: true) {
+                Coordinator.shared.navigateToHomeViewController()
+            }
+        }).disposed(by: disposeBag)
     }
     
     private func addBarButtonItem() {
         navigationItem.rightBarButtonItem = skipButton
-        
-        skipButton.rx.tap.subscribe(onNext: { [weak self] _ in
-            guard let `self` = self else { return }
-            self.dismiss(animated: true, completion: nil)
-        }).disposed(by: disposeBag)
     }
     
     private func addGestureRecognizer() {
