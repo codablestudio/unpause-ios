@@ -250,6 +250,7 @@ private extension LoginViewController {
         emailTextField.autocorrectionType = .no
         emailTextField.returnKeyType = .next
         emailTextField.keyboardType = .emailAddress
+        emailTextField.textContentType = .emailAddress
         
         scrollViewContainer.addSubview(emailSeparator)
         emailSeparator.snp.makeConstraints { (make) in
@@ -273,6 +274,7 @@ private extension LoginViewController {
         passwordTextField.autocapitalizationType = .none
         passwordTextField.autocorrectionType = .no
         passwordTextField.returnKeyType = .go
+        passwordTextField.textContentType = .password
         
         scrollViewContainer.addSubview(passwordSeparator)
         passwordSeparator.snp.makeConstraints { (make) in
