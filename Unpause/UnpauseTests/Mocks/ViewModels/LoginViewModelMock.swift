@@ -31,6 +31,7 @@ class LoginViewModelMock: LoginViewModelProtocol {
     var loginRequest: Observable<FirebaseResponseObject>!
     var loginDocument: Observable<UnpauseResponse>!
     var googleUserSavingResponse: Observable<UnpauseResponse>!
+    var isInsideGoogleSignInFlow: Observable<Bool>!
     
     init(loginNetworking: LoginNetworkingProtocol,
          companyNetworking: CompanyNetworkingProtocol,

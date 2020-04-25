@@ -20,4 +20,5 @@ protocol LoginViewModelProtocol {
     var loginRequest: Observable<FirebaseResponseObject>! { get }
     var loginDocument: Observable<UnpauseResponse>! { get }
     var googleUserSavingResponse: Observable<UnpauseResponse>! { get }
+    var isInsideGoogleSignInFlow: Observable<Bool>! { get }
 }
