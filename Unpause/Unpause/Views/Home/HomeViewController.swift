@@ -93,6 +93,12 @@ class HomeViewController: UIViewController {
                 }
             }).disposed(by: disposeBag)
         
+        NotificationManager.shared.userChecksIn
+            .subscribe(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                self.checkInButton.sendActions(for: .touchUpInside)
+            }).disposed(by: disposeBag)
+        
         homeViewModel.checkInResponse
             .subscribe(onNext: { [weak self] (response) in
                 guard let `self` = self else { return }

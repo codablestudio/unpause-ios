@@ -81,7 +81,7 @@ class SettingsViewController: UIViewController {
     }
     
     private func setUpBannerView() {
-        adBannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"//"ca-app-pub-7121408559206934/1397715417"
+        adBannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
         adBannerView.rootViewController = self
         adBannerView.load(GADRequest())
         adBannerView.delegate = self
