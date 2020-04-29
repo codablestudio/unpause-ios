@@ -36,6 +36,7 @@
 		C111932123CF56B7007E2866 /* AddShiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C111932023CF56B7007E2866 /* AddShiftViewController.swift */; };
 		C111932323CF6008007E2866 /* AddShiftViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C111932223CF6008007E2866 /* AddShiftViewModel.swift */; };
 		C116D39524055A2400A6FEC5 /* CSVMakingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C116D39424055A2400A6FEC5 /* CSVMakingResponse.swift */; };
+		C11943812459A486006BC8FE /* Pods_Unpause.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE3FC3210F1CDFC45FF7DBE1 /* Pods_Unpause.framework */; };
 		C12CDDB523FA8AC5002A19C8 /* EmptyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12CDDB423FA8AC5002A19C8 /* EmptyTableViewCell.swift */; };
 		C12CDDB723FA999F002A19C8 /* LoadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12CDDB623FA999F002A19C8 /* LoadingTableViewCell.swift */; };
 		C12D289823A536BC004BC57A /* LoginNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12D289723A536BC004BC57A /* LoginNetworking.swift */; };
@@ -65,6 +66,7 @@
 		C13D4C82241FDBE500170AF0 /* UnpauseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13D4C81241FDBE500170AF0 /* UnpauseResponse.swift */; };
 		C13DDCEB23F36D050043E242 /* Shift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13DDCEA23F36D050043E242 /* Shift.swift */; };
 		C13EFBA423FECC5D0081ACF0 /* Formatter+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13EFBA323FECC5D0081ACF0 /* Formatter+Date.swift */; };
+		C13F6B35244B2370009EA1B9 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C13F6B34244B2370009EA1B9 /* AuthenticationServices.framework */; };
 		C1419F6C241253B4001B5817 /* Coordinator+Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1419F6B241253B4001B5817 /* Coordinator+Register.swift */; };
 		C1419F6E24125414001B5817 /* AddCompanyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1419F6D24125414001B5817 /* AddCompanyViewModel.swift */; };
 		C1419F702412543E001B5817 /* AddCompanyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1419F6F2412543E001B5817 /* AddCompanyViewController.swift */; };
@@ -112,8 +114,6 @@
 		C17E89412434F15000575A7F /* AddCompanyViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E89402434F15000575A7F /* AddCompanyViewModelProtocol.swift */; };
 		C17E89432434F22100575A7F /* ChangePasswordViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E89422434F22100575A7F /* ChangePasswordViewModelProtocol.swift */; };
 		C17E89452434F2E600575A7F /* UpdatePersonalInfoViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E89442434F2E600575A7F /* UpdatePersonalInfoViewModelProtocol.swift */; };
-		C18F217B24487E62007C9024 /* Pods_Unpause.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE3FC3210F1CDFC45FF7DBE1 /* Pods_Unpause.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		C18F217C24487E62007C9024 /* Pods_Unpause.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DE3FC3210F1CDFC45FF7DBE1 /* Pods_Unpause.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C198B8EF23B0CACA00FBD3C6 /* Coordinator+Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C198B8EE23B0CACA00FBD3C6 /* Coordinator+Auth.swift */; };
 		C198B8F123B0CB4C00FBD3C6 /* Coordinator+Tabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C198B8F023B0CB4C00FBD3C6 /* Coordinator+Tabbar.swift */; };
 		C198B8F423B0CFC100FBD3C6 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C198B8F323B0CFC100FBD3C6 /* CustomTabBarController.swift */; };
@@ -133,6 +133,7 @@
 		C1C1D2EC24375257000BC698 /* LoginViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C1D2EB24375257000BC698 /* LoginViewModelTest.swift */; };
 		C1C41B7623A9594F009288CA /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C41B7523A9594F009288CA /* UITextField+Extension.swift */; };
 		C1C6D943242377710037378C /* UnpauseActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C6D942242377710037378C /* UnpauseActivityIndicatorView.swift */; };
+		C1CE0D28245830110025FB06 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1CE0D27245830110025FB06 /* StoreKit.framework */; };
 		C1D0CA0B23F6AC9600A20D6F /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D0CA0A23F6AC9600A20D6F /* DataSource.swift */; };
 		C1D568FE241C0793004C8A89 /* PaddedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D568FD241C0793004C8A89 /* PaddedTextField.swift */; };
 		C1F1BCC5243C7E10002B7452 /* ChangePasswordViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F1BCC4243C7E10002B7452 /* ChangePasswordViewModelTest.swift */; };
@@ -161,20 +162,6 @@
 			remoteInfo = Unpause;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		C18F217D24487E62007C9024 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 12;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				C18F217C24487E62007C9024 /* Pods_Unpause.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		7A22B2694C577AAD4753E790 /* Pods-Unpause.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Unpause.release.xcconfig"; path = "Target Support Files/Pods-Unpause/Pods-Unpause.release.xcconfig"; sourceTree = "<group>"; };
@@ -208,6 +195,9 @@
 		C111932023CF56B7007E2866 /* AddShiftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddShiftViewController.swift; sourceTree = "<group>"; };
 		C111932223CF6008007E2866 /* AddShiftViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddShiftViewModel.swift; sourceTree = "<group>"; };
 		C116D39424055A2400A6FEC5 /* CSVMakingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVMakingResponse.swift; sourceTree = "<group>"; };
+		C11943842459A6E1006BC8FE /* UnpauseRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = UnpauseRelease.entitlements; sourceTree = "<group>"; };
+		C11943852459A796006BC8FE /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		C11943872459A888006BC8FE /* Trcanje.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Trcanje.gpx; sourceTree = "<group>"; };
 		C12CDDB423FA8AC5002A19C8 /* EmptyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTableViewCell.swift; sourceTree = "<group>"; };
 		C12CDDB623FA999F002A19C8 /* LoadingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingTableViewCell.swift; sourceTree = "<group>"; };
 		C12D289723A536BC004BC57A /* LoginNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginNetworking.swift; sourceTree = "<group>"; };
@@ -238,6 +228,8 @@
 		C13D4C81241FDBE500170AF0 /* UnpauseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnpauseResponse.swift; sourceTree = "<group>"; };
 		C13DDCEA23F36D050043E242 /* Shift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shift.swift; sourceTree = "<group>"; };
 		C13EFBA323FECC5D0081ACF0 /* Formatter+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Formatter+Date.swift"; sourceTree = "<group>"; };
+		C13F6B33244B1B87009EA1B9 /* Unpause.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Unpause.entitlements; sourceTree = "<group>"; };
+		C13F6B34244B2370009EA1B9 /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
 		C1419F6B241253B4001B5817 /* Coordinator+Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinator+Register.swift"; sourceTree = "<group>"; };
 		C1419F6D24125414001B5817 /* AddCompanyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCompanyViewModel.swift; sourceTree = "<group>"; };
 		C1419F6F2412543E001B5817 /* AddCompanyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCompanyViewController.swift; sourceTree = "<group>"; };
@@ -309,6 +301,7 @@
 		C1C210AE240913E7002B5ACA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C1C41B7523A9594F009288CA /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		C1C6D942242377710037378C /* UnpauseActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnpauseActivityIndicatorView.swift; sourceTree = "<group>"; };
+		C1CE0D27245830110025FB06 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C1D0CA0A23F6AC9600A20D6F /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		C1D568FD241C0793004C8A89 /* PaddedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedTextField.swift; sourceTree = "<group>"; };
 		C1F1BCC4243C7E10002B7452 /* ChangePasswordViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewModelTest.swift; sourceTree = "<group>"; };
@@ -336,7 +329,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C18F217B24487E62007C9024 /* Pods_Unpause.framework in Frameworks */,
+				C11943812459A486006BC8FE /* Pods_Unpause.framework in Frameworks */,
+				C1CE0D28245830110025FB06 /* StoreKit.framework in Frameworks */,
+				C13F6B35244B2370009EA1B9 /* AuthenticationServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -527,6 +522,8 @@
 		C146991023A112F100A84818 /* Unpause */ = {
 			isa = PBXGroup;
 			children = (
+				C11943842459A6E1006BC8FE /* UnpauseRelease.entitlements */,
+				C13F6B33244B1B87009EA1B9 /* Unpause.entitlements */,
 				C1C1D2DA24373781000BC698 /* GPX Files */,
 				C13105E823B0B4E600A509D9 /* Services */,
 				C146992A23A1181300A84818 /* Networking */,
@@ -932,6 +929,7 @@
 			isa = PBXGroup;
 			children = (
 				C13B773A240E636A004DD8FB /* BrzaRuta.gpx */,
+				C11943872459A888006BC8FE /* Trcanje.gpx */,
 			);
 			path = "GPX Files";
 			sourceTree = "<group>";
@@ -998,6 +996,9 @@
 		E1A48A0D56D7177F3A55A730 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C11943852459A796006BC8FE /* UserNotifications.framework */,
+				C1CE0D27245830110025FB06 /* StoreKit.framework */,
+				C13F6B34244B2370009EA1B9 /* AuthenticationServices.framework */,
 				C18F218324488999007C9024 /* XCTest.framework */,
 				DE3FC3210F1CDFC45FF7DBE1 /* Pods_Unpause.framework */,
 				AE4303FF8A698CEC13347652 /* Pods_UnpauseTests.framework */,
@@ -1018,7 +1019,6 @@
 				C146990C23A112F100A84818 /* Resources */,
 				B6E8912715F3866E414313B2 /* [CP] Embed Pods Frameworks */,
 				698546726C454E1A528ABEE4 /* [CP] Copy Pods Resources */,
-				C18F217D24487E62007C9024 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1498,6 +1498,7 @@
 			baseConfigurationReference = F56D7C9D8CB0DE7FF265F229 /* Pods-Unpause.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Unpause/Unpause.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q2P9VVU3YH;
@@ -1507,6 +1508,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = studio.codable.unpause;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1520,6 +1522,7 @@
 			baseConfigurationReference = 7A22B2694C577AAD4753E790 /* Pods-Unpause.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Unpause/UnpauseRelease.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q2P9VVU3YH;
@@ -1529,6 +1532,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = studio.codable.unpause;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

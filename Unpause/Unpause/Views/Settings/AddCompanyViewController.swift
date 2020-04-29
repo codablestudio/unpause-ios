@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import MessageUI
 
 class AddCompanyViewController: UIViewController {
     
@@ -20,7 +21,7 @@ class AddCompanyViewController: UIViewController {
     private let addCompanyLabel = UILabel()
     private let addCompanySeparator = UIView()
     
-    private let descriptionLabel = UILabel()
+    private let descriptionButton = UIButton()
     
     private let companyNameTextField = UITextField()
     private let companyNameSeparator = UIView()
@@ -28,11 +29,11 @@ class AddCompanyViewController: UIViewController {
     private let companyPassCodeTextField = UITextField()
     private let companyPassCodeSeparator = UIView()
     
-    private let addCompanyButton = OrangeButton(title: "Add company")
-    
-    private let closeButton = UIButton()
+    private let addCompanyButton = OrangeButton(title: "Connect company")
     
     private let skipButton = UIBarButtonItem(title: "Skip", style: .plain, target: self, action: nil)
+    
+    private let closeButton = UIButton()
     
     init(addCompanyViewModel: AddCompanyViewModelProtocol) {
         self.addCompanyViewModel = addCompanyViewModel
@@ -53,13 +54,15 @@ class AddCompanyViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         showNavigationBar()
+        showTitleInNavigationBar()
         hideBackButton()
+        configureCloseButtonVisibility()
+        configureTitleVisibility()
     }
     
     private func render() {
         configureScrollViewAndContainerView()
         renderAddingCompanyLabelAndAddingCompanySeparator()
-        renderCompanyNameTextFieldAndCompanyNameSeparator()
         renderCompanyPasscodeTextFieldAndSeparator()
         renderAddCompanyButton()
         renderDescriptionLabel()
@@ -89,26 +92,44 @@ class AddCompanyViewController: UIViewController {
                 switch response {
                 case .success:
                     UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
-                    self.dismiss(animated: true)
+                    self.dismiss(animated: true) {
+                        if self.navigationController != nil {
+                            Coordinator.shared.navigateToHomeViewController()
+                        }
+                    }
                 case .error(let error):
                     UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
                     self.showOneOptionAlert(title: "Alert", message: "\(error.localizedDescription)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)
         
+        descriptionButton.rx.tap.subscribe(onNext: { _ in
+            if MFMailComposeViewController.canSendMail() {
+                let mailViewController = MFMailComposeViewController()
+                mailViewController.mailComposeDelegate = self
+                mailViewController.setToRecipients(["info@codable.studio"])
+                mailViewController.setSubject("Company info")
+                self.present(mailViewController, animated: true)
+            } else {
+                self.showOneOptionAlert(title: "Alert", message: "Can not send email.", actionTitle: "OK")
+            }
+        }).disposed(by: disposeBag)
+        
         closeButton.rx.tap.subscribe(onNext: { [weak self] _ in
             guard let `self` = self else { return }
             self.dismiss(animated: true)
+        }).disposed(by: disposeBag)
+        
+        skipButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else { return }
+            self.dismiss(animated: true) {
+                Coordinator.shared.navigateToHomeViewController()
+            }
         }).disposed(by: disposeBag)
     }
     
     private func addBarButtonItem() {
         navigationItem.rightBarButtonItem = skipButton
-        
-        skipButton.rx.tap.subscribe(onNext: { [weak self] _ in
-            guard let `self` = self else { return }
-            self.dismiss(animated: true, completion: nil)
-        }).disposed(by: disposeBag)
     }
     
     private func addGestureRecognizer() {
@@ -118,8 +139,30 @@ class AddCompanyViewController: UIViewController {
         }).disposed(by: disposeBag)
     }
     
+    private func configureCloseButtonVisibility() {
+        if self.navigationController != nil {
+            closeButton.isHidden = true
+        }
+    }
+    
+    private func configureTitleVisibility() {
+        if self.navigationController != nil {
+            addCompanyLabel.isHidden = true
+            addCompanySeparator.isHidden = true
+            companyPassCodeTextField.snp.makeConstraints { make in
+                make.top.equalToSuperview().offset(100)
+                make.left.equalToSuperview().offset(50)
+                make.right.equalToSuperview().inset(50)
+            }
+        }
+    }
+    
     private func showNavigationBar() {
         navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    private func showTitleInNavigationBar() {
+        self.title = "Connect company"
     }
     
     private func hideBackButton() {
@@ -167,31 +210,10 @@ private extension AddCompanyViewController {
         addCompanySeparator.backgroundColor = UIColor.unpauseOrange
     }
     
-    func renderCompanyNameTextFieldAndCompanyNameSeparator() {
-        containerView.addSubview(companyNameTextField)
-        companyNameTextField.snp.makeConstraints { (make) in
-            make.top.equalTo(addCompanySeparator.snp.bottom).offset(80)
-            make.left.equalToSuperview().offset(50)
-            make.right.equalToSuperview().inset(50)
-        }
-        companyNameTextField.placeholder = "Enter company name"
-        companyNameTextField.autocorrectionType = .no
-        companyNameTextField.autocapitalizationType = .sentences
-        
-        containerView.addSubview(companyNameSeparator)
-        companyNameSeparator.snp.makeConstraints { (make) in
-            make.top.equalTo(companyNameTextField.snp.bottom).offset(7)
-            make.left.equalToSuperview().offset(42)
-            make.right.equalToSuperview().inset(42)
-            make.height.equalTo(1)
-        }
-        companyNameSeparator.backgroundColor = UIColor.unpauseLightGray
-    }
-    
     func renderCompanyPasscodeTextFieldAndSeparator() {
         containerView.addSubview(companyPassCodeTextField)
         companyPassCodeTextField.snp.makeConstraints { (make) in
-            make.top.equalTo(companyNameSeparator.snp.bottom).offset(35)
+            make.top.equalTo(addCompanySeparator.snp.bottom).offset(80)
             make.left.equalToSuperview().offset(50)
             make.right.equalToSuperview().inset(50)
         }
@@ -223,18 +245,18 @@ private extension AddCompanyViewController {
     
     
     func renderDescriptionLabel() {
-        containerView.addSubview(descriptionLabel)
+        containerView.addSubview(descriptionButton)
         
-        descriptionLabel.snp.makeConstraints { make in
+        descriptionButton.snp.makeConstraints { make in
             make.top.equalTo(addCompanyButton.snp.bottom).offset(35)
             make.left.equalToSuperview().offset(30)
             make.right.equalToSuperview().inset(30)
             make.bottom.equalToSuperview()
         }
-        descriptionLabel.text = "Please ask your manager for your company info or contact us at info@codable.studio for help."
-        descriptionLabel.textColor = .unpauseGray
-        descriptionLabel.numberOfLines = 0
-        descriptionLabel.font = descriptionLabel.font.withSize(15)
+        descriptionButton.setTitle("Please ask your manager for your company info or contact us at info@codable.studio for help.", for: .normal)
+        descriptionButton.setTitleColor(.unpauseGray, for: .normal)
+        descriptionButton.titleLabel?.numberOfLines = 0
+        descriptionButton.titleLabel?.font = descriptionButton.titleLabel?.font.withSize(15)
     }
     
     func renderCloseButton() {
@@ -244,5 +266,28 @@ private extension AddCompanyViewController {
             make.left.equalToSuperview().offset(15)
         }
         closeButton.setImage(UIImage(named: "close_25x25"), for: .normal)
+    }
+}
+
+//MARK: - MFMailComposeViewController delegate
+extension AddCompanyViewController: MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        switch result.rawValue {
+        case MFMailComposeResult.cancelled.rawValue:
+            print("Cancelled")
+            
+        case MFMailComposeResult.saved.rawValue:
+            UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
+            
+        case MFMailComposeResult.sent.rawValue:
+            UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
+            
+        case MFMailComposeResult.failed.rawValue:
+            showOneOptionAlert(title: "Alert", message: error!.localizedDescription, actionTitle: "OK")
+            
+        default:
+            break
+        }
+        controller.dismiss(animated: true, completion: nil)
     }
 }

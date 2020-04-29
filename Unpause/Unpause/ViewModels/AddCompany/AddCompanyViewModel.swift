@@ -48,7 +48,6 @@ class AddCompanyViewModel: AddCompanyViewModelProtocol {
             .flatMapLatest({ [weak self] _ -> Observable<Response> in
                 guard let `self` = self else { return Observable.empty() }
                 return self.companyNetworking.addCompanyReferenceToUser(userEmail: self.registeredUserEmail,
-                                                                        companyName: self.textInCompanyNameTextField,
                                                                         companyPassCode: self.textInCompanyPassCodeTextField)
             })
     }

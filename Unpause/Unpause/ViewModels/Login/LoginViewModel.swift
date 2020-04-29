@@ -19,6 +19,7 @@ class LoginViewModel: LoginViewModelProtocol {
     private let loginNetworking: LoginNetworkingProtocol
     private let companyNetworking: CompanyNetworkingProtocol
     private let registerNetworking: RegisterNetworkingProtocol
+    private let _isInsideGoogleSignInFlow = ActivityIndicator()
     
     private var textInEmailTextField: String?
     private var textInPasswordTextField: String?
@@ -29,6 +30,9 @@ class LoginViewModel: LoginViewModelProtocol {
     var logInButtonTapped = PublishSubject<Void>()
     var registerNowButtonTapped = PublishSubject<Void>()
     var googleUserSignInResponse = PublishSubject<GIDGoogleUser>()
+    var isInsideGoogleSignInFlow: Observable<Bool>! {
+        return _isInsideGoogleSignInFlow.asObservable()
+    }
     
     var loginRequest: Observable<FirebaseResponseObject>!
     var loginDocument: Observable<UnpauseResponse>!
@@ -110,6 +114,7 @@ class LoginViewModel: LoginViewModelProtocol {
             .flatMapLatest({ [weak self] googleUser -> Observable<GoogleUserSavingResponse> in
                 guard let `self` = self else { return Observable.empty() }
                 return self.registerNetworking.signInGoogleUser(googleUser: googleUser)
+                .trackActivity(self._isInsideGoogleSignInFlow)
             })
             .flatMapLatest({ googleUserSavingResponse -> Observable<UnpauseResponse> in
                 switch googleUserSavingResponse {

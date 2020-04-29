@@ -89,7 +89,7 @@ class SettingsViewController: UIViewController {
     
     private func showProperTitleOnCompanyButton() {
         if SessionManager.shared.currentUser?.company == nil {
-            addCompanyButton.setTitle("Add company", for: .normal)
+            addCompanyButton.setTitle("Connect company", for: .normal)
         } else {
             addCompanyButton.setTitle("Change company", for: .normal)
         }

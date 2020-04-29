@@ -20,6 +20,7 @@ class LoginViewController: UIViewController {
     
     private let scrollView = UIScrollView()
     private let containerView = UIView()
+    private let scrollViewContainer = UIView()
     
     private let titleStackView = UIStackView()
     private let welcomeToTitleLabel = UILabel()
@@ -65,7 +66,6 @@ class LoginViewController: UIViewController {
     
     private func render() {
         configureScrollViewAndContainerView()
-        renderLogo()
         renderEmailTextFieldAndEmailSeparator()
         renderPasswordTextFieldAndPasswordSeparator()
         renderForgotPasswordButtonAndLoginButton()
@@ -95,6 +95,7 @@ class LoginViewController: UIViewController {
         loginButton.rx.tap
             .do(onNext: { [weak self] _ in
                 guard let `self` = self else { return }
+                self.view.endEditing(true)
                 UnpauseActivityIndicatorView.shared.show(on: self.view)
             })
             .bind(to: loginViewModel.logInButtonTapped)
@@ -106,12 +107,12 @@ class LoginViewController: UIViewController {
                 switch response {
                 case .success:
                     UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
-                    Coordinator.shared.navigateToHomeViewController(from: self)
+                    Coordinator.shared.navigateToHomeViewController()
                 case .error(let error):
                     switch error {
                     case .noCompany:
                         UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
-                        Coordinator.shared.navigateToHomeViewController(from: self)
+                        Coordinator.shared.navigateToHomeViewController()
                     default:
                         UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
                         self.showOneOptionAlert(title: "Error", message: "\(error.errorMessage)", actionTitle: "OK")
@@ -123,14 +124,23 @@ class LoginViewController: UIViewController {
             .bind(to: loginViewModel.googleUserSignInResponse)
             .disposed(by: disposeBag)
         
+        loginViewModel.isInsideGoogleSignInFlow
+        .bind(to: signInWithGoogleButton.rx.animating)
+        .disposed(by: disposeBag)
+        
         loginViewModel.googleUserSavingResponse
             .subscribe(onNext: { unpauseResponse in
                 switch unpauseResponse {
                 case .success:
-                    Coordinator.shared.navigateToHomeViewController(from: self)
+                    Coordinator.shared.navigateToHomeViewController()
                     self.dismiss(animated: true)
                 case .error(let error):
-                    self.showOneOptionAlert(title: "Alert", message: "\(error.localizedDescription)", actionTitle: "OK")
+                    if error == UnpauseError.noCompany {
+                        Coordinator.shared.navigateToHomeViewController()
+                        self.dismiss(animated: true)
+                    } else {
+                        self.showOneOptionAlert(title: "Alert", message: "\(error.errorMessage)", actionTitle: "OK")
+                    }
                 }
             }).disposed(by: disposeBag)
         
@@ -179,19 +189,25 @@ private extension LoginViewController {
     func configureScrollViewAndContainerView() {
         view.backgroundColor = UIColor.unpauseWhite
         
-        view.addSubview(scrollView)
+        view.addSubview(containerView)
         
-        scrollView.snp.makeConstraints { (make) in
-            make.topMargin.equalToSuperview()
+        containerView.snp.makeConstraints { make in
+            make.top.left.right.bottom.equalToSuperview()
+        }
+        
+        renderLogo()
+        
+        containerView.addSubview(scrollView)
+        scrollView.snp.makeConstraints { make in
+            make.top.equalTo(titleDesriptionLabel.snp.bottom)
             make.left.right.equalToSuperview()
             make.bottom.equalToSuperview()
         }
         scrollView.alwaysBounceVertical = true
         
-        scrollView.addSubview(containerView)
-        containerView.snp.makeConstraints { (make) in
-            make.top.left.right.equalToSuperview()
-            make.bottom.equalToSuperview().inset(30)
+        scrollView.addSubview(scrollViewContainer)
+        scrollViewContainer.snp.makeConstraints { make in
+            make.top.left.right.bottom.equalToSuperview()
             make.width.equalTo(UIScreen.main.bounds.width)
         }
     }
@@ -227,7 +243,7 @@ private extension LoginViewController {
     }
     
     func renderEmailTextFieldAndEmailSeparator() {
-        containerView.addSubview(emailTextField)
+        scrollViewContainer.addSubview(emailTextField)
         emailTextField.snp.makeConstraints { (make) in
             make.top.equalTo(titleDesriptionLabel.snp.bottom).offset(85)
             make.left.equalToSuperview().offset(65)
@@ -238,8 +254,9 @@ private extension LoginViewController {
         emailTextField.autocorrectionType = .no
         emailTextField.returnKeyType = .next
         emailTextField.keyboardType = .emailAddress
+        emailTextField.textContentType = .emailAddress
         
-        containerView.addSubview(emailSeparator)
+        scrollViewContainer.addSubview(emailSeparator)
         emailSeparator.snp.makeConstraints { (make) in
             make.height.equalTo(1)
             make.top.equalTo(emailTextField.snp.bottom).offset(7)
@@ -250,7 +267,7 @@ private extension LoginViewController {
     }
     
     func renderPasswordTextFieldAndPasswordSeparator() {
-        containerView.addSubview(passwordTextField)
+        scrollViewContainer.addSubview(passwordTextField)
         passwordTextField.snp.makeConstraints { (make) in
             make.top.equalTo(emailSeparator.snp.bottom).offset(50)
             make.left.equalToSuperview().offset(65)
@@ -261,8 +278,9 @@ private extension LoginViewController {
         passwordTextField.autocapitalizationType = .none
         passwordTextField.autocorrectionType = .no
         passwordTextField.returnKeyType = .go
+        passwordTextField.textContentType = .password
         
-        containerView.addSubview(passwordSeparator)
+        scrollViewContainer.addSubview(passwordSeparator)
         passwordSeparator.snp.makeConstraints { (make) in
             make.height.equalTo(1)
             make.top.equalTo(passwordTextField.snp.bottom).offset(7)
@@ -273,7 +291,7 @@ private extension LoginViewController {
     }
     
     func renderForgotPasswordButtonAndLoginButton() {
-        containerView.addSubview(forgotPasswordButton)
+        scrollViewContainer.addSubview(forgotPasswordButton)
         forgotPasswordButton.snp.makeConstraints { (make) in
             make.height.equalTo(20)
             make.top.equalTo(passwordSeparator.snp.bottom).offset(10)
@@ -283,7 +301,7 @@ private extension LoginViewController {
         forgotPasswordButton.titleLabel?.font = forgotPasswordButton.titleLabel?.font.withSize(13)
         forgotPasswordButton.setTitleColor(UIColor.unpauseOrange, for: .normal)
         
-        containerView.addSubview(loginButton)
+        scrollViewContainer.addSubview(loginButton)
         loginButton.snp.makeConstraints { (make) in
             make.top.equalTo(forgotPasswordButton.snp.bottom).offset(25)
             make.left.equalToSuperview().offset(55)
@@ -296,7 +314,7 @@ private extension LoginViewController {
     }
     
     func renderSignInWithGoogleButtonAndNewHereLabel() {
-        containerView.addSubview(signInWithGoogleButton)
+        scrollViewContainer.addSubview(signInWithGoogleButton)
         signInWithGoogleButton.snp.makeConstraints { (make) in
             make.top.equalTo(loginButton.snp.bottom).offset(50)
             make.left.equalToSuperview().offset(85)
@@ -309,7 +327,7 @@ private extension LoginViewController {
         signInWithGoogleButton.layer.cornerRadius = 15
         signInWithGoogleButton.titleEdgeInsets = UIEdgeInsets(top: 4, left: 7, bottom: 4, right: 7)
         
-        containerView.addSubview(newHereLabel)
+        scrollViewContainer.addSubview(newHereLabel)
         newHereLabel.snp.makeConstraints { (make) in
             make.top.equalTo(signInWithGoogleButton.snp.bottom).offset(32)
             make.centerX.equalToSuperview()
@@ -320,7 +338,7 @@ private extension LoginViewController {
     }
     
     func renderRegisterButton() {
-        containerView.addSubview(registerButton)
+        scrollViewContainer.addSubview(registerButton)
         registerButton.snp.makeConstraints { (make) in
             make.top.equalTo(newHereLabel.snp.bottom).offset(2)
             make.centerX.equalToSuperview()
@@ -344,7 +362,6 @@ extension LoginViewController: GIDSignInDelegate {
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
         if let error = error {
             print("ERROR: \(error.localizedDescription)")
-            self.showOneOptionAlert(title: "Alert", message: "\(error.localizedDescription)", actionTitle: "OK")
         } else {
             if let user = user {
                 googleUserSignInResponse.onNext(user)

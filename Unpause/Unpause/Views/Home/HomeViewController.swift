@@ -12,9 +12,6 @@ import GoogleMobileAds
 
 class HomeViewController: UIViewController {
     
-    // APP ID: ca-app-pub-7121408559206934~2083470498
-    // AD ID: ca-app-pub-7121408559206934/1397715417
-    
     private let disposeBag = DisposeBag()
     private let homeViewModel: HomeViewModelProtocol
     
@@ -131,7 +128,7 @@ class HomeViewController: UIViewController {
     }
     
     private func setUpBannerView() {
-        adBannerView.adUnitID = "ca-app-pub-7403434662864308/7025640132"
+        adBannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
         adBannerView.rootViewController = self
         adBannerView.load(GADRequest())
         adBannerView.delegate = self
