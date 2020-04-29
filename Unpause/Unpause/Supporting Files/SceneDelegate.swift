@@ -23,7 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.window = newWindow
             self.window?.makeKeyAndVisible()
             Coordinator.shared.start(newWindow)
-            LocationManager.shared.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+            LocationManager.shared.locationManager.desiredAccuracy = kCLLocationAccuracyBest
             LocationManager.shared.locationManager.pausesLocationUpdatesAutomatically = false
             LocationManager.shared.locationManager.requestAlwaysAuthorization()
             NotificationManager.shared.notificationCenter.requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
@@ -65,12 +65,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
-    }
-}
-
-@available(iOS 13.0, *)
-extension SceneDelegate: UNUserNotificationCenterDelegate {
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.alert, .sound])
     }
 }

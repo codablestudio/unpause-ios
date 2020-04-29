@@ -10,14 +10,15 @@ import UIKit
 import UserNotifications
 import CoreLocation
 
-class NotificationManager {
+class NotificationManager: NSObject {
     
     static var shared = NotificationManager()
     
     let notificationCenter = UNUserNotificationCenter.current()
     
-    private init() {
-        notificationCenter.delegate = self as? UNUserNotificationCenterDelegate
+    private override init() {
+        super.init()
+        notificationCenter.delegate = self
         registerCategories()
     }
     
@@ -33,6 +34,7 @@ class NotificationManager {
                                                                        longitude: longitude,
                                                                        notifyOnEntry: true,
                                                                        notifyOnExit: false)
+            
             let exitRequest = makeLocationBasedNotificationRequest(notificationBody: "You left job area.",
                                                                    latitude: latitude,
                                                                    longitude: longitude,
@@ -77,5 +79,11 @@ class NotificationManager {
         let category = UNNotificationCategory(identifier: "alarm", actions: [show], intentIdentifiers: [])
         
         notificationCenter.setNotificationCategories([category])
+    }
+}
+
+extension NotificationManager: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .sound])
     }
 }
