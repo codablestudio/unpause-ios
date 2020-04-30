@@ -218,7 +218,7 @@ class ActivityViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Send as email", style: .default, handler:{ [weak self] _ in
             guard let `self` = self else { return }
             if SessionManager.shared.currentUser?.company?.email == nil {
-                self.showTwoOptionsAlert(title: "Alert", message: "It looks like you didn`t add your company. Would you like too add it?", firstActionTitle: "Cancel", secondActionTitle: "Add")
+                self.showTwoOptionsAlert(title: "Alert", message: "It looks like you didn‘t add your company. Would you like too add it?", firstActionTitle: "Cancel", secondActionTitle: "Add")
             } else {
                 self.sendEmailWithExcelSheetToCompany()
             }

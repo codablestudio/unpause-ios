@@ -220,7 +220,6 @@ private extension AddCompanyViewController {
         companyPassCodeTextField.placeholder = "Enter company passcode"
         companyPassCodeTextField.autocorrectionType = .no
         companyPassCodeTextField.autocapitalizationType = .none
-        companyPassCodeTextField.isSecureTextEntry = true
         
         containerView.addSubview(companyPassCodeSeparator)
         companyPassCodeSeparator.snp.makeConstraints { (make) in
@@ -253,7 +252,7 @@ private extension AddCompanyViewController {
             make.right.equalToSuperview().inset(30)
             make.bottom.equalToSuperview()
         }
-        descriptionButton.setTitle("Please ask your manager for your company info or contact us at info@codable.studio for help.", for: .normal)
+        descriptionButton.setTitle("Please ask your manager for your company passcode or contact us at info@codable.studio for help.", for: .normal)
         descriptionButton.setTitleColor(.unpauseGray, for: .normal)
         descriptionButton.titleLabel?.numberOfLines = 0
         descriptionButton.titleLabel?.font = descriptionButton.titleLabel?.font.withSize(15)

@@ -29,6 +29,9 @@ class HomeViewController: UIViewController {
     private let lastNameLabel = UILabel()
     private let userLastNameLabel = UILabel()
     
+    private let companyLabel = UILabel()
+    private let userCompanyLabel = UILabel()
+    
     private let adBannerView = GADBannerView()
     
     let checkInButton = UIButton()
@@ -63,6 +66,7 @@ class HomeViewController: UIViewController {
         renderEmailLabelAndUserEmailLabel()
         renderFirstNameLabelAndUserFirstNameLabel()
         renderLastNameLabelAndUserLastNameLabel()
+        renderCompanyLabelAndUserCompanyLabel()
         renderCheckInButton()
         renderAdBannerView()
     }
@@ -143,6 +147,7 @@ class HomeViewController: UIViewController {
     private func displayFreshUserData() {
         userFirstNameLabel.text = SessionManager.shared.currentUser?.firstName
         userLastNameLabel.text = SessionManager.shared.currentUser?.lastName
+        userCompanyLabel.text = SessionManager.shared.currentUser?.company?.name
     }
 }
 
@@ -167,12 +172,11 @@ private extension HomeViewController {
         }
     }
     
-    
     func renderSignedInLabel() {
         containerView.addSubview(signedInLabel)
         
         signedInLabel.snp.makeConstraints { (make) in
-            make.topMargin.equalToSuperview().offset(UIScreen.main.bounds.height / 8)
+            make.topMargin.equalToSuperview().offset(UIScreen.main.bounds.height / 10)
             make.left.equalToSuperview().offset(40)
             make.right.equalToSuperview()
         }
@@ -237,10 +241,29 @@ private extension HomeViewController {
         userLastNameLabel.textColor = UIColor.unpauseLightGray
     }
     
+    func renderCompanyLabelAndUserCompanyLabel() {
+        containerView.addSubview(companyLabel)
+        companyLabel.snp.makeConstraints { make in
+            make.top.equalTo(lastNameLabel.snp.bottom).offset(20)
+            make.left.equalToSuperview().offset(40)
+        }
+        companyLabel.text = "Company:"
+        companyLabel.textColor = UIColor.unpauseLightGray
+        
+        containerView.addSubview(userCompanyLabel)
+        userCompanyLabel.snp.makeConstraints { make in
+            make.top.equalTo(lastNameLabel.snp.bottom).offset(20)
+            make.left.equalTo(companyLabel.snp.right).offset(7)
+            make.right.equalToSuperview()
+        }
+        userCompanyLabel.text = SessionManager.shared.currentUser?.company?.name ?? "No company"
+        userCompanyLabel.textColor = UIColor.unpauseLightGray
+    }
+    
     func renderCheckInButton() {
         containerView.addSubview(checkInButton)
         checkInButton.snp.makeConstraints { (make) in
-            make.top.equalTo(lastNameLabel.snp.bottom).offset(50)
+            make.top.equalTo(companyLabel.snp.bottom).offset(50)
             make.centerX.equalToSuperview()
             make.height.equalTo(140)
             make.width.equalTo(140)
