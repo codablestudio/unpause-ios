@@ -99,7 +99,7 @@ class AddCompanyViewController: UIViewController {
                     }
                 case .error(let error):
                     UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
-                    self.showOneOptionAlert(title: "Alert", message: "\(error.localizedDescription)", actionTitle: "OK")
+                    self.showOneOptionAlert(title: "Alert", message: "\(error.errorMessage)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)
         
@@ -256,6 +256,7 @@ private extension AddCompanyViewController {
         descriptionButton.setTitleColor(.unpauseGray, for: .normal)
         descriptionButton.titleLabel?.numberOfLines = 0
         descriptionButton.titleLabel?.font = descriptionButton.titleLabel?.font.withSize(15)
+        descriptionButton.titleLabel?.textAlignment = .center
     }
     
     func renderCloseButton() {

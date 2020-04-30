@@ -76,7 +76,7 @@ class CompanyNetworking: CompanyNetworkingProtocol {
                         .findCompanyWithNameAndPassCode(allCompaniesValidationData: allCompaniesValidationData,
                                                         companyPassCode: companyPassCode)
                         else {
-                            return Observable.just(DocumentReferenceFetchingResponse.error(UnpauseError.emptyError))
+                            return Observable.just(DocumentReferenceFetchingResponse.error(.wrongCompanyPasscodeError))
                     }
                     return Observable.just(DocumentReferenceFetchingResponse.success(companyReference))
                 case .error(let error):
@@ -84,18 +84,15 @@ class CompanyNetworking: CompanyNetworkingProtocol {
                 }
             })
             .flatMapLatest ({ [weak self] documentReferenceFetchingResponse -> Observable<DocumentReferenceFetchingResponse> in
-                guard let `self` = self else {
-                    return Observable.just(DocumentReferenceFetchingResponse.error(UnpauseError.emptyError))
-                }
+                guard let `self` = self else { return Observable.empty() }
                 switch documentReferenceFetchingResponse {
                 case .success(let companyDocumentReference):
                     guard let companyReference = companyDocumentReference else {
-                        return Observable.just(DocumentReferenceFetchingResponse.error(UnpauseError.emptyError))
+                        return Observable.just(DocumentReferenceFetchingResponse.error(.wrongCompanyPasscodeError))
                     }
                     self.privateCompanyReference = companyReference
                     return Observable.just(DocumentReferenceFetchingResponse.success(companyReference))
                 case .error(let error):
-                    print("ERROR: \(error.localizedDescription)")
                     return Observable.just(DocumentReferenceFetchingResponse.error(error))
                 }
             })
@@ -103,14 +100,14 @@ class CompanyNetworking: CompanyNetworkingProtocol {
                 switch documentReferenceFetchingResponse {
                 case .success(let documentReference):
                     guard let document = documentReference?.rx.getDocument() else {
-                        return Observable.just(FirebaseDocumentResponseObject.error(UnpauseError.fetchingCompanyReferenceError))
+                        return Observable.just(FirebaseDocumentResponseObject.error(.fetchingCompanyReferenceError))
                     }
                     return document
                         .flatMapLatest({ documentSnapshot -> Observable<FirebaseDocumentResponseObject> in
                             return Observable.just(FirebaseDocumentResponseObject.success(documentSnapshot))
                         })
-                case .error(_):
-                    return Observable.just(FirebaseDocumentResponseObject.error(UnpauseError.fetchingCompanyReferenceError))
+                case .error(let error):
+                    return Observable.just(FirebaseDocumentResponseObject.error(error))
                 }
             })
             .flatMapLatest ({ [weak self] firebaseDocumentResponseObject -> Observable<Response> in
@@ -121,7 +118,7 @@ class CompanyNetworking: CompanyNetworkingProtocol {
                         guard let newCompany = try CompanyFactory.createCompanyFromDocument(document: documentSnapshot),
                             let companyReference = self.privateCompanyReference,
                             let userEmail = userEmail else {
-                                return Observable.just(Response.error(UnpauseError.emptyError))
+                                return Observable.just(Response.error(.companyMakingError))
                         }
                         self.saveNewCompanyToCurrentUser(newCompany: newCompany)
                         return self.saveCompanyReferenceToUserOnServer(companyReference: companyReference, userEmail: userEmail)
@@ -142,12 +139,11 @@ class CompanyNetworking: CompanyNetworkingProtocol {
             .map ({ querySnapshot -> CompaniesValidationDataResponse in
                 do {
                     guard let companiesValidationData = try CompanyFactory.createCompaniesValidationData(from: querySnapshot.documents) else {
-                        return CompaniesValidationDataResponse.error(UnpauseError.emptyError)
+                        return CompaniesValidationDataResponse.error(.noCompaniesError)
                     }
                     return CompaniesValidationDataResponse.success(companiesValidationData)
                 } catch (let error) {
-                    print("ERROR: \(error.localizedDescription)")
-                    return CompaniesValidationDataResponse.error(error)
+                    return CompaniesValidationDataResponse.error(.otherError(error))
                 }
             })
     }
@@ -176,7 +172,8 @@ class CompanyNetworking: CompanyNetworkingProtocol {
                 companyReference = companyValidationData.companyReference
             }
         }
-        guard let companyDataBaseReference = companyReference else { return nil }
+        guard let companyDataBaseReference = companyReference,
+        !companyDataBaseReference.isEmpty else { return nil }
         return dataBaseReference.collection("companies").document("\(companyDataBaseReference)")
     }
     

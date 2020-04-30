@@ -10,5 +10,5 @@ import Foundation
 
 enum CompaniesValidationDataResponse {
     case success([CompanyValidationData])
-    case error(Error)
+    case error(UnpauseError)
 }
