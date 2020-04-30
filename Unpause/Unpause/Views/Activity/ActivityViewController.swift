@@ -69,7 +69,6 @@ class ActivityViewController: UIViewController {
         setUpTableView()
         setUpObservables()
         addBarButtonItem()
-        makeNavigationBarOpaque()
         activityStarted.onNext(())
     }
     
@@ -198,10 +197,6 @@ class ActivityViewController: UIViewController {
             guard let `self` = self else { return }
             self.showActionSheet()
         }).disposed(by: disposeBag)
-    }
-    
-    private func makeNavigationBarOpaque() {
-        navigationController?.navigationBar.isTranslucent = false
     }
     
     private func setUpDocumentInteractionController() {
