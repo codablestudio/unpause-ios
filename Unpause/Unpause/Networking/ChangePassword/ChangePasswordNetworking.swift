@@ -34,8 +34,8 @@ class ChangePasswordNetworking: ChangePasswordNetworkingProtocol {
         .flatMapLatest { _ -> Observable<Response> in
             return Observable.just(Response.success)
         }
-        .catchError { (error) -> Observable<Response> in
-            return Observable.just(Response.error(error))
+        .catchError { error -> Observable<Response> in
+            return Observable.just(Response.error(.otherError(error)))
         }
     }
 }

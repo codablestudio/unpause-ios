@@ -58,7 +58,7 @@ class LoginNetworking: LoginNetworkingProtocol {
                 return Observable.just(Response.success)
         }
         .catchError ({ error -> Observable<Response> in
-            return Observable.just(Response.error(error))
+            return Observable.just(Response.error(.otherError(error)))
         })
     }
 }

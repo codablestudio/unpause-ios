@@ -21,5 +21,5 @@ enum Response: Equatable {
     }
     
     case success
-    case error(Error)
+    case error(UnpauseError)
 }

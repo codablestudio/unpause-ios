@@ -126,7 +126,7 @@ class CompanyNetworking: CompanyNetworkingProtocol {
                         self.saveNewCompanyToCurrentUser(newCompany: newCompany)
                         return self.saveCompanyReferenceToUserOnServer(companyReference: companyReference, userEmail: userEmail)
                     } catch (let error) {
-                        return Observable.just(Response.error(error))
+                        return Observable.just(Response.error(.otherError(error)))
                     }
                 case .error(let error):
                     return Observable.just(Response.error(error))
@@ -164,7 +164,7 @@ class CompanyNetworking: CompanyNetworkingProtocol {
                 return Observable.just(Response.success)
             })
             .catchError ({ error -> Observable<Response> in
-                return Observable.just(Response.error(error))
+                return Observable.just(Response.error(.otherError(error)))
             })
     }
     
