@@ -22,7 +22,7 @@ class ChangePasswordNetworking: ChangePasswordNetworkingProtocol {
             let user = dataBaseReference.currentUser,
             !oldPassword.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
             !newPassword.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-                return Observable.just(Response.error(UnpauseError.emptyError))
+                return Observable.just(Response.error(.emptyTextFieldError))
         }
         
         let credential = EmailAuthProvider.credential(withEmail: email, password: oldPassword)
