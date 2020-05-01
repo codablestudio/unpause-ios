@@ -18,8 +18,6 @@ class AddShiftViewController: UIViewController {
     private let scrollView = UIScrollView()
     private let containerView = UIView()
     
-    private let titleSeparator = UIView()
-    
     private let youArrivedAtLabel = UILabel()
     private let arriveImageView = UIImageView()
     

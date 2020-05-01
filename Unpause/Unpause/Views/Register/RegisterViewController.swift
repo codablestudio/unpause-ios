@@ -19,9 +19,6 @@ class RegisterViewController: UIViewController {
     private let scrollView = UIScrollView()
     private let containerView = UIView()
     
-    private let registrationLabel = UILabel()
-    private let registrationSeparator = UIView()
-    
     private let firstNameTextField = UITextField()
     private let firstNameSeparator = UIView()
     
@@ -36,7 +33,7 @@ class RegisterViewController: UIViewController {
     
     private let registerButton = OrangeButton(title: "Register")
     
-    private let closeButton = UIButton()
+    private let closeButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: nil)
     
     init(registerViewModel: RegisterViewModelProtocol) {
         self.registerViewModel = registerViewModel
@@ -54,24 +51,24 @@ class RegisterViewController: UIViewController {
         addGestureRecognizer()
         setUpTextFields()
         setUpKeyboard()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        hideNavigationBar()
+        addBarButtonItem()
+        setUpViewControllerTitle()
     }
     
     private func render() {
         configureScrollViewAndContainerView()
-        renderRegistrationLabelAndRegistrationSeparator()
         renderFirstNameTextFieldAndFirstNameSeparator()
         renderLastNameTextFieldAndLastNameSeparator()
         renderEmailTextFieldAndEmailSeparator()
         renderNewPasswordTextFieldAndPasswordSeparator()
         renderRegisterButton()
-        renderCloseButton()
     }
     
     private func setUpObservables() {
+        closeButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            self?.dismiss(animated: true, completion: nil)
+        }).disposed(by: disposeBag)
+        
         firstNameTextField.rx.text.bind(to: registerViewModel.textInFirstNameTextFieldChanges)
             .disposed(by: disposeBag)
         
@@ -104,10 +101,6 @@ class RegisterViewController: UIViewController {
                     self.showOneOptionAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)
-        
-        closeButton.rx.tap.subscribe(onNext: { [weak self] _ in
-            self?.dismiss(animated: true, completion: nil)
-        }).disposed(by: disposeBag)
     }
     
     private func addGestureRecognizer() {
@@ -132,8 +125,12 @@ class RegisterViewController: UIViewController {
         }).disposed(by: disposeBag)
     }
     
-    private func hideNavigationBar() {
-        navigationController?.setNavigationBarHidden(true, animated: true)
+    private func addBarButtonItem() {
+        navigationItem.leftBarButtonItem = closeButton
+    }
+    
+    private func setUpViewControllerTitle() {
+        self.title = "Registration"
     }
 }
 
@@ -157,30 +154,10 @@ private extension RegisterViewController {
         }
     }
     
-    func renderRegistrationLabelAndRegistrationSeparator() {
-        containerView.addSubview(registrationLabel)
-        registrationLabel.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(40)
-            make.centerX.equalToSuperview()
-        }
-        registrationLabel.text = "Registration"
-        registrationLabel.textColor = UIColor.unpauseOrange
-        registrationLabel.font = UIFont.boldSystemFont(ofSize: 25)
-        
-        containerView.addSubview(registrationSeparator)
-        registrationSeparator.snp.makeConstraints { (make) in
-            make.top.equalTo(registrationLabel.snp.bottom).offset(30)
-            make.left.equalToSuperview().offset(30)
-            make.right.equalToSuperview().inset(30)
-            make.height.equalTo(1)
-        }
-        registrationSeparator.backgroundColor = UIColor.unpauseOrange
-    }
-    
     func renderFirstNameTextFieldAndFirstNameSeparator() {
         containerView.addSubview(firstNameTextField)
         firstNameTextField.snp.makeConstraints { (make) in
-            make.top.equalTo(registrationSeparator.snp.bottom).offset(80)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(80)
             make.left.equalToSuperview().offset(50)
             make.right.equalToSuperview().inset(50)
         }
@@ -276,14 +253,5 @@ private extension RegisterViewController {
             
         }
         registerButton.layer.cornerRadius = 25
-    }
-    
-    func renderCloseButton() {
-        containerView.addSubview(closeButton)
-        closeButton.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(25)
-            make.left.equalToSuperview().offset(15)
-        }
-        closeButton.setImage(UIImage(named: "close_25x25"), for: .normal)
     }
 }

@@ -18,9 +18,6 @@ class AddCompanyViewController: UIViewController {
     private let scrollView = UIScrollView()
     private let containerView = UIView()
     
-    private let addCompanyLabel = UILabel()
-    private let addCompanySeparator = UIView()
-    
     private let descriptionButton = UIButton()
     
     private let companyNameTextField = UITextField()
@@ -33,10 +30,13 @@ class AddCompanyViewController: UIViewController {
     
     private let skipButton = UIBarButtonItem(title: "Skip", style: .plain, target: self, action: nil)
     
-    private let closeButton = UIButton()
+    private let closeButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: nil)
     
-    init(addCompanyViewModel: AddCompanyViewModelProtocol) {
+    var navigationFromRegisterViewController: Bool
+    
+    init(addCompanyViewModel: AddCompanyViewModelProtocol, navigationFromRegisterViewController: Bool) {
         self.addCompanyViewModel = addCompanyViewModel
+        self.navigationFromRegisterViewController = navigationFromRegisterViewController
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -53,23 +53,31 @@ class AddCompanyViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        showNavigationBar()
         showTitleInNavigationBar()
         hideBackButton()
-        configureCloseButtonVisibility()
-        configureTitleVisibility()
+        configureBackbuttonVisibility()
     }
     
     private func render() {
         configureScrollViewAndContainerView()
-        renderAddingCompanyLabelAndAddingCompanySeparator()
         renderCompanyPasscodeTextFieldAndSeparator()
         renderAddCompanyButton()
         renderDescriptionLabel()
-        renderCloseButton()
     }
     
     private func setUpObservables() {
+        closeButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else { return }
+            self.dismiss(animated: true)
+        }).disposed(by: disposeBag)
+        
+        skipButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else { return }
+            self.dismiss(animated: true) {
+                Coordinator.shared.navigateToHomeViewController()
+            }
+        }).disposed(by: disposeBag)
+        
         companyNameTextField.rx.text
             .bind(to: addCompanyViewModel.textInCompanyNameTextFieldChanges)
             .disposed(by: disposeBag)
@@ -93,7 +101,7 @@ class AddCompanyViewController: UIViewController {
                 case .success:
                     UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
                     self.dismiss(animated: true) {
-                        if self.navigationController != nil {
+                        if self.navigationFromRegisterViewController {
                             Coordinator.shared.navigateToHomeViewController()
                         }
                     }
@@ -114,22 +122,14 @@ class AddCompanyViewController: UIViewController {
                 self.showOneOptionAlert(title: "Alert", message: "Can not send email.", actionTitle: "OK")
             }
         }).disposed(by: disposeBag)
-        
-        closeButton.rx.tap.subscribe(onNext: { [weak self] _ in
-            guard let `self` = self else { return }
-            self.dismiss(animated: true)
-        }).disposed(by: disposeBag)
-        
-        skipButton.rx.tap.subscribe(onNext: { [weak self] _ in
-            guard let `self` = self else { return }
-            self.dismiss(animated: true) {
-                Coordinator.shared.navigateToHomeViewController()
-            }
-        }).disposed(by: disposeBag)
     }
     
     private func addBarButtonItem() {
-        navigationItem.rightBarButtonItem = skipButton
+        if navigationFromRegisterViewController {
+            navigationItem.rightBarButtonItem = skipButton
+        } else {
+            navigationItem.leftBarButtonItem = closeButton
+        }
     }
     
     private func addGestureRecognizer() {
@@ -139,28 +139,12 @@ class AddCompanyViewController: UIViewController {
         }).disposed(by: disposeBag)
     }
     
-    private func configureCloseButtonVisibility() {
-        if self.navigationController != nil {
-            closeButton.isHidden = true
+    private func configureBackbuttonVisibility() {
+        if navigationFromRegisterViewController {
+            hideBackButton()
         }
     }
-    
-    private func configureTitleVisibility() {
-        if self.navigationController != nil {
-            addCompanyLabel.isHidden = true
-            addCompanySeparator.isHidden = true
-            companyPassCodeTextField.snp.makeConstraints { make in
-                make.top.equalToSuperview().offset(100)
-                make.left.equalToSuperview().offset(50)
-                make.right.equalToSuperview().inset(50)
-            }
-        }
-    }
-    
-    private func showNavigationBar() {
-        navigationController?.setNavigationBarHidden(false, animated: true)
-    }
-    
+
     private func showTitleInNavigationBar() {
         self.title = "Connect company"
     }
@@ -190,30 +174,10 @@ private extension AddCompanyViewController {
         }
     }
     
-    func renderAddingCompanyLabelAndAddingCompanySeparator() {
-        containerView.addSubview(addCompanyLabel)
-        addCompanyLabel.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(40)
-            make.centerX.equalToSuperview()
-        }
-        addCompanyLabel.text = "Add company"
-        addCompanyLabel.textColor = UIColor.unpauseOrange
-        addCompanyLabel.font = UIFont.boldSystemFont(ofSize: 25)
-        
-        containerView.addSubview(addCompanySeparator)
-        addCompanySeparator.snp.makeConstraints { (make) in
-            make.top.equalTo(addCompanyLabel.snp.bottom).offset(30)
-            make.left.equalToSuperview().offset(30)
-            make.right.equalToSuperview().inset(30)
-            make.height.equalTo(1)
-        }
-        addCompanySeparator.backgroundColor = UIColor.unpauseOrange
-    }
-    
     func renderCompanyPasscodeTextFieldAndSeparator() {
         containerView.addSubview(companyPassCodeTextField)
         companyPassCodeTextField.snp.makeConstraints { (make) in
-            make.top.equalTo(addCompanySeparator.snp.bottom).offset(80)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(80)
             make.left.equalToSuperview().offset(50)
             make.right.equalToSuperview().inset(50)
         }
@@ -257,15 +221,6 @@ private extension AddCompanyViewController {
         descriptionButton.titleLabel?.numberOfLines = 0
         descriptionButton.titleLabel?.font = descriptionButton.titleLabel?.font.withSize(15)
         descriptionButton.titleLabel?.textAlignment = .center
-    }
-    
-    func renderCloseButton() {
-        view.addSubview(closeButton)
-        closeButton.snp.makeConstraints { (make) in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(25)
-            make.left.equalToSuperview().offset(15)
-        }
-        closeButton.setImage(UIImage(named: "close_25x25"), for: .normal)
     }
 }
 

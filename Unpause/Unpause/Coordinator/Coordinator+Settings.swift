@@ -14,21 +14,25 @@ extension Coordinator {
         let updatePersonalInfoNetworking = UpdatePersonalInfoNetworking()
         let updatePersonalInfoViewModel = UpdatePersonalInfoViewModel(updatePersonalInfoNetworking: updatePersonalInfoNetworking)
         let updatePersonalInfoViewController = UpdatePersonalInfoViewController(updatePersonalInfoViewModel: updatePersonalInfoViewModel)
-        viewController.present(updatePersonalInfoViewController, animated: true)
+        let navigationController = UINavigationController(rootViewController: updatePersonalInfoViewController)
+        viewController.present(navigationController, animated: true)
     }
     
     func presentChangePasswordViewController(from viewController: UIViewController) {
         let changePasswordNetworking = ChangePasswordNetworking()
         let changePasswordViewModel = ChangePasswordViewModel(changePasswordNetworking: changePasswordNetworking)
         let changePasswordViewController = ChangePasswordViewController(changePasswordViewModel: changePasswordViewModel)
-        viewController.present(changePasswordViewController, animated: true)
+        let navigationController = UINavigationController(rootViewController: changePasswordViewController)
+        viewController.present(navigationController, animated: true)
     }
     
     func presentAddCompanyViewController(from viewController: UIViewController) {
         let companyNetworking = CompanyNetworking()
         let addCompanyViewModel = AddCompanyViewModel(companyNetworking: companyNetworking,
                                                       registeredUserEmail: SessionManager.shared.currentUser?.email)
-        let addCompanyViewController = AddCompanyViewController(addCompanyViewModel: addCompanyViewModel)
-        viewController.present(addCompanyViewController, animated: true)
+        let addCompanyViewController = AddCompanyViewController(addCompanyViewModel: addCompanyViewModel,
+                                                                navigationFromRegisterViewController: false)
+        let navigationController = UINavigationController(rootViewController: addCompanyViewController)
+        viewController.present(navigationController, animated: true)
     }
 }
