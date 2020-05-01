@@ -163,7 +163,7 @@ private extension DescriptionViewController {
         containerView.addSubview(whatDidYouWorkOnLabel)
         
         whatDidYouWorkOnLabel.snp.makeConstraints { (make) in
-            make.topMargin.equalToSuperview().offset(50)
+            make.topMargin.equalToSuperview().offset(30)
             make.left.equalToSuperview().offset(15)
             make.right.equalToSuperview().inset(15)
         }

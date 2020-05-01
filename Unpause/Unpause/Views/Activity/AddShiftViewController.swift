@@ -40,8 +40,6 @@ class AddShiftViewController: UIViewController {
     private let cancleButton = OrangeButton(title: "Cancel")
     private let continueButton = OrangeButton(title: "Continue")
     
-    private let closeButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: nil)
-    
     private let arrivalDatePicker = UIDatePicker()
     private let arrivalTimePicker = UIDatePicker()
     private let leavingDatePicker = UIDatePicker()
@@ -78,7 +76,6 @@ class AddShiftViewController: UIViewController {
         setUpObservables()
         setUpArrivalAndLeavingDateAndTimePickerInitalValue()
         addGestureRecognizer()
-        addBarButtonItem()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -153,7 +150,6 @@ class AddShiftViewController: UIViewController {
     
     private func render() {
         configureScrollViewAndContainerView()
-        renderTitleSeparator()
         renderArrivedAtLabelAndArriveImageView()
         renderArrivalPickersAndLabelsForDateAndTime()
         renderLeavingAtLabelAndLeavingImageView()
@@ -172,10 +168,6 @@ class AddShiftViewController: UIViewController {
     
     private func setUpObservables() {
         cancleButton.rx.tap.subscribe(onNext: { _ in
-            self.dismiss(animated: true)
-        }).disposed(by: disposeBag)
-        
-        closeButton.rx.tap.subscribe(onNext: { _ in
             self.dismiss(animated: true)
         }).disposed(by: disposeBag)
         
@@ -485,16 +477,6 @@ class AddShiftViewController: UIViewController {
     
     private func setUpViewControllerTitle() {
         self.title = "Adding shift"
-        navigationController?.navigationBar.prefersLargeTitles = true
-    }
-    
-    private func addBarButtonItem() {
-        navigationItem.rightBarButtonItem = closeButton
-        
-        closeButton.rx.tap.subscribe(onNext: { [weak self] _ in
-            guard let `self` = self else { return }
-            self.dismiss(animated: true)
-        }).disposed(by: disposeBag)
     }
 }
 
@@ -518,21 +500,10 @@ private extension AddShiftViewController {
         }
     }
     
-    func renderTitleSeparator() {
-        containerView.addSubview(titleSeparator)
-        titleSeparator.snp.makeConstraints { (make) in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(10)
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
-            make.height.equalTo(1)
-        }
-        titleSeparator.backgroundColor = UIColor.unpauseOrange
-    }
-    
     func renderArrivedAtLabelAndArriveImageView() {
         containerView.addSubview(youArrivedAtLabel)
         youArrivedAtLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(titleSeparator.snp.top).offset(35)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(30)
             make.left.equalToSuperview().offset(15)
         }
         youArrivedAtLabel.text = "You arrived at:"
@@ -605,8 +576,8 @@ private extension AddShiftViewController {
         containerView.addSubview(separator)
         separator.snp.makeConstraints { (make) in
             make.top.equalTo(leavingTimeTextField.snp.bottom).offset(35)
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
+            make.left.equalToSuperview().offset(30)
+            make.right.equalToSuperview().inset(30)
             make.height.equalTo(1)
         }
         separator.backgroundColor = UIColor.unpauseOrange
