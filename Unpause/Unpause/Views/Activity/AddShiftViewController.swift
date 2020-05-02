@@ -474,7 +474,11 @@ class AddShiftViewController: UIViewController {
     }
     
     private func setUpViewControllerTitle() {
-        self.title = "Adding shift"
+        if navigationFromTableView {
+            self.title = "Editing shift"
+        } else {
+            self.title = "Adding shift"
+        }
     }
 }
 

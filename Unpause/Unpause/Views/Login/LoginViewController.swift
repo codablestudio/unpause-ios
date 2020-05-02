@@ -277,7 +277,7 @@ private extension LoginViewController {
         passwordTextField.isSecureTextEntry = true
         passwordTextField.autocapitalizationType = .none
         passwordTextField.autocorrectionType = .no
-        passwordTextField.returnKeyType = .go
+        passwordTextField.returnKeyType = .done
         passwordTextField.textContentType = .password
         
         scrollViewContainer.addSubview(passwordSeparator)

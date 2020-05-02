@@ -89,6 +89,7 @@ class AddCompanyViewController: UIViewController {
         addCompanyButton.rx.tap
             .do(onNext: { [weak self] _ in
                 guard let `self` = self else { return }
+                self.dismissKeyboard()
                 UnpauseActivityIndicatorView.shared.show(on: self.view)
             })
             .bind(to: addCompanyViewModel.addCompanyButtonTapped)
@@ -184,6 +185,7 @@ private extension AddCompanyViewController {
         companyPassCodeTextField.placeholder = "Enter company passcode"
         companyPassCodeTextField.autocorrectionType = .no
         companyPassCodeTextField.autocapitalizationType = .none
+        companyPassCodeTextField.returnKeyType = .done
         
         containerView.addSubview(companyPassCodeSeparator)
         companyPassCodeSeparator.snp.makeConstraints { (make) in

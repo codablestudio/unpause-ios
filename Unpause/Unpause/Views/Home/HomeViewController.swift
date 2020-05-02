@@ -145,9 +145,9 @@ class HomeViewController: UIViewController {
     }
     
     private func displayFreshUserData() {
-        userFirstNameLabel.text = SessionManager.shared.currentUser?.firstName
-        userLastNameLabel.text = SessionManager.shared.currentUser?.lastName
-        userCompanyLabel.text = SessionManager.shared.currentUser?.company?.name
+        userFirstNameLabel.text = SessionManager.shared.currentUser?.firstName ?? "No first name"
+        userLastNameLabel.text = SessionManager.shared.currentUser?.lastName ?? "No last name"
+        userCompanyLabel.text = SessionManager.shared.currentUser?.company?.name ?? "No company"
     }
 }
 

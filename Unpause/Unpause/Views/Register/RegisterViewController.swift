@@ -84,6 +84,7 @@ class RegisterViewController: UIViewController {
         registerButton.rx.tap
             .do(onNext: { [weak self] _ in
                 guard let `self` = self else { return }
+                self.dismissKeyboard()
                 UnpauseActivityIndicatorView.shared.show(on: self.view)
             })
             .bind(to: registerViewModel.registerButtonTapped)

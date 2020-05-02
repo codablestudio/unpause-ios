@@ -107,6 +107,7 @@ class DescriptionViewController: UIViewController {
             saveButton.rx.tap
                 .do(onNext: { [weak self] _ in
                     guard let `self` = self else { return }
+                    self.dismissKeyboard()
                     UnpauseActivityIndicatorView.shared.show(on: self.view)
                 })
                 .bind(to: descriptionViewModel.saveButtonFromTableViewTapped)
@@ -115,6 +116,7 @@ class DescriptionViewController: UIViewController {
             saveButton.rx.tap
                 .do(onNext: { [weak self] _ in
                     guard let `self` = self else { return }
+                    self.dismissKeyboard()
                     UnpauseActivityIndicatorView.shared.show(on: self.view)
                 })
                 .bind(to: descriptionViewModel.saveButtonTapped)
@@ -184,6 +186,7 @@ private extension DescriptionViewController {
         descriptionTextView.font = .systemFont(ofSize: 18)
         descriptionTextView.autocorrectionType = .no
         descriptionTextView.autocapitalizationType = .sentences
+        descriptionTextView.returnKeyType = .default
     }
     
     func renderCancelAndSaveButton() {

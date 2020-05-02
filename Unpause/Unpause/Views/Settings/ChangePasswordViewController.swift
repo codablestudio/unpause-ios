@@ -70,6 +70,7 @@ class ChangePasswordViewController: UIViewController {
         changePasswordButton.rx.tap
             .do(onNext: { [weak self] _ in
                 guard let `self` = self else { return }
+                self.dismissKeyboard()
                 UnpauseActivityIndicatorView.shared.show(on: self.view)
             })
             .bind(to: changePasswordViewModel.changePasswordButtonTapped)
@@ -142,6 +143,7 @@ private extension ChangePasswordViewController {
         currentPasswordTextField.autocorrectionType = .no
         currentPasswordTextField.autocapitalizationType = .none
         currentPasswordTextField.isSecureTextEntry = true
+        currentPasswordTextField.returnKeyType = .next
         
         containerView.addSubview(currentPasswordSeparator)
         currentPasswordSeparator.snp.makeConstraints { (make) in
@@ -164,6 +166,7 @@ private extension ChangePasswordViewController {
         newPasswordTextField.autocorrectionType = .no
         newPasswordTextField.autocapitalizationType = .none
         newPasswordTextField.isSecureTextEntry = true
+        newPasswordTextField.returnKeyType = .done
         
         containerView.addSubview(newPasswordSeparator)
         newPasswordSeparator.snp.makeConstraints { (make) in

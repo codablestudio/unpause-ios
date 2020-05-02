@@ -61,6 +61,7 @@ class ForgotPasswordViewController: UIViewController {
         sendRecoveryEmailButton.rx.tap
             .do(onNext: { [weak self] _ in
                 guard let `self` = self else { return }
+                self.dismissKeyboard()
                 UnpauseActivityIndicatorView.shared.show(on: self.view)
             })
             .bind(to: forgotPasswordViewModel.sendRecoveryEmailButtonTapped)
@@ -128,6 +129,7 @@ private extension ForgotPasswordViewController {
         emailTextField.autocorrectionType = .no
         emailTextField.autocapitalizationType = .none
         emailTextField.keyboardType = .emailAddress
+        emailTextField.returnKeyType = .done
         
         containerView.addSubview(emailSeparator)
         emailSeparator.snp.makeConstraints { (make) in

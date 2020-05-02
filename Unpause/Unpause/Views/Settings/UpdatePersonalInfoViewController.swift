@@ -72,6 +72,7 @@ class UpdatePersonalInfoViewController: UIViewController {
         updateInfoButton.rx.tap
             .do(onNext: { [weak self] _ in
                 guard let `self` = self else { return }
+                self.dismissKeyboard()
                 UnpauseActivityIndicatorView.shared.show(on: self.view)
             })
             .bind(to: updatePersonalInfoViewModel.updateInfoButtonTapped)
@@ -142,6 +143,7 @@ private extension UpdatePersonalInfoViewController {
         newFirstNameTextField.placeholder = "Enter new first name"
         newFirstNameTextField.autocorrectionType = .no
         newFirstNameTextField.autocapitalizationType = .words
+        newFirstNameTextField.returnKeyType = .next
         newFirstNameTextField.text = SessionManager.shared.currentUser?.firstName
         
         containerView.addSubview(newFirstNameSeparator)
@@ -164,6 +166,7 @@ private extension UpdatePersonalInfoViewController {
         newLastNameTextField.placeholder = "Enter new last name"
         newLastNameTextField.autocorrectionType = .no
         newLastNameTextField.autocapitalizationType = .words
+        newLastNameTextField.returnKeyType = .done
         newLastNameTextField.text = SessionManager.shared.currentUser?.lastName
         
         containerView.addSubview(newLastNameSeparator)

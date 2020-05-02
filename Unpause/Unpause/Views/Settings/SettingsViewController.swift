@@ -13,8 +13,6 @@ import GoogleMobileAds
 
 class SettingsViewController: UIViewController {
     
-    //AD ID: ca-app-pub-7121408559206934/4714337412
-    
     private let disposeBag = DisposeBag()
     private let settingsViewModel: SettingsViewModelProtocol
     
