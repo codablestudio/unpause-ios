@@ -29,7 +29,6 @@
 		C10F78E723A3D79200783476 /* UIButton+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10F78D423A3D79200783476 /* UIButton+Rx.swift */; };
 		C10F78E823A3D79200783476 /* CGFloat+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10F78D523A3D79200783476 /* CGFloat+Extension.swift */; };
 		C10F78E923A3D79200783476 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10F78D623A3D79200783476 /* Array+Extension.swift */; };
-		C10F78EB23A3DD9A00783476 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10F78EA23A3DD9A00783476 /* SceneDelegate.swift */; };
 		C110AE2823C34E420066C394 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C110AE2723C34E420066C394 /* ChangePasswordViewController.swift */; };
 		C110AE2A23C34E770066C394 /* ChangePasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C110AE2923C34E770066C394 /* ChangePasswordViewModel.swift */; };
 		C111931F23CF523D007E2866 /* Coordinator+Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = C111931E23CF523D007E2866 /* Coordinator+Home.swift */; };
@@ -188,7 +187,6 @@
 		C10F78D423A3D79200783476 /* UIButton+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Rx.swift"; sourceTree = "<group>"; };
 		C10F78D523A3D79200783476 /* CGFloat+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extension.swift"; sourceTree = "<group>"; };
 		C10F78D623A3D79200783476 /* Array+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
-		C10F78EA23A3DD9A00783476 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		C110AE2723C34E420066C394 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		C110AE2923C34E770066C394 /* ChangePasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewModel.swift; sourceTree = "<group>"; };
 		C111931E23CF523D007E2866 /* Coordinator+Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinator+Home.swift"; sourceTree = "<group>"; };
@@ -543,7 +541,6 @@
 			isa = PBXGroup;
 			children = (
 				C146991123A112F100A84818 /* AppDelegate.swift */,
-				C10F78EA23A3DD9A00783476 /* SceneDelegate.swift */,
 				C146991C23A112F200A84818 /* LaunchScreen.storyboard */,
 				C102D7B923ACCFB4000B9E80 /* Colors.xcassets */,
 				C146991A23A112F200A84818 /* Assets.xcassets */,
@@ -1255,7 +1252,6 @@
 				C17E89272434E5EA00575A7F /* ChangePasswordNetworkingProtocol.swift in Sources */,
 				C17E892F2434E8F900575A7F /* ForgotPasswordViewModelProtocol.swift in Sources */,
 				C10F78D923A3D79200783476 /* UIFont+Extension.swift in Sources */,
-				C10F78EB23A3DD9A00783476 /* SceneDelegate.swift in Sources */,
 				C111931F23CF523D007E2866 /* Coordinator+Home.swift in Sources */,
 				C10F78E823A3D79200783476 /* CGFloat+Extension.swift in Sources */,
 				C17E89362434ED7600575A7F /* DescriptionViewModelProtocol.swift in Sources */,
