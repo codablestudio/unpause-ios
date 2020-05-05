@@ -104,20 +104,21 @@ class HomeViewController: UIViewController {
             }).disposed(by: disposeBag)
         
         homeViewModel.checkInResponse
-            .subscribe(onNext: { [weak self] (response) in
+            .subscribe(onNext: { [weak self] response in
                 guard let `self` = self else { return }
                 switch response {
                 case .success:
                     print("User successfully checked in.")
+                    NotificationManager.shared.scheduleExitNotification()
                     ActivityViewModel.forceRefresh.onNext(())
                 case .error(let error):
                     print("Error occured: \(error)")
-                    self.showOneOptionAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
+                    self.showOneOptionAlert(title: "Error", message: "\(error.errorMessage)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)
         
         homeViewModel.usersLastCheckInTimeRequest
-            .subscribe(onNext: { [weak self] (lastCheckInResponse) in
+            .subscribe(onNext: { [weak self] lastCheckInResponse in
                 guard let `self` = self else { return }
                 switch lastCheckInResponse {
                 case .success(let lastCheckInDate):
@@ -138,7 +139,7 @@ class HomeViewController: UIViewController {
     }
     
     private func setUpBannerView() {
-        adBannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        adBannerView.adUnitID = "ca-app-pub-7403434662864308/7025640132"
         adBannerView.rootViewController = self
         adBannerView.load(GADRequest())
         adBannerView.delegate = self

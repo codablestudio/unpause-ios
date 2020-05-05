@@ -520,8 +520,6 @@
 		C146991023A112F100A84818 /* Unpause */ = {
 			isa = PBXGroup;
 			children = (
-				C11943842459A6E1006BC8FE /* UnpauseRelease.entitlements */,
-				C13F6B33244B1B87009EA1B9 /* Unpause.entitlements */,
 				C1C1D2DA24373781000BC698 /* GPX Files */,
 				C13105E823B0B4E600A509D9 /* Services */,
 				C146992A23A1181300A84818 /* Networking */,
@@ -531,6 +529,8 @@
 				C146992723A117B400A84818 /* Views */,
 				C146992523A1132800A84818 /* Supporting Files */,
 				C10F78C023A3D79200783476 /* Library */,
+				C13F6B33244B1B87009EA1B9 /* Unpause.entitlements */,
+				C11943842459A6E1006BC8FE /* UnpauseRelease.entitlements */,
 				C1480A5F23A7672D00437772 /* GoogleService-Info.plist */,
 				C1C210AE240913E7002B5ACA /* Info.plist */,
 			);

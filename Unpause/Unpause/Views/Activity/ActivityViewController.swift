@@ -227,7 +227,7 @@ class ActivityViewController: UIViewController {
                 self.documentController.url = url
                 self.documentController.presentPreview(animated: true)
             case .error(let error):
-                self.showOneOptionAlert(title: "Alert", message: "\(error.localizedDescription)", actionTitle: "OK")
+                self.showOneOptionAlert(title: "Alert", message: "\(error.errorMessage)", actionTitle: "OK")
             }
         }))
         
@@ -253,7 +253,7 @@ class ActivityViewController: UIViewController {
             case .success(let data):
                 mail.addAttachmentData(data, mimeType: "text/csv", fileName: "\(currentUserFirstName) \(currentuserLastName)")
             case .error(let error):
-                self.showOneOptionAlert(title: "Alert", message: error.localizedDescription, actionTitle: "OK")
+                self.showOneOptionAlert(title: "Alert", message: error.errorMessage, actionTitle: "OK")
             }
             self.present(mail, animated: true)
         } else {

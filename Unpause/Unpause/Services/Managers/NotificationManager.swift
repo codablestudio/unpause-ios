@@ -25,7 +25,7 @@ class NotificationManager: NSObject {
         registerCategories()
     }
     
-    func scheduleNotification() {
+    func scheduleEntranceNotification() {
         notificationCenter.removeAllPendingNotificationRequests()
         guard let allUsersCompanyLocations = SessionManager.shared.currentUser?.company?.locations else { return }
         for location in allUsersCompanyLocations {
@@ -38,19 +38,22 @@ class NotificationManager: NSObject {
                                                                        notifyOnEntry: true,
                                                                        notifyOnExit: false)
             
+            notificationCenter.add(entranceRequest, withCompletionHandler: nil)
+        }
+    }
+    
+    func scheduleExitNotification() {
+        notificationCenter.removeAllPendingNotificationRequests()
+        guard let allUsersCompanyLocations = SessionManager.shared.currentUser?.company?.locations else { return }
+        for location in allUsersCompanyLocations {
+            let latitude = location.latitude
+            let longitude = location.longitude
+            
             let exitRequest = makeLocationBasedNotificationRequest(notificationBody: "You left job area.",
                                                                    latitude: latitude,
                                                                    longitude: longitude,
                                                                    notifyOnEntry: false,
                                                                    notifyOnExit: true)
-            notificationCenter.add(entranceRequest) { (error) in
-                DispatchQueue.main.async {
-                    guard let error = error else {
-                        return
-                    }
-                    print("\(error)")
-                }
-            }
             notificationCenter.add(exitRequest, withCompletionHandler: nil)
         }
     }
@@ -90,24 +93,21 @@ class NotificationManager: NSObject {
     
     func registerCategories() {
         let entranceAction = UNNotificationAction(identifier: "entranceAction", title: "Check in", options: .destructive)
-        let category = UNNotificationCategory(identifier: "entrance", actions: [entranceAction], intentIdentifiers: [])
+        let entranceCategory = UNNotificationCategory(identifier: "entrance", actions: [entranceAction], intentIdentifiers: [])
+        let exitCategory = UNNotificationCategory(identifier: "exit", actions: [], intentIdentifiers: [])
         
-        notificationCenter.setNotificationCategories([category])
+        notificationCenter.setNotificationCategories([entranceCategory, exitCategory])
     }
 }
 
 extension NotificationManager: UNUserNotificationCenterDelegate {
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.alert, .sound])
-    }
-    
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         let identifier = response.actionIdentifier
-        
-        if identifier == "entranceAction" {
+
+        if identifier == "entranceAction" && SessionManager.shared.currentUser?.lastCheckInDateAndTime == nil {
             SessionManager.shared.currentUser?.lastCheckInDateAndTime = Date()
             userChecksIn.onNext(())
+            completionHandler()
         }
-        completionHandler()
     }
 }

@@ -29,6 +29,7 @@ enum UnpauseError: Error, Equatable {
     case emptyTextFieldError
     case noCompaniesError
     case wrongCompanyPasscodeError
+    case noShiftsCSVError
     case otherError(Error)
     
     var errorMessage: String {
@@ -65,6 +66,8 @@ enum UnpauseError: Error, Equatable {
             return "There are no companies to fetch."
         case .wrongCompanyPasscodeError:
             return "There is no commpany for that passcode. Please check your passcode and try again."
+        case .noShiftsCSVError:
+            return "Unable to make CSV file from empty table view list."
         case .otherError(let error):
             return "\(error.localizedDescription)"
         }
