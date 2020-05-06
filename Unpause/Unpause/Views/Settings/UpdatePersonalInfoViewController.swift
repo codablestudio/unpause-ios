@@ -136,7 +136,7 @@ private extension UpdatePersonalInfoViewController {
     func renderNewFirstNameTextFieldAndNewFirstNameSeparator() {
         containerView.addSubview(newFirstNameTextField)
         newFirstNameTextField.snp.makeConstraints { (make) in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(80)
+            make.top.equalToSuperview().offset(80)
             make.left.equalToSuperview().offset(35)
             make.right.equalToSuperview().inset(35)
         }

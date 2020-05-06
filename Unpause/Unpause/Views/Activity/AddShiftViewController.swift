@@ -505,7 +505,7 @@ private extension AddShiftViewController {
     func renderArrivedAtLabelAndArriveImageView() {
         containerView.addSubview(youArrivedAtLabel)
         youArrivedAtLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(30)
+            make.top.equalToSuperview().offset(30)
             make.left.equalToSuperview().offset(15)
         }
         youArrivedAtLabel.text = "You arrived at:"
