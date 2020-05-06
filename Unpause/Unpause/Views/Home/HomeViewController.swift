@@ -109,10 +109,10 @@ class HomeViewController: UIViewController {
                 switch response {
                 case .success:
                     print("User successfully checked in.")
+                    NotificationManager.shared.notificationCenter.removePendingNotificationRequests(withIdentifiers: ["notifyOnEntry"])
                     NotificationManager.shared.scheduleExitNotification()
                     ActivityViewModel.forceRefresh.onNext(())
                 case .error(let error):
-                    print("Error occured: \(error)")
                     self.showOneOptionAlert(title: "Error", message: "\(error.errorMessage)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)
@@ -124,8 +124,12 @@ class HomeViewController: UIViewController {
                 case .success(let lastCheckInDate):
                     SessionManager.shared.currentUser?.lastCheckInDateAndTime = lastCheckInDate
                     if lastCheckInDate != nil {
+                        NotificationManager.shared.notificationCenter.removePendingNotificationRequests(withIdentifiers: ["notifyOnEntry"])
+                        NotificationManager.shared.scheduleExitNotification()
                         self.checkInButton.setTitle("Check out", for: .normal)
                     } else {
+                        NotificationManager.shared.notificationCenter.removePendingNotificationRequests(withIdentifiers: ["notifyOnExit"])
+                        NotificationManager.shared.scheduleEntranceNotification()
                         self.checkInButton.setTitle("Check in", for: .normal)
                     }
                 case .error(let error):

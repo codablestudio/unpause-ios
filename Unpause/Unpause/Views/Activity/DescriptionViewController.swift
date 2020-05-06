@@ -78,6 +78,8 @@ class DescriptionViewController: UIViewController {
                 guard let `self` = self else { return }
                 switch response {
                 case .success:
+                    NotificationManager.shared.notificationCenter.removePendingNotificationRequests(withIdentifiers: ["notifyOnExit"])
+                    NotificationManager.shared.scheduleEntranceNotification()
                     UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
                     ActivityViewModel.forceRefresh.onNext(())
                     self.dismiss(animated: true)

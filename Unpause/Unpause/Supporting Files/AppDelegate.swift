@@ -36,7 +36,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         LocationManager.shared.locationManager.startUpdatingLocation()
-        //NotificationManager.shared.scheduleNotification()
         GADMobileAds.sharedInstance().start(completionHandler: nil)
         return true
     }
