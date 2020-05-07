@@ -237,7 +237,7 @@ private extension LoginViewController {
             make.top.equalTo(titleStackView.snp.bottom).offset(5)
             make.centerX.equalToSuperview()
         }
-        titleDesriptionLabel.text = "Enjoy managing your workitime"
+        titleDesriptionLabel.text = "Enjoy managing your working time"
         titleDesriptionLabel.font = titleDesriptionLabel.font.withSize(13)
         titleDesriptionLabel.textColor = UIColor.unpauseDarkGray
     }

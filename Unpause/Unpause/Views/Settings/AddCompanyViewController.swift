@@ -18,15 +18,13 @@ class AddCompanyViewController: UIViewController {
     private let scrollView = UIScrollView()
     private let containerView = UIView()
     
-    private let descriptionButton = UIButton()
-    
-    private let companyNameTextField = UITextField()
-    private let companyNameSeparator = UIView()
-    
     private let companyPassCodeTextField = UITextField()
     private let companyPassCodeSeparator = UIView()
     
     private let addCompanyButton = OrangeButton(title: "Connect company")
+    
+    private let emailLabel = UILabel()
+    private let descriptionButton = UIButton()
     
     private let skipButton = UIBarButtonItem(title: "Skip", style: .plain, target: self, action: nil)
     
@@ -62,6 +60,7 @@ class AddCompanyViewController: UIViewController {
         configureScrollViewAndContainerView()
         renderCompanyPasscodeTextFieldAndSeparator()
         renderAddCompanyButton()
+        configureEmailLabelAppearance()
         renderDescriptionLabel()
     }
     
@@ -77,10 +76,6 @@ class AddCompanyViewController: UIViewController {
                 Coordinator.shared.navigateToHomeViewController()
             }
         }).disposed(by: disposeBag)
-        
-        companyNameTextField.rx.text
-            .bind(to: addCompanyViewModel.textInCompanyNameTextFieldChanges)
-            .disposed(by: disposeBag)
         
         companyPassCodeTextField.rx.text
             .bind(to: addCompanyViewModel.textInCompanyPassCodeTextFieldChanges)
@@ -208,6 +203,10 @@ private extension AddCompanyViewController {
         addCompanyButton.layer.cornerRadius = 25
     }
     
+    func configureEmailLabelAppearance() {
+        emailLabel.text = "info@codable.studio"
+        emailLabel.textColor = .unpauseBlue
+    }
     
     func renderDescriptionLabel() {
         containerView.addSubview(descriptionButton)
@@ -223,6 +222,17 @@ private extension AddCompanyViewController {
         descriptionButton.titleLabel?.numberOfLines = 0
         descriptionButton.titleLabel?.font = descriptionButton.titleLabel?.font.withSize(15)
         descriptionButton.titleLabel?.textAlignment = .center
+        makeEmailPartOfStringBlue()
+    }
+    
+    func makeEmailPartOfStringBlue() {
+        let blueString = "info@codable.studio"
+        let range = ((descriptionButton.titleLabel?.text)! as NSString).range(of: blueString)
+
+        let attributedText = NSMutableAttributedString.init(string: (descriptionButton.titleLabel?.text)!)
+        attributedText.addAttributes([.underlineStyle: NSUnderlineStyle.single.rawValue,
+        NSAttributedString.Key.foregroundColor : UIColor.unpauseBlue], range: range)
+        descriptionButton.titleLabel?.attributedText = attributedText
     }
 }
 

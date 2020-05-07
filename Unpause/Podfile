@@ -23,7 +23,6 @@ target 'Unpause' do
     pod 'RxFirebase/Auth'
     pod 'RxFirebase/Functions'
     pod 'DifferenceKit'
-    pod 'Google-Mobile-Ads-SDK'
 
     target 'UnpauseTests' do
         inherit! :search_paths

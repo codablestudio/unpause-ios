@@ -47,6 +47,7 @@
 		C12F7A49241001040074362F /* CompanyNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12F7A48241001040074362F /* CompanyNetworking.swift */; };
 		C12F7A4B241003980074362F /* CompanyFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12F7A4A241003980074362F /* CompanyFactory.swift */; };
 		C13105E723B0ADF200A509D9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13105E623B0ADF200A509D9 /* User.swift */; };
+		C1310FFF246435A8000512C0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C1310FFE246435A8000512C0 /* GoogleService-Info.plist */; };
 		C133DE5223C871A90096F5B2 /* ChangePasswordNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C133DE5123C871A90096F5B2 /* ChangePasswordNetworking.swift */; };
 		C133DE5423C89F2A0096F5B2 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = C133DE5323C89F2A0096F5B2 /* Response.swift */; };
 		C1372BE4241EF96C00CF6CA3 /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1372BE3241EF96C00CF6CA3 /* ActivityIndicatorView.swift */; };
@@ -85,7 +86,6 @@
 		C14731432416982000477ECA /* CompaniesValidationDataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14731422416982000477ECA /* CompaniesValidationDataResponse.swift */; };
 		C147314524169EAB00477ECA /* DocumentReferenceFetchingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C147314424169EAB00477ECA /* DocumentReferenceFetchingResponse.swift */; };
 		C14731472416A4EB00477ECA /* CompanyReferenceSavingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14731462416A4EB00477ECA /* CompanyReferenceSavingResponse.swift */; };
-		C1480A6023A7672D00437772 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C1480A5F23A7672D00437772 /* GoogleService-Info.plist */; };
 		C16A2EF123A77B1200CBA43F /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16A2EF023A77B1200CBA43F /* Coordinator.swift */; };
 		C16A2EF323A784A700CBA43F /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16A2EF223A784A700CBA43F /* RegisterViewController.swift */; };
 		C16A2EF523A7853800CBA43F /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16A2EF423A7853800CBA43F /* RegisterViewModel.swift */; };
@@ -207,6 +207,7 @@
 		C12F7A48241001040074362F /* CompanyNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyNetworking.swift; sourceTree = "<group>"; };
 		C12F7A4A241003980074362F /* CompanyFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyFactory.swift; sourceTree = "<group>"; };
 		C13105E623B0ADF200A509D9 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		C1310FFE246435A8000512C0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C133DE5123C871A90096F5B2 /* ChangePasswordNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordNetworking.swift; sourceTree = "<group>"; };
 		C133DE5323C89F2A0096F5B2 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		C1372BE3241EF96C00CF6CA3 /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
@@ -248,7 +249,6 @@
 		C14731422416982000477ECA /* CompaniesValidationDataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompaniesValidationDataResponse.swift; sourceTree = "<group>"; };
 		C147314424169EAB00477ECA /* DocumentReferenceFetchingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentReferenceFetchingResponse.swift; sourceTree = "<group>"; };
 		C14731462416A4EB00477ECA /* CompanyReferenceSavingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyReferenceSavingResponse.swift; sourceTree = "<group>"; };
-		C1480A5F23A7672D00437772 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C16A2EF023A77B1200CBA43F /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		C16A2EF223A784A700CBA43F /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		C16A2EF423A7853800CBA43F /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
@@ -531,7 +531,7 @@
 				C10F78C023A3D79200783476 /* Library */,
 				C13F6B33244B1B87009EA1B9 /* Unpause.entitlements */,
 				C11943842459A6E1006BC8FE /* UnpauseRelease.entitlements */,
-				C1480A5F23A7672D00437772 /* GoogleService-Info.plist */,
+				C1310FFE246435A8000512C0 /* GoogleService-Info.plist */,
 				C1C210AE240913E7002B5ACA /* Info.plist */,
 			);
 			path = Unpause;
@@ -1090,9 +1090,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C146991E23A112F200A84818 /* LaunchScreen.storyboard in Resources */,
+				C1310FFF246435A8000512C0 /* GoogleService-Info.plist in Resources */,
 				C102D7BA23ACCFB4000B9E80 /* Colors.xcassets in Resources */,
 				C146991B23A112F200A84818 /* Assets.xcassets in Resources */,
-				C1480A6023A7672D00437772 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

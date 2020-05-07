@@ -121,7 +121,7 @@ private extension ForgotPasswordViewController {
     func renderEmailTextFieldAndEmailSeparator() {
         containerView.addSubview(emailTextField)
         emailTextField.snp.makeConstraints { (make) in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.topMargin).offset(80)
+            make.top.equalToSuperview().offset(80)
             make.left.equalToSuperview().offset(50)
             make.right.equalToSuperview().inset(50)
         }

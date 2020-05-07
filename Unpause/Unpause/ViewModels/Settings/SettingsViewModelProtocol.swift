@@ -10,5 +10,5 @@ import Foundation
 import RxSwift
 
 protocol SettingsViewModelProtocol {
-    var logOutButtonTapped: PublishSubject<Void> { get }
+    
 }

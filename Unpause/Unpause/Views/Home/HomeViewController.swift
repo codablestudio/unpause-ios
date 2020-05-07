@@ -8,7 +8,6 @@
 
 import UIKit
 import RxSwift
-import GoogleMobileAds
 
 class HomeViewController: UIViewController {
     
@@ -32,8 +31,6 @@ class HomeViewController: UIViewController {
     private let companyLabel = UILabel()
     private let userCompanyLabel = UILabel()
     
-    private let adBannerView = GADBannerView()
-    
     let checkInButton = UIButton()
     
     var userChecksIn = PublishSubject<Bool>()
@@ -52,7 +49,6 @@ class HomeViewController: UIViewController {
         render()
         setUpObservables()
         showTitleInNavigationBar()
-        setUpBannerView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,7 +64,6 @@ class HomeViewController: UIViewController {
         renderLastNameLabelAndUserLastNameLabel()
         renderCompanyLabelAndUserCompanyLabel()
         renderCheckInButton()
-        renderAdBannerView()
     }
     
     func setUpObservables() {
@@ -140,13 +135,6 @@ class HomeViewController: UIViewController {
     
     private func showTitleInNavigationBar() {
         self.title = "Home"
-    }
-    
-    private func setUpBannerView() {
-        adBannerView.adUnitID = "ca-app-pub-7403434662864308/7025640132"
-        adBannerView.rootViewController = self
-        adBannerView.load(GADRequest())
-        adBannerView.delegate = self
     }
     
     private func displayFreshUserData() {
@@ -279,26 +267,5 @@ private extension HomeViewController {
         checkInButton.titleLabel?.font = .systemFont(ofSize: 25)
         checkInButton.setTitleColor(.white, for: UIControl.State())
         checkInButton.dropShadow(color: .unpauseLightGray, opacity: 0.5, offSet: .zero, radius: 5)
-    }
-    
-    func renderAdBannerView() {
-        containerView.addSubview(adBannerView)
-        adBannerView.snp.makeConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(320)
-            make.height.equalTo(50)
-        }
-    }
-}
-
-// MARK: - GADBannerView delegate
-extension HomeViewController: GADBannerViewDelegate {
-    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        print("ADD RECIEVED")
-    }
-    
-    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
-        print("HOME: \(error.localizedDescription)")
     }
 }

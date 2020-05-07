@@ -14,7 +14,6 @@ class AddCompanyViewModel: AddCompanyViewModelProtocol {
     private let disposeBag = DisposeBag()
     private let companyNetworking: CompanyNetworkingProtocol
     
-    var textInCompanyNameTextFieldChanges = PublishSubject<String?>()
     var textInCompanyPassCodeTextFieldChanges = PublishSubject<String?>()
     var addCompanyButtonTapped = PublishSubject<Void>()
     
@@ -34,11 +33,6 @@ class AddCompanyViewModel: AddCompanyViewModelProtocol {
     }
     
     private func setUpObservables() {
-        textInCompanyNameTextFieldChanges.subscribe(onNext: { [weak self] newText in
-            guard let `self` = self else { return }
-            self.textInCompanyNameTextField = newText
-        }).disposed(by: disposeBag)
-        
         textInCompanyPassCodeTextFieldChanges.subscribe(onNext: { [weak self] newText in
             guard let `self` = self else { return }
             self.textInCompanyPassCodeTextField = newText
