@@ -19,6 +19,12 @@ class DescriptionViewController: UIViewController {
     
     private let whatDidYouWorkOnLabel = UILabel()
     
+    private let firstSuggestionButton = OrangeButton(title: "Develop")
+    private let secondSuggestionButton = OrangeButton(title: "UI")
+    private let thirdSuggestionButton = OrangeButton(title: "Testing")
+    private let fourthSuggestionButton = OrangeButton(title: "Bugs")
+    private let fifthSuggestionButton = OrangeButton(title: "Location")
+    
     private let descriptionTextView = UITextView()
     
     private let stackView = UIStackView()
@@ -58,6 +64,7 @@ class DescriptionViewController: UIViewController {
     private func render() {
         configureScrollViewAndContainerView()
         renderWhatDidYouWorkOnLabel()
+        renderSuggestionsButtonArray()
         renderTextView()
         renderCancelAndSaveButton()
     }
@@ -102,6 +109,36 @@ class DescriptionViewController: UIViewController {
                     self.showOneOptionAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)
+        
+        firstSuggestionButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else { return }
+            guard let stringToAppend = self.firstSuggestionButton.titleLabel?.text else { return }
+            self.descriptionTextView.text.append(contentsOf: stringToAppend)
+        }).disposed(by: disposeBag)
+        
+        secondSuggestionButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else { return }
+            guard let stringToAppend = self.secondSuggestionButton.titleLabel?.text else { return }
+            self.descriptionTextView.text.append(contentsOf: stringToAppend)
+        }).disposed(by: disposeBag)
+        
+        thirdSuggestionButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else { return }
+            guard let stringToAppend = self.thirdSuggestionButton.titleLabel?.text else { return }
+            self.descriptionTextView.text.append(contentsOf: stringToAppend)
+        }).disposed(by: disposeBag)
+        
+        fourthSuggestionButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else { return }
+            guard let stringToAppend = self.fourthSuggestionButton.titleLabel?.text else { return }
+            self.descriptionTextView.text.append(contentsOf: stringToAppend)
+        }).disposed(by: disposeBag)
+        
+        fifthSuggestionButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else { return }
+            guard let stringToAppend = self.fifthSuggestionButton.titleLabel?.text else { return }
+            self.descriptionTextView.text.append(contentsOf: stringToAppend)
+        }).disposed(by: disposeBag)
     }
     
     func handleSaveButtonTap() {
@@ -175,11 +212,69 @@ private extension DescriptionViewController {
         whatDidYouWorkOnLabel.text = "What did you work on?"
     }
     
+    func renderSuggestionsButtonArray() {
+        containerView.addSubview(firstSuggestionButton)
+        
+        firstSuggestionButton.snp.makeConstraints { make in
+            make.top.equalTo(whatDidYouWorkOnLabel.snp.bottom).offset(15)
+            make.left.equalToSuperview().offset(10)
+            make.width.equalTo((UIScreen.main.bounds.width - 6 * 10) / 5)
+            make.height.equalTo(25)
+        }
+        firstSuggestionButton.titleLabel?.font = .systemFont(ofSize: 12)
+        firstSuggestionButton.layer.cornerRadius = 12.5
+        
+        containerView.addSubview(secondSuggestionButton)
+        
+        secondSuggestionButton.snp.makeConstraints { make in
+            make.top.equalTo(whatDidYouWorkOnLabel.snp.bottom).offset(15)
+            make.left.equalTo(firstSuggestionButton.snp.right).offset(10)
+            make.width.equalTo((UIScreen.main.bounds.width - 6 * 10) / 5)
+            make.height.equalTo(25)
+        }
+        secondSuggestionButton.titleLabel?.font = .systemFont(ofSize: 12)
+        secondSuggestionButton.layer.cornerRadius = 12.5
+        
+        containerView.addSubview(thirdSuggestionButton)
+        
+        thirdSuggestionButton.snp.makeConstraints { make in
+            make.top.equalTo(whatDidYouWorkOnLabel.snp.bottom).offset(15)
+            make.left.equalTo(secondSuggestionButton.snp.right).offset(10)
+            make.width.equalTo((UIScreen.main.bounds.width - 6 * 10) / 5)
+            make.height.equalTo(25)
+        }
+        thirdSuggestionButton.titleLabel?.font = .systemFont(ofSize: 12)
+        thirdSuggestionButton.layer.cornerRadius = 12.5
+        
+        containerView.addSubview(fourthSuggestionButton)
+        
+        fourthSuggestionButton.snp.makeConstraints { make in
+            make.top.equalTo(whatDidYouWorkOnLabel.snp.bottom).offset(15)
+            make.left.equalTo(thirdSuggestionButton.snp.right).offset(10)
+            make.width.equalTo((UIScreen.main.bounds.width - 6 * 10) / 5)
+            make.height.equalTo(25)
+        }
+        fourthSuggestionButton.titleLabel?.font = .systemFont(ofSize: 12)
+        fourthSuggestionButton.layer.cornerRadius = 12.5
+        
+        containerView.addSubview(fifthSuggestionButton)
+        
+        fifthSuggestionButton.snp.makeConstraints { make in
+            make.top.equalTo(whatDidYouWorkOnLabel.snp.bottom).offset(15)
+            make.left.equalTo(fourthSuggestionButton.snp.right).offset(10)
+            make.right.equalToSuperview().inset(10)
+            make.width.equalTo((UIScreen.main.bounds.width - 6 * 10) / 5)
+            make.height.equalTo(25)
+        }
+        fifthSuggestionButton.titleLabel?.font = .systemFont(ofSize: 12)
+        fifthSuggestionButton.layer.cornerRadius = 12.5
+    }
+    
     func renderTextView() {
         containerView.addSubview(descriptionTextView)
         
         descriptionTextView.snp.makeConstraints { (make) in
-            make.top.equalTo(whatDidYouWorkOnLabel.snp.bottom).offset(20)
+            make.top.equalTo(fifthSuggestionButton.snp.bottom).offset(20)
             make.left.equalToSuperview().offset(15)
             make.right.equalToSuperview().inset(15)
             make.height.equalTo(200)
