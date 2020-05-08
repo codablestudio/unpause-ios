@@ -45,7 +45,7 @@ class ShiftNetworking: ShiftNetworkingProtocol {
                         return Observable.just(Response.success)
                     })
                     .catchError({ error -> Observable<Response> in
-                        return Observable.just(Response.error(error))
+                        return Observable.just(Response.error(.otherError(error)))
                     })
             })
     }
@@ -71,7 +71,7 @@ class ShiftNetworking: ShiftNetworkingProtocol {
                         return Observable.just(Response.success)
                     })
                     .catchError({ error -> Observable<Response> in
-                        return Observable.just(Response.error(error))
+                        return Observable.just(Response.error(.otherError(error)))
                     })
             })
     }

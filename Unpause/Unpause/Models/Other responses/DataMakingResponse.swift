@@ -10,5 +10,5 @@ import Foundation
 
 enum DataMakingResponse {
     case success(Data)
-    case error(Error)
+    case error(UnpauseError)
 }

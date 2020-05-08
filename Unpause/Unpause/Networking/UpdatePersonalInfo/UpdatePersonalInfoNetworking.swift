@@ -21,7 +21,7 @@ class UpdatePersonalInfoNetworking: UpdatePersonalInfoNetworkingProtocol {
             let newLastName = newLastName,
             !newLastName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
             !newFirstName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-                return Observable.just(Response.error(UnpauseError.emptyError))
+                return Observable.just(Response.error(.emptyTextFieldError))
         }
         
         let response = dataBaseReference
@@ -40,8 +40,8 @@ class UpdatePersonalInfoNetworking: UpdatePersonalInfoNetworkingProtocol {
                 SessionManager.shared.logIn(userWithNewData)
                 return Observable.just(Response.success)
         }
-        .catchError { (error) -> Observable<Response> in
-            return Observable.just(Response.error(error))
+        .catchError { error -> Observable<Response> in
+            return Observable.just(Response.error(.otherError(error)))
         }
     }
 }

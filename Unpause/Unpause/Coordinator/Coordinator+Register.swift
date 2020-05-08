@@ -14,7 +14,8 @@ extension Coordinator {
         let companyNetworking = CompanyNetworking()
         let addCompanyViewModel = AddCompanyViewModel(companyNetworking: companyNetworking,
                                                       registeredUserEmail: registeredUserEmail)
-        let addCompanyViewController = AddCompanyViewController(addCompanyViewModel: addCompanyViewModel)
+        let addCompanyViewController = AddCompanyViewController(addCompanyViewModel: addCompanyViewModel,
+                                                                navigationFromRegisterViewController: true)
         viewController.navigationController?.pushViewController(addCompanyViewController, animated: true)
     }
 }

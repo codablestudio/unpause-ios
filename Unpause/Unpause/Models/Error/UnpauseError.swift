@@ -26,6 +26,10 @@ enum UnpauseError: Error, Equatable {
     case companyFetchingError
     case registrationError
     case googleUserSignInError
+    case emptyTextFieldError
+    case noCompaniesError
+    case wrongCompanyPasscodeError
+    case noShiftsCSVError
     case otherError(Error)
     
     var errorMessage: String {
@@ -56,6 +60,14 @@ enum UnpauseError: Error, Equatable {
             return "Unable to register user. Reason: unknown."
         case .googleUserSignInError:
             return "Google user sign in error. Please try again."
+        case .emptyTextFieldError:
+            return "Please fill up all text fields that are mandatory."
+        case .noCompaniesError:
+            return "There are no companies to fetch."
+        case .wrongCompanyPasscodeError:
+            return "There is no commpany for that passcode. Please check your passcode and try again."
+        case .noShiftsCSVError:
+            return "Unable to make CSV file from empty table view list."
         case .otherError(let error):
             return "\(error.localizedDescription)"
         }

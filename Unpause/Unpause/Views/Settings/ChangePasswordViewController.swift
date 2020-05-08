@@ -17,11 +17,7 @@ class ChangePasswordViewController: UIViewController {
     private let scrollView = UIScrollView()
     private let containerView = UIView()
     
-    let changePasswordLabel = UILabel()
-    private let changePasswordSeparator = UIView()
-    
     private let currentPasswordTextField = UITextField()
-    
     private let currentPasswordSeparator = UIView()
     
     let newPasswordTextField = UITextField()
@@ -29,7 +25,7 @@ class ChangePasswordViewController: UIViewController {
     
     private let changePasswordButton = OrangeButton(title: "Change password")
     
-    let closeButton = UIButton()
+    let closeButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: nil)
     
     init(changePasswordViewModel: ChangePasswordViewModelProtocol) {
         self.changePasswordViewModel = changePasswordViewModel
@@ -46,18 +42,23 @@ class ChangePasswordViewController: UIViewController {
         setUpObservables()
         setUpTextFields()
         addGestureRecognizer()
+        addBarButtonItem()
+        setUpViewControllerTitle()
     }
     
     private func render() {
         configureScrollViewAndContainerView()
-        renderChangePasswordLabelAndSeparator()
         renderCurrentPasswordAndCurrentPasswordSeparator()
         renderNewPasswordAndNewPasswordSeparator()
         renderChangePasswordButton()
-        renderCloseButton()
     }
     
     private func setUpObservables() {
+        closeButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else { return }
+            self.dismiss(animated: true)
+        }).disposed(by: disposeBag)
+        
         currentPasswordTextField.rx.text
             .bind(to: changePasswordViewModel.textInCurrentPasswordTextFieldChanges)
             .disposed(by: disposeBag)
@@ -69,6 +70,7 @@ class ChangePasswordViewController: UIViewController {
         changePasswordButton.rx.tap
             .do(onNext: { [weak self] _ in
                 guard let `self` = self else { return }
+                self.dismissKeyboard()
                 UnpauseActivityIndicatorView.shared.show(on: self.view)
             })
             .bind(to: changePasswordViewModel.changePasswordButtonTapped)
@@ -82,16 +84,11 @@ class ChangePasswordViewController: UIViewController {
                     UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
                     self.dismiss(animated: true)
                 case .error(let error):
-                    self.showOneOptionAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
+                    self.showOneOptionAlert(title: "Error", message: "\(error.errorMessage)", actionTitle: "OK")
                     UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
                 }
             })
             .disposed(by: disposeBag)
-        
-        closeButton.rx.tap.subscribe(onNext: { [weak self] _ in
-            guard let `self` = self else { return }
-            self.dismiss(animated: true)
-        }).disposed(by: disposeBag)
     }
     
     private func setUpTextFields() {
@@ -103,6 +100,14 @@ class ChangePasswordViewController: UIViewController {
         view.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] (tapGesture) in
             self?.view.endEditing(true)
         }).disposed(by: disposeBag)
+    }
+    
+    private func addBarButtonItem() {
+        navigationItem.leftBarButtonItem = closeButton
+    }
+    
+    private func setUpViewControllerTitle() {
+        self.title = "Change password"
     }
 }
 
@@ -127,30 +132,10 @@ private extension ChangePasswordViewController {
         }
     }
     
-    func renderChangePasswordLabelAndSeparator() {
-        containerView.addSubview(changePasswordLabel)
-        changePasswordLabel.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(40)
-            make.centerX.equalToSuperview()
-        }
-        changePasswordLabel.text = "Change password"
-        changePasswordLabel.textColor = UIColor.unpauseOrange
-        changePasswordLabel.font = UIFont.boldSystemFont(ofSize: 25)
-        
-        containerView.addSubview(changePasswordSeparator)
-        changePasswordSeparator.snp.makeConstraints { (make) in
-            make.top.equalTo(changePasswordLabel.snp.bottom).offset(30)
-            make.left.equalToSuperview().offset(30)
-            make.right.equalToSuperview().inset(30)
-            make.height.equalTo(1)
-        }
-        changePasswordSeparator.backgroundColor = UIColor.unpauseOrange
-    }
-    
     func renderCurrentPasswordAndCurrentPasswordSeparator() {
         containerView.addSubview(currentPasswordTextField)
         currentPasswordTextField.snp.makeConstraints { (make) in
-            make.top.equalTo(changePasswordSeparator.snp.bottom).offset(80)
+            make.top.equalToSuperview().offset(80)
             make.left.equalToSuperview().offset(50)
             make.right.equalToSuperview().inset(50)
         }
@@ -158,6 +143,7 @@ private extension ChangePasswordViewController {
         currentPasswordTextField.autocorrectionType = .no
         currentPasswordTextField.autocapitalizationType = .none
         currentPasswordTextField.isSecureTextEntry = true
+        currentPasswordTextField.returnKeyType = .next
         
         containerView.addSubview(currentPasswordSeparator)
         currentPasswordSeparator.snp.makeConstraints { (make) in
@@ -180,6 +166,7 @@ private extension ChangePasswordViewController {
         newPasswordTextField.autocorrectionType = .no
         newPasswordTextField.autocapitalizationType = .none
         newPasswordTextField.isSecureTextEntry = true
+        newPasswordTextField.returnKeyType = .done
         
         containerView.addSubview(newPasswordSeparator)
         newPasswordSeparator.snp.makeConstraints { (make) in
@@ -201,14 +188,5 @@ private extension ChangePasswordViewController {
             make.bottom.equalToSuperview()
         }
         changePasswordButton.layer.cornerRadius = 25
-    }
-    
-    func renderCloseButton() {
-        view.addSubview(closeButton)
-        closeButton.snp.makeConstraints { (make) in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(25)
-            make.left.equalToSuperview().offset(15)
-        }
-        closeButton.setImage(UIImage(named: "close_25x25"), for: .normal)
     }
 }

@@ -69,7 +69,6 @@ class ActivityViewController: UIViewController {
         setUpTableView()
         setUpObservables()
         addBarButtonItem()
-        makeNavigationBarOpaque()
         activityStarted.onNext(())
     }
     
@@ -200,10 +199,6 @@ class ActivityViewController: UIViewController {
         }).disposed(by: disposeBag)
     }
     
-    private func makeNavigationBarOpaque() {
-        navigationController?.navigationBar.isTranslucent = false
-    }
-    
     private func setUpDocumentInteractionController() {
         documentController.delegate = self
     }
@@ -218,7 +213,7 @@ class ActivityViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Send as email", style: .default, handler:{ [weak self] _ in
             guard let `self` = self else { return }
             if SessionManager.shared.currentUser?.company?.email == nil {
-                self.showTwoOptionsAlert(title: "Alert", message: "It looks like you didn`t add your company. Would you like too add it?", firstActionTitle: "Cancel", secondActionTitle: "Add")
+                self.showTwoOptionsAlert(title: "Alert", message: "It looks like you didn‘t add your company. Would you like too add it?", firstActionTitle: "Cancel", secondActionTitle: "Add")
             } else {
                 self.sendEmailWithExcelSheetToCompany()
             }
@@ -232,7 +227,7 @@ class ActivityViewController: UIViewController {
                 self.documentController.url = url
                 self.documentController.presentPreview(animated: true)
             case .error(let error):
-                self.showOneOptionAlert(title: "Alert", message: "\(error.localizedDescription)", actionTitle: "OK")
+                self.showOneOptionAlert(title: "Alert", message: "\(error.errorMessage)", actionTitle: "OK")
             }
         }))
         
@@ -258,7 +253,7 @@ class ActivityViewController: UIViewController {
             case .success(let data):
                 mail.addAttachmentData(data, mimeType: "text/csv", fileName: "\(currentUserFirstName) \(currentuserLastName)")
             case .error(let error):
-                self.showOneOptionAlert(title: "Alert", message: error.localizedDescription, actionTitle: "OK")
+                self.showOneOptionAlert(title: "Alert", message: error.errorMessage, actionTitle: "OK")
             }
             self.present(mail, animated: true)
         } else {

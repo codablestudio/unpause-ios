@@ -9,11 +9,8 @@
 import UIKit
 import SnapKit
 import RxSwift
-import GoogleMobileAds
 
 class SettingsViewController: UIViewController {
-    
-    //AD ID: ca-app-pub-7121408559206934/4714337412
     
     private let disposeBag = DisposeBag()
     private let settingsViewModel: SettingsViewModelProtocol
@@ -24,8 +21,6 @@ class SettingsViewController: UIViewController {
     private let changePasswordButton = OrangeButton(title: "Change password")
     private let addCompanyButton = OrangeButton(title: "Add company")
     private let logOutButton = OrangeButton(title: "Log out")
-    
-    private let adBannerView = GADBannerView()
     
     init(settingsViewModel: SettingsViewModelProtocol) {
         self.settingsViewModel = settingsViewModel
@@ -41,7 +36,6 @@ class SettingsViewController: UIViewController {
         render()
         setUpObservables()
         showTitleInNavigationBar()
-        setUpBannerView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,7 +48,6 @@ class SettingsViewController: UIViewController {
         renderChangePasswordButton()
         renderAddCompanyButton()
         renderLogOutButton()
-        renderAdBannerView()
     }
     
     private func setUpObservables() {
@@ -72,19 +65,13 @@ class SettingsViewController: UIViewController {
             Coordinator.shared.presentAddCompanyViewController(from: self)
         }).disposed(by: disposeBag)
         
-        logOutButton.rx.tap.bind(to: settingsViewModel.logOutButtonTapped)
-            .disposed(by: disposeBag)
+        logOutButton.rx.tap.subscribe(onNext: { _ in
+            self.showTwoOptionAlert(title: "Log out", message: "Are you sure you want to log out?", actionTitle1: "Cancel", actionTitle2: "Log out")
+            }).disposed(by: disposeBag)
     }
     
     private func showTitleInNavigationBar() {
         self.title = "Settings"
-    }
-    
-    private func setUpBannerView() {
-        adBannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"//"ca-app-pub-7121408559206934/1397715417"
-        adBannerView.rootViewController = self
-        adBannerView.load(GADRequest())
-        adBannerView.delegate = self
     }
     
     private func showProperTitleOnCompanyButton() {
@@ -93,6 +80,18 @@ class SettingsViewController: UIViewController {
         } else {
             addCompanyButton.setTitle("Change company", for: .normal)
         }
+    }
+    
+    private func showTwoOptionAlert(title: String, message: String, actionTitle1: String, actionTitle2: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: actionTitle1, style: .cancel, handler: { _ in
+            alert.dismiss(animated: true, completion: nil)
+        }))
+        alert.addAction(UIAlertAction(title: actionTitle2, style: .destructive, handler: { _ in
+            SessionManager.shared.logOut()
+            Coordinator.shared.logOut()
+        }))
+        self.present(alert, animated: true)
     }
 }
 
@@ -160,26 +159,5 @@ private extension SettingsViewController {
             make.bottom.equalToSuperview()
         }
         logOutButton.layer.cornerRadius = 25
-    }
-    
-    func renderAdBannerView() {
-        containerView.addSubview(adBannerView)
-        adBannerView.snp.makeConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(320)
-            make.height.equalTo(50)
-        }
-    }
-}
-
-// MARK: - GADBannerView delegate
-extension SettingsViewController: GADBannerViewDelegate {
-    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        print("ADD RECIEVED")
-    }
-    
-    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
-        print("SETTINGS: \(error.localizedDescription)")
     }
 }

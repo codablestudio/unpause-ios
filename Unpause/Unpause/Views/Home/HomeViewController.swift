@@ -8,7 +8,6 @@
 
 import UIKit
 import RxSwift
-import GoogleMobileAds
 
 class HomeViewController: UIViewController {
     
@@ -29,7 +28,8 @@ class HomeViewController: UIViewController {
     private let lastNameLabel = UILabel()
     private let userLastNameLabel = UILabel()
     
-    private let adBannerView = GADBannerView()
+    private let companyLabel = UILabel()
+    private let userCompanyLabel = UILabel()
     
     let checkInButton = UIButton()
     
@@ -49,7 +49,6 @@ class HomeViewController: UIViewController {
         render()
         setUpObservables()
         showTitleInNavigationBar()
-        setUpBannerView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -63,8 +62,8 @@ class HomeViewController: UIViewController {
         renderEmailLabelAndUserEmailLabel()
         renderFirstNameLabelAndUserFirstNameLabel()
         renderLastNameLabelAndUserLastNameLabel()
+        renderCompanyLabelAndUserCompanyLabel()
         renderCheckInButton()
-        renderAdBannerView()
     }
     
     func setUpObservables() {
@@ -93,28 +92,39 @@ class HomeViewController: UIViewController {
                 }
             }).disposed(by: disposeBag)
         
+        NotificationManager.shared.userChecksIn
+            .subscribe(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                self.checkInButton.sendActions(for: .touchUpInside)
+            }).disposed(by: disposeBag)
+        
         homeViewModel.checkInResponse
-            .subscribe(onNext: { [weak self] (response) in
+            .subscribe(onNext: { [weak self] response in
                 guard let `self` = self else { return }
                 switch response {
                 case .success:
                     print("User successfully checked in.")
+                    NotificationManager.shared.notificationCenter.removePendingNotificationRequests(withIdentifiers: ["notifyOnEntry"])
+                    NotificationManager.shared.scheduleExitNotification()
                     ActivityViewModel.forceRefresh.onNext(())
                 case .error(let error):
-                    print("Error occured: \(error)")
-                    self.showOneOptionAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
+                    self.showOneOptionAlert(title: "Error", message: "\(error.errorMessage)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)
         
         homeViewModel.usersLastCheckInTimeRequest
-            .subscribe(onNext: { [weak self] (lastCheckInResponse) in
+            .subscribe(onNext: { [weak self] lastCheckInResponse in
                 guard let `self` = self else { return }
                 switch lastCheckInResponse {
                 case .success(let lastCheckInDate):
                     SessionManager.shared.currentUser?.lastCheckInDateAndTime = lastCheckInDate
                     if lastCheckInDate != nil {
+                        NotificationManager.shared.notificationCenter.removePendingNotificationRequests(withIdentifiers: ["notifyOnEntry"])
+                        NotificationManager.shared.scheduleExitNotification()
                         self.checkInButton.setTitle("Check out", for: .normal)
                     } else {
+                        NotificationManager.shared.notificationCenter.removePendingNotificationRequests(withIdentifiers: ["notifyOnExit"])
+                        NotificationManager.shared.scheduleEntranceNotification()
                         self.checkInButton.setTitle("Check in", for: .normal)
                     }
                 case .error(let error):
@@ -127,16 +137,10 @@ class HomeViewController: UIViewController {
         self.title = "Home"
     }
     
-    private func setUpBannerView() {
-        adBannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
-        adBannerView.rootViewController = self
-        adBannerView.load(GADRequest())
-        adBannerView.delegate = self
-    }
-    
     private func displayFreshUserData() {
-        userFirstNameLabel.text = SessionManager.shared.currentUser?.firstName
-        userLastNameLabel.text = SessionManager.shared.currentUser?.lastName
+        userFirstNameLabel.text = SessionManager.shared.currentUser?.firstName ?? "No first name"
+        userLastNameLabel.text = SessionManager.shared.currentUser?.lastName ?? "No last name"
+        userCompanyLabel.text = SessionManager.shared.currentUser?.company?.name ?? "No company"
     }
 }
 
@@ -161,12 +165,11 @@ private extension HomeViewController {
         }
     }
     
-    
     func renderSignedInLabel() {
         containerView.addSubview(signedInLabel)
         
         signedInLabel.snp.makeConstraints { (make) in
-            make.topMargin.equalToSuperview().offset(UIScreen.main.bounds.height / 8)
+            make.topMargin.equalToSuperview().offset(UIScreen.main.bounds.height / 10)
             make.left.equalToSuperview().offset(40)
             make.right.equalToSuperview()
         }
@@ -231,10 +234,29 @@ private extension HomeViewController {
         userLastNameLabel.textColor = UIColor.unpauseLightGray
     }
     
+    func renderCompanyLabelAndUserCompanyLabel() {
+        containerView.addSubview(companyLabel)
+        companyLabel.snp.makeConstraints { make in
+            make.top.equalTo(lastNameLabel.snp.bottom).offset(20)
+            make.left.equalToSuperview().offset(40)
+        }
+        companyLabel.text = "Company:"
+        companyLabel.textColor = UIColor.unpauseLightGray
+        
+        containerView.addSubview(userCompanyLabel)
+        userCompanyLabel.snp.makeConstraints { make in
+            make.top.equalTo(lastNameLabel.snp.bottom).offset(20)
+            make.left.equalTo(companyLabel.snp.right).offset(7)
+            make.right.equalToSuperview()
+        }
+        userCompanyLabel.text = SessionManager.shared.currentUser?.company?.name ?? "No company"
+        userCompanyLabel.textColor = UIColor.unpauseLightGray
+    }
+    
     func renderCheckInButton() {
         containerView.addSubview(checkInButton)
         checkInButton.snp.makeConstraints { (make) in
-            make.top.equalTo(lastNameLabel.snp.bottom).offset(50)
+            make.top.equalTo(companyLabel.snp.bottom).offset(50)
             make.centerX.equalToSuperview()
             make.height.equalTo(140)
             make.width.equalTo(140)
@@ -245,26 +267,5 @@ private extension HomeViewController {
         checkInButton.titleLabel?.font = .systemFont(ofSize: 25)
         checkInButton.setTitleColor(.white, for: UIControl.State())
         checkInButton.dropShadow(color: .unpauseLightGray, opacity: 0.5, offSet: .zero, radius: 5)
-    }
-    
-    func renderAdBannerView() {
-        containerView.addSubview(adBannerView)
-        adBannerView.snp.makeConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(320)
-            make.height.equalTo(50)
-        }
-    }
-}
-
-// MARK: - GADBannerView delegate
-extension HomeViewController: GADBannerViewDelegate {
-    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        print("ADD RECIEVED")
-    }
-    
-    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
-        print("HOME: \(error.localizedDescription)")
     }
 }

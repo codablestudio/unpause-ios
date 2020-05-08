@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 import UserNotifications
 import CoreLocation
 
@@ -16,13 +17,15 @@ class NotificationManager: NSObject {
     
     let notificationCenter = UNUserNotificationCenter.current()
     
+    let userChecksIn = PublishSubject<Void>()
+    
     private override init() {
         super.init()
         notificationCenter.delegate = self
         registerCategories()
     }
     
-    func scheduleNotification() {
+    func scheduleEntranceNotification() {
         notificationCenter.removeAllPendingNotificationRequests()
         guard let allUsersCompanyLocations = SessionManager.shared.currentUser?.company?.locations else { return }
         for location in allUsersCompanyLocations {
@@ -35,19 +38,22 @@ class NotificationManager: NSObject {
                                                                        notifyOnEntry: true,
                                                                        notifyOnExit: false)
             
+            notificationCenter.add(entranceRequest, withCompletionHandler: nil)
+        }
+    }
+    
+    func scheduleExitNotification() {
+        notificationCenter.removeAllPendingNotificationRequests()
+        guard let allUsersCompanyLocations = SessionManager.shared.currentUser?.company?.locations else { return }
+        for location in allUsersCompanyLocations {
+            let latitude = location.latitude
+            let longitude = location.longitude
+            
             let exitRequest = makeLocationBasedNotificationRequest(notificationBody: "You left job area.",
                                                                    latitude: latitude,
                                                                    longitude: longitude,
                                                                    notifyOnEntry: false,
                                                                    notifyOnExit: true)
-            notificationCenter.add(entranceRequest) { (error) in
-                DispatchQueue.main.async {
-                    guard let error = error else {
-                        return
-                    }
-                    print("\(error)")
-                }
-            }
             notificationCenter.add(exitRequest, withCompletionHandler: nil)
         }
     }
@@ -58,9 +64,15 @@ class NotificationManager: NSObject {
                                               notifyOnEntry: Bool,
                                               notifyOnExit: Bool) -> UNNotificationRequest {
         let content = UNMutableNotificationContent()
+        var requestIdentifier = "requestID"
         content.title = "Job alert 📍"
         content.body = notificationBody
-        content.categoryIdentifier = "alarm"
+        if notifyOnEntry {
+            content.categoryIdentifier = "entrance"
+        } else if notifyOnExit {
+            content.categoryIdentifier = "exit"
+        }
+        
         content.sound = UNNotificationSound.default
         
         let region = LocationManager.shared.makeSpecificCircularRegion(latitude: latitude,
@@ -68,22 +80,34 @@ class NotificationManager: NSObject {
                                                                        radius: 100.0,
                                                                        notifyOnEntry: notifyOnEntry,
                                                                        notifyOnExit: notifyOnExit)
+        if notifyOnEntry {
+            requestIdentifier = "notifyOnEntry"
+        } else if notifyOnExit {
+            requestIdentifier = "notifyOnExit"
+        }
         
         let trigger = UNLocationNotificationTrigger(region: region, repeats: true)
-        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: requestIdentifier, content: content, trigger: trigger)
         return request
     }
     
     func registerCategories() {
-        let show = UNNotificationAction(identifier: "show", title: "Check in/Check out", options: .foreground)
-        let category = UNNotificationCategory(identifier: "alarm", actions: [show], intentIdentifiers: [])
+        let entranceAction = UNNotificationAction(identifier: "entranceAction", title: "Check in", options: .destructive)
+        let entranceCategory = UNNotificationCategory(identifier: "entrance", actions: [entranceAction], intentIdentifiers: [])
+        let exitCategory = UNNotificationCategory(identifier: "exit", actions: [], intentIdentifiers: [])
         
-        notificationCenter.setNotificationCategories([category])
+        notificationCenter.setNotificationCategories([entranceCategory, exitCategory])
     }
 }
 
 extension NotificationManager: UNUserNotificationCenterDelegate {
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.alert, .sound])
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        let identifier = response.actionIdentifier
+
+        if identifier == "entranceAction" && SessionManager.shared.currentUser?.lastCheckInDateAndTime == nil {
+            SessionManager.shared.currentUser?.lastCheckInDateAndTime = Date()
+            userChecksIn.onNext(())
+            completionHandler()
+        }
     }
 }

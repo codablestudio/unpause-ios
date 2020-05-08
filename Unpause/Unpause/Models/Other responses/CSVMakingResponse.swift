@@ -10,5 +10,5 @@ import Foundation
 
 enum CSVMakingResponse {
     case success(URL)
-    case error(Error)
+    case error(UnpauseError)
 }

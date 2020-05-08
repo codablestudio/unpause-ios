@@ -13,16 +13,9 @@ class SettingsViewModel: SettingsViewModelProtocol {
     
     private let disposeBag = DisposeBag()
     
-    var logOutButtonTapped = PublishSubject<Void>()
-    
     init() {
         setUpObservables()
     }
     
-    private func setUpObservables() {
-        logOutButtonTapped.subscribe(onNext: { _ in
-            SessionManager.shared.logOut()
-            Coordinator.shared.logOut()
-        }).disposed(by: disposeBag)
-    }
+    private func setUpObservables() { }
 }

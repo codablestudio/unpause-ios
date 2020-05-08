@@ -102,7 +102,7 @@ extension ActivityViewModel {
             guard let arrivalDateInDateFormat = Formatter.shared.convertTimeStampIntoDate(timeStamp: shiftData.shift?.arrivalTime),
                 let leavingDateInDateFormat = Formatter.shared.convertTimeStampIntoDate(timeStamp: shiftData.shift?.exitTime),
                 let description = shiftData.shift?.description else {
-                    return CSVMakingResponse.error(UnpauseError.emptyError)
+                    return CSVMakingResponse.error(.noShiftsCSVError)
             }
             
             let arrivalDateAndTimeWithZeroSeconds = Formatter.shared.getDateAndTimeWithZeroSeconds(from: arrivalDateInDateFormat)
@@ -134,7 +134,7 @@ extension ActivityViewModel {
         do {
             guard let currentUserFirstName = SessionManager.shared.currentUser?.firstName,
                 let currentUserLastName = SessionManager.shared.currentUser?.lastName else {
-                    return CSVMakingResponse.error(UnpauseError.noUser)
+                    return CSVMakingResponse.error(.noUser)
             }
             
             let path = try fileManager.url(for: .documentDirectory, in: .allDomainsMask, appropriateFor: nil, create: false)
@@ -142,7 +142,7 @@ extension ActivityViewModel {
             try csvString.write(to: fileURL, atomically: true, encoding: .utf8)
             return CSVMakingResponse.success(fileURL)
         } catch (let error) {
-            return CSVMakingResponse.error(error)
+            return CSVMakingResponse.error(.otherError(error))
         }
     }
 }
@@ -155,7 +155,7 @@ extension ActivityViewModel {
                 let data =  try Data(contentsOf: url)
                 return DataMakingResponse.success(data)
             } catch {
-                return DataMakingResponse.error(error)
+                return DataMakingResponse.error(.otherError(error))
             }
         case .error(let error):
             return DataMakingResponse.error(error)

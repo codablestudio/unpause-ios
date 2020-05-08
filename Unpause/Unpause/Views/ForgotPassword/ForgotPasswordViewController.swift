@@ -17,13 +17,10 @@ class ForgotPasswordViewController: UIViewController {
     private let scrollView = UIScrollView()
     private let containerView = UIView()
     
-    private let passwordRecoveryLabel = UILabel()
-    private let passwordRecoverySeparator = UIView()
-    
     private let emailTextField = UITextField()
     private let emailSeparator = UIView()
     
-    private let closeButton = UIButton()
+    private let closeButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: nil)
     
     private let sendRecoveryEmailButton = OrangeButton(title: "Send recovery email")
     
@@ -35,28 +32,25 @@ class ForgotPasswordViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         render()
         setUpObservables()
         addGestureRecognizer()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        hideNavigationBar()
+        addBarButtonItem()
+        setUpViewControllerTitle()
     }
     
     private func render() {
         configureScrollViewAndContainerView()
-        renderPasswordRecoveryLabelAndSeparator()
         renderEmailTextFieldAndEmailSeparator()
         renderSendRecoveryEmailButton()
-        renderCloseButton()
     }
     
     private func setUpObservables() {
-        closeButton.rx.tap.subscribe(onNext: { _ in
+        closeButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else { return }
             self.dismiss(animated: true)
         }).disposed(by: disposeBag)
         
@@ -67,6 +61,7 @@ class ForgotPasswordViewController: UIViewController {
         sendRecoveryEmailButton.rx.tap
             .do(onNext: { [weak self] _ in
                 guard let `self` = self else { return }
+                self.dismissKeyboard()
                 UnpauseActivityIndicatorView.shared.show(on: self.view)
             })
             .bind(to: forgotPasswordViewModel.sendRecoveryEmailButtonTapped)
@@ -81,7 +76,7 @@ class ForgotPasswordViewController: UIViewController {
                     self.dismiss(animated: true)
                 case .error(let error):
                     UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
-                    self.showOneOptionAlert(title: "Alert", message: "\(error.localizedDescription)", actionTitle: "OK")
+                    self.showOneOptionAlert(title: "Alert", message: "\(error.errorMessage)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)
         
@@ -94,8 +89,12 @@ class ForgotPasswordViewController: UIViewController {
         }).disposed(by: disposeBag)
     }
     
-    private func hideNavigationBar() {
-        navigationController?.setNavigationBarHidden(true, animated: true)
+    private func addBarButtonItem() {
+        navigationItem.leftBarButtonItem = closeButton
+    }
+    
+    private func setUpViewControllerTitle() {
+        self.title = "Password reset"
     }
 }
 
@@ -119,30 +118,10 @@ private extension ForgotPasswordViewController {
         }
     }
     
-    func renderPasswordRecoveryLabelAndSeparator() {
-        containerView.addSubview(passwordRecoveryLabel)
-        passwordRecoveryLabel.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(40)
-            make.centerX.equalToSuperview()
-        }
-        passwordRecoveryLabel.text = "Password recovery"
-        passwordRecoveryLabel.textColor = UIColor.unpauseOrange
-        passwordRecoveryLabel.font = UIFont.boldSystemFont(ofSize: 25)
-        
-        containerView.addSubview(passwordRecoverySeparator)
-        passwordRecoverySeparator.snp.makeConstraints { (make) in
-            make.top.equalTo(passwordRecoveryLabel.snp.bottom).offset(30)
-            make.left.equalToSuperview().offset(30)
-            make.right.equalToSuperview().inset(30)
-            make.height.equalTo(1)
-        }
-        passwordRecoverySeparator.backgroundColor = UIColor.unpauseOrange
-    }
-
     func renderEmailTextFieldAndEmailSeparator() {
         containerView.addSubview(emailTextField)
         emailTextField.snp.makeConstraints { (make) in
-            make.top.equalTo(passwordRecoverySeparator.snp.bottom).offset(80)
+            make.top.equalToSuperview().offset(80)
             make.left.equalToSuperview().offset(50)
             make.right.equalToSuperview().inset(50)
         }
@@ -150,6 +129,7 @@ private extension ForgotPasswordViewController {
         emailTextField.autocorrectionType = .no
         emailTextField.autocapitalizationType = .none
         emailTextField.keyboardType = .emailAddress
+        emailTextField.returnKeyType = .done
         
         containerView.addSubview(emailSeparator)
         emailSeparator.snp.makeConstraints { (make) in
@@ -171,14 +151,5 @@ private extension ForgotPasswordViewController {
             make.bottom.equalToSuperview()
         }
         sendRecoveryEmailButton.layer.cornerRadius = 25
-    }
-    
-    func renderCloseButton() {
-        view.addSubview(closeButton)
-        closeButton.snp.makeConstraints { (make) in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(25)
-            make.left.equalToSuperview().offset(15)
-        }
-        closeButton.setImage(UIImage(named: "close_25x25"), for: .normal)
     }
 }

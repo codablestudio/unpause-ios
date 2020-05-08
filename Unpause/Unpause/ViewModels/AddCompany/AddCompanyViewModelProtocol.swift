@@ -10,7 +10,6 @@ import Foundation
 import RxSwift
 
 protocol AddCompanyViewModelProtocol {
-    var textInCompanyNameTextFieldChanges: PublishSubject<String?> { get }
     var textInCompanyPassCodeTextFieldChanges: PublishSubject<String?> { get }
     var addCompanyButtonTapped: PublishSubject<Void> { get }
     

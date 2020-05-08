@@ -11,5 +11,5 @@ import Firebase
 
 enum DocumentReferenceFetchingResponse {
     case success(DocumentReference?)
-    case error(Error)
+    case error(UnpauseError)
 }

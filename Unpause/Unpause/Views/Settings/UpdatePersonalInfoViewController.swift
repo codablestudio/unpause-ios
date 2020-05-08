@@ -17,9 +17,6 @@ class UpdatePersonalInfoViewController: UIViewController {
     private let scrollView = UIScrollView()
     private let containerView = UIView()
     
-    private let updatePersonalInfoLabel = UILabel()
-    private let updatePersonalInfoSeparator = UIView()
-    
     let newFirstNameTextField = UITextField()
     private let newFirstNameSeparator = UIView()
     
@@ -28,7 +25,7 @@ class UpdatePersonalInfoViewController: UIViewController {
     
     let updateInfoButton = OrangeButton(title: "Update info")
     
-    private let closeButton = UIButton()
+    private let closeButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: nil)
     
     init(updatePersonalInfoViewModel: UpdatePersonalInfoViewModelProtocol) {
         self.updatePersonalInfoViewModel = updatePersonalInfoViewModel
@@ -45,18 +42,23 @@ class UpdatePersonalInfoViewController: UIViewController {
         setUpObservables()
         setUpTextFields()
         addGestureRecognizer()
+        addBarButtonItem()
+        setUpViewControllerTitle()
     }
     
     private func render() {
         configureScrollViewAndContainerView()
-        renderupdatePersonalInfoLabelAndSeparator()
         renderNewFirstNameTextFieldAndNewFirstNameSeparator()
         renderNewLastNameTextFieldAndNewLastNameSeparator()
         renderUpdateInfoButton()
-        renderCloseButton()
     }
     
     private func setUpObservables() {
+        closeButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else { return }
+            self.dismiss(animated: true)
+        }).disposed(by: disposeBag)
+        
         newFirstNameTextField.rx.text
             .startWith(newFirstNameTextField.text)
             .bind(to: updatePersonalInfoViewModel.textInNewFirstNameTextFieldChanges)
@@ -70,15 +72,11 @@ class UpdatePersonalInfoViewController: UIViewController {
         updateInfoButton.rx.tap
             .do(onNext: { [weak self] _ in
                 guard let `self` = self else { return }
+                self.dismissKeyboard()
                 UnpauseActivityIndicatorView.shared.show(on: self.view)
             })
             .bind(to: updatePersonalInfoViewModel.updateInfoButtonTapped)
             .disposed(by: disposeBag)
-        
-        closeButton.rx.tap.subscribe(onNext: { [weak self] _ in
-            guard let `self` = self else { return }
-            self.dismiss(animated: true)
-        }).disposed(by: disposeBag)
         
         updatePersonalInfoViewModel.updateInfoResponse
             .subscribe(onNext: { [weak self] response in
@@ -88,7 +86,7 @@ class UpdatePersonalInfoViewController: UIViewController {
                     UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
                     self.dismiss(animated: true)
                 case .error(let error):
-                    self.showOneOptionAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
+                    self.showOneOptionAlert(title: "Error", message: "\(error.errorMessage)", actionTitle: "OK")
                     UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
                 }
             }).disposed(by: disposeBag)
@@ -103,6 +101,14 @@ class UpdatePersonalInfoViewController: UIViewController {
         view.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] (tapGesture) in
             self?.view.endEditing(true)
         }).disposed(by: disposeBag)
+    }
+    
+    private func addBarButtonItem() {
+        navigationItem.leftBarButtonItem = closeButton
+    }
+    
+    private func setUpViewControllerTitle() {
+        self.title = "Change personal info"
     }
 }
 
@@ -127,36 +133,17 @@ private extension UpdatePersonalInfoViewController {
         }
     }
     
-    func renderupdatePersonalInfoLabelAndSeparator() {
-        containerView.addSubview(updatePersonalInfoLabel)
-        updatePersonalInfoLabel.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(40)
-            make.centerX.equalToSuperview()
-        }
-        updatePersonalInfoLabel.text = "Change personal info"
-        updatePersonalInfoLabel.textColor = UIColor.unpauseOrange
-        updatePersonalInfoLabel.font = UIFont.boldSystemFont(ofSize: 25)
-        
-        containerView.addSubview(updatePersonalInfoSeparator)
-        updatePersonalInfoSeparator.snp.makeConstraints { (make) in
-            make.top.equalTo(updatePersonalInfoLabel.snp.bottom).offset(30)
-            make.left.equalToSuperview().offset(30)
-            make.right.equalToSuperview().inset(30)
-            make.height.equalTo(1)
-        }
-        updatePersonalInfoSeparator.backgroundColor = UIColor.unpauseOrange
-    }
-    
     func renderNewFirstNameTextFieldAndNewFirstNameSeparator() {
         containerView.addSubview(newFirstNameTextField)
         newFirstNameTextField.snp.makeConstraints { (make) in
-            make.top.equalTo(updatePersonalInfoSeparator.snp.bottom).offset(80)
+            make.top.equalToSuperview().offset(80)
             make.left.equalToSuperview().offset(35)
             make.right.equalToSuperview().inset(35)
         }
         newFirstNameTextField.placeholder = "Enter new first name"
         newFirstNameTextField.autocorrectionType = .no
         newFirstNameTextField.autocapitalizationType = .words
+        newFirstNameTextField.returnKeyType = .next
         newFirstNameTextField.text = SessionManager.shared.currentUser?.firstName
         
         containerView.addSubview(newFirstNameSeparator)
@@ -179,6 +166,7 @@ private extension UpdatePersonalInfoViewController {
         newLastNameTextField.placeholder = "Enter new last name"
         newLastNameTextField.autocorrectionType = .no
         newLastNameTextField.autocapitalizationType = .words
+        newLastNameTextField.returnKeyType = .done
         newLastNameTextField.text = SessionManager.shared.currentUser?.lastName
         
         containerView.addSubview(newLastNameSeparator)
@@ -201,14 +189,5 @@ private extension UpdatePersonalInfoViewController {
             make.bottom.equalToSuperview()
         }
         updateInfoButton.layer.cornerRadius = 25
-    }
-    
-    func renderCloseButton() {
-        view.addSubview(closeButton)
-        closeButton.snp.makeConstraints { (make) in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(25)
-            make.left.equalToSuperview().offset(15)
-        }
-        closeButton.setImage(UIImage(named: "close_25x25"), for: .normal)
     }
 }

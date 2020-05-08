@@ -27,7 +27,7 @@ class RegisterNetworking: RegisterNetworkingProtocol {
                 self.privateAuthDataResult = authDataResult
                 return self.saveUserInfoOnServer(email: email, firstName: firstName, lastName: lastName)
             }).catchError ({ error -> Observable<Response> in
-                return Observable.just(Response.error(error))
+                return Observable.just(Response.error(.otherError(error)))
             })
             .flatMapLatest { [weak self] response -> Observable<FirebaseResponseObject> in
                 guard let `self` = self else { return Observable.empty() }
@@ -81,7 +81,7 @@ class RegisterNetworking: RegisterNetworkingProtocol {
             .flatMapLatest ({ _ -> Observable<Response> in
                 return Observable.just(Response.success)
             }).catchError ({ error -> Observable<Response> in
-                return Observable.just(Response.error(error))
+                return Observable.just(Response.error(.otherError(error)))
             })
     }
 }
