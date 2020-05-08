@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
+        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         let newWindow = UIWindow(frame: UIScreen.main.bounds)
         Coordinator.shared.start(newWindow)
         self.window = newWindow
@@ -25,13 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         LocationManager.shared.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         LocationManager.shared.locationManager.pausesLocationUpdatesAutomatically = false
         LocationManager.shared.locationManager.requestAlwaysAuthorization()
-        NotificationManager.shared.notificationCenter.requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
-            if let error = error {
-                print("Error occured: \(error)")
-            } else {
-                print("NotificationCenter Authorization Granted!")
-            }
-        }
+        NotificationManager.shared.notificationCenter.requestAuthorization(options: [.alert, .badge, .sound]) { (_,_) in }
         LocationManager.shared.locationManager.startUpdatingLocation()
         return true
     }
