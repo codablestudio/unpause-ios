@@ -36,6 +36,10 @@
 		C111932323CF6008007E2866 /* AddShiftViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C111932223CF6008007E2866 /* AddShiftViewModel.swift */; };
 		C116D39524055A2400A6FEC5 /* CSVMakingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C116D39424055A2400A6FEC5 /* CSVMakingResponse.swift */; };
 		C11943812459A486006BC8FE /* Pods_Unpause.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE3FC3210F1CDFC45FF7DBE1 /* Pods_Unpause.framework */; };
+		C12A2C182465AC0300BA9D51 /* UpgradeToProViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12A2C172465AC0300BA9D51 /* UpgradeToProViewController.swift */; };
+		C12A2C1B2465AC7500BA9D51 /* UpgradeToProViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12A2C1A2465AC7500BA9D51 /* UpgradeToProViewModel.swift */; };
+		C12A2C1E2465ACC700BA9D51 /* UpgradeToProViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12A2C1D2465ACC700BA9D51 /* UpgradeToProViewModelProtocol.swift */; };
+		C12A2C202465B85600BA9D51 /* Coordinator+UpradeToPro.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12A2C1F2465B85600BA9D51 /* Coordinator+UpradeToPro.swift */; };
 		C12CDDB523FA8AC5002A19C8 /* EmptyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12CDDB423FA8AC5002A19C8 /* EmptyTableViewCell.swift */; };
 		C12CDDB723FA999F002A19C8 /* LoadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12CDDB623FA999F002A19C8 /* LoadingTableViewCell.swift */; };
 		C12D289823A536BC004BC57A /* LoginNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12D289723A536BC004BC57A /* LoginNetworking.swift */; };
@@ -196,6 +200,10 @@
 		C11943842459A6E1006BC8FE /* UnpauseRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = UnpauseRelease.entitlements; sourceTree = "<group>"; };
 		C11943852459A796006BC8FE /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		C11943872459A888006BC8FE /* Trcanje.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Trcanje.gpx; sourceTree = "<group>"; };
+		C12A2C172465AC0300BA9D51 /* UpgradeToProViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeToProViewController.swift; sourceTree = "<group>"; };
+		C12A2C1A2465AC7500BA9D51 /* UpgradeToProViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeToProViewModel.swift; sourceTree = "<group>"; };
+		C12A2C1D2465ACC700BA9D51 /* UpgradeToProViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeToProViewModelProtocol.swift; sourceTree = "<group>"; };
+		C12A2C1F2465B85600BA9D51 /* Coordinator+UpradeToPro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinator+UpradeToPro.swift"; sourceTree = "<group>"; };
 		C12CDDB423FA8AC5002A19C8 /* EmptyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTableViewCell.swift; sourceTree = "<group>"; };
 		C12CDDB623FA999F002A19C8 /* LoadingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingTableViewCell.swift; sourceTree = "<group>"; };
 		C12D289723A536BC004BC57A /* LoginNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginNetworking.swift; sourceTree = "<group>"; };
@@ -417,6 +425,23 @@
 			path = Rx;
 			sourceTree = "<group>";
 		};
+		C12A2C192465AC4F00BA9D51 /* UpgradeToPro */ = {
+			isa = PBXGroup;
+			children = (
+				C12A2C1A2465AC7500BA9D51 /* UpgradeToProViewModel.swift */,
+				C12A2C1D2465ACC700BA9D51 /* UpgradeToProViewModelProtocol.swift */,
+			);
+			path = UpgradeToPro;
+			sourceTree = "<group>";
+		};
+		C12A2C1C2465AC8900BA9D51 /* UpgradeToPro */ = {
+			isa = PBXGroup;
+			children = (
+				C12A2C172465AC0300BA9D51 /* UpgradeToProViewController.swift */,
+			);
+			path = UpgradeToPro;
+			sourceTree = "<group>";
+		};
 		C13105E823B0B4E600A509D9 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -551,6 +576,7 @@
 		C146992623A117A600A84818 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				C12A2C192465AC4F00BA9D51 /* UpgradeToPro */,
 				C17E893D2434F09200575A7F /* AddCompany */,
 				C17E893C2434F08700575A7F /* ChangePassword */,
 				C17E893B2434F07400575A7F /* UpdatePersonalInfo */,
@@ -569,6 +595,7 @@
 		C146992723A117B400A84818 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C12A2C1C2465AC8900BA9D51 /* UpgradeToPro */,
 				C1BE0D1E24215DDE00480224 /* Login */,
 				C17E89162434D7CD00575A7F /* ForgotPassword */,
 				C17E89152434D7A100575A7F /* Register */,
@@ -603,6 +630,7 @@
 				C1FF2A8D23C4B3EA00ACCF29 /* Coordinator+Settings.swift */,
 				C111931E23CF523D007E2866 /* Coordinator+Home.swift */,
 				C1707B1D23F19022002E1A10 /* Coordinator+AddShift.swift */,
+				C12A2C1F2465B85600BA9D51 /* Coordinator+UpradeToPro.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -1216,6 +1244,7 @@
 				C1437B4323F40B0A007BD7DA /* ShiftNetworking.swift in Sources */,
 				C16A2EF123A77B1200CBA43F /* Coordinator.swift in Sources */,
 				C111932323CF6008007E2866 /* AddShiftViewModel.swift in Sources */,
+				C12A2C1E2465ACC700BA9D51 /* UpgradeToProViewModelProtocol.swift in Sources */,
 				C14731432416982000477ECA /* CompaniesValidationDataResponse.swift in Sources */,
 				C1FF2A8E23C4B3EA00ACCF29 /* Coordinator+Settings.swift in Sources */,
 				C1C1D2DE2437381F000BC698 /* LoginViewModelMock.swift in Sources */,
@@ -1282,6 +1311,7 @@
 				C102D7BF23AD0063000B9E80 /* OrangeButton.swift in Sources */,
 				C1707B2023F190AE002E1A10 /* DescriptionViewController.swift in Sources */,
 				C1FC657C2422D8B500E64AE4 /* GoogleUserSavingResponse.swift in Sources */,
+				C12A2C182465AC0300BA9D51 /* UpgradeToProViewController.swift in Sources */,
 				C12F7A49241001040074362F /* CompanyNetworking.swift in Sources */,
 				C14334EC2407F4BD00C49E16 /* DataMakingResponse.swift in Sources */,
 				C12F7A4B241003980074362F /* CompanyFactory.swift in Sources */,
@@ -1296,6 +1326,7 @@
 				C17E892D2434E68000575A7F /* ShiftNetworkingProtocol.swift in Sources */,
 				C1BE0D1824212B6E00480224 /* DotsUIBarButtonItem.swift in Sources */,
 				C14731412416950100477ECA /* CompanyValidationDataResponse.swift in Sources */,
+				C12A2C202465B85600BA9D51 /* Coordinator+UpradeToPro.swift in Sources */,
 				C110AE2A23C34E770066C394 /* ChangePasswordViewModel.swift in Sources */,
 				C17E891C2434DC8900575A7F /* CompanyNetworkingProtocol.swift in Sources */,
 				C13EFBA423FECC5D0081ACF0 /* Formatter+Date.swift in Sources */,
@@ -1322,6 +1353,7 @@
 				C13C412623ABBC7000B674E9 /* SettingsViewController.swift in Sources */,
 				C13C412423ABBC5400B674E9 /* ActivityViewModel.swift in Sources */,
 				C146991223A112F100A84818 /* AppDelegate.swift in Sources */,
+				C12A2C1B2465AC7500BA9D51 /* UpgradeToProViewModel.swift in Sources */,
 				C1FBC46F23AA521C00579913 /* HomeViewModel.swift in Sources */,
 				C1D568FE241C0793004C8A89 /* PaddedTextField.swift in Sources */,
 				C10F78E723A3D79200783476 /* UIButton+Rx.swift in Sources */,

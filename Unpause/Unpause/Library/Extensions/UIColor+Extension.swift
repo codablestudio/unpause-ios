@@ -38,6 +38,10 @@ extension UIColor {
         return UIColor(named: "unpauseBlue") ?? UIColor.fallbackColor("unpauseBlue")
     }
     
+    static var unpauseGreen: UIColor {
+        return UIColor(named: "unpauseGreen") ?? UIColor.fallbackColor("unpauseGreen")
+    }
+    
     static var unpauseIndicatorGray: UIColor {
         return UIColor(named: "unpauseIndicatorGray") ?? UIColor.fallbackColor("unpauseIndicatorGray")
     }

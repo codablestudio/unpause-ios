@@ -49,6 +49,7 @@ class HomeViewController: UIViewController {
         render()
         setUpObservables()
         showTitleInNavigationBar()
+        Coordinator.shared.presentUpgradeToProViewController(from: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
