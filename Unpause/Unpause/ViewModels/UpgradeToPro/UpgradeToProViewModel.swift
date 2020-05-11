@@ -7,10 +7,16 @@
 //
 
 import Foundation
+import RxSwift
+import StoreKit
 
 class UpgradeToProViewModel: UpgradeToProViewModelProtocol {
     
     init() {
+        setUpObservables()
+    }
+    
+    private func setUpObservables() {
         
     }
 }
