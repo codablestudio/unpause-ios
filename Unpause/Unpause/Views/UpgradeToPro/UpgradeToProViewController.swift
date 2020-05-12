@@ -197,9 +197,6 @@ private extension UpgradeToProViewController {
         }
         notificationImageView.image = UIImage(named: "notification_80x80")
         notificationImageView.contentMode = .scaleAspectFit
-        notificationImageView.backgroundColor = .unpauseVeryLightGray
-        notificationImageView.layer.cornerRadius = 5
-        notificationImageView.layer.borderWidth = 0.7
     }
     
     func renderNotificationTitleLabel() {
@@ -234,7 +231,7 @@ private extension UpgradeToProViewController {
             make.left.equalToSuperview().offset(25)
             make.height.width.equalTo(80)
         }
-        CSVImageView.image = UIImage(named: "unpausePro_60x60_white")
+        CSVImageView.image = UIImage(named: "csv_80x80")
         CSVImageView.contentMode = .scaleAspectFit
     }
     
@@ -270,7 +267,7 @@ private extension UpgradeToProViewController {
             make.left.equalToSuperview().offset(25)
             make.height.width.equalTo(80)
         }
-        sendEmailImageView.image = UIImage(named: "unpausePro_60x60_white")
+        sendEmailImageView.image = UIImage(named: "sendEmail_80x80")
         sendEmailImageView.contentMode = .scaleAspectFit
     }
     
@@ -296,7 +293,7 @@ private extension UpgradeToProViewController {
         sendEmailDescriptionLabel.numberOfLines = 0
         sendEmailDescriptionLabel.textColor = .unpauseLightGray
         sendEmailDescriptionLabel.font = .systemFont(ofSize: 13, weight: .regular)
-        sendEmailDescriptionLabel.text = "Send your shifts as sheet document to your boss or your team members."
+        sendEmailDescriptionLabel.text = "Send your shifts as sheet document to your boss or your team members. Everything is set up and you just need one click."
     }
     
     func renderOneMonthSubscriptionLabel() {

@@ -398,7 +398,6 @@ extension ActivityViewController: UITableViewDataSource {
                                                      for: indexPath) as! ShiftTableViewCell
             cell.configure(shift)
             return cell
-            
         case .empty:
             tableView.separatorStyle = .none
             tableView.allowsSelection = false

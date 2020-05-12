@@ -95,7 +95,7 @@ class ActivityViewModel: ActivityViewModelProtocol {
 // MARK: Open CSV
 extension ActivityViewModel {
     func makeNewCSVFileWithShiftsData(shiftsData: [ShiftsTableViewItem]) -> CSVMakingResponse {
-        var csvString = "\("Dosao"),\("Otisao"),\("Opis"),\("Sati")\n"
+        var csvString = "\("Arrival time"),\("Leaving time"),\("Description"),\("Hours")\n"
         var totalWorkingHours = 0.0
         
         for shiftData in shiftsData {
@@ -128,7 +128,7 @@ extension ActivityViewModel {
         
         let totalWorkingHoursInStringFormat = String(round(totalWorkingHours*100)/100)
         
-        csvString = csvString.appending("\n \("Ukupno sati"), \(totalWorkingHoursInStringFormat)")
+        csvString = csvString.appending("\n \("Total hours"), \(totalWorkingHoursInStringFormat)")
         
         let fileManager = FileManager.default
         do {
