@@ -23,17 +23,25 @@ class ActivityViewController: UIViewController {
     
     private let datesContainer = UIView()
     
-    private let workingIntervalLabel = UILabel()
+    private let calendarImageView = UIImageView()
     
-    private let fromDateStackView = UIStackView()
+    private let fromDateContainerView = UIView()
     private let fromDateLabel = UILabel()
     private let fromDateArrowImageView = UIImageView()
     private let fromDateTextField = PaddedTextField()
+    private let fromDateTextFieldDoneButton = UIBarButtonItem(barButtonSystemItem: .done,
+                                                              target: self,
+                                                              action: nil)
     
-    private let toDateStackView = UIStackView()
+    private let datesSeparator = UIView()
+    
+    private let toDateContainerView = UIView()
     private let toDateLabel = UILabel()
     private let toDateArrowImageView = UIImageView()
     private let toDateTextField = PaddedTextField()
+    private let toDateTextFieldDoneButton = UIBarButtonItem(barButtonSystemItem: .done,
+                                                            target: self,
+                                                            action: nil)
     
     private let separator = UIView()
     
@@ -75,8 +83,10 @@ class ActivityViewController: UIViewController {
     private func render() {
         configureContainerView()
         configureDatesContainer()
-        renderFromDateLabelAndFromDateTextField()
-        renderToDateLabelAndToDateTextField()
+        renderCalendarImageView()
+        renderFromDateContainerViewAndItsSubviews()
+        renderDatesSeparatorView()
+        renderToDateContainerViewAndItsSubviews()
         configureTableView()
         setUpDocumentInteractionController()
     }
@@ -118,6 +128,39 @@ class ActivityViewController: UIViewController {
             .bind(to: activityViewModel.activityStarted)
             .disposed(by: disposeBag)
         
+        fromDateTextField.rx.tapGesture()
+            .skip(1)
+            .subscribe(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                self.toDateTextField.resignFirstResponder()
+                self.rotateViewBy(viewToRotate: self.toDateArrowImageView, by: 0)
+                self.rotateViewBy(viewToRotate: self.fromDateArrowImageView, by: Double.pi / 2)
+            }).disposed(by: disposeBag)
+        
+        toDateTextField.rx.tapGesture()
+            .skip(1)
+            .subscribe(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                self.fromDateTextField.resignFirstResponder()
+                self.rotateViewBy(viewToRotate: self.fromDateArrowImageView, by: 0)
+                self.rotateViewBy(viewToRotate: self.toDateArrowImageView, by: Double.pi / 2)
+            }).disposed(by: disposeBag)
+        
+        fromDateTextFieldDoneButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else { return }
+            ActivityViewModel.forceRefresh.onNext(())
+            self.rotateViewBy(viewToRotate: self.fromDateArrowImageView, by: 0)
+            self.view.endEditing(true)
+        }).disposed(by: disposeBag)
+        
+        toDateTextFieldDoneButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else { return }
+            ActivityViewModel.forceRefresh.onNext(())
+            self.rotateViewBy(viewToRotate: self.toDateArrowImageView, by: 0)
+            self.view.endEditing(true)
+        }).disposed(by: disposeBag)
+        
         observeDeletions()
     }
     
@@ -144,33 +187,38 @@ class ActivityViewController: UIViewController {
         self.title = "Activity"
     }
     
-    private func createPickers() {
-        createDatePickerAndBarForPicker(for: fromDateTextField, with: fromDatePicker)
-        createDatePickerAndBarForPicker(for: toDateTextField, with: toDatePicker)
+    private func rotateViewBy(viewToRotate: UIView, by rotationAngle: Double) {
+        UIView.animate(withDuration: 0.3,
+                       delay: 0,
+                       usingSpringWithDamping: 0.6,
+                       initialSpringVelocity: 0.5,
+                       options: .curveEaseInOut,
+                       animations: {
+                        viewToRotate.transform = CGAffineTransform(rotationAngle: CGFloat(rotationAngle))
+        },
+                       completion: nil)
     }
     
-    private func createDatePickerAndBarForPicker(for textField: UITextField, with picker: UIDatePicker) {
+    private func createPickers() {
+        createDatePickerAndBarForPicker(for: fromDateTextField, with: fromDatePicker, barButton: fromDateTextFieldDoneButton)
+        createDatePickerAndBarForPicker(for: toDateTextField, with: toDatePicker, barButton: toDateTextFieldDoneButton)
+    }
+    
+    private func createDatePickerAndBarForPicker(for textField: UITextField, with picker: UIDatePicker, barButton: UIBarButtonItem) {
         picker.datePickerMode = UIDatePicker.Mode.date
         textField.inputView = picker
         picker.backgroundColor = UIColor.unpauseWhite
-        addBarOnTopOfPicker(for: textField)
+        addBarAndBarButtonOnTopOfPicker(for: textField, barButton: barButton)
     }
     
-    private func addBarOnTopOfPicker(for textField: UITextField) {
+    private func addBarAndBarButtonOnTopOfPicker(for textField: UITextField, barButton: UIBarButtonItem) {
         let bar = UIToolbar()
         bar.sizeToFit()
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: nil)
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
         
-        bar.setItems([flexibleSpace,doneButton], animated: false)
+        bar.setItems([flexibleSpace, barButton], animated: false)
         bar.isUserInteractionEnabled = true
         textField.inputAccessoryView = bar
-        
-        doneButton.rx.tap.subscribe(onNext: { [weak self] _ in
-            guard let `self` = self else { return }
-            ActivityViewModel.forceRefresh.onNext(())
-            self.view.endEditing(true)
-        }).disposed(by: disposeBag)
     }
     
     private func setUpTableView() {
@@ -296,53 +344,84 @@ private extension ActivityViewController {
         }
         datesContainer.backgroundColor = .unpauseOrange
         datesContainer.layer.cornerRadius = 25
-        datesContainer.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        datesContainer.layer.maskedCorners = [.layerMaxXMaxYCorner]
     }
     
-    func renderFromDateLabelAndFromDateTextField() {
-        datesContainer.addSubview(fromDateStackView)
-        
-        fromDateStackView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(6)
-            make.bottom.equalToSuperview().inset(6)
-            make.left.equalToSuperview().offset(50)
+    func renderCalendarImageView() {
+        datesContainer.addSubview(calendarImageView)
+        calendarImageView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(7)
+            make.left.equalToSuperview().offset(10)
+            make.bottom.equalToSuperview().inset(7)
+            make.height.width.equalTo(30)
+        }
+        calendarImageView.image = UIImage(named: "calendar_30x30_white")
+        calendarImageView.contentMode = .scaleAspectFit
+    }
+    
+    func renderFromDateContainerViewAndItsSubviews() {
+        datesContainer.addSubview(fromDateContainerView)
+        fromDateContainerView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.left.equalTo(calendarImageView.snp.right).offset(20)
+            make.bottom.equalToSuperview().inset(3)
         }
         
-        fromDateStackView.axis = .vertical
-        fromDateStackView.alignment = .center
-        fromDateStackView.distribution = .equalSpacing
-        fromDateStackView.spacing = 5
-        
-        fromDateStackView.addArrangedSubview(fromDateLabel)
-        fromDateLabel.text = "From"
-        fromDateLabel.font = UIFont.boldSystemFont(ofSize: 20)
-        fromDateLabel.textColor = .unpauseWhite
-        
-        fromDateStackView.addArrangedSubview(fromDateTextField)
+        fromDateContainerView.addSubview(fromDateTextField)
+        fromDateTextField.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(2)
+            make.left.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
         fromDateTextField.textColor = .unpauseWhite
+        
+        fromDateContainerView.addSubview(fromDateArrowImageView)
+        fromDateArrowImageView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(13)
+            make.left.equalTo(fromDateTextField.snp.right).offset(2)
+            make.height.width.equalTo(16)
+            make.right.equalToSuperview()
+        }
+        fromDateArrowImageView.image = UIImage(named: "click_arrow_30x30")
+        fromDateArrowImageView.contentMode = .scaleAspectFit
     }
     
-    func renderToDateLabelAndToDateTextField() {
-        datesContainer.addSubview(toDateStackView)
-        
-        toDateStackView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(6)
-            make.bottom.equalToSuperview().inset(6)
-            make.right.equalToSuperview().inset(50)
+    func renderDatesSeparatorView() {
+        datesContainer.addSubview(datesSeparator)
+        datesSeparator.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(20)
+            make.left.equalTo(fromDateContainerView.snp.right).offset(15)
+            make.height.equalTo(2)
+            make.width.equalTo(10)
+        }
+        datesSeparator.backgroundColor = .unpauseWhite
+    }
+    
+    func renderToDateContainerViewAndItsSubviews() {
+        datesContainer.addSubview(toDateContainerView)
+        toDateContainerView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.left.equalTo(datesSeparator.snp.right).offset(15)
+            make.bottom.equalToSuperview().inset(3)
         }
         
-        toDateStackView.axis = .vertical
-        toDateStackView.alignment = .center
-        toDateStackView.distribution = .equalSpacing
-        toDateStackView.spacing = 5
-        
-        toDateStackView.addArrangedSubview(toDateLabel)
-        toDateLabel.text = "To"
-        toDateLabel.font = UIFont.boldSystemFont(ofSize: 20)
-        toDateLabel.textColor = .unpauseWhite
-        
-        toDateStackView.addArrangedSubview(toDateTextField)
+        toDateContainerView.addSubview(toDateTextField)
+        toDateTextField.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(2)
+            make.left.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
         toDateTextField.textColor = .unpauseWhite
+        
+        toDateContainerView.addSubview(toDateArrowImageView)
+        toDateArrowImageView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(13)
+            make.left.equalTo(toDateTextField.snp.right).offset(2)
+            make.right.equalToSuperview()
+            make.height.width.equalTo(16)
+        }
+        toDateArrowImageView.image = UIImage(named: "click_arrow_30x30")
+        toDateArrowImageView.contentMode = .scaleAspectFit
     }
     
     func configureTableView() {
