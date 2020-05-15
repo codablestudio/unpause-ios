@@ -24,6 +24,7 @@ class ActivityViewController: UIViewController {
     private let datesContainer = UIView()
     
     private let calendarImageView = UIImageView()
+    private let filterLabel = UILabel()
     
     private let fromDateContainerView = UIView()
     private let fromDateLabel = UILabel()
@@ -84,6 +85,7 @@ class ActivityViewController: UIViewController {
         configureContainerView()
         configureDatesContainer()
         renderCalendarImageView()
+        renderFilterLabel()
         renderFromDateContainerViewAndItsSubviews()
         renderDatesSeparatorView()
         renderToDateContainerViewAndItsSubviews()
@@ -350,37 +352,50 @@ private extension ActivityViewController {
     func renderCalendarImageView() {
         datesContainer.addSubview(calendarImageView)
         calendarImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(7)
-            make.left.equalToSuperview().offset(10)
-            make.bottom.equalToSuperview().inset(7)
+            make.top.equalToSuperview().offset(4)
+            make.left.equalToSuperview().offset(20)
             make.height.width.equalTo(30)
         }
         calendarImageView.image = UIImage(named: "calendar_30x30_white")
         calendarImageView.contentMode = .scaleAspectFit
     }
     
+    func renderFilterLabel() {
+        datesContainer.addSubview(filterLabel)
+        filterLabel.snp.makeConstraints { make in
+            make.top.equalTo(calendarImageView.snp.bottom).offset(3)
+            make.centerX.equalTo(calendarImageView.snp.centerX)
+            make.bottom.equalToSuperview().inset(4)
+        }
+        filterLabel.text = "Date filter"
+        filterLabel.font = .systemFont(ofSize: 12, weight: .medium)
+        filterLabel.textColor = .unpauseWhite
+    }
+    
     func renderFromDateContainerViewAndItsSubviews() {
         datesContainer.addSubview(fromDateContainerView)
         fromDateContainerView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.left.equalTo(calendarImageView.snp.right).offset(20)
-            make.bottom.equalToSuperview().inset(3)
+            make.top.equalToSuperview().offset(12)
+            make.left.equalTo(calendarImageView.snp.right).offset(17)
         }
+        fromDateContainerView.layer.borderWidth = 0.7
+        fromDateContainerView.layer.cornerRadius = 10
+        fromDateContainerView.layer.borderColor = UIColor.unpauseWhite.cgColor
         
         fromDateContainerView.addSubview(fromDateTextField)
         fromDateTextField.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(2)
-            make.left.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.top.equalToSuperview().offset(4)
+            make.left.equalToSuperview().offset(5)
+            make.bottom.equalToSuperview().inset(4)
         }
         fromDateTextField.textColor = .unpauseWhite
         
         fromDateContainerView.addSubview(fromDateArrowImageView)
         fromDateArrowImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(13)
+            make.centerY.equalToSuperview()
             make.left.equalTo(fromDateTextField.snp.right).offset(2)
             make.height.width.equalTo(16)
-            make.right.equalToSuperview()
+            make.right.equalToSuperview().inset(5)
         }
         fromDateArrowImageView.image = UIImage(named: "click_arrow_30x30")
         fromDateArrowImageView.contentMode = .scaleAspectFit
@@ -389,8 +404,8 @@ private extension ActivityViewController {
     func renderDatesSeparatorView() {
         datesContainer.addSubview(datesSeparator)
         datesSeparator.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(20)
-            make.left.equalTo(fromDateContainerView.snp.right).offset(15)
+            make.centerY.equalTo(fromDateContainerView.snp.centerY)
+            make.left.equalTo(fromDateContainerView.snp.right).offset(10)
             make.height.equalTo(2)
             make.width.equalTo(10)
         }
@@ -400,25 +415,27 @@ private extension ActivityViewController {
     func renderToDateContainerViewAndItsSubviews() {
         datesContainer.addSubview(toDateContainerView)
         toDateContainerView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.left.equalTo(datesSeparator.snp.right).offset(15)
-            make.bottom.equalToSuperview().inset(3)
+            make.top.equalToSuperview().offset(12)
+            make.left.equalTo(datesSeparator.snp.right).offset(10)
         }
+        toDateContainerView.layer.borderWidth = 0.7
+        toDateContainerView.layer.cornerRadius = 10
+        toDateContainerView.layer.borderColor = UIColor.unpauseWhite.cgColor
         
         toDateContainerView.addSubview(toDateTextField)
         toDateTextField.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(2)
-            make.left.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.top.equalToSuperview().offset(4)
+            make.left.equalToSuperview().offset(5)
+            make.bottom.equalToSuperview().inset(4)
         }
         toDateTextField.textColor = .unpauseWhite
         
         toDateContainerView.addSubview(toDateArrowImageView)
         toDateArrowImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(13)
+            make.centerY.equalToSuperview()
             make.left.equalTo(toDateTextField.snp.right).offset(2)
-            make.right.equalToSuperview()
             make.height.width.equalTo(16)
+            make.right.equalToSuperview().inset(5)
         }
         toDateArrowImageView.image = UIImage(named: "click_arrow_30x30")
         toDateArrowImageView.contentMode = .scaleAspectFit
