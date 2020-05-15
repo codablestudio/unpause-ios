@@ -12,11 +12,17 @@ import StoreKit
 
 class UpgradeToProViewModel: UpgradeToProViewModelProtocol {
     
+    private let disposeBag = DisposeBag()
+    
+    var oneMonthSubscriptionSuccessfullyPurchased = PublishSubject<Void>()
+    
     init() {
         setUpObservables()
     }
     
     private func setUpObservables() {
-        
+        oneMonthSubscriptionSuccessfullyPurchased.subscribe(onNext: { _ in
+            
+        }).disposed(by: disposeBag)
     }
 }

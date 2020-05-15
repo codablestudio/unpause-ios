@@ -45,7 +45,9 @@ class UpgradeToProViewController: UIViewController {
     
     private let closeButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: nil)
     
-    private let productID = "studio.codable.unpause.CSVAndLocationPurchase"
+    private let oneMonthSubscriptionProductID = "studio.codable.unpause.CSVAndLocationPurchase"
+    
+    let oneMonthSubscriptionSuccessfullyPurchased = PublishSubject<Void>()
     
     init(upgradeToProViewModel: UpgradeToProViewModelProtocol) {
         self.upgradeToProViewModel = upgradeToProViewModel
@@ -93,8 +95,9 @@ class UpgradeToProViewController: UIViewController {
             .subscribe(onNext: { [weak self] _ in
                 guard let `self` = self else { return }
                 if SKPaymentQueue.canMakePayments() {
+                    UnpauseActivityIndicatorView.shared.show(on: self.view)
                     let paymentRequest = SKMutablePayment()
-                    paymentRequest.productIdentifier = self.productID
+                    paymentRequest.productIdentifier = self.oneMonthSubscriptionProductID
                     SKPaymentQueue.default().add(paymentRequest)
                 } else {
                     self.showOneOptionAlert(title: "Payment alert", message: "You are unable to make payments.", actionTitle: "OK")
@@ -191,7 +194,7 @@ private extension UpgradeToProViewController {
     func renderNotificationImageView() {
         containerView.addSubview(notificationImageView)
         notificationImageView.snp.makeConstraints { make in
-            make.top.equalTo(premiumFeaturesSeparator.snp.bottom).offset(30)
+            make.top.equalTo(premiumFeaturesSeparator.snp.bottom).offset(22)
             make.left.equalToSuperview().offset(25)
             make.height.width.equalTo(80)
         }
@@ -227,7 +230,7 @@ private extension UpgradeToProViewController {
     func renderCSVImageView() {
         containerView.addSubview(CSVImageView)
         CSVImageView.snp.makeConstraints { make in
-            make.top.equalTo(notificationDescriptionLabel.snp.bottom).offset(30)
+            make.top.equalTo(notificationDescriptionLabel.snp.bottom).offset(22)
             make.left.equalToSuperview().offset(25)
             make.height.width.equalTo(80)
         }
@@ -263,7 +266,7 @@ private extension UpgradeToProViewController {
     func renderSendEmailImageView() {
         containerView.addSubview(sendEmailImageView)
         sendEmailImageView.snp.makeConstraints { make in
-            make.top.equalTo(CSVDescriptionLabel.snp.bottom).offset(30)
+            make.top.equalTo(CSVDescriptionLabel.snp.bottom).offset(22)
             make.left.equalToSuperview().offset(25)
             make.height.width.equalTo(80)
         }
@@ -299,7 +302,7 @@ private extension UpgradeToProViewController {
     func renderOneMonthSubscriptionLabel() {
         containerView.addSubview(oneMonthSubscriptionLabel)
         oneMonthSubscriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(sendEmailImageView.snp.bottom).offset(25)
+            make.top.equalTo(sendEmailDescriptionLabel.snp.bottom).offset(25)
             make.centerX.equalToSuperview()
         }
         oneMonthSubscriptionLabel.text = "One month subscription"
@@ -311,7 +314,7 @@ private extension UpgradeToProViewController {
     func renderOneMontSubscriptionButton() {
         containerView.addSubview(oneMonthSubscriptionButton)
         oneMonthSubscriptionButton.snp.makeConstraints { make in
-            make.top.equalTo(oneMonthSubscriptionLabel.snp.bottom).offset(15)
+            make.top.equalTo(oneMonthSubscriptionLabel.snp.bottom).offset(8)
             make.left.equalToSuperview().offset(40)
             make.right.equalToSuperview().inset(40)
             make.height.equalTo(50)
@@ -336,7 +339,7 @@ private extension UpgradeToProViewController {
     func renderOneYearSubscriptionButton() {
         containerView.addSubview(oneYearSubscriptionButton)
         oneYearSubscriptionButton.snp.makeConstraints { make in
-            make.top.equalTo(oneYearSubscriptionLabel.snp.bottom).offset(15)
+            make.top.equalTo(oneYearSubscriptionLabel.snp.bottom).offset(8)
             make.left.equalToSuperview().offset(40)
             make.right.equalToSuperview().inset(40)
             make.bottom.equalToSuperview().inset(15)
@@ -353,10 +356,15 @@ extension UpgradeToProViewController: SKPaymentTransactionObserver {
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         for transaction in transactions {
             if transaction.transactionState == .purchased {
-                self.showOneOptionAlert(title: "Success", message: "HOUJEEE", actionTitle: "OK")
+                if transaction.transactionIdentifier == "studio.codable.unpause.CSVAndLocationPurchase" {
+                    oneMonthSubscriptionSuccessfullyPurchased.onNext(())
+                }
+                UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
                 SKPaymentQueue.default().finishTransaction(transaction)
             } else if transaction.transactionState == .failed {
-                self.showOneOptionAlert(title: "Fail", message: "\(String(describing: transaction.error?.localizedDescription))", actionTitle: "OK")
+                guard let error = transaction.error else { return }
+                UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
+                self.showOneOptionAlert(title: "The purchase was not successful", message: "\(error.localizedDescription)", actionTitle: "OK")
                 SKPaymentQueue.default().finishTransaction(transaction)
             }
         }

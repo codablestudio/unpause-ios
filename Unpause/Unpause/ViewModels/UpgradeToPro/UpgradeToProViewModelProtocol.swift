@@ -10,5 +10,5 @@ import Foundation
 import RxSwift
 
 protocol UpgradeToProViewModelProtocol {
-    
+    var oneMonthSubscriptionSuccessfullyPurchased: PublishSubject<Void> { get }
 }
