@@ -336,7 +336,7 @@ private extension ActivityViewController {
         datesContainer.addSubview(fromDateContainerView)
         fromDateContainerView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(4)
-            make.right.equalTo(arrowSeparator.snp.left).offset(-10)
+            make.right.equalTo(arrowSeparator.snp.left).offset(-12)
             make.bottom.equalToSuperview().inset(4)
         }
         fromDateContainerView.layer.borderWidth = 1
@@ -366,7 +366,7 @@ private extension ActivityViewController {
         datesContainer.addSubview(toDateContainerView)
         toDateContainerView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(4)
-            make.left.equalTo(arrowSeparator.snp.right).offset(10)
+            make.left.equalTo(arrowSeparator.snp.right).offset(12)
             make.bottom.equalToSuperview().inset(4)
         }
         toDateContainerView.layer.borderWidth = 1

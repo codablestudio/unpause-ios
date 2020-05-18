@@ -127,6 +127,8 @@
 		C1B6B04B243DC53E00AC44D6 /* UpdatePersonalInfoViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B6B04A243DC53E00AC44D6 /* UpdatePersonalInfoViewControllerTest.swift */; };
 		C1B6B04D243DC5B900AC44D6 /* UpdatePersonalInfoViewModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B6B04C243DC5B900AC44D6 /* UpdatePersonalInfoViewModelMock.swift */; };
 		C1B6B04F243DCD0E00AC44D6 /* UpdatePersonalInfoNetworkingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B6B04E243DCD0E00AC44D6 /* UpdatePersonalInfoNetworkingMock.swift */; };
+		C1B70989247279C900AE8D92 /* InAppPurchaseNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B70988247279C900AE8D92 /* InAppPurchaseNetworking.swift */; };
+		C1B7098B247279F500AE8D92 /* InAppPurchaseNetworkingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B7098A247279F500AE8D92 /* InAppPurchaseNetworkingProtocol.swift */; };
 		C1BE0D1824212B6E00480224 /* DotsUIBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1BE0D1724212B6E00480224 /* DotsUIBarButtonItem.swift */; };
 		C1C18E482413E8880066EB5F /* CompaniesFetchingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C18E472413E8880066EB5F /* CompaniesFetchingResponse.swift */; };
 		C1C1D2DE2437381F000BC698 /* LoginViewModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C1D2DD2437381F000BC698 /* LoginViewModelMock.swift */; };
@@ -295,6 +297,8 @@
 		C1B6B04A243DC53E00AC44D6 /* UpdatePersonalInfoViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePersonalInfoViewControllerTest.swift; sourceTree = "<group>"; };
 		C1B6B04C243DC5B900AC44D6 /* UpdatePersonalInfoViewModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePersonalInfoViewModelMock.swift; sourceTree = "<group>"; };
 		C1B6B04E243DCD0E00AC44D6 /* UpdatePersonalInfoNetworkingMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePersonalInfoNetworkingMock.swift; sourceTree = "<group>"; };
+		C1B70988247279C900AE8D92 /* InAppPurchaseNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppPurchaseNetworking.swift; sourceTree = "<group>"; };
+		C1B7098A247279F500AE8D92 /* InAppPurchaseNetworkingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppPurchaseNetworkingProtocol.swift; sourceTree = "<group>"; };
 		C1BE0D1724212B6E00480224 /* DotsUIBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotsUIBarButtonItem.swift; sourceTree = "<group>"; };
 		C1C18E472413E8880066EB5F /* CompaniesFetchingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompaniesFetchingResponse.swift; sourceTree = "<group>"; };
 		C1C1D2DD2437381F000BC698 /* LoginViewModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelMock.swift; sourceTree = "<group>"; };
@@ -638,6 +642,7 @@
 		C146992A23A1181300A84818 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				C1B709872472798C00AE8D92 /* InAppPurchase */,
 				C17E89172434DA3C00575A7F /* Login */,
 				C17E891D2434DDD500575A7F /* Register */,
 				C17E892B2434E66800575A7F /* Shift */,
@@ -808,6 +813,15 @@
 				C1BE0D1724212B6E00480224 /* DotsUIBarButtonItem.swift */,
 			);
 			path = UIButtons;
+			sourceTree = "<group>";
+		};
+		C1B709872472798C00AE8D92 /* InAppPurchase */ = {
+			isa = PBXGroup;
+			children = (
+				C1B7098A247279F500AE8D92 /* InAppPurchaseNetworkingProtocol.swift */,
+				C1B70988247279C900AE8D92 /* InAppPurchaseNetworking.swift */,
+			);
+			path = InAppPurchase;
 			sourceTree = "<group>";
 		};
 		C1BE0D1924215B7300480224 /* Managers */ = {
@@ -1251,6 +1265,7 @@
 				C14466C82417AD2A00CD52B6 /* ForgotPasswordViewModel.swift in Sources */,
 				C10F78DB23A3D79200783476 /* UILabel+Extension.swift in Sources */,
 				C12F7A45240FE3E30074362F /* Company.swift in Sources */,
+				C1B7098B247279F500AE8D92 /* InAppPurchaseNetworkingProtocol.swift in Sources */,
 				C138C38824111F9A00FAB84E /* UserResponse.swift in Sources */,
 				C116D39524055A2400A6FEC5 /* CSVMakingResponse.swift in Sources */,
 				C12CDDB723FA999F002A19C8 /* LoadingTableViewCell.swift in Sources */,
@@ -1307,6 +1322,7 @@
 				C17E891F2434DDF500575A7F /* RegisterNetworkingProtocol.swift in Sources */,
 				C10F78D723A3D79200783476 /* ActivityIndicator.swift in Sources */,
 				C17E893A2434EF2C00575A7F /* ActivityViewModelProtocol.swift in Sources */,
+				C1B70989247279C900AE8D92 /* InAppPurchaseNetworking.swift in Sources */,
 				C10F78DF23A3D79200783476 /* UIView+Extension.swift in Sources */,
 				C102D7BF23AD0063000B9E80 /* OrangeButton.swift in Sources */,
 				C1707B2023F190AE002E1A10 /* DescriptionViewController.swift in Sources */,
