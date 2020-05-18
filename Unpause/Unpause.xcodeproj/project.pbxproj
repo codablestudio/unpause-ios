@@ -93,6 +93,7 @@
 		C16A2EF123A77B1200CBA43F /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16A2EF023A77B1200CBA43F /* Coordinator.swift */; };
 		C16A2EF323A784A700CBA43F /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16A2EF223A784A700CBA43F /* RegisterViewController.swift */; };
 		C16A2EF523A7853800CBA43F /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16A2EF423A7853800CBA43F /* RegisterViewModel.swift */; };
+		C16FBC6A2472C6E1006D24EC /* SubscriptionsFetchingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16FBC692472C6E1006D24EC /* SubscriptionsFetchingResponse.swift */; };
 		C1707B1A23F17605002E1A10 /* Formatter+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1707B1923F17605002E1A10 /* Formatter+String.swift */; };
 		C1707B1C23F18AE3002E1A10 /* HomeNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1707B1B23F18AE3002E1A10 /* HomeNetworking.swift */; };
 		C1707B1E23F19022002E1A10 /* Coordinator+AddShift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1707B1D23F19022002E1A10 /* Coordinator+AddShift.swift */; };
@@ -262,6 +263,7 @@
 		C16A2EF023A77B1200CBA43F /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		C16A2EF223A784A700CBA43F /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		C16A2EF423A7853800CBA43F /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		C16FBC692472C6E1006D24EC /* SubscriptionsFetchingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionsFetchingResponse.swift; sourceTree = "<group>"; };
 		C1707B1923F17605002E1A10 /* Formatter+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Formatter+String.swift"; sourceTree = "<group>"; };
 		C1707B1B23F18AE3002E1A10 /* HomeNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNetworking.swift; sourceTree = "<group>"; };
 		C1707B1D23F19022002E1A10 /* Coordinator+AddShift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinator+AddShift.swift"; sourceTree = "<group>"; };
@@ -1019,6 +1021,7 @@
 				C1F2CD1E23F2E6D600BD23DC /* LastCheckInResponse.swift */,
 				C14334EB2407F4BD00C49E16 /* DataMakingResponse.swift */,
 				C116D39424055A2400A6FEC5 /* CSVMakingResponse.swift */,
+				C16FBC692472C6E1006D24EC /* SubscriptionsFetchingResponse.swift */,
 			);
 			path = "Other responses";
 			sourceTree = "<group>";
@@ -1335,6 +1338,7 @@
 				C1B0B2B323B0BF9700CE5D05 /* SessionManager.swift in Sources */,
 				C12F7A47240FEDD00074362F /* CompanyFetchingResponse.swift in Sources */,
 				C16A2EF523A7853800CBA43F /* RegisterViewModel.swift in Sources */,
+				C16FBC6A2472C6E1006D24EC /* SubscriptionsFetchingResponse.swift in Sources */,
 				C13105E723B0ADF200A509D9 /* User.swift in Sources */,
 				C17E89382434EE8F00575A7F /* AddShiftViewModelProtocol.swift in Sources */,
 				C12F7A3F240F9D590074362F /* LocationManager.swift in Sources */,

@@ -48,12 +48,6 @@ class UpgradeToProViewController: UIViewController {
     private let oneMonthSubscriptionProductID = "studio.codable.unpause.CSVAndLocationAutoPurchase"
     private let oneYearSubscriptionProductID = "studio.codable.unpause.CSVAndLocationOneYearPurchase"
     
-    let oneMonthSubscriptionSuccessfullyPurchased = PublishSubject<Void>()
-    let oneYearSubscriptionSuccessfullyPurchased = PublishSubject<Void>()
-    
-    var oneMonthSubscriptionSavingResponse: Observable<Response>!
-    var oneYearSubscriptionSavingResponse: Observable<Response>!
-    
     init(upgradeToProViewModel: UpgradeToProViewModelProtocol) {
         self.upgradeToProViewModel = upgradeToProViewModel
         super.init(nibName: nil, bundle: nil)
@@ -96,14 +90,6 @@ class UpgradeToProViewController: UIViewController {
             self?.dismiss(animated: true, completion: nil)
         }).disposed(by: disposeBag)
         
-        oneMonthSubscriptionSuccessfullyPurchased
-            .bind(to: upgradeToProViewModel.oneMonthSubscriptionSuccessfullyPurchased)
-            .disposed(by: disposeBag)
-        
-        oneYearSubscriptionSuccessfullyPurchased
-            .bind(to: upgradeToProViewModel.oneYearSubscriptionSuccessfullyPurchased)
-            .disposed(by: disposeBag)
-        
         oneMonthSubscriptionButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 guard let `self` = self else { return }
@@ -127,26 +113,6 @@ class UpgradeToProViewController: UIViewController {
                 SKPaymentQueue.default().add(paymentRequest)
             } else {
                 self.showOneOptionAlert(title: "Payment alert", message: "You are unable to make payments.", actionTitle: "OK")
-            }
-        }).disposed(by: disposeBag)
-
-        upgradeToProViewModel.oneMonthSubscriptionSavingResponse
-            .subscribe(onNext: { response in
-                switch response {
-                case .success:
-                    UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
-                case .error(let error):
-                    self.showOneOptionAlert(title: "Error", message: "\(error.errorMessage)", actionTitle: "OK")
-                }
-            }).disposed(by: disposeBag)
-        
-        upgradeToProViewModel.oneYearSubscriptionSavingResponse
-        .subscribe(onNext: { response in
-            switch response {
-            case .success:
-                UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
-            case .error(let error):
-                self.showOneOptionAlert(title: "Error", message: "\(error.errorMessage)", actionTitle: "OK")
             }
         }).disposed(by: disposeBag)
     }
@@ -402,11 +368,7 @@ extension UpgradeToProViewController: SKPaymentTransactionObserver {
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         for transaction in transactions {
             if transaction.transactionState == .purchased {
-                if transaction.payment.productIdentifier == oneMonthSubscriptionProductID {
-                    oneMonthSubscriptionSuccessfullyPurchased.onNext(())
-                } else if transaction.payment.productIdentifier == oneYearSubscriptionProductID {
-                    oneYearSubscriptionSuccessfullyPurchased.onNext(())
-                }
+                UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
                 SKPaymentQueue.default().finishTransaction(transaction)
             } else if transaction.transactionState == .failed {
                 guard let error = transaction.error else { return }

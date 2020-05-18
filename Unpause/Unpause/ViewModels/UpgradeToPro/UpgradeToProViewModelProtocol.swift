@@ -10,9 +10,5 @@ import Foundation
 import RxSwift
 
 protocol UpgradeToProViewModelProtocol {
-    var oneMonthSubscriptionSuccessfullyPurchased: PublishSubject<Void> { get }
-    var oneYearSubscriptionSuccessfullyPurchased: PublishSubject<Void> { get }
     
-    var oneMonthSubscriptionSavingResponse: Observable<Response>! { get }
-    var oneYearSubscriptionSavingResponse: Observable<Response>! { get }
 }

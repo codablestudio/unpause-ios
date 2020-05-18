@@ -10,6 +10,4 @@ import Foundation
 import RxSwift
 
 protocol InAppPurchaseNetworkingProtocol {
-    func saveUserOneMonthSubscriptionDateInDatabase() -> Observable<Response>
-    func saveUserOneYearSubscriptionDateInDatabase() -> Observable<Response>
 }
