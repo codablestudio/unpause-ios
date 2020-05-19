@@ -336,6 +336,7 @@
 		DE3FC3210F1CDFC45FF7DBE1 /* Pods_Unpause.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Unpause.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F42DD9822D04DBA19CEF589D /* Pods-UnpauseTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnpauseTests.release.xcconfig"; path = "Target Support Files/Pods-UnpauseTests/Pods-UnpauseTests.release.xcconfig"; sourceTree = "<group>"; };
 		F56D7C9D8CB0DE7FF265F229 /* Pods-Unpause.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Unpause.debug.xcconfig"; path = "Target Support Files/Pods-Unpause/Pods-Unpause.debug.xcconfig"; sourceTree = "<group>"; };
+		FB6691F2247424DC0007DAEC /* RunFastByCodable.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = RunFastByCodable.gpx; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -982,6 +983,7 @@
 			children = (
 				C13B773A240E636A004DD8FB /* BrzaRuta.gpx */,
 				C11943872459A888006BC8FE /* Trcanje.gpx */,
+				FB6691F2247424DC0007DAEC /* RunFastByCodable.gpx */,
 			);
 			path = "GPX Files";
 			sourceTree = "<group>";

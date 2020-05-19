@@ -13,5 +13,7 @@ extension Coordinator {
     func navigateToHomeViewController() {
         let customTabBarController = CustomTabBarController()
         window.rootViewController = customTabBarController
+        
+        NotificationManager.shared.notificationCenter.requestAuthorization(options: [.alert, .badge, .sound]) { (_,_) in }
     }
 }
