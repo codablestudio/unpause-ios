@@ -51,11 +51,13 @@ class HomeViewController: UIViewController {
         setUpObservables()
         showTitleInNavigationBar()
         
-        IAPManager.shared.checkAndSaveOneMonthAutoRenewingSubscriptionValidationDate()
-            .andThen(IAPManager.shared.checkAndSaveOneYearAutoRenewingSubscriptionValidationDate())
-            .subscribe(onCompleted: { [weak self] in
-                self?.showUpgradeToProViewControllerIfNeeded()
-            }).disposed(by: disposeBag)
+//        IAPManager.shared.checkAndSaveOneMonthAutoRenewingSubscriptionValidationDate()
+//            .andThen(IAPManager.shared.checkAndSaveOneYearAutoRenewingSubscriptionValidationDate())
+//            .subscribe(onCompleted: { [weak self] in
+//                self?.showUpgradeToProViewControllerIfNeeded()
+//            }, onError: { error in
+//                print("🔥 error: \(error)")
+//            }).disposed(by: disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {

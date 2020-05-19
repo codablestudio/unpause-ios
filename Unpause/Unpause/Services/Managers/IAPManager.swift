@@ -18,9 +18,7 @@ class IAPManager {
     
     static var shared = IAPManager()
     
-    private init() {
-        
-    }
+    private init() {}
     
     func checkAndSaveOneMonthAutoRenewingSubscriptionValidationDate() -> Completable {
         return Completable.create { [weak self] completable -> Disposable in

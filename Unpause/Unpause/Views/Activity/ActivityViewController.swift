@@ -125,10 +125,10 @@ class ActivityViewController: UIViewController {
         
         fromDateTextFieldDoneButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
-            guard let `self` = self else { return }
-            ActivityViewModel.forceRefresh.onNext(())
-            self.view.endEditing(true)
-        }).disposed(by: disposeBag)
+                guard let `self` = self else { return }
+                ActivityViewModel.forceRefresh.onNext(())
+                self.view.endEditing(true)
+            }).disposed(by: disposeBag)
         
         toDateTextFieldDoneButton.rx.tap.subscribe(onNext: { [weak self] _ in
             guard let `self` = self else { return }

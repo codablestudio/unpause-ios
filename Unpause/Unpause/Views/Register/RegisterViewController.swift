@@ -99,7 +99,7 @@ class RegisterViewController: UIViewController {
                     Coordinator.shared.navigateToAddCompanyViewController(from: self, registeredUserEmail: authDataResult.user.email)
                 case .error(let error):
                     UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
-                    self.showOneOptionAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
+                    self.showOneOptionAlert(title: "Error", message: "\(error.errorMessage)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)
     }

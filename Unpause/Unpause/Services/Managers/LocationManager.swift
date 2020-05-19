@@ -19,6 +19,13 @@ class LocationManager {
         locationManager.delegate = self as? CLLocationManagerDelegate
     }
     
+    func configure() {
+//        LocationManager.shared.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+//        LocationManager.shared.locationManager.pausesLocationUpdatesAutomatically = false
+//        LocationManager.shared.locationManager.requestWhenInUseAuthorization()
+//        LocationManager.shared.locationManager.startUpdatingLocation()
+    }
+    
     func makeSpecificCircularRegion(latitude: CLLocationDegrees,
                                     longitude: CLLocationDegrees,
                                     radius: CLLocationDistance,

@@ -106,7 +106,6 @@
 		C17E89142434D61E00575A7F /* RegisterViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E89132434D61E00575A7F /* RegisterViewModelProtocol.swift */; };
 		C17E89192434DA7E00575A7F /* LoginNetworkingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E89182434DA7E00575A7F /* LoginNetworkingProtocol.swift */; };
 		C17E891C2434DC8900575A7F /* CompanyNetworkingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E891B2434DC8900575A7F /* CompanyNetworkingProtocol.swift */; };
-		C17E891F2434DDF500575A7F /* RegisterNetworkingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E891E2434DDF500575A7F /* RegisterNetworkingProtocol.swift */; };
 		C17E89232434E4FB00575A7F /* UpdatePersonalInfoNetworkingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E89222434E4FB00575A7F /* UpdatePersonalInfoNetworkingProtocol.swift */; };
 		C17E89272434E5EA00575A7F /* ChangePasswordNetworkingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E89262434E5EA00575A7F /* ChangePasswordNetworkingProtocol.swift */; };
 		C17E892A2434E64500575A7F /* HomeNetworkingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E89292434E64500575A7F /* HomeNetworkingProtocol.swift */; };
@@ -278,7 +277,6 @@
 		C17E89132434D61E00575A7F /* RegisterViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModelProtocol.swift; sourceTree = "<group>"; };
 		C17E89182434DA7E00575A7F /* LoginNetworkingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginNetworkingProtocol.swift; sourceTree = "<group>"; };
 		C17E891B2434DC8900575A7F /* CompanyNetworkingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyNetworkingProtocol.swift; sourceTree = "<group>"; };
-		C17E891E2434DDF500575A7F /* RegisterNetworkingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterNetworkingProtocol.swift; sourceTree = "<group>"; };
 		C17E89222434E4FB00575A7F /* UpdatePersonalInfoNetworkingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePersonalInfoNetworkingProtocol.swift; sourceTree = "<group>"; };
 		C17E89262434E5EA00575A7F /* ChangePasswordNetworkingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordNetworkingProtocol.swift; sourceTree = "<group>"; };
 		C17E89292434E64500575A7F /* HomeNetworkingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNetworkingProtocol.swift; sourceTree = "<group>"; };
@@ -734,7 +732,6 @@
 		C17E891D2434DDD500575A7F /* Register */ = {
 			isa = PBXGroup;
 			children = (
-				C17E891E2434DDF500575A7F /* RegisterNetworkingProtocol.swift */,
 				C137F48123B8B6AC00358E30 /* RegisterNetworking.swift */,
 			);
 			path = Register;
@@ -1338,7 +1335,6 @@
 				C17E89412434F15000575A7F /* AddCompanyViewModelProtocol.swift in Sources */,
 				C1707B1E23F19022002E1A10 /* Coordinator+AddShift.swift in Sources */,
 				C13DDCEB23F36D050043E242 /* Shift.swift in Sources */,
-				C17E891F2434DDF500575A7F /* RegisterNetworkingProtocol.swift in Sources */,
 				C10F78D723A3D79200783476 /* ActivityIndicator.swift in Sources */,
 				C17E893A2434EF2C00575A7F /* ActivityViewModelProtocol.swift in Sources */,
 				C1B70989247279C900AE8D92 /* InAppPurchaseNetworking.swift in Sources */,

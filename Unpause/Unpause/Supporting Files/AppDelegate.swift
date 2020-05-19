@@ -18,31 +18,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        FirebaseApp.configure()
-        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
+        
         let newWindow = UIWindow(frame: UIScreen.main.bounds)
-        Coordinator.shared.start(newWindow)
         self.window = newWindow
         self.window?.makeKeyAndVisible()
-        LocationManager.shared.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-        LocationManager.shared.locationManager.pausesLocationUpdatesAutomatically = false
-        LocationManager.shared.locationManager.requestAlwaysAuthorization()
-        NotificationManager.shared.notificationCenter.requestAuthorization(options: [.alert, .badge, .sound]) { (_,_) in }
-        LocationManager.shared.locationManager.startUpdatingLocation()
-        SwiftyStoreKit.completeTransactions(atomically: true) { purchases in
-            for purchase in purchases {
-                switch purchase.transaction.transactionState {
-                case .purchased, .restored:
-                    if purchase.needsFinishTransaction {
-                        // Deliver content from server, then:
-                        SwiftyStoreKit.finishTransaction(purchase.transaction)
-                    }
-                    // Unlock content
-                case .failed, .purchasing, .deferred:
-                    break // do nothing
-                }
-            }
-        }
+        
+        setupApplication()
+        
+        Coordinator.shared.start(newWindow)
         return true
+    }
+    
+    private func setupApplication() {
+        FirebaseApp.configure()
+        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
+        
+        LocationManager.shared.configure()
     }
 }
