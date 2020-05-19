@@ -1565,6 +1565,7 @@
 				CODE_SIGN_ENTITLEMENTS = Unpause/Unpause.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = Q2P9VVU3YH;
 				INFOPLIST_FILE = Unpause/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1589,6 +1590,7 @@
 				CODE_SIGN_ENTITLEMENTS = Unpause/UnpauseRelease.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = Q2P9VVU3YH;
 				INFOPLIST_FILE = Unpause/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
