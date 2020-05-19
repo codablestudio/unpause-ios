@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftyStoreKit
+import RxSwift
 
 class IAPManager {
     
@@ -21,57 +22,68 @@ class IAPManager {
         
     }
     
-    func checkAndSaveOneMonthAutoRenewingSubscriptionValidationDate() {
-        let appleValidator = AppleReceiptValidator(service: .production, sharedSecret: sharedSecret)
-        SwiftyStoreKit.verifyReceipt(using: appleValidator) { [weak self] result in
-            guard let `self` = self else { return }
-            switch result {
-            case .success(let receipt):
-                let productId = self.oneMonthSubscriptionProductID
-                let purchaseResult = SwiftyStoreKit.verifySubscription(
-                    ofType: .autoRenewable,
-                    productId: productId,
-                    inReceipt: receipt)
-                
-                switch purchaseResult {
-                case .purchased(let expiryDate, _):
-                    print("Month: \(expiryDate)")
-                    SessionManager.shared.currentUser?.monthSubscriptionEndingDate = expiryDate
-                case .expired(let expiryDate, _):
-                    SessionManager.shared.currentUser?.monthSubscriptionEndingDate = expiryDate
-                case .notPurchased:
-                    SessionManager.shared.currentUser?.monthSubscriptionEndingDate = nil
+    func checkAndSaveOneMonthAutoRenewingSubscriptionValidationDate() -> Completable {
+        return Completable.create { [weak self] completable -> Disposable in
+            guard let `self` = self else { return Disposables.create() }
+            
+            let appleValidator = AppleReceiptValidator(service: .production, sharedSecret: self.sharedSecret)
+            SwiftyStoreKit.verifyReceipt(using: appleValidator) { [weak self] result in
+                guard let `self` = self else { return }
+                switch result {
+                case .success(let receipt):
+                    let productId = self.oneMonthSubscriptionProductID
+                    let purchaseResult = SwiftyStoreKit.verifySubscription(
+                        ofType: .autoRenewable,
+                        productId: productId,
+                        inReceipt: receipt)
+                    
+                    switch purchaseResult {
+                    case .purchased(let expiryDate, _):
+                        SessionManager.shared.currentUser?.monthSubscriptionEndingDate = expiryDate
+                    case .expired(let expiryDate, _):
+                        SessionManager.shared.currentUser?.monthSubscriptionEndingDate = expiryDate
+                    case .notPurchased:
+                        SessionManager.shared.currentUser?.monthSubscriptionEndingDate = nil
+                    }
+                    completable(.completed)
+                case .error(let error):
+                    print("Receipt verification failed: \(error.localizedDescription)")
+                    completable(.error(error))
                 }
-            case .error(let error):
-                print("Receipt verification failed: \(error.localizedDescription)")
             }
+            return Disposables.create()
         }
     }
     
-    func checkAndSaveOneYearAutoRenewingSubscriptionValidationDate() {
-        let appleValidator = AppleReceiptValidator(service: .production, sharedSecret: sharedSecret)
-        SwiftyStoreKit.verifyReceipt(using: appleValidator) { [weak self] result in
-            guard let `self` = self else { return }
-            switch result {
-            case .success(let receipt):
-                let productId = self.oneYearSubscriptionProductID
-                let purchaseResult = SwiftyStoreKit.verifySubscription(
-                    ofType: .autoRenewable,
-                    productId: productId,
-                    inReceipt: receipt)
-                
-                switch purchaseResult {
-                case .purchased(let expiryDate, _):
-                    print("Year: \(expiryDate)")
-                    SessionManager.shared.currentUser?.yearSubscriptionEndingDate = expiryDate
-                case .expired(let expiryDate, _):
-                    SessionManager.shared.currentUser?.yearSubscriptionEndingDate = expiryDate
-                case .notPurchased:
-                    SessionManager.shared.currentUser?.yearSubscriptionEndingDate = nil
+    func checkAndSaveOneYearAutoRenewingSubscriptionValidationDate() -> Completable {
+        return Completable.create { [weak self] completable -> Disposable in
+            guard let `self` = self else { return Disposables.create() }
+            
+            let appleValidator = AppleReceiptValidator(service: .production, sharedSecret: self.sharedSecret)
+            SwiftyStoreKit.verifyReceipt(using: appleValidator) { [weak self] result in
+                guard let `self` = self else { return }
+                switch result {
+                case .success(let receipt):
+                    let productId = self.oneYearSubscriptionProductID
+                    let purchaseResult = SwiftyStoreKit.verifySubscription(
+                        ofType: .autoRenewable,
+                        productId: productId,
+                        inReceipt: receipt)
+                    switch purchaseResult {
+                    case .purchased(let expiryDate, _):
+                        SessionManager.shared.currentUser?.yearSubscriptionEndingDate = expiryDate
+                    case .expired(let expiryDate, _):
+                        SessionManager.shared.currentUser?.yearSubscriptionEndingDate = expiryDate
+                    case .notPurchased:
+                        SessionManager.shared.currentUser?.yearSubscriptionEndingDate = nil
+                    }
+                    completable(.completed)
+                case .error(let error):
+                    print("Receipt verification failed: \(error.localizedDescription)")
+                    completable(.error(error))
                 }
-            case .error(let error):
-                print("Receipt verification failed: \(error.localizedDescription)")
             }
+            return Disposables.create()
         }
     }
 }

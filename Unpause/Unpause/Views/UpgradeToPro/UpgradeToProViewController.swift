@@ -45,9 +45,6 @@ class UpgradeToProViewController: UIViewController {
     
     private let closeButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: nil)
     
-    private let oneMonthSubscriptionProductID = "studio.codable.unpause.CSVAndLocationAutoPurchase"
-    private let oneYearSubscriptionProductID = "studio.codable.unpause.CSVAndLocationOneYearPurchase"
-    
     init(upgradeToProViewModel: UpgradeToProViewModelProtocol) {
         self.upgradeToProViewModel = upgradeToProViewModel
         super.init(nibName: nil, bundle: nil)
@@ -96,7 +93,7 @@ class UpgradeToProViewController: UIViewController {
                 if SKPaymentQueue.canMakePayments() {
                     UnpauseActivityIndicatorView.shared.show(on: self.view)
                     let paymentRequest = SKMutablePayment()
-                    paymentRequest.productIdentifier = self.oneMonthSubscriptionProductID
+                    paymentRequest.productIdentifier = IAPManager.shared.oneMonthSubscriptionProductID
                     SKPaymentQueue.default().add(paymentRequest)
                 } else {
                     self.showOneOptionAlert(title: "Payment alert", message: "You are unable to make payments.", actionTitle: "OK")
@@ -109,7 +106,7 @@ class UpgradeToProViewController: UIViewController {
             if SKPaymentQueue.canMakePayments() {
                 UnpauseActivityIndicatorView.shared.show(on: self.view)
                 let paymentRequest = SKMutablePayment()
-                paymentRequest.productIdentifier = self.oneYearSubscriptionProductID
+                paymentRequest.productIdentifier = IAPManager.shared.oneYearSubscriptionProductID
                 SKPaymentQueue.default().add(paymentRequest)
             } else {
                 self.showOneOptionAlert(title: "Payment alert", message: "You are unable to make payments.", actionTitle: "OK")
@@ -370,6 +367,9 @@ extension UpgradeToProViewController: SKPaymentTransactionObserver {
             if transaction.transactionState == .purchased {
                 UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
                 SKPaymentQueue.default().finishTransaction(transaction)
+                self.dismiss(animated: true)
+                IAPManager.shared.checkAndSaveOneMonthAutoRenewingSubscriptionValidationDate()
+                IAPManager.shared.checkAndSaveOneYearAutoRenewingSubscriptionValidationDate()
             } else if transaction.transactionState == .failed {
                 guard let error = transaction.error else { return }
                 UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
