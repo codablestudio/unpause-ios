@@ -23,6 +23,7 @@ target 'Unpause' do
     pod 'RxFirebase/Auth'
     pod 'RxFirebase/Functions'
     pod 'DifferenceKit'
+    pod 'SwiftyStoreKit'
 
     target 'UnpauseTests' do
         inherit! :search_paths

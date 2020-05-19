@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import SwiftyStoreKit
 
 class HomeViewController: UIViewController {
     
@@ -49,7 +50,9 @@ class HomeViewController: UIViewController {
         render()
         setUpObservables()
         showTitleInNavigationBar()
-        Coordinator.shared.presentUpgradeToProViewController(from: self)
+        IAPManager.shared.checkAndSaveOneMonthAutoRenewingSubscriptionValidationDate()
+        IAPManager.shared.checkAndSaveOneYearAutoRenewingSubscriptionValidationDate()
+        showUpgradeToProViewControllerIfNeeded()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -132,6 +135,29 @@ class HomeViewController: UIViewController {
                     print("\(error)")
                 }
             }).disposed(by: disposeBag)
+    }
+    
+    private func showUpgradeToProViewControllerIfNeeded() {
+        if !userIsPromoUserOrHasValidSubscription() {
+            Coordinator.shared.presentUpgradeToProViewController(from: self)
+        }
+    }
+    
+    private func userIsPromoUserOrHasValidSubscription() -> Bool {
+        if let userMonthSubscriptionEndingDate = SessionManager.shared.currentUser?.monthSubscriptionEndingDate,
+            userMonthSubscriptionEndingDate > Date() {
+            return true
+        }
+        else if let userYearSubscriptionEndingDate = SessionManager.shared.currentUser?.yearSubscriptionEndingDate,
+            userYearSubscriptionEndingDate > Date() {
+            return true
+        }
+        else if let userIsPromoUser = SessionManager.shared.currentUser?.isPromoUser,
+            userIsPromoUser {
+            return true
+        } else {
+            return false
+        }
     }
     
     private func showTitleInNavigationBar() {

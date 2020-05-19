@@ -8,6 +8,7 @@
 
 import Foundation
 import Firebase
+import SwiftyStoreKit
 
 class User: NSObject, NSCoding {
     var firstName: String?
@@ -16,6 +17,10 @@ class User: NSObject, NSCoding {
     
     var lastCheckInDateAndTime: Date?
     var lastCheckOutDateAndTime: Date?
+    
+    var monthSubscriptionEndingDate: Date?
+    var yearSubscriptionEndingDate: Date?
+    var isPromoUser = false
     
     var company: Company?
     

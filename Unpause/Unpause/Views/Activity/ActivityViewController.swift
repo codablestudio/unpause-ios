@@ -238,7 +238,11 @@ class ActivityViewController: UIViewController {
             if SessionManager.shared.currentUser?.company?.email == nil {
                 self.showTwoOptionsAlert(title: "Alert", message: "It looks like you didn‘t add your company. Would you like too add it?", firstActionTitle: "Cancel", secondActionTitle: "Add")
             } else {
-                self.sendEmailWithExcelSheetToCompany()
+                if self.userIsPromoUserOrHasValidSubscription() {
+                    self.sendEmailWithExcelSheetToCompany()
+                } else {
+                    Coordinator.shared.presentUpgradeToProViewController(from: self)
+                }
             }
         }))
         
@@ -247,8 +251,12 @@ class ActivityViewController: UIViewController {
             let fileURL = self.activityViewModel.makeNewCSVFileWithShiftsData(shiftsData: self.dataSource)
             switch fileURL {
             case .success(let url):
-                self.documentController.url = url
-                self.documentController.presentPreview(animated: true)
+                if self.userIsPromoUserOrHasValidSubscription() {
+                    self.documentController.url = url
+                    self.documentController.presentPreview(animated: true)
+                } else {
+                    Coordinator.shared.presentUpgradeToProViewController(from: self)
+                }
             case .error(let error):
                 self.showOneOptionAlert(title: "Alert", message: "\(error.errorMessage)", actionTitle: "OK")
             }
@@ -284,6 +292,23 @@ class ActivityViewController: UIViewController {
         }
     }
     
+    private func userIsPromoUserOrHasValidSubscription() -> Bool {
+        if let userMonthSubscriptionEndingDate = SessionManager.shared.currentUser?.monthSubscriptionEndingDate,
+            userMonthSubscriptionEndingDate > Date() {
+            return true
+        }
+        else if let userYearSubscriptionEndingDate = SessionManager.shared.currentUser?.yearSubscriptionEndingDate,
+            userYearSubscriptionEndingDate > Date() {
+            return true
+        }
+        else if let userIsPromoUser = SessionManager.shared.currentUser?.isPromoUser,
+            userIsPromoUser {
+            return true
+        } else {
+            return false
+        }
+    }
+    
     func showTwoOptionsAlert(title: String, message: String, firstActionTitle: String, secondActionTitle: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: firstActionTitle, style: .cancel, handler: nil))
@@ -293,7 +318,6 @@ class ActivityViewController: UIViewController {
         self.present(alert, animated: true)
     }
 }
-
 
 // MARK: - UI rendering
 private extension ActivityViewController {

@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import GoogleSignIn
 import CoreLocation
+import SwiftyStoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -28,6 +29,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         LocationManager.shared.locationManager.requestAlwaysAuthorization()
         NotificationManager.shared.notificationCenter.requestAuthorization(options: [.alert, .badge, .sound]) { (_,_) in }
         LocationManager.shared.locationManager.startUpdatingLocation()
+        SwiftyStoreKit.completeTransactions(atomically: true) { purchases in
+            for purchase in purchases {
+                switch purchase.transaction.transactionState {
+                case .purchased, .restored:
+                    if purchase.needsFinishTransaction {
+                        // Deliver content from server, then:
+                        SwiftyStoreKit.finishTransaction(purchase.transaction)
+                    }
+                    // Unlock content
+                case .failed, .purchasing, .deferred:
+                    break // do nothing
+                }
+            }
+        }
         return true
     }
 }

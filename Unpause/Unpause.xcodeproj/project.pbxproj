@@ -71,6 +71,8 @@
 		C13DDCEB23F36D050043E242 /* Shift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13DDCEA23F36D050043E242 /* Shift.swift */; };
 		C13EFBA423FECC5D0081ACF0 /* Formatter+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13EFBA323FECC5D0081ACF0 /* Formatter+Date.swift */; };
 		C13F6B35244B2370009EA1B9 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C13F6B34244B2370009EA1B9 /* AuthenticationServices.framework */; };
+		C14104B42473E11B00CAAE26 /* IAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14104B32473E11B00CAAE26 /* IAPManager.swift */; };
+		C14104B72473E58F00CAAE26 /* PurchaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14104B62473E58F00CAAE26 /* PurchaseResponse.swift */; };
 		C1419F6C241253B4001B5817 /* Coordinator+Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1419F6B241253B4001B5817 /* Coordinator+Register.swift */; };
 		C1419F6E24125414001B5817 /* AddCompanyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1419F6D24125414001B5817 /* AddCompanyViewModel.swift */; };
 		C1419F702412543E001B5817 /* AddCompanyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1419F6F2412543E001B5817 /* AddCompanyViewController.swift */; };
@@ -240,6 +242,8 @@
 		C13EFBA323FECC5D0081ACF0 /* Formatter+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Formatter+Date.swift"; sourceTree = "<group>"; };
 		C13F6B33244B1B87009EA1B9 /* Unpause.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Unpause.entitlements; sourceTree = "<group>"; };
 		C13F6B34244B2370009EA1B9 /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
+		C14104B32473E11B00CAAE26 /* IAPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPManager.swift; sourceTree = "<group>"; };
+		C14104B62473E58F00CAAE26 /* PurchaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseResponse.swift; sourceTree = "<group>"; };
 		C1419F6B241253B4001B5817 /* Coordinator+Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinator+Register.swift"; sourceTree = "<group>"; };
 		C1419F6D24125414001B5817 /* AddCompanyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCompanyViewModel.swift; sourceTree = "<group>"; };
 		C1419F6F2412543E001B5817 /* AddCompanyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCompanyViewController.swift; sourceTree = "<group>"; };
@@ -467,6 +471,14 @@
 			path = UIActivityIndicatorViews;
 			sourceTree = "<group>";
 		};
+		C14104B52473E56A00CAAE26 /* Purchase */ = {
+			isa = PBXGroup;
+			children = (
+				C14104B62473E58F00CAAE26 /* PurchaseResponse.swift */,
+			);
+			path = Purchase;
+			sourceTree = "<group>";
+		};
 		C1437B3F23F3EF35007BD7DA /* Factories */ = {
 			isa = PBXGroup;
 			children = (
@@ -616,6 +628,7 @@
 		C146992823A117C400A84818 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C14104B52473E56A00CAAE26 /* Purchase */,
 				C1FC657D2422EEF200E64AE4 /* User */,
 				C1BE0D1D24215CED00480224 /* Error */,
 				C1BE0D1C24215CB900480224 /* Firebase */,
@@ -832,6 +845,7 @@
 				C1B0B2B223B0BF9700CE5D05 /* SessionManager.swift */,
 				C13B7737240E489E004DD8FB /* NotificationManager.swift */,
 				C12F7A3E240F9D590074362F /* LocationManager.swift */,
+				C14104B32473E11B00CAAE26 /* IAPManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -1264,6 +1278,7 @@
 				C12A2C1E2465ACC700BA9D51 /* UpgradeToProViewModelProtocol.swift in Sources */,
 				C14731432416982000477ECA /* CompaniesValidationDataResponse.swift in Sources */,
 				C1FF2A8E23C4B3EA00ACCF29 /* Coordinator+Settings.swift in Sources */,
+				C14104B72473E58F00CAAE26 /* PurchaseResponse.swift in Sources */,
 				C1C1D2DE2437381F000BC698 /* LoginViewModelMock.swift in Sources */,
 				C14466C82417AD2A00CD52B6 /* ForgotPasswordViewModel.swift in Sources */,
 				C10F78DB23A3D79200783476 /* UILabel+Extension.swift in Sources */,
@@ -1292,6 +1307,7 @@
 				C17E893F2434F0D100575A7F /* SettingsViewModelProtocol.swift in Sources */,
 				C13C412023AB93D600B674E9 /* FirebaseResponseObject.swift in Sources */,
 				C17E89192434DA7E00575A7F /* LoginNetworkingProtocol.swift in Sources */,
+				C14104B42473E11B00CAAE26 /* IAPManager.swift in Sources */,
 				C1D0CA0B23F6AC9600A20D6F /* DataSource.swift in Sources */,
 				C10F78E923A3D79200783476 /* Array+Extension.swift in Sources */,
 				C10F78E323A3D79200783476 /* Bool+Extension.swift in Sources */,
