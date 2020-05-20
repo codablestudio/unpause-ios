@@ -13,10 +13,8 @@ import StoreKit
 class UpgradeToProViewModel: UpgradeToProViewModelProtocol {
     
     private let disposeBag = DisposeBag()
-    private let inAppPurchaseNetworking: InAppPurchaseNetworkingProtocol
     
-    init(inAppPurchaseNetworking: InAppPurchaseNetworkingProtocol) {
-        self.inAppPurchaseNetworking = inAppPurchaseNetworking
+    init() {
         setUpObservables()
     }
     

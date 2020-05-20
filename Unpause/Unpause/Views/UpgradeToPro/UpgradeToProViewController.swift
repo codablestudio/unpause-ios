@@ -368,8 +368,6 @@ extension UpgradeToProViewController: SKPaymentTransactionObserver {
                 UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
                 SKPaymentQueue.default().finishTransaction(transaction)
                 self.dismiss(animated: true)
-                IAPManager.shared.checkAndSaveOneMonthAutoRenewingSubscriptionValidationDate()
-                IAPManager.shared.checkAndSaveOneYearAutoRenewingSubscriptionValidationDate()
             } else if transaction.transactionState == .failed {
                 guard let error = transaction.error else { return }
                 UnpauseActivityIndicatorView.shared.dissmis(from: self.view)

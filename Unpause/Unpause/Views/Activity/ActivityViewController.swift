@@ -234,36 +234,11 @@ class ActivityViewController: UIViewController {
         }))
         
         alert.addAction(UIAlertAction(title: "Send as email", style: .default, handler:{ [weak self] _ in
-            guard let `self` = self else { return }
-            IAPManager.shared.checkAndSaveOneMonthAutoRenewingSubscriptionValidationDate()
-            IAPManager.shared.checkAndSaveOneYearAutoRenewingSubscriptionValidationDate()
-            if SessionManager.shared.currentUser?.company?.email == nil {
-                self.showTwoOptionsAlert(title: "Alert", message: "It looks like you didn‘t add your company. Would you like too add it?", firstActionTitle: "Cancel", secondActionTitle: "Add")
-            } else {
-                if self.userIsPromoUserOrHasValidSubscription() {
-                    self.sendEmailWithExcelSheetToCompany()
-                } else {
-                    Coordinator.shared.presentUpgradeToProViewController(from: self)
-                }
-            }
+            self?.handleSendAsEmailTapped()
         }))
         
         alert.addAction(UIAlertAction(title: "Open CSV", style: .default, handler:{ [weak self] _ in
-            guard let `self` = self else { return }
-            IAPManager.shared.checkAndSaveOneMonthAutoRenewingSubscriptionValidationDate()
-            IAPManager.shared.checkAndSaveOneYearAutoRenewingSubscriptionValidationDate()
-            let fileURL = self.activityViewModel.makeNewCSVFileWithShiftsData(shiftsData: self.dataSource)
-            switch fileURL {
-            case .success(let url):
-                if self.userIsPromoUserOrHasValidSubscription() {
-                    self.documentController.url = url
-                    self.documentController.presentPreview(animated: true)
-                } else {
-                    Coordinator.shared.presentUpgradeToProViewController(from: self)
-                }
-            case .error(let error):
-                self.showOneOptionAlert(title: "Alert", message: "\(error.errorMessage)", actionTitle: "OK")
-            }
+            self?.handleOpenCSVTapped()
         }))
         
         alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
@@ -296,23 +271,6 @@ class ActivityViewController: UIViewController {
         }
     }
     
-    private func userIsPromoUserOrHasValidSubscription() -> Bool {
-        if let userMonthSubscriptionEndingDate = SessionManager.shared.currentUser?.monthSubscriptionEndingDate,
-            userMonthSubscriptionEndingDate > Date() {
-            return true
-        }
-        else if let userYearSubscriptionEndingDate = SessionManager.shared.currentUser?.yearSubscriptionEndingDate,
-            userYearSubscriptionEndingDate > Date() {
-            return true
-        }
-        else if let userIsPromoUser = SessionManager.shared.currentUser?.isPromoUser,
-            userIsPromoUser {
-            return true
-        } else {
-            return false
-        }
-    }
-    
     func showTwoOptionsAlert(title: String, message: String, firstActionTitle: String, secondActionTitle: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: firstActionTitle, style: .cancel, handler: nil))
@@ -320,6 +278,47 @@ class ActivityViewController: UIViewController {
             Coordinator.shared.presentAddCompanyViewController(from: self)
         }))
         self.present(alert, animated: true)
+    }
+}
+
+// MARK: - Email
+private extension ActivityViewController {
+    func handleSendAsEmailTapped() {
+        if SessionManager.shared.currentUser?.company?.email == nil {
+            let msg = "It looks like you didn‘t add your company. Would you like too add it?"
+            self.showTwoOptionsAlert(title: "Alert", message: msg, firstActionTitle: "Cancel", secondActionTitle: "Add")
+        } else if let user = SessionManager.shared.currentUser {
+            user.checkUserHasValidSubscription(onCompleted: { hasValidSubscription in
+                if hasValidSubscription {
+                    self.sendEmailWithExcelSheetToCompany()
+                } else {
+                    Coordinator.shared.presentUpgradeToProViewController(from: self)
+                }
+            })
+        } else {
+            print("🔥 No current user")
+        }
+    }
+}
+
+// MARK: - CSV
+private extension ActivityViewController {
+    func handleOpenCSVTapped() {
+        guard let user = SessionManager.shared.currentUser else { return }
+        let fileURL = self.activityViewModel.makeNewCSVFileWithShiftsData(shiftsData: self.dataSource)
+        switch fileURL {
+        case .success(let url):
+            user.checkUserHasValidSubscription { hasValidSubscription in
+                if hasValidSubscription {
+                    self.documentController.url = url
+                    self.documentController.presentPreview(animated: true)
+                } else {
+                    Coordinator.shared.presentUpgradeToProViewController(from: self)
+                }
+            }
+        case .error(let error):
+            self.showOneOptionAlert(title: "Alert", message: "\(error.errorMessage)", actionTitle: "OK")
+        }
     }
 }
 

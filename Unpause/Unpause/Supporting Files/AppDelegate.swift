@@ -11,6 +11,9 @@ import Firebase
 import GoogleSignIn
 import CoreLocation
 import SwiftyStoreKit
+import SwiftyBeaver
+
+let log = SwiftyBeaver.self
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -34,5 +37,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         
         LocationManager.shared.configure()
+        setupLogger()
+    }
+    
+    private func setupLogger() {
+        let console = ConsoleDestination()
+        log.addDestination(console)
     }
 }
