@@ -23,19 +23,23 @@ class ActivityViewController: UIViewController {
     
     private let datesContainer = UIView()
     
-    private let workingIntervalLabel = UILabel()
-    
-    private let fromDateStackView = UIStackView()
+    private let fromDateContainerView = UIView()
     private let fromDateLabel = UILabel()
     private let fromDateArrowImageView = UIImageView()
     private let fromDateTextField = PaddedTextField()
+    private let fromDateTextFieldDoneButton = UIBarButtonItem(barButtonSystemItem: .done,
+                                                              target: self,
+                                                              action: nil)
     
-    private let toDateStackView = UIStackView()
+    private let arrowSeparator = UIImageView()
+    
+    private let toDateContainerView = UIView()
     private let toDateLabel = UILabel()
     private let toDateArrowImageView = UIImageView()
     private let toDateTextField = PaddedTextField()
-    
-    private let separator = UIView()
+    private let toDateTextFieldDoneButton = UIBarButtonItem(barButtonSystemItem: .done,
+                                                            target: self,
+                                                            action: nil)
     
     private let tableView = UITableView()
     
@@ -63,6 +67,7 @@ class ActivityViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         render()
+        setUpDocumentInteractionController()
         setFromPickerAndTextFieldInitialDate()
         showTitleInNavigationBar()
         createPickers()
@@ -75,10 +80,10 @@ class ActivityViewController: UIViewController {
     private func render() {
         configureContainerView()
         configureDatesContainer()
-        renderFromDateLabelAndFromDateTextField()
-        renderToDateLabelAndToDateTextField()
+        renderArrowSeparatorView()
+        renderFromDateContainerViewAndItsSubviews()
+        renderToDateContainerViewAndItsSubviews()
         configureTableView()
-        setUpDocumentInteractionController()
     }
     
     private func setUpObservables() {
@@ -118,6 +123,19 @@ class ActivityViewController: UIViewController {
             .bind(to: activityViewModel.activityStarted)
             .disposed(by: disposeBag)
         
+        fromDateTextFieldDoneButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                ActivityViewModel.forceRefresh.onNext(())
+                self.view.endEditing(true)
+            }).disposed(by: disposeBag)
+        
+        toDateTextFieldDoneButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else { return }
+            ActivityViewModel.forceRefresh.onNext(())
+            self.view.endEditing(true)
+        }).disposed(by: disposeBag)
+        
         observeDeletions()
     }
     
@@ -144,33 +162,38 @@ class ActivityViewController: UIViewController {
         self.title = "Activity"
     }
     
-    private func createPickers() {
-        createDatePickerAndBarForPicker(for: fromDateTextField, with: fromDatePicker)
-        createDatePickerAndBarForPicker(for: toDateTextField, with: toDatePicker)
+    private func rotateViewBy(viewToRotate: UIView, by rotationAngle: Double) {
+        UIView.animate(withDuration: 0.3,
+                       delay: 0,
+                       usingSpringWithDamping: 0.6,
+                       initialSpringVelocity: 0.5,
+                       options: .curveEaseInOut,
+                       animations: {
+                        viewToRotate.transform = CGAffineTransform(rotationAngle: CGFloat(rotationAngle))
+        },
+                       completion: nil)
     }
     
-    private func createDatePickerAndBarForPicker(for textField: UITextField, with picker: UIDatePicker) {
+    private func createPickers() {
+        createDatePickerAndBarForPicker(for: fromDateTextField, with: fromDatePicker, barButton: fromDateTextFieldDoneButton)
+        createDatePickerAndBarForPicker(for: toDateTextField, with: toDatePicker, barButton: toDateTextFieldDoneButton)
+    }
+    
+    private func createDatePickerAndBarForPicker(for textField: UITextField, with picker: UIDatePicker, barButton: UIBarButtonItem) {
         picker.datePickerMode = UIDatePicker.Mode.date
         textField.inputView = picker
         picker.backgroundColor = UIColor.unpauseWhite
-        addBarOnTopOfPicker(for: textField)
+        addBarAndBarButtonOnTopOfPicker(for: textField, barButton: barButton)
     }
     
-    private func addBarOnTopOfPicker(for textField: UITextField) {
+    private func addBarAndBarButtonOnTopOfPicker(for textField: UITextField, barButton: UIBarButtonItem) {
         let bar = UIToolbar()
         bar.sizeToFit()
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: nil)
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
         
-        bar.setItems([flexibleSpace,doneButton], animated: false)
+        bar.setItems([flexibleSpace, barButton], animated: false)
         bar.isUserInteractionEnabled = true
         textField.inputAccessoryView = bar
-        
-        doneButton.rx.tap.subscribe(onNext: { [weak self] _ in
-            guard let `self` = self else { return }
-            ActivityViewModel.forceRefresh.onNext(())
-            self.view.endEditing(true)
-        }).disposed(by: disposeBag)
     }
     
     private func setUpTableView() {
@@ -211,24 +234,11 @@ class ActivityViewController: UIViewController {
         }))
         
         alert.addAction(UIAlertAction(title: "Send as email", style: .default, handler:{ [weak self] _ in
-            guard let `self` = self else { return }
-            if SessionManager.shared.currentUser?.company?.email == nil {
-                self.showTwoOptionsAlert(title: "Alert", message: "It looks like you didn‘t add your company. Would you like too add it?", firstActionTitle: "Cancel", secondActionTitle: "Add")
-            } else {
-                self.sendEmailWithExcelSheetToCompany()
-            }
+            self?.handleSendAsEmailTapped()
         }))
         
         alert.addAction(UIAlertAction(title: "Open CSV", style: .default, handler:{ [weak self] _ in
-            guard let `self` = self else { return }
-            let fileURL = self.activityViewModel.makeNewCSVFileWithShiftsData(shiftsData: self.dataSource)
-            switch fileURL {
-            case .success(let url):
-                self.documentController.url = url
-                self.documentController.presentPreview(animated: true)
-            case .error(let error):
-                self.showOneOptionAlert(title: "Alert", message: "\(error.errorMessage)", actionTitle: "OK")
-            }
+            self?.handleOpenCSVTapped()
         }))
         
         alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
@@ -271,6 +281,44 @@ class ActivityViewController: UIViewController {
     }
 }
 
+// MARK: - Email
+private extension ActivityViewController {
+    func handleSendAsEmailTapped() {
+        if SessionManager.shared.currentUser?.company?.email == nil {
+            let msg = "It looks like you didn‘t add your company. Would you like too add it?"
+            self.showTwoOptionsAlert(title: "Alert", message: msg, firstActionTitle: "Cancel", secondActionTitle: "Add")
+        } else if let user = SessionManager.shared.currentUser {
+            user.checkUserHasValidSubscription(onCompleted: { hasValidSubscription in
+                if hasValidSubscription {
+                    self.sendEmailWithExcelSheetToCompany()
+                } else {
+                    Coordinator.shared.presentUpgradeToProViewController(from: self)
+                }
+            })
+        }
+    }
+}
+
+// MARK: - CSV
+private extension ActivityViewController {
+    func handleOpenCSVTapped() {
+        guard let user = SessionManager.shared.currentUser else { return }
+        let fileURL = self.activityViewModel.makeNewCSVFileWithShiftsData(shiftsData: self.dataSource)
+        switch fileURL {
+        case .success(let url):
+            user.checkUserHasValidSubscription { hasValidSubscription in
+                if hasValidSubscription {
+                    self.documentController.url = url
+                    self.documentController.presentPreview(animated: true)
+                } else {
+                    Coordinator.shared.presentUpgradeToProViewController(from: self)
+                }
+            }
+        case .error(let error):
+            self.showOneOptionAlert(title: "Alert", message: "\(error.errorMessage)", actionTitle: "OK")
+        }
+    }
+}
 
 // MARK: - UI rendering
 private extension ActivityViewController {
@@ -296,52 +344,76 @@ private extension ActivityViewController {
         }
         datesContainer.backgroundColor = .unpauseOrange
         datesContainer.layer.cornerRadius = 25
-        datesContainer.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        datesContainer.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
     }
     
-    func renderFromDateLabelAndFromDateTextField() {
-        datesContainer.addSubview(fromDateStackView)
-        
-        fromDateStackView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(6)
-            make.bottom.equalToSuperview().inset(6)
-            make.left.equalToSuperview().offset(50)
+    func renderArrowSeparatorView() {
+        datesContainer.addSubview(arrowSeparator)
+        arrowSeparator.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.height.width.equalTo(15)
         }
+        arrowSeparator.image = UIImage(named: "arrow_15x15_black")
+    }
+    
+    func renderFromDateContainerViewAndItsSubviews() {
+        datesContainer.addSubview(fromDateContainerView)
+        fromDateContainerView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(4)
+            make.right.equalTo(arrowSeparator.snp.left).offset(-12)
+            make.bottom.equalToSuperview().inset(4)
+        }
+        fromDateContainerView.layer.borderWidth = 1
+        fromDateContainerView.layer.cornerRadius = 10
+        fromDateContainerView.layer.borderColor = UIColor.unpauseWhite.cgColor
         
-        fromDateStackView.axis = .vertical
-        fromDateStackView.alignment = .center
-        fromDateStackView.distribution = .equalSpacing
-        fromDateStackView.spacing = 5
+        fromDateContainerView.addSubview(fromDateArrowImageView)
+        fromDateArrowImageView.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.left.equalToSuperview().offset(5)
+            make.height.width.equalTo(21)
+        }
+        fromDateArrowImageView.image = UIImage(named: "calendar_30x30_white")
+        fromDateArrowImageView.contentMode = .scaleAspectFit
         
-        fromDateStackView.addArrangedSubview(fromDateLabel)
-        fromDateLabel.text = "From"
-        fromDateLabel.font = UIFont.boldSystemFont(ofSize: 20)
-        fromDateLabel.textColor = .unpauseWhite
-        
-        fromDateStackView.addArrangedSubview(fromDateTextField)
+        fromDateContainerView.addSubview(fromDateTextField)
+        fromDateTextField.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(6)
+            make.left.equalTo(fromDateArrowImageView.snp.right).offset(2)
+            make.right.equalToSuperview().inset(5)
+            make.bottom.equalToSuperview().inset(6)
+        }
         fromDateTextField.textColor = .unpauseWhite
     }
     
-    func renderToDateLabelAndToDateTextField() {
-        datesContainer.addSubview(toDateStackView)
-        
-        toDateStackView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(6)
-            make.bottom.equalToSuperview().inset(6)
-            make.right.equalToSuperview().inset(50)
+    func renderToDateContainerViewAndItsSubviews() {
+        datesContainer.addSubview(toDateContainerView)
+        toDateContainerView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(4)
+            make.left.equalTo(arrowSeparator.snp.right).offset(12)
+            make.bottom.equalToSuperview().inset(4)
         }
+        toDateContainerView.layer.borderWidth = 1
+        toDateContainerView.layer.cornerRadius = 10
+        toDateContainerView.layer.borderColor = UIColor.unpauseWhite.cgColor
         
-        toDateStackView.axis = .vertical
-        toDateStackView.alignment = .center
-        toDateStackView.distribution = .equalSpacing
-        toDateStackView.spacing = 5
+        toDateContainerView.addSubview(toDateArrowImageView)
+        toDateArrowImageView.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.left.equalToSuperview().offset(5)
+            make.height.width.equalTo(21)
+        }
+        toDateArrowImageView.image = UIImage(named: "calendar_30x30_white")
+        toDateArrowImageView.contentMode = .scaleAspectFit
         
-        toDateStackView.addArrangedSubview(toDateLabel)
-        toDateLabel.text = "To"
-        toDateLabel.font = UIFont.boldSystemFont(ofSize: 20)
-        toDateLabel.textColor = .unpauseWhite
-        
-        toDateStackView.addArrangedSubview(toDateTextField)
+        toDateContainerView.addSubview(toDateTextField)
+        toDateTextField.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(6)
+            make.left.equalTo(toDateArrowImageView.snp.right).offset(2)
+            make.right.equalToSuperview().inset(5)
+            make.bottom.equalToSuperview().inset(6)
+        }
         toDateTextField.textColor = .unpauseWhite
     }
     
@@ -398,7 +470,6 @@ extension ActivityViewController: UITableViewDataSource {
                                                      for: indexPath) as! ShiftTableViewCell
             cell.configure(shift)
             return cell
-            
         case .empty:
             tableView.separatorStyle = .none
             tableView.allowsSelection = false

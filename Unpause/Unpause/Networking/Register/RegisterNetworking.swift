@@ -14,6 +14,12 @@ import FirebaseFirestore
 import RxFirebase
 import GoogleSignIn
 
+protocol RegisterNetworkingProtocol {
+    func registerUserWith(firstName: String, lastName: String, email: String, password: String) -> Observable<FirebaseResponseObject>
+    func signInGoogleUser(googleUser: GIDGoogleUser) -> Observable<GoogleUserSavingResponse>
+    func saveUserInfoOnServer(email: String, firstName: String, lastName: String) -> Observable<Response>
+}
+
 class RegisterNetworking: RegisterNetworkingProtocol {
     
     private let dataBaseReference = Firestore.firestore()
@@ -40,7 +46,7 @@ class RegisterNetworking: RegisterNetworkingProtocol {
                     SessionManager.shared.logIn(newUser)
                     return Observable.just(FirebaseResponseObject.success(authDataResult))
                 case .error(let error):
-                    return Observable.just(FirebaseResponseObject.error(.otherError(error)))
+                    return Observable.just(FirebaseResponseObject.error(error))
                 }
         }
     }
@@ -52,7 +58,8 @@ class RegisterNetworking: RegisterNetworkingProtocol {
         }
         let credentials = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
         return Auth.auth().rx.signInAndRetrieveData(with: credentials)
-            .flatMapLatest ({ authDataResult -> Observable<Response> in
+            .flatMapLatest({ [weak self] authDataResult -> Observable<Response> in
+                guard let `self` = self else { return Observable.empty() }
                 guard let userEmail = authDataResult.user.email,
                     let userFirstName = googleUser.profile.givenName,
                     let userLastName = googleUser.profile.familyName else {

@@ -102,6 +102,56 @@ extension Formatter {
         return dateOneMonthBeforeTodaysDate
     }
     
+    func getDateOneMontAfterTodaysDate() -> Date {
+        let calendar = Calendar.current
+        var dateComponents = DateComponents()
+        
+        let year = calendar.component(.year, from: Date())
+        let nextMonthInDateFormat = calendar.date(byAdding: .month, value: 1, to: Date())
+        let nextMonth = calendar.component(.month, from: nextMonthInDateFormat!)
+        let day = calendar.component(.day, from: Date())
+        let hour = calendar.component(.hour, from: Date())
+        let minute = calendar.component(.minute, from: Date())
+        let second = calendar.component(.second, from: Date())
+        
+        dateComponents.year = year
+        dateComponents.month = nextMonth
+        dateComponents.day = day
+        dateComponents.hour = hour
+        dateComponents.minute = minute
+        dateComponents.second = second
+        
+        guard let dateOneMonthAfterTodaysDate = calendar.date(from: dateComponents) else {
+            return Date()
+        }
+        return dateOneMonthAfterTodaysDate
+    }
+    
+    func getDateOneYearAfterTodaysDate() -> Date {
+        let calendar = Calendar.current
+        var dateComponents = DateComponents()
+        
+        let nextYearInDateFormat = calendar.date(byAdding: .year, value: 1, to: Date())
+        let nextYear = calendar.component(.year, from: nextYearInDateFormat!)
+        let month = calendar.component(.month, from: Date())
+        let day = calendar.component(.day, from: Date())
+        let hour = calendar.component(.hour, from: Date())
+        let minute = calendar.component(.minute, from: Date())
+        let second = calendar.component(.second, from: Date())
+        
+        dateComponents.year = nextYear
+        dateComponents.month = month
+        dateComponents.day = day
+        dateComponents.hour = hour
+        dateComponents.minute = minute
+        dateComponents.second = second
+        
+        guard let dateOneYearAfterTodaysDate = calendar.date(from: dateComponents) else {
+            return Date()
+        }
+        return dateOneYearAfterTodaysDate
+    }
+    
     func getDateAndTimeWithZeroSeconds(from date: Date) -> Date {
         let calendar = Calendar.current
         var dateComponents = DateComponents()

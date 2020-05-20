@@ -27,6 +27,7 @@ class NotificationManager: NSObject {
     
     func scheduleEntranceNotification() {
         notificationCenter.removeAllPendingNotificationRequests()
+        
         guard let allUsersCompanyLocations = SessionManager.shared.currentUser?.company?.locations else { return }
         for location in allUsersCompanyLocations {
             let latitude = location.latitude

@@ -11,6 +11,8 @@ import UIKit
 
 extension Coordinator {
     func navigateToHomeViewController() {
+        NotificationManager.shared.notificationCenter.requestAuthorization(options: [.alert, .badge, .sound]) { (_,_) in }
+        
         let customTabBarController = CustomTabBarController()
         window.rootViewController = customTabBarController
     }

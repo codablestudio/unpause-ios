@@ -10,6 +10,10 @@ import UIKit
 import Firebase
 import GoogleSignIn
 import CoreLocation
+import SwiftyStoreKit
+import SwiftyBeaver
+
+let log = SwiftyBeaver.self
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,17 +21,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        FirebaseApp.configure()
-        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
+        
         let newWindow = UIWindow(frame: UIScreen.main.bounds)
-        Coordinator.shared.start(newWindow)
         self.window = newWindow
         self.window?.makeKeyAndVisible()
-        LocationManager.shared.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-        LocationManager.shared.locationManager.pausesLocationUpdatesAutomatically = false
-        LocationManager.shared.locationManager.requestAlwaysAuthorization()
-        NotificationManager.shared.notificationCenter.requestAuthorization(options: [.alert, .badge, .sound]) { (_,_) in }
-        LocationManager.shared.locationManager.startUpdatingLocation()
+        
+        setupApplication()
+        
+        Coordinator.shared.start(newWindow)
         return true
+    }
+    
+    private func setupApplication() {
+        FirebaseApp.configure()
+        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
+        
+        LocationManager.shared.configure()
+        setupLogger()
+    }
+    
+    private func setupLogger() {
+        let console = ConsoleDestination()
+        log.addDestination(console)
     }
 }

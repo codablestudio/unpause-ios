@@ -36,6 +36,10 @@
 		C111932323CF6008007E2866 /* AddShiftViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C111932223CF6008007E2866 /* AddShiftViewModel.swift */; };
 		C116D39524055A2400A6FEC5 /* CSVMakingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C116D39424055A2400A6FEC5 /* CSVMakingResponse.swift */; };
 		C11943812459A486006BC8FE /* Pods_Unpause.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE3FC3210F1CDFC45FF7DBE1 /* Pods_Unpause.framework */; };
+		C12A2C182465AC0300BA9D51 /* UpgradeToProViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12A2C172465AC0300BA9D51 /* UpgradeToProViewController.swift */; };
+		C12A2C1B2465AC7500BA9D51 /* UpgradeToProViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12A2C1A2465AC7500BA9D51 /* UpgradeToProViewModel.swift */; };
+		C12A2C1E2465ACC700BA9D51 /* UpgradeToProViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12A2C1D2465ACC700BA9D51 /* UpgradeToProViewModelProtocol.swift */; };
+		C12A2C202465B85600BA9D51 /* Coordinator+UpradeToPro.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12A2C1F2465B85600BA9D51 /* Coordinator+UpradeToPro.swift */; };
 		C12CDDB523FA8AC5002A19C8 /* EmptyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12CDDB423FA8AC5002A19C8 /* EmptyTableViewCell.swift */; };
 		C12CDDB723FA999F002A19C8 /* LoadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12CDDB623FA999F002A19C8 /* LoadingTableViewCell.swift */; };
 		C12D289823A536BC004BC57A /* LoginNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12D289723A536BC004BC57A /* LoginNetworking.swift */; };
@@ -67,6 +71,8 @@
 		C13DDCEB23F36D050043E242 /* Shift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13DDCEA23F36D050043E242 /* Shift.swift */; };
 		C13EFBA423FECC5D0081ACF0 /* Formatter+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13EFBA323FECC5D0081ACF0 /* Formatter+Date.swift */; };
 		C13F6B35244B2370009EA1B9 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C13F6B34244B2370009EA1B9 /* AuthenticationServices.framework */; };
+		C14104B42473E11B00CAAE26 /* IAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14104B32473E11B00CAAE26 /* IAPManager.swift */; };
+		C14104B72473E58F00CAAE26 /* PurchaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14104B62473E58F00CAAE26 /* PurchaseResponse.swift */; };
 		C1419F6C241253B4001B5817 /* Coordinator+Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1419F6B241253B4001B5817 /* Coordinator+Register.swift */; };
 		C1419F6E24125414001B5817 /* AddCompanyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1419F6D24125414001B5817 /* AddCompanyViewModel.swift */; };
 		C1419F702412543E001B5817 /* AddCompanyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1419F6F2412543E001B5817 /* AddCompanyViewController.swift */; };
@@ -89,6 +95,7 @@
 		C16A2EF123A77B1200CBA43F /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16A2EF023A77B1200CBA43F /* Coordinator.swift */; };
 		C16A2EF323A784A700CBA43F /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16A2EF223A784A700CBA43F /* RegisterViewController.swift */; };
 		C16A2EF523A7853800CBA43F /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16A2EF423A7853800CBA43F /* RegisterViewModel.swift */; };
+		C16FBC6A2472C6E1006D24EC /* SubscriptionsFetchingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16FBC692472C6E1006D24EC /* SubscriptionsFetchingResponse.swift */; };
 		C1707B1A23F17605002E1A10 /* Formatter+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1707B1923F17605002E1A10 /* Formatter+String.swift */; };
 		C1707B1C23F18AE3002E1A10 /* HomeNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1707B1B23F18AE3002E1A10 /* HomeNetworking.swift */; };
 		C1707B1E23F19022002E1A10 /* Coordinator+AddShift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1707B1D23F19022002E1A10 /* Coordinator+AddShift.swift */; };
@@ -99,7 +106,6 @@
 		C17E89142434D61E00575A7F /* RegisterViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E89132434D61E00575A7F /* RegisterViewModelProtocol.swift */; };
 		C17E89192434DA7E00575A7F /* LoginNetworkingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E89182434DA7E00575A7F /* LoginNetworkingProtocol.swift */; };
 		C17E891C2434DC8900575A7F /* CompanyNetworkingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E891B2434DC8900575A7F /* CompanyNetworkingProtocol.swift */; };
-		C17E891F2434DDF500575A7F /* RegisterNetworkingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E891E2434DDF500575A7F /* RegisterNetworkingProtocol.swift */; };
 		C17E89232434E4FB00575A7F /* UpdatePersonalInfoNetworkingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E89222434E4FB00575A7F /* UpdatePersonalInfoNetworkingProtocol.swift */; };
 		C17E89272434E5EA00575A7F /* ChangePasswordNetworkingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E89262434E5EA00575A7F /* ChangePasswordNetworkingProtocol.swift */; };
 		C17E892A2434E64500575A7F /* HomeNetworkingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E89292434E64500575A7F /* HomeNetworkingProtocol.swift */; };
@@ -196,6 +202,10 @@
 		C11943842459A6E1006BC8FE /* UnpauseRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = UnpauseRelease.entitlements; sourceTree = "<group>"; };
 		C11943852459A796006BC8FE /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		C11943872459A888006BC8FE /* Trcanje.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Trcanje.gpx; sourceTree = "<group>"; };
+		C12A2C172465AC0300BA9D51 /* UpgradeToProViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeToProViewController.swift; sourceTree = "<group>"; };
+		C12A2C1A2465AC7500BA9D51 /* UpgradeToProViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeToProViewModel.swift; sourceTree = "<group>"; };
+		C12A2C1D2465ACC700BA9D51 /* UpgradeToProViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeToProViewModelProtocol.swift; sourceTree = "<group>"; };
+		C12A2C1F2465B85600BA9D51 /* Coordinator+UpradeToPro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinator+UpradeToPro.swift"; sourceTree = "<group>"; };
 		C12CDDB423FA8AC5002A19C8 /* EmptyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTableViewCell.swift; sourceTree = "<group>"; };
 		C12CDDB623FA999F002A19C8 /* LoadingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingTableViewCell.swift; sourceTree = "<group>"; };
 		C12D289723A536BC004BC57A /* LoginNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginNetworking.swift; sourceTree = "<group>"; };
@@ -229,6 +239,8 @@
 		C13EFBA323FECC5D0081ACF0 /* Formatter+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Formatter+Date.swift"; sourceTree = "<group>"; };
 		C13F6B33244B1B87009EA1B9 /* Unpause.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Unpause.entitlements; sourceTree = "<group>"; };
 		C13F6B34244B2370009EA1B9 /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
+		C14104B32473E11B00CAAE26 /* IAPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPManager.swift; sourceTree = "<group>"; };
+		C14104B62473E58F00CAAE26 /* PurchaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseResponse.swift; sourceTree = "<group>"; };
 		C1419F6B241253B4001B5817 /* Coordinator+Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinator+Register.swift"; sourceTree = "<group>"; };
 		C1419F6D24125414001B5817 /* AddCompanyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCompanyViewModel.swift; sourceTree = "<group>"; };
 		C1419F6F2412543E001B5817 /* AddCompanyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCompanyViewController.swift; sourceTree = "<group>"; };
@@ -252,6 +264,7 @@
 		C16A2EF023A77B1200CBA43F /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		C16A2EF223A784A700CBA43F /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		C16A2EF423A7853800CBA43F /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		C16FBC692472C6E1006D24EC /* SubscriptionsFetchingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionsFetchingResponse.swift; sourceTree = "<group>"; };
 		C1707B1923F17605002E1A10 /* Formatter+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Formatter+String.swift"; sourceTree = "<group>"; };
 		C1707B1B23F18AE3002E1A10 /* HomeNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNetworking.swift; sourceTree = "<group>"; };
 		C1707B1D23F19022002E1A10 /* Coordinator+AddShift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinator+AddShift.swift"; sourceTree = "<group>"; };
@@ -262,7 +275,6 @@
 		C17E89132434D61E00575A7F /* RegisterViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModelProtocol.swift; sourceTree = "<group>"; };
 		C17E89182434DA7E00575A7F /* LoginNetworkingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginNetworkingProtocol.swift; sourceTree = "<group>"; };
 		C17E891B2434DC8900575A7F /* CompanyNetworkingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyNetworkingProtocol.swift; sourceTree = "<group>"; };
-		C17E891E2434DDF500575A7F /* RegisterNetworkingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterNetworkingProtocol.swift; sourceTree = "<group>"; };
 		C17E89222434E4FB00575A7F /* UpdatePersonalInfoNetworkingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePersonalInfoNetworkingProtocol.swift; sourceTree = "<group>"; };
 		C17E89262434E5EA00575A7F /* ChangePasswordNetworkingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordNetworkingProtocol.swift; sourceTree = "<group>"; };
 		C17E89292434E64500575A7F /* HomeNetworkingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNetworkingProtocol.swift; sourceTree = "<group>"; };
@@ -320,6 +332,7 @@
 		DE3FC3210F1CDFC45FF7DBE1 /* Pods_Unpause.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Unpause.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F42DD9822D04DBA19CEF589D /* Pods-UnpauseTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnpauseTests.release.xcconfig"; path = "Target Support Files/Pods-UnpauseTests/Pods-UnpauseTests.release.xcconfig"; sourceTree = "<group>"; };
 		F56D7C9D8CB0DE7FF265F229 /* Pods-Unpause.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Unpause.debug.xcconfig"; path = "Target Support Files/Pods-Unpause/Pods-Unpause.debug.xcconfig"; sourceTree = "<group>"; };
+		FB6691F2247424DC0007DAEC /* RunFastByCodable.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = RunFastByCodable.gpx; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -417,6 +430,23 @@
 			path = Rx;
 			sourceTree = "<group>";
 		};
+		C12A2C192465AC4F00BA9D51 /* UpgradeToPro */ = {
+			isa = PBXGroup;
+			children = (
+				C12A2C1A2465AC7500BA9D51 /* UpgradeToProViewModel.swift */,
+				C12A2C1D2465ACC700BA9D51 /* UpgradeToProViewModelProtocol.swift */,
+			);
+			path = UpgradeToPro;
+			sourceTree = "<group>";
+		};
+		C12A2C1C2465AC8900BA9D51 /* UpgradeToPro */ = {
+			isa = PBXGroup;
+			children = (
+				C12A2C172465AC0300BA9D51 /* UpgradeToProViewController.swift */,
+			);
+			path = UpgradeToPro;
+			sourceTree = "<group>";
+		};
 		C13105E823B0B4E600A509D9 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -434,6 +464,14 @@
 				C1C6D942242377710037378C /* UnpauseActivityIndicatorView.swift */,
 			);
 			path = UIActivityIndicatorViews;
+			sourceTree = "<group>";
+		};
+		C14104B52473E56A00CAAE26 /* Purchase */ = {
+			isa = PBXGroup;
+			children = (
+				C14104B62473E58F00CAAE26 /* PurchaseResponse.swift */,
+			);
+			path = Purchase;
 			sourceTree = "<group>";
 		};
 		C1437B3F23F3EF35007BD7DA /* Factories */ = {
@@ -551,6 +589,7 @@
 		C146992623A117A600A84818 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				C12A2C192465AC4F00BA9D51 /* UpgradeToPro */,
 				C17E893D2434F09200575A7F /* AddCompany */,
 				C17E893C2434F08700575A7F /* ChangePassword */,
 				C17E893B2434F07400575A7F /* UpdatePersonalInfo */,
@@ -569,6 +608,7 @@
 		C146992723A117B400A84818 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C12A2C1C2465AC8900BA9D51 /* UpgradeToPro */,
 				C1BE0D1E24215DDE00480224 /* Login */,
 				C17E89162434D7CD00575A7F /* ForgotPassword */,
 				C17E89152434D7A100575A7F /* Register */,
@@ -583,6 +623,7 @@
 		C146992823A117C400A84818 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C14104B52473E56A00CAAE26 /* Purchase */,
 				C1FC657D2422EEF200E64AE4 /* User */,
 				C1BE0D1D24215CED00480224 /* Error */,
 				C1BE0D1C24215CB900480224 /* Firebase */,
@@ -603,6 +644,7 @@
 				C1FF2A8D23C4B3EA00ACCF29 /* Coordinator+Settings.swift */,
 				C111931E23CF523D007E2866 /* Coordinator+Home.swift */,
 				C1707B1D23F19022002E1A10 /* Coordinator+AddShift.swift */,
+				C12A2C1F2465B85600BA9D51 /* Coordinator+UpradeToPro.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -686,7 +728,6 @@
 		C17E891D2434DDD500575A7F /* Register */ = {
 			isa = PBXGroup;
 			children = (
-				C17E891E2434DDF500575A7F /* RegisterNetworkingProtocol.swift */,
 				C137F48123B8B6AC00358E30 /* RegisterNetworking.swift */,
 			);
 			path = Register;
@@ -788,6 +829,7 @@
 				C1B0B2B223B0BF9700CE5D05 /* SessionManager.swift */,
 				C13B7737240E489E004DD8FB /* NotificationManager.swift */,
 				C12F7A3E240F9D590074362F /* LocationManager.swift */,
+				C14104B32473E11B00CAAE26 /* IAPManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -927,6 +969,7 @@
 			children = (
 				C13B773A240E636A004DD8FB /* BrzaRuta.gpx */,
 				C11943872459A888006BC8FE /* Trcanje.gpx */,
+				FB6691F2247424DC0007DAEC /* RunFastByCodable.gpx */,
 			);
 			path = "GPX Files";
 			sourceTree = "<group>";
@@ -977,6 +1020,7 @@
 				C1F2CD1E23F2E6D600BD23DC /* LastCheckInResponse.swift */,
 				C14334EB2407F4BD00C49E16 /* DataMakingResponse.swift */,
 				C116D39424055A2400A6FEC5 /* CSVMakingResponse.swift */,
+				C16FBC692472C6E1006D24EC /* SubscriptionsFetchingResponse.swift */,
 			);
 			path = "Other responses";
 			sourceTree = "<group>";
@@ -1216,8 +1260,10 @@
 				C1437B4323F40B0A007BD7DA /* ShiftNetworking.swift in Sources */,
 				C16A2EF123A77B1200CBA43F /* Coordinator.swift in Sources */,
 				C111932323CF6008007E2866 /* AddShiftViewModel.swift in Sources */,
+				C12A2C1E2465ACC700BA9D51 /* UpgradeToProViewModelProtocol.swift in Sources */,
 				C14731432416982000477ECA /* CompaniesValidationDataResponse.swift in Sources */,
 				C1FF2A8E23C4B3EA00ACCF29 /* Coordinator+Settings.swift in Sources */,
+				C14104B72473E58F00CAAE26 /* PurchaseResponse.swift in Sources */,
 				C1C1D2DE2437381F000BC698 /* LoginViewModelMock.swift in Sources */,
 				C14466C82417AD2A00CD52B6 /* ForgotPasswordViewModel.swift in Sources */,
 				C10F78DB23A3D79200783476 /* UILabel+Extension.swift in Sources */,
@@ -1245,6 +1291,7 @@
 				C17E893F2434F0D100575A7F /* SettingsViewModelProtocol.swift in Sources */,
 				C13C412023AB93D600B674E9 /* FirebaseResponseObject.swift in Sources */,
 				C17E89192434DA7E00575A7F /* LoginNetworkingProtocol.swift in Sources */,
+				C14104B42473E11B00CAAE26 /* IAPManager.swift in Sources */,
 				C1D0CA0B23F6AC9600A20D6F /* DataSource.swift in Sources */,
 				C10F78E923A3D79200783476 /* Array+Extension.swift in Sources */,
 				C10F78E323A3D79200783476 /* Bool+Extension.swift in Sources */,
@@ -1275,13 +1322,13 @@
 				C17E89412434F15000575A7F /* AddCompanyViewModelProtocol.swift in Sources */,
 				C1707B1E23F19022002E1A10 /* Coordinator+AddShift.swift in Sources */,
 				C13DDCEB23F36D050043E242 /* Shift.swift in Sources */,
-				C17E891F2434DDF500575A7F /* RegisterNetworkingProtocol.swift in Sources */,
 				C10F78D723A3D79200783476 /* ActivityIndicator.swift in Sources */,
 				C17E893A2434EF2C00575A7F /* ActivityViewModelProtocol.swift in Sources */,
 				C10F78DF23A3D79200783476 /* UIView+Extension.swift in Sources */,
 				C102D7BF23AD0063000B9E80 /* OrangeButton.swift in Sources */,
 				C1707B2023F190AE002E1A10 /* DescriptionViewController.swift in Sources */,
 				C1FC657C2422D8B500E64AE4 /* GoogleUserSavingResponse.swift in Sources */,
+				C12A2C182465AC0300BA9D51 /* UpgradeToProViewController.swift in Sources */,
 				C12F7A49241001040074362F /* CompanyNetworking.swift in Sources */,
 				C14334EC2407F4BD00C49E16 /* DataMakingResponse.swift in Sources */,
 				C12F7A4B241003980074362F /* CompanyFactory.swift in Sources */,
@@ -1289,6 +1336,7 @@
 				C1B0B2B323B0BF9700CE5D05 /* SessionManager.swift in Sources */,
 				C12F7A47240FEDD00074362F /* CompanyFetchingResponse.swift in Sources */,
 				C16A2EF523A7853800CBA43F /* RegisterViewModel.swift in Sources */,
+				C16FBC6A2472C6E1006D24EC /* SubscriptionsFetchingResponse.swift in Sources */,
 				C13105E723B0ADF200A509D9 /* User.swift in Sources */,
 				C17E89382434EE8F00575A7F /* AddShiftViewModelProtocol.swift in Sources */,
 				C12F7A3F240F9D590074362F /* LocationManager.swift in Sources */,
@@ -1296,6 +1344,7 @@
 				C17E892D2434E68000575A7F /* ShiftNetworkingProtocol.swift in Sources */,
 				C1BE0D1824212B6E00480224 /* DotsUIBarButtonItem.swift in Sources */,
 				C14731412416950100477ECA /* CompanyValidationDataResponse.swift in Sources */,
+				C12A2C202465B85600BA9D51 /* Coordinator+UpradeToPro.swift in Sources */,
 				C110AE2A23C34E770066C394 /* ChangePasswordViewModel.swift in Sources */,
 				C17E891C2434DC8900575A7F /* CompanyNetworkingProtocol.swift in Sources */,
 				C13EFBA423FECC5D0081ACF0 /* Formatter+Date.swift in Sources */,
@@ -1322,6 +1371,7 @@
 				C13C412623ABBC7000B674E9 /* SettingsViewController.swift in Sources */,
 				C13C412423ABBC5400B674E9 /* ActivityViewModel.swift in Sources */,
 				C146991223A112F100A84818 /* AppDelegate.swift in Sources */,
+				C12A2C1B2465AC7500BA9D51 /* UpgradeToProViewModel.swift in Sources */,
 				C1FBC46F23AA521C00579913 /* HomeViewModel.swift in Sources */,
 				C1D568FE241C0793004C8A89 /* PaddedTextField.swift in Sources */,
 				C10F78E723A3D79200783476 /* UIButton+Rx.swift in Sources */,
@@ -1497,6 +1547,7 @@
 				CODE_SIGN_ENTITLEMENTS = Unpause/Unpause.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = Q2P9VVU3YH;
 				INFOPLIST_FILE = Unpause/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1521,6 +1572,7 @@
 				CODE_SIGN_ENTITLEMENTS = Unpause/UnpauseRelease.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = Q2P9VVU3YH;
 				INFOPLIST_FILE = Unpause/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;

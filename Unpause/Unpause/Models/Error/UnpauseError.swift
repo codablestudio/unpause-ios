@@ -30,6 +30,7 @@ enum UnpauseError: Error, Equatable {
     case noCompaniesError
     case wrongCompanyPasscodeError
     case noShiftsCSVError
+    case dateConversionError
     case otherError(Error)
     
     var errorMessage: String {
@@ -68,6 +69,8 @@ enum UnpauseError: Error, Equatable {
             return "There is no commpany for that passcode. Please check your passcode and try again."
         case .noShiftsCSVError:
             return "Unable to make CSV file from empty table view list."
+        case .dateConversionError:
+            return "Unable to make conversion accros different date formats."
         case .otherError(let error):
             return "\(error.localizedDescription)"
         }
