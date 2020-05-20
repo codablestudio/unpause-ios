@@ -51,16 +51,12 @@ extension User {
     func checkUserHasValidSubscription(onCompleted: @escaping (Bool) -> Void ) {
         return IAPManager.shared.updateUserSubscriptionStatus(onCompleted: {
             if let monthEndingDate = self.monthSubscriptionEndingDate, monthEndingDate > Date() {
-//                return true
                 onCompleted(true)
             } else if let yearEndingDate = self.yearSubscriptionEndingDate, yearEndingDate > Date() {
-//                return true
                 onCompleted(true)
             } else {
-//                return self.isPromoUser
                 onCompleted(self.isPromoUser)
             }
-            
         })
     }
 }

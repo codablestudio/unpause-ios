@@ -295,8 +295,6 @@ private extension ActivityViewController {
                     Coordinator.shared.presentUpgradeToProViewController(from: self)
                 }
             })
-        } else {
-            print("🔥 No current user")
         }
     }
 }
