@@ -120,18 +120,16 @@ class HomeViewController: UIViewController {
                 case .success(let lastCheckInDate):
                     SessionManager.shared.currentUser?.lastCheckInDateAndTime = lastCheckInDate
                     if lastCheckInDate != nil {
-                        log.debug("notifyOnExit")
                         NotificationManager.shared.notificationCenter.removePendingNotificationRequests(withIdentifiers: ["notifyOnEntry"])
                         NotificationManager.shared.scheduleExitNotification()
                         self.checkInButton.setTitle("Check out", for: .normal)
                     } else {
-                        print("🔥 notifyOnEntry")
                         NotificationManager.shared.notificationCenter.removePendingNotificationRequests(withIdentifiers: ["notifyOnExit"])
                         NotificationManager.shared.scheduleEntranceNotification()
                         self.checkInButton.setTitle("Check in", for: .normal)
                     }
                 case .error(let error):
-                    print("🔥\(error)")
+                    print("\(error)")
                 }
             }).disposed(by: disposeBag)
     }

@@ -136,6 +136,8 @@
 		C1C1D2E224373A72000BC698 /* RegisterNetworkingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C1D2E124373A72000BC698 /* RegisterNetworkingMock.swift */; };
 		C1C1D2E424373A8B000BC698 /* LoginNetworkingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C1D2E324373A8B000BC698 /* LoginNetworkingMock.swift */; };
 		C1C1D2EC24375257000BC698 /* LoginViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C1D2EB24375257000BC698 /* LoginViewModelTest.swift */; };
+		C1C21ACC247541AF00FE5739 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C21ACB247541AF00FE5739 /* SettingsTableViewCell.swift */; };
+		C1C21ACF24754A6000FE5739 /* SettingTableViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C21ACE24754A6000FE5739 /* SettingTableViewItem.swift */; };
 		C1C41B7623A9594F009288CA /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C41B7523A9594F009288CA /* UITextField+Extension.swift */; };
 		C1C6D943242377710037378C /* UnpauseActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C6D942242377710037378C /* UnpauseActivityIndicatorView.swift */; };
 		C1CE0D28245830110025FB06 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1CE0D27245830110025FB06 /* StoreKit.framework */; };
@@ -309,6 +311,8 @@
 		C1C1D2EB24375257000BC698 /* LoginViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelTest.swift; sourceTree = "<group>"; };
 		C1C1D2ED24375257000BC698 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C1C210AE240913E7002B5ACA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C1C21ACB247541AF00FE5739 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
+		C1C21ACE24754A6000FE5739 /* SettingTableViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewItem.swift; sourceTree = "<group>"; };
 		C1C41B7523A9594F009288CA /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		C1C6D942242377710037378C /* UnpauseActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnpauseActivityIndicatorView.swift; sourceTree = "<group>"; };
 		C1CE0D27245830110025FB06 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -589,18 +593,18 @@
 		C146992623A117A600A84818 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				C12A2C192465AC4F00BA9D51 /* UpgradeToPro */,
-				C17E893D2434F09200575A7F /* AddCompany */,
-				C17E893C2434F08700575A7F /* ChangePassword */,
-				C17E893B2434F07400575A7F /* UpdatePersonalInfo */,
 				C1BE0D2324215F3F00480224 /* Login */,
 				C17E89112434D5CE00575A7F /* Register */,
 				C17E89122434D5E000575A7F /* ForgotPassword */,
 				C1BE0D2424215F5700480224 /* Home */,
-				C17E89332434EC9E00575A7F /* Description */,
-				C17E89322434EC9100575A7F /* AddShift */,
 				C1BE0D2524215F7A00480224 /* Activity */,
+				C17E89322434EC9100575A7F /* AddShift */,
+				C17E89332434EC9E00575A7F /* Description */,
 				C1BE0D2624215FB400480224 /* Settings */,
+				C17E893B2434F07400575A7F /* UpdatePersonalInfo */,
+				C17E893C2434F08700575A7F /* ChangePassword */,
+				C17E893D2434F09200575A7F /* AddCompany */,
+				C12A2C192465AC4F00BA9D51 /* UpgradeToPro */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -608,13 +612,18 @@
 		C146992723A117B400A84818 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				C12A2C1C2465AC8900BA9D51 /* UpgradeToPro */,
 				C1BE0D1E24215DDE00480224 /* Login */,
-				C17E89162434D7CD00575A7F /* ForgotPassword */,
 				C17E89152434D7A100575A7F /* Register */,
+				C17E89162434D7CD00575A7F /* ForgotPassword */,
 				C1BE0D1F24215E0400480224 /* Home */,
 				C1BE0D2024215E3800480224 /* Activity */,
+				C1C21AC62475403E00FE5739 /* AddShift */,
+				C1C21AC72475406000FE5739 /* Description */,
 				C1BE0D2124215E8400480224 /* Settings */,
+				C1C21AC82475408500FE5739 /* UpdatePersonalInfo */,
+				C1C21AC92475409B00FE5739 /* ChangePassword */,
+				C1C21ACA247540AF00FE5739 /* AddCompany */,
+				C12A2C1C2465AC8900BA9D51 /* UpgradeToPro */,
 				C102D7BD23ACFE5C000B9E80 /* CustomUIElements */,
 			);
 			path = Views;
@@ -623,6 +632,7 @@
 		C146992823A117C400A84818 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C1C21ACD24754A2600FE5739 /* Settings */,
 				C14104B52473E56A00CAAE26 /* Purchase */,
 				C1FC657D2422EEF200E64AE4 /* User */,
 				C1BE0D1D24215CED00480224 /* Error */,
@@ -900,11 +910,9 @@
 			isa = PBXGroup;
 			children = (
 				C13C412123ABBC4100B674E9 /* ActivityViewController.swift */,
-				C111932023CF56B7007E2866 /* AddShiftViewController.swift */,
 				C1B131F923F581E7009C3C59 /* ShiftTableViewCell.swift */,
 				C12CDDB423FA8AC5002A19C8 /* EmptyTableViewCell.swift */,
 				C12CDDB623FA999F002A19C8 /* LoadingTableViewCell.swift */,
-				C1707B1F23F190AE002E1A10 /* DescriptionViewController.swift */,
 			);
 			path = Activity;
 			sourceTree = "<group>";
@@ -913,9 +921,7 @@
 			isa = PBXGroup;
 			children = (
 				C13C412523ABBC7000B674E9 /* SettingsViewController.swift */,
-				C1FF2A8923C4B0E500ACCF29 /* UpdatePersonalInfoViewController.swift */,
-				C110AE2723C34E420066C394 /* ChangePasswordViewController.swift */,
-				C1419F6F2412543E001B5817 /* AddCompanyViewController.swift */,
+				C1C21ACB247541AF00FE5739 /* SettingsTableViewCell.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -983,6 +989,54 @@
 				C1C1D2ED24375257000BC698 /* Info.plist */,
 			);
 			path = UnpauseTests;
+			sourceTree = "<group>";
+		};
+		C1C21AC62475403E00FE5739 /* AddShift */ = {
+			isa = PBXGroup;
+			children = (
+				C111932023CF56B7007E2866 /* AddShiftViewController.swift */,
+			);
+			path = AddShift;
+			sourceTree = "<group>";
+		};
+		C1C21AC72475406000FE5739 /* Description */ = {
+			isa = PBXGroup;
+			children = (
+				C1707B1F23F190AE002E1A10 /* DescriptionViewController.swift */,
+			);
+			path = Description;
+			sourceTree = "<group>";
+		};
+		C1C21AC82475408500FE5739 /* UpdatePersonalInfo */ = {
+			isa = PBXGroup;
+			children = (
+				C1FF2A8923C4B0E500ACCF29 /* UpdatePersonalInfoViewController.swift */,
+			);
+			path = UpdatePersonalInfo;
+			sourceTree = "<group>";
+		};
+		C1C21AC92475409B00FE5739 /* ChangePassword */ = {
+			isa = PBXGroup;
+			children = (
+				C110AE2723C34E420066C394 /* ChangePasswordViewController.swift */,
+			);
+			path = ChangePassword;
+			sourceTree = "<group>";
+		};
+		C1C21ACA247540AF00FE5739 /* AddCompany */ = {
+			isa = PBXGroup;
+			children = (
+				C1419F6F2412543E001B5817 /* AddCompanyViewController.swift */,
+			);
+			path = AddCompany;
+			sourceTree = "<group>";
+		};
+		C1C21ACD24754A2600FE5739 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				C1C21ACE24754A6000FE5739 /* SettingTableViewItem.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		C1D568FC241C0762004C8A89 /* UITextFields */ = {
@@ -1287,6 +1341,7 @@
 				C1FBC46D23AA51E100579913 /* HomeViewController.swift in Sources */,
 				C1B131FA23F581E7009C3C59 /* ShiftTableViewCell.swift in Sources */,
 				C13B7738240E489E004DD8FB /* NotificationManager.swift in Sources */,
+				C1C21ACF24754A6000FE5739 /* SettingTableViewItem.swift in Sources */,
 				C17E89452434F2E600575A7F /* UpdatePersonalInfoViewModelProtocol.swift in Sources */,
 				C17E893F2434F0D100575A7F /* SettingsViewModelProtocol.swift in Sources */,
 				C13C412023AB93D600B674E9 /* FirebaseResponseObject.swift in Sources */,
@@ -1326,6 +1381,7 @@
 				C17E893A2434EF2C00575A7F /* ActivityViewModelProtocol.swift in Sources */,
 				C10F78DF23A3D79200783476 /* UIView+Extension.swift in Sources */,
 				C102D7BF23AD0063000B9E80 /* OrangeButton.swift in Sources */,
+				C1C21ACC247541AF00FE5739 /* SettingsTableViewCell.swift in Sources */,
 				C1707B2023F190AE002E1A10 /* DescriptionViewController.swift in Sources */,
 				C1FC657C2422D8B500E64AE4 /* GoogleUserSavingResponse.swift in Sources */,
 				C12A2C182465AC0300BA9D51 /* UpgradeToProViewController.swift in Sources */,

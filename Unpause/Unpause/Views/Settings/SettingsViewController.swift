@@ -15,12 +15,11 @@ class SettingsViewController: UIViewController {
     private let disposeBag = DisposeBag()
     private let settingsViewModel: SettingsViewModelProtocol
     
-    private let scrollView = UIScrollView()
     private let containerView = UIView()
-    private let changePersonalInfoButton = OrangeButton(title: "Change personal info")
-    private let changePasswordButton = OrangeButton(title: "Change password")
-    private let addCompanyButton = OrangeButton(title: "Add company")
-    private let logOutButton = OrangeButton(title: "Log out")
+    
+    private let tableView = UITableView()
+    
+    private let dataSource: [SettingTableViewItem] = [.changePersonalInfo, .changePassword, .changeCompany]
     
     init(settingsViewModel: SettingsViewModelProtocol) {
         self.settingsViewModel = settingsViewModel
@@ -36,50 +35,28 @@ class SettingsViewController: UIViewController {
         render()
         setUpObservables()
         showTitleInNavigationBar()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        showProperTitleOnCompanyButton()
+        setUpTableView()
     }
     
     private func render() {
-        configureScrollViewAndContainerView()
-        renderChangePersonalInfoButton()
-        renderChangePasswordButton()
-        renderAddCompanyButton()
-        renderLogOutButton()
+        configureContainerView()
+        configureTableView()
     }
     
     private func setUpObservables() {
-        changePersonalInfoButton.rx.tap.subscribe(onNext: { [weak self] _ in
-            guard let `self` = self else { return }
-            Coordinator.shared.presentChangePersonalInfoViewController(from: self)
-        }).disposed(by: disposeBag)
         
-        changePasswordButton.rx.tap.subscribe(onNext: { [weak self] _ in
-            guard let `self` = self else { return }
-            Coordinator.shared.presentChangePasswordViewController(from: self)
-        }).disposed(by: disposeBag)
-        
-        addCompanyButton.rx.tap.subscribe(onNext: { _ in
-            Coordinator.shared.presentAddCompanyViewController(from: self)
-        }).disposed(by: disposeBag)
-        
-        logOutButton.rx.tap.subscribe(onNext: { _ in
-            self.showTwoOptionAlert(title: "Log out", message: "Are you sure you want to log out?", actionTitle1: "Cancel", actionTitle2: "Log out")
-            }).disposed(by: disposeBag)
     }
     
     private func showTitleInNavigationBar() {
         self.title = "Settings"
     }
     
-    private func showProperTitleOnCompanyButton() {
-        if SessionManager.shared.currentUser?.company == nil {
-            addCompanyButton.setTitle("Connect company", for: .normal)
-        } else {
-            addCompanyButton.setTitle("Change company", for: .normal)
-        }
+    private func setUpTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(SettingsTableViewCell.self, forCellReuseIdentifier: "SettingsTableViewCell")
+        
+        tableView.contentInsetAdjustmentBehavior = .never
     }
     
     private func showTwoOptionAlert(title: String, message: String, actionTitle1: String, actionTitle2: String) {
@@ -97,67 +74,84 @@ class SettingsViewController: UIViewController {
 
 // MARK: - UI rendering
 private extension SettingsViewController {
-    func configureScrollViewAndContainerView() {
+    func configureContainerView() {
         view.backgroundColor = UIColor.unpauseWhite
         
-        view.addSubview(scrollView)
+        view.addSubview(containerView)
         
-        scrollView.snp.makeConstraints { make in
-            make.topMargin.equalToSuperview()
+        containerView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.left.right.equalToSuperview()
             make.bottomMargin.equalToSuperview()
         }
-        scrollView.alwaysBounceVertical = true
+    }
+    
+    func configureTableView() {
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 15, right: 0)
         
-        scrollView.addSubview(containerView)
-        containerView.snp.makeConstraints { make in
-            make.top.left.right.bottom.equalToSuperview()
-            make.width.equalTo(UIScreen.main.bounds.width)
-        }
-    }
-    
-    func renderChangePersonalInfoButton() {
-        containerView.addSubview(changePersonalInfoButton)
-        changePersonalInfoButton.snp.makeConstraints { make in
-            make.topMargin.equalToSuperview().offset(50)
-            make.left.equalToSuperview().offset(20)
-            make.right.equalToSuperview().inset(20)
-            make.height.equalTo(50)
-        }
-        changePersonalInfoButton.layer.cornerRadius = 25
-    }
-    
-    func renderChangePasswordButton() {
-        containerView.addSubview(changePasswordButton)
-        changePasswordButton.snp.makeConstraints { make in
-            make.top.equalTo(changePersonalInfoButton.snp.bottom).offset(20)
-            make.left.equalToSuperview().offset(20)
-            make.right.equalToSuperview().inset(20)
-            make.height.equalTo(50)
-        }
-        changePasswordButton.layer.cornerRadius = 25
-    }
-    
-    func renderAddCompanyButton() {
-        containerView.addSubview(addCompanyButton)
-        addCompanyButton.snp.makeConstraints { make in
-            make.top.equalTo(changePasswordButton.snp.bottom).offset(20)
-            make.left.equalToSuperview().offset(20)
-            make.right.equalToSuperview().inset(20)
-            make.height.equalTo(50)
-        }
-        addCompanyButton.layer.cornerRadius = 25
-    }
-    
-    func renderLogOutButton() {
-        containerView.addSubview(logOutButton)
-        logOutButton.snp.makeConstraints { make in
-            make.top.equalTo(addCompanyButton.snp.bottom).offset(20)
-            make.left.equalToSuperview().offset(20)
-            make.right.equalToSuperview().inset(20)
-            make.height.equalTo(50)
+        containerView.addSubview(tableView)
+        tableView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.left.right.equalToSuperview()
             make.bottom.equalToSuperview()
         }
-        logOutButton.layer.cornerRadius = 25
+    }
+}
+
+//MARK: - Table View Delegate
+extension SettingsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        switch dataSource[indexPath.row] {
+        case .changePersonalInfo:
+            Coordinator.shared.navigateToChangePersonalInfoViewController(from: self)
+        case .changePassword:
+            Coordinator.shared.navigateToChangePasswordViewController(from: self)
+        case .changeCompany:
+            Coordinator.shared.navigateToAdCompanyViewController(from: self)
+        case .logOut:
+            self.showTwoOptionAlert(title: "Log out", message: "Are you sure you want to log out?", actionTitle1: "Cancel", actionTitle2: "Log out")
+        }
+    }
+}
+
+//MARK: - Table View DataSource
+extension SettingsViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return dataSource.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch dataSource[indexPath.row] {
+        case .changePersonalInfo:
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SettingsTableViewCell.self),
+                                                     for: indexPath) as! SettingsTableViewCell
+            cell.configure(name: "Change personal info")
+            return cell
+        case .changePassword:
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SettingsTableViewCell.self),
+                                                     for: indexPath) as! SettingsTableViewCell
+            cell.configure(name: "Change password")
+            return cell
+            
+        case .changeCompany:
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SettingsTableViewCell.self),
+                                                     for: indexPath) as! SettingsTableViewCell
+            cell.configure(name: "Change company")
+            return cell
+        case .logOut:
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SettingsTableViewCell.self),
+                                                     for: indexPath) as! SettingsTableViewCell
+            cell.configure(name: "Log out")
+            return cell
+        }
     }
 }

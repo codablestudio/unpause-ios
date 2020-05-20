@@ -31,6 +31,7 @@ class AddCompanyViewController: UIViewController {
     private let closeButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: nil)
     
     var navigationFromRegisterViewController: Bool
+    var isPresentedViewController = false
     
     init(addCompanyViewModel: AddCompanyViewModelProtocol, navigationFromRegisterViewController: Bool) {
         self.addCompanyViewModel = addCompanyViewModel
@@ -52,7 +53,6 @@ class AddCompanyViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         showTitleInNavigationBar()
-        hideBackButton()
         configureBackbuttonVisibility()
     }
     
@@ -123,7 +123,7 @@ class AddCompanyViewController: UIViewController {
     private func addBarButtonItem() {
         if navigationFromRegisterViewController {
             navigationItem.rightBarButtonItem = skipButton
-        } else {
+        } else if isPresentedViewController {
             navigationItem.leftBarButtonItem = closeButton
         }
     }
@@ -138,6 +138,8 @@ class AddCompanyViewController: UIViewController {
     private func configureBackbuttonVisibility() {
         if navigationFromRegisterViewController {
             hideBackButton()
+        } else {
+            
         }
     }
 

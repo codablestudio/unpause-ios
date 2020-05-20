@@ -10,29 +10,37 @@ import Foundation
 import UIKit
 
 extension Coordinator {
-    func presentChangePersonalInfoViewController(from viewController: UIViewController) {
-        let updatePersonalInfoNetworking = UpdatePersonalInfoNetworking()
-        let updatePersonalInfoViewModel = UpdatePersonalInfoViewModel(updatePersonalInfoNetworking: updatePersonalInfoNetworking)
-        let updatePersonalInfoViewController = UpdatePersonalInfoViewController(updatePersonalInfoViewModel: updatePersonalInfoViewModel)
-        let navigationController = UINavigationController(rootViewController: updatePersonalInfoViewController)
-        viewController.present(navigationController, animated: true)
-    }
-    
-    func presentChangePasswordViewController(from viewController: UIViewController) {
-        let changePasswordNetworking = ChangePasswordNetworking()
-        let changePasswordViewModel = ChangePasswordViewModel(changePasswordNetworking: changePasswordNetworking)
-        let changePasswordViewController = ChangePasswordViewController(changePasswordViewModel: changePasswordViewModel)
-        let navigationController = UINavigationController(rootViewController: changePasswordViewController)
-        viewController.present(navigationController, animated: true)
-    }
-    
     func presentAddCompanyViewController(from viewController: UIViewController) {
         let companyNetworking = CompanyNetworking()
         let addCompanyViewModel = AddCompanyViewModel(companyNetworking: companyNetworking,
                                                       registeredUserEmail: SessionManager.shared.currentUser?.email)
         let addCompanyViewController = AddCompanyViewController(addCompanyViewModel: addCompanyViewModel,
                                                                 navigationFromRegisterViewController: false)
+        addCompanyViewController.isPresentedViewController = true
         let navigationController = UINavigationController(rootViewController: addCompanyViewController)
         viewController.present(navigationController, animated: true)
+    }
+    
+    func navigateToChangePersonalInfoViewController(from viewController: UIViewController) {
+        let updatePersonalInfoNetworking = UpdatePersonalInfoNetworking()
+        let updatePersonalInfoViewModel = UpdatePersonalInfoViewModel(updatePersonalInfoNetworking: updatePersonalInfoNetworking)
+        let updatePersonalInfoViewController = UpdatePersonalInfoViewController(updatePersonalInfoViewModel: updatePersonalInfoViewModel)
+        viewController.navigationController?.pushViewController(updatePersonalInfoViewController, animated: true)
+    }
+    
+    func navigateToChangePasswordViewController(from viewController: UIViewController) {
+        let changePasswordNetworking = ChangePasswordNetworking()
+        let changePasswordViewModel = ChangePasswordViewModel(changePasswordNetworking: changePasswordNetworking)
+        let changePasswordViewController = ChangePasswordViewController(changePasswordViewModel: changePasswordViewModel)
+        viewController.navigationController?.pushViewController(changePasswordViewController, animated: true)
+    }
+    
+    func navigateToAdCompanyViewController(from viewController: UIViewController) {
+        let companyNetworking = CompanyNetworking()
+        let addCompanyViewModel = AddCompanyViewModel(companyNetworking: companyNetworking,
+                                                      registeredUserEmail: SessionManager.shared.currentUser?.email)
+        let addCompanyViewController = AddCompanyViewController(addCompanyViewModel: addCompanyViewModel,
+                                                                navigationFromRegisterViewController: false)
+        viewController.navigationController?.pushViewController(addCompanyViewController, animated: true)
     }
 }
