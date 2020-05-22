@@ -96,7 +96,7 @@ class DescriptionViewController: UIViewController {
                     self.dismiss(animated: true)
                 case .error(let error):
                     UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
-                    self.showOneOptionAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
+                    self.showOneOptionAlert(title: "Error", message: "\(error.errorMessage)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)
         
@@ -110,7 +110,7 @@ class DescriptionViewController: UIViewController {
                     self.dismiss(animated: true)
                 case .error(let error):
                     UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
-                    self.showOneOptionAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
+                    self.showOneOptionAlert(title: "Error", message: "\(error.errorMessage)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)
         

@@ -18,21 +18,19 @@ class HomeViewController: UIViewController {
     private let scrollView = UIScrollView()
     private let containerView = UIView()
     
-    let signedInLabel = UILabel()
+    private let userImageView = UIImageView()
+    private let usernameLabel = UILabel()
     
-    private let emailLabel = UILabel()
-    private let userEmailLabel = UILabel()
+    private let usernameSeparator = UIView()
     
-    private let firstNameLabel = UILabel()
-    private let userFirstNameLabel = UILabel()
+    private let companyImageView = UIImageView()
+    private let companyNameLabel = UILabel()
     
-    private let lastNameLabel = UILabel()
-    private let userLastNameLabel = UILabel()
-    
-    private let companyLabel = UILabel()
-    private let userCompanyLabel = UILabel()
+    private let companySeparator = UIView()
     
     let checkInButton = UIButton()
+    
+    private let lastCheckInTimeLabel = UILabel()
     
     var userChecksIn = PublishSubject<Bool>()
     
@@ -59,12 +57,12 @@ class HomeViewController: UIViewController {
     
     private func render() {
         configureScrollViewAndContainerView()
-        renderSignedInLabel()
-        renderEmailLabelAndUserEmailLabel()
-        renderFirstNameLabelAndUserFirstNameLabel()
-        renderLastNameLabelAndUserLastNameLabel()
-        renderCompanyLabelAndUserCompanyLabel()
+        renderUserImageViewAndUsernameLabel()
+        renderUsernameSeparator()
+        renderCompanyImageViewAndCompanyNameLabel()
+        renderCompanySeparator()
         renderCheckInButton()
+        renderLastCheckInTimeLabel()
     }
     
     func setUpObservables() {
@@ -104,7 +102,7 @@ class HomeViewController: UIViewController {
                 guard let `self` = self else { return }
                 switch response {
                 case .success:
-                    print("User successfully checked in.")
+                    self.displayFreshLastCheckInTime()
                     NotificationManager.shared.notificationCenter.removePendingNotificationRequests(withIdentifiers: ["notifyOnEntry"])
                     NotificationManager.shared.scheduleExitNotification()
                     ActivityViewModel.forceRefresh.onNext(())
@@ -119,6 +117,7 @@ class HomeViewController: UIViewController {
                 switch lastCheckInResponse {
                 case .success(let lastCheckInDate):
                     SessionManager.shared.currentUser?.lastCheckInDateAndTime = lastCheckInDate
+                    self.displayFreshLastCheckInTime()
                     if lastCheckInDate != nil {
                         NotificationManager.shared.notificationCenter.removePendingNotificationRequests(withIdentifiers: ["notifyOnEntry"])
                         NotificationManager.shared.scheduleExitNotification()
@@ -139,9 +138,31 @@ class HomeViewController: UIViewController {
     }
     
     private func displayFreshUserData() {
-        userFirstNameLabel.text = SessionManager.shared.currentUser?.firstName ?? "No first name"
-        userLastNameLabel.text = SessionManager.shared.currentUser?.lastName ?? "No last name"
-        userCompanyLabel.text = SessionManager.shared.currentUser?.company?.name ?? "No company"
+        displayFreshUsernameData()
+        displayFreshCompanyData()
+    }
+    
+    private func displayFreshUsernameData() {
+        if let firstName = SessionManager.shared.currentUser?.firstName,
+            let lastName = SessionManager.shared.currentUser?.lastName {
+            usernameLabel.text = "\(firstName) \(lastName)"
+        } else {
+            usernameLabel.text = "No user info"
+        }
+    }
+    
+    private func displayFreshCompanyData() {
+        companyNameLabel.text = SessionManager.shared.currentUser?.company?.name ?? "No company"
+    }
+    
+    private func displayFreshLastCheckInTime() {
+        guard let lastCheckInTime = SessionManager.shared.currentUser?.lastCheckInDateAndTime else {
+            lastCheckInTimeLabel.isHidden = true
+            return
+        }
+        lastCheckInTimeLabel.isHidden = false
+        let lastCheckInTimeInStringFormat = Formatter.shared.convertDateIntoStringWithTime(from: lastCheckInTime)
+        lastCheckInTimeLabel.text = "Last check in time: \(lastCheckInTimeInStringFormat)"
     }
 }
 
@@ -166,107 +187,89 @@ private extension HomeViewController {
         }
     }
     
-    func renderSignedInLabel() {
-        containerView.addSubview(signedInLabel)
-        
-        signedInLabel.snp.makeConstraints { (make) in
-            make.topMargin.equalToSuperview().offset(UIScreen.main.bounds.height / 10)
-            make.left.equalToSuperview().offset(40)
-            make.right.equalToSuperview()
+    func renderUserImageViewAndUsernameLabel() {
+        containerView.addSubview(userImageView)
+        userImageView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(50)
+            make.left.equalToSuperview().offset(30)
+            make.height.width.equalTo(27)
         }
-        signedInLabel.text = "Signed in as:"
-        signedInLabel.font = UIFont.boldSystemFont(ofSize: 23)
+        userImageView.image = UIImage(named: "user_30x30_black")
+        
+        containerView.addSubview(usernameLabel)
+        usernameLabel.snp.makeConstraints { make in
+            make.left.equalTo(userImageView.snp.right).offset(10)
+            make.bottom.equalTo(userImageView.snp.bottom).offset(1)
+        }
+        displayFreshUsernameData()
+        usernameLabel.textColor = .unpauseBlack
+        usernameLabel.font = .systemFont(ofSize: 14, weight: .medium)
     }
     
-    func renderEmailLabelAndUserEmailLabel() {
-        containerView.addSubview(emailLabel)
-        emailLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(signedInLabel.snp.bottom).offset(20)
-            make.left.equalToSuperview().offset(40)
+    func renderUsernameSeparator() {
+        containerView.addSubview(usernameSeparator)
+        usernameSeparator.snp.makeConstraints { make in
+            make.top.equalTo(userImageView.snp.bottom).offset(10)
+            make.left.equalToSuperview().offset(25)
+            make.right.equalToSuperview().inset(25)
+            make.height.equalTo(1)
         }
-        emailLabel.text = "Email:"
-        emailLabel.textColor = UIColor.unpauseLightGray
-        
-        containerView.addSubview(userEmailLabel)
-        userEmailLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(signedInLabel.snp.bottom).offset(20)
-            make.left.equalTo(emailLabel.snp.right).offset(7)
-            make.right.equalToSuperview()
-        }
-        userEmailLabel.text = SessionManager.shared.currentUser?.email ?? "No user"
-        userEmailLabel.textColor = UIColor.unpauseLightGray
+        usernameSeparator.backgroundColor = .unpauseVeryLightGray
     }
     
-    func renderFirstNameLabelAndUserFirstNameLabel() {
-        containerView.addSubview(firstNameLabel)
-        firstNameLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(emailLabel.snp.bottom).offset(20)
-            make.left.equalToSuperview().offset(40)
+    func renderCompanyImageViewAndCompanyNameLabel() {
+        containerView.addSubview(companyImageView)
+        companyImageView.snp.makeConstraints { make in
+            make.top.equalTo(usernameSeparator.snp.bottom).offset(10)
+            make.left.equalToSuperview().offset(30)
+            make.height.width.equalTo(27)
         }
-        firstNameLabel.text = "First name:"
-        firstNameLabel.textColor = UIColor.unpauseLightGray
+        companyImageView.image = UIImage(named: "company_30x30_black")
         
-        containerView.addSubview(userFirstNameLabel)
-        userFirstNameLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(emailLabel.snp.bottom).offset(20)
-            make.left.equalTo(firstNameLabel.snp.right).offset(7)
-            make.right.equalToSuperview()
+        containerView.addSubview(companyNameLabel)
+        companyNameLabel.snp.makeConstraints { make in
+            make.left.equalTo(companyImageView.snp.right).offset(10)
+            make.bottom.equalTo(companyImageView.snp.bottom).offset(-1)
         }
-        userFirstNameLabel.text = SessionManager.shared.currentUser?.firstName ?? "No first name"
-        userFirstNameLabel.textColor = UIColor.unpauseLightGray
+        displayFreshCompanyData()
+        companyNameLabel.textColor = .unpauseBlack
+        companyNameLabel.font = .systemFont(ofSize: 14, weight: .medium)
     }
     
-    func renderLastNameLabelAndUserLastNameLabel() {
-        containerView.addSubview(lastNameLabel)
-        lastNameLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(firstNameLabel.snp.bottom).offset(20)
-            make.left.equalToSuperview().offset(40)
+    func renderCompanySeparator() {
+        containerView.addSubview(companySeparator)
+        companySeparator.snp.makeConstraints { make in
+            make.top.equalTo(companyImageView.snp.bottom).offset(10)
+            make.left.equalToSuperview().offset(25)
+            make.right.equalToSuperview().inset(25)
+            make.height.equalTo(1)
         }
-        lastNameLabel.text = "Last name:"
-        lastNameLabel.textColor = UIColor.unpauseLightGray
-        
-        containerView.addSubview(userLastNameLabel)
-        userLastNameLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(firstNameLabel.snp.bottom).offset(20)
-            make.left.equalTo(lastNameLabel.snp.right).offset(7)
-            make.right.equalToSuperview()
-        }
-        userLastNameLabel.text = SessionManager.shared.currentUser?.lastName ?? "No last name"
-        userLastNameLabel.textColor = UIColor.unpauseLightGray
-    }
-    
-    func renderCompanyLabelAndUserCompanyLabel() {
-        containerView.addSubview(companyLabel)
-        companyLabel.snp.makeConstraints { make in
-            make.top.equalTo(lastNameLabel.snp.bottom).offset(20)
-            make.left.equalToSuperview().offset(40)
-        }
-        companyLabel.text = "Company:"
-        companyLabel.textColor = UIColor.unpauseLightGray
-        
-        containerView.addSubview(userCompanyLabel)
-        userCompanyLabel.snp.makeConstraints { make in
-            make.top.equalTo(lastNameLabel.snp.bottom).offset(20)
-            make.left.equalTo(companyLabel.snp.right).offset(7)
-            make.right.equalToSuperview()
-        }
-        userCompanyLabel.text = SessionManager.shared.currentUser?.company?.name ?? "No company"
-        userCompanyLabel.textColor = UIColor.unpauseLightGray
+        companySeparator.backgroundColor = .unpauseVeryLightGray
     }
     
     func renderCheckInButton() {
         containerView.addSubview(checkInButton)
         checkInButton.snp.makeConstraints { (make) in
-            make.top.equalTo(companyLabel.snp.bottom).offset(50)
+            make.top.equalTo(companySeparator.snp.bottom).offset(50)
             make.centerX.equalToSuperview()
             make.height.equalTo(140)
             make.width.equalTo(140)
-            make.bottom.equalToSuperview()
         }
         checkInButton.backgroundColor = UIColor.unpauseOrange
         checkInButton.layer.cornerRadius = 70
         checkInButton.titleLabel?.font = .systemFont(ofSize: 25)
         checkInButton.setTitleColor(.white, for: UIControl.State())
         checkInButton.dropShadow(color: .unpauseLightGray, opacity: 0.5, offSet: .zero, radius: 5)
+    }
+    
+    func renderLastCheckInTimeLabel() {
+        containerView.addSubview(lastCheckInTimeLabel)
+        lastCheckInTimeLabel.snp.makeConstraints { make in
+            make.top.equalTo(checkInButton.snp.bottom).offset(30)
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+        lastCheckInTimeLabel.font = .systemFont(ofSize: 13, weight: .light)
+        displayFreshLastCheckInTime()
     }
 }

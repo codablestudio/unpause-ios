@@ -34,6 +34,13 @@ class SettingsTableViewCell: UITableViewCell {
     func configure(name: String, thumbnailImageName: String) {
         titleLabel.text = name
         thumbNailImageView.image = UIImage(named: thumbnailImageName)
+        renderCellSeparatorIfNeeded(name: name)
+    }
+    
+    private func renderCellSeparatorIfNeeded(name: String) {
+        if !(name == "Log out") {
+            renderCustomSeparator()
+        }
     }
 }
 
@@ -45,7 +52,7 @@ private extension SettingsTableViewCell {
             make.top.equalToSuperview().offset(10)
             make.left.equalToSuperview().offset(15)
             make.bottom.equalToSuperview().inset(10)
-            make.height.width.equalTo(30)
+            make.height.width.equalTo(25)
         }
     }
     
@@ -55,5 +62,9 @@ private extension SettingsTableViewCell {
             make.left.equalTo(thumbNailImageView.snp.right).offset(7)
             make.centerY.equalToSuperview()
         }
+    }
+    
+    func renderCustomSeparator() {
+        contentView.addBottomBorder(.unpauseVeryLightGray, height: 1, leftOffset: 15, rightOffset: -15)
     }
 }

@@ -57,6 +57,7 @@ class SettingsViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(SettingsTableViewCell.self, forCellReuseIdentifier: "SettingsTableViewCell")
         tableView.contentInsetAdjustmentBehavior = .never
+        tableView.separatorStyle = .none
     }
     
     private func showTwoOptionAlert(title: String, message: String, actionTitle1: String, actionTitle2: String) {
