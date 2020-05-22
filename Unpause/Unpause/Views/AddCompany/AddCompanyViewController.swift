@@ -145,6 +145,7 @@ class AddCompanyViewController: UIViewController {
 
     private func showTitleInNavigationBar() {
         self.title = "Connect company"
+        navigationItem.largeTitleDisplayMode = .never
     }
     
     private func hideBackButton() {

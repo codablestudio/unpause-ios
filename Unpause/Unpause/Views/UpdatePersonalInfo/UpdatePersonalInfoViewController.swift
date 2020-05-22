@@ -97,6 +97,7 @@ class UpdatePersonalInfoViewController: UIViewController {
     
     private func setUpViewControllerTitle() {
         self.title = "Change personal info"
+        navigationItem.largeTitleDisplayMode = .never
     }
 }
 

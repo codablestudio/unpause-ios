@@ -19,7 +19,7 @@ class SettingsViewController: UIViewController {
     
     private let tableView = UITableView()
     
-    private let dataSource: [SettingTableViewItem] = [.changePersonalInfo, .changePassword, .changeCompany]
+    private let dataSource: [SettingTableViewItem] = [.changePersonalInfo, .changePassword, .changeCompany, .logOut]
     
     init(settingsViewModel: SettingsViewModelProtocol) {
         self.settingsViewModel = settingsViewModel
@@ -49,13 +49,13 @@ class SettingsViewController: UIViewController {
     
     private func showTitleInNavigationBar() {
         self.title = "Settings"
+        self.navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     private func setUpTableView() {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(SettingsTableViewCell.self, forCellReuseIdentifier: "SettingsTableViewCell")
-        
         tableView.contentInsetAdjustmentBehavior = .never
     }
     
@@ -134,23 +134,23 @@ extension SettingsViewController: UITableViewDataSource {
         case .changePersonalInfo:
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SettingsTableViewCell.self),
                                                      for: indexPath) as! SettingsTableViewCell
-            cell.configure(name: "Change personal info")
+            cell.configure(name: "Change personal info", thumbnailImageName: "user_30x30_black")
             return cell
         case .changePassword:
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SettingsTableViewCell.self),
                                                      for: indexPath) as! SettingsTableViewCell
-            cell.configure(name: "Change password")
+            cell.configure(name: "Change password", thumbnailImageName: "password_30x30_black")
             return cell
             
         case .changeCompany:
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SettingsTableViewCell.self),
                                                      for: indexPath) as! SettingsTableViewCell
-            cell.configure(name: "Change company")
+            cell.configure(name: "Change company", thumbnailImageName: "company_30x30_black")
             return cell
         case .logOut:
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SettingsTableViewCell.self),
                                                      for: indexPath) as! SettingsTableViewCell
-            cell.configure(name: "Log out")
+            cell.configure(name: "Log out", thumbnailImageName: "logOut_30x30_black")
             return cell
         }
     }

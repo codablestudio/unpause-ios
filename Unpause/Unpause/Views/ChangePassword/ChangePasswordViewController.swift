@@ -96,6 +96,7 @@ class ChangePasswordViewController: UIViewController {
 
     private func setUpViewControllerTitle() {
         self.title = "Change password"
+        navigationItem.largeTitleDisplayMode = .never
     }
 }
 

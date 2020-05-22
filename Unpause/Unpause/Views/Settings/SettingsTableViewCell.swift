@@ -10,6 +10,7 @@ import UIKit
 
 class SettingsTableViewCell: UITableViewCell {
     
+    private let thumbNailImageView = UIImageView()
     private let titleLabel = UILabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -26,22 +27,33 @@ class SettingsTableViewCell: UITableViewCell {
     }
     
     private func render() {
+        renderThumbnailImageView()
         renderTitleLabel()
     }
     
-    func configure(name: String) {
+    func configure(name: String, thumbnailImageName: String) {
         titleLabel.text = name
+        thumbNailImageView.image = UIImage(named: thumbnailImageName)
     }
 }
 
 // MARK: - UI rendering
 private extension SettingsTableViewCell {
+    func renderThumbnailImageView() {
+        contentView.addSubview(thumbNailImageView)
+        thumbNailImageView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(10)
+            make.left.equalToSuperview().offset(15)
+            make.bottom.equalToSuperview().inset(10)
+            make.height.width.equalTo(30)
+        }
+    }
+    
     func renderTitleLabel() {
         contentView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(20)
-            make.left.equalToSuperview().offset(15)
-            make.bottom.equalToSuperview().inset(20)
+            make.left.equalTo(thumbNailImageView.snp.right).offset(7)
+            make.centerY.equalToSuperview()
         }
     }
 }
