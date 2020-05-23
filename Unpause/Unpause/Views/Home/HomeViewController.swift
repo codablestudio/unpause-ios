@@ -83,6 +83,7 @@ class HomeViewController: UIViewController {
         checkInButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 guard let `self` = self else { return }
+                vibratePhoneOnTouch()
                 if self.checkInButton.title(for: .normal) == "Check in" {
                     self.checkInButton.setTitle("Check out", for: .normal)
                     self.userChecksIn.onNext(true)
@@ -287,4 +288,10 @@ private extension HomeViewController {
             viewToAnimate.alpha = 0.0
         })
     }
+}
+
+// MARK: - Haptic feedback
+func vibratePhoneOnTouch() {
+    let generator = UIImpactFeedbackGenerator(style: .medium)
+    generator.impactOccurred()
 }
