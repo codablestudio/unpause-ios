@@ -157,10 +157,10 @@ class HomeViewController: UIViewController {
     
     private func displayFreshLastCheckInTime() {
         guard let lastCheckInTime = SessionManager.shared.currentUser?.lastCheckInDateAndTime else {
-            lastCheckInTimeLabel.isHidden = true
+            fadeOut(viewToAnimate: lastCheckInTimeLabel, withDuration: 0.4)
             return
         }
-        lastCheckInTimeLabel.isHidden = false
+        fadeIn(viewToAnimate: lastCheckInTimeLabel, withDuration: 0.4)
         let lastCheckInTimeInStringFormat = Formatter.shared.convertDateIntoStringWithTime(from: lastCheckInTime)
         lastCheckInTimeLabel.text = "Last check in time: \(lastCheckInTimeInStringFormat)"
     }
@@ -271,5 +271,20 @@ private extension HomeViewController {
         }
         lastCheckInTimeLabel.font = .systemFont(ofSize: 13, weight: .light)
         displayFreshLastCheckInTime()
+    }
+}
+
+// MARK: - Animations
+private extension HomeViewController {
+    func fadeIn(viewToAnimate: UIView, withDuration duration: Double) {
+        UIView.animate(withDuration: duration, animations: {
+            viewToAnimate.alpha = 1.0
+        })
+    }
+    
+    func fadeOut(viewToAnimate: UIView, withDuration duration: Double) {
+        UIView.animate(withDuration: duration, animations: {
+            viewToAnimate.alpha = 0.0
+        })
     }
 }
