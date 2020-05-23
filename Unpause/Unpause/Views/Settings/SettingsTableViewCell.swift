@@ -49,9 +49,9 @@ private extension SettingsTableViewCell {
     func renderThumbnailImageView() {
         contentView.addSubview(thumbNailImageView)
         thumbNailImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(10)
+            make.top.equalToSuperview().offset(12)
             make.left.equalToSuperview().offset(15)
-            make.bottom.equalToSuperview().inset(10)
+            make.bottom.equalToSuperview().inset(12)
             make.height.width.equalTo(25)
         }
     }
@@ -65,6 +65,6 @@ private extension SettingsTableViewCell {
     }
     
     func renderCustomSeparator() {
-        contentView.addBottomBorder(.unpauseVeryLightGray, height: 1, leftOffset: 15, rightOffset: -15)
+        contentView.addBottomBorder(.unpauseVeryLightGray, height: 1, leftOffset: 46, rightOffset: -15)
     }
 }

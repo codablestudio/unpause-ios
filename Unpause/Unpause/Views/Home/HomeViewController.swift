@@ -210,7 +210,7 @@ private extension HomeViewController {
         containerView.addSubview(usernameSeparator)
         usernameSeparator.snp.makeConstraints { make in
             make.top.equalTo(userImageView.snp.bottom).offset(10)
-            make.left.equalToSuperview().offset(25)
+            make.left.equalToSuperview().offset(65)
             make.right.equalToSuperview().inset(25)
             make.height.equalTo(1)
         }
@@ -240,7 +240,7 @@ private extension HomeViewController {
         containerView.addSubview(companySeparator)
         companySeparator.snp.makeConstraints { make in
             make.top.equalTo(companyImageView.snp.bottom).offset(10)
-            make.left.equalToSuperview().offset(25)
+            make.left.equalToSuperview().offset(65)
             make.right.equalToSuperview().inset(25)
             make.height.equalTo(1)
         }
