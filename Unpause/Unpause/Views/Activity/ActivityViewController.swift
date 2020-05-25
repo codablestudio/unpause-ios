@@ -298,10 +298,10 @@ class ActivityViewController: UIViewController {
 private extension ActivityViewController {
     func handleSendAsEmailTapped() {
         if SessionManager.shared.currentUser?.company?.email == nil {
-            let msg = "It looks like you didn‘t add your company. Would you like too add it?"
-            self.showTwoOptionsAlert(title: "Alert", message: msg, firstActionTitle: "Cancel", secondActionTitle: "Add")
+            let messsage = "It looks like you didn‘t add your company. Would you like too add it?"
+            self.showTwoOptionsAlert(title: "Alert", message: messsage, firstActionTitle: "Cancel", secondActionTitle: "Add")
         } else if let user = SessionManager.shared.currentUser {
-            user.checkUserHasValidSubscription(onCompleted: { hasValidSubscription in
+            user.checkIfUserHasValidSubscription(onCompleted: { hasValidSubscription in
                 if hasValidSubscription {
                     self.sendEmailWithExcelSheetToCompany()
                 } else {
@@ -319,7 +319,7 @@ private extension ActivityViewController {
         let fileURL = self.activityViewModel.makeNewCSVFileWithShiftsData(shiftsData: self.dataSource)
         switch fileURL {
         case .success(let url):
-            user.checkUserHasValidSubscription { hasValidSubscription in
+            user.checkIfUserHasValidSubscription { hasValidSubscription in
                 if hasValidSubscription {
                     self.documentController.url = url
                     self.documentController.presentPreview(animated: true)
@@ -354,7 +354,6 @@ private extension ActivityViewController {
             make.top.equalToSuperview()
             make.left.equalToSuperview()
             make.right.equalToSuperview()
-            make.height.equalTo(50)
         }
         datesContainer.backgroundColor = .unpauseOrange
         datesContainer.layer.cornerRadius = 25

@@ -22,4 +22,11 @@ class RegisterNetworkingMock: RegisterNetworkingProtocol {
     func saveUserInfoOnServer(email: String, firstName: String, lastName: String) -> Observable<Response> {
         return Observable.just(Response.error(UnpauseError.serverSavingError))
     }
+    
+    func checkIfUserIsAlreadyInDatabase(email: String) -> Observable<FirebaseDocumentResponseObject> {
+        return Observable.just(FirebaseDocumentResponseObject.error(.defaultError))
+    }
+    func signnInGoogleUser(googleUser: GIDGoogleUser) -> Observable<FirebaseResponseObject> {
+        return Observable.just(FirebaseResponseObject.error(.defaultError))
+    }
 }

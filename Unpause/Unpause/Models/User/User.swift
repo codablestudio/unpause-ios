@@ -30,6 +30,7 @@ class User: NSObject, NSCoding {
         lastName = coder.decodeObject(forKey: "lastName") as? String
         email = coder.decodeObject(forKey: "email") as? String
         company = coder.decodeObject(forKey: "company") as? Company
+        isPromoUser = coder.decodeBool(forKey: "isPromoUser") as Bool
     }
     
     init(firstName: String?, lastName: String?, email: String?) {
@@ -43,12 +44,13 @@ class User: NSObject, NSCoding {
         coder.encode(lastName, forKey: "lastName")
         coder.encode(email, forKey: "email")
         coder.encode(company, forKey: "company")
+        coder.encode(isPromoUser, forKey: "isPromoUser")
     }
 }
 
 // MARK: Subscriptions
 extension User {
-    func checkUserHasValidSubscription(onCompleted: @escaping (Bool) -> Void ) {
+    func checkIfUserHasValidSubscription(onCompleted: @escaping (Bool) -> Void ) {
         return IAPManager.shared.updateUserSubscriptionStatus(onCompleted: {
             if let monthEndingDate = self.monthSubscriptionEndingDate, monthEndingDate > Date() {
                 onCompleted(true)

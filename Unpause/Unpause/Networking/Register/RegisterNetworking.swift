@@ -18,6 +18,9 @@ protocol RegisterNetworkingProtocol {
     func registerUserWith(firstName: String, lastName: String, email: String, password: String) -> Observable<FirebaseResponseObject>
     func signInGoogleUser(googleUser: GIDGoogleUser) -> Observable<GoogleUserSavingResponse>
     func saveUserInfoOnServer(email: String, firstName: String, lastName: String) -> Observable<Response>
+    
+    func checkIfUserIsAlreadyInDatabase(email: String) -> Observable<FirebaseDocumentResponseObject>
+    func signnInGoogleUser(googleUser: GIDGoogleUser) -> Observable<FirebaseResponseObject>
 }
 
 class RegisterNetworking: RegisterNetworkingProtocol {
@@ -75,6 +78,37 @@ class RegisterNetworking: RegisterNetworkingProtocol {
                     return Observable.just(GoogleUserSavingResponse.error(.otherError(error)))
                 }
             })
+    }
+    
+    // NOVOOO
+    func signnInGoogleUser(googleUser: GIDGoogleUser) -> Observable<FirebaseResponseObject> {
+        guard let idToken = googleUser.authentication.idToken,
+            let accessToken = googleUser.authentication.accessToken else {
+                return Observable.just(FirebaseResponseObject.error(.emptyError))
+        }
+        let credentials = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
+        return Auth.auth().rx.signInAndRetrieveData(with: credentials)
+            .flatMapLatest ({ authDataResult -> Observable<FirebaseResponseObject> in
+                return Observable.just(FirebaseResponseObject.success(authDataResult))
+            })
+            .catchError ({ error -> Observable<FirebaseResponseObject> in
+                return Observable.just(FirebaseResponseObject.error(.otherError(error)))
+            })
+    }
+    
+    // NOVOOO
+    func checkIfUserIsAlreadyInDatabase(email: String) -> Observable<FirebaseDocumentResponseObject> {
+        return dataBaseReference
+            .collection("users")
+            .document("\(email)")
+            .rx
+            .getDocument()
+            .flatMapLatest { documentSnapshot -> Observable<FirebaseDocumentResponseObject> in
+                return Observable.just(FirebaseDocumentResponseObject.success(documentSnapshot))
+        }
+        .catchError { error -> Observable<FirebaseDocumentResponseObject> in
+            return Observable.just(FirebaseDocumentResponseObject.error(.otherError(error)))
+        }
     }
     
     internal func saveUserInfoOnServer(email: String, firstName: String, lastName: String) -> Observable<Response> {

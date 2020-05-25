@@ -125,8 +125,8 @@ class LoginViewController: UIViewController {
             .disposed(by: disposeBag)
         
         loginViewModel.isInsideGoogleSignInFlow
-        .bind(to: signInWithGoogleButton.rx.animating)
-        .disposed(by: disposeBag)
+            .bind(to: signInWithGoogleButton.rx.animating)
+            .disposed(by: disposeBag)
         
         loginViewModel.googleUserSavingResponse
             .subscribe(onNext: { unpauseResponse in
