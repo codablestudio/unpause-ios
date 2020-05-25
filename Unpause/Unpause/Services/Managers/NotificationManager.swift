@@ -24,7 +24,10 @@ class NotificationManager: NSObject {
         notificationCenter.delegate = self
         registerCategories()
     }
-    
+}
+
+// MARK: - Location based notifications
+extension NotificationManager {
     func scheduleEntranceNotification() {
         notificationCenter.removeAllPendingNotificationRequests()
         
@@ -101,6 +104,23 @@ class NotificationManager: NSObject {
     }
 }
 
+// MARK: - Time based notifications
+extension NotificationManager {
+    func scheduleTwelveHourDelayNotification() {
+        let content = UNMutableNotificationContent()
+        content.title = "Check out reminder"
+        content.body = "It looks like you are still working, would you like to check out?"
+        let notificationRequestID = "twelveHourNotificationRequestID"
+        guard let dateComponents = Formatter.shared.getTimeTwelveHoursFromCurrentTime() else {
+            return
+        }
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+        let request = UNNotificationRequest(identifier: notificationRequestID, content: content, trigger: trigger)
+        notificationCenter.add(request, withCompletionHandler: nil)
+    }
+}
+
+// MARK: - UNUserNotificationCenter delegate
 extension NotificationManager: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         let identifier = response.actionIdentifier

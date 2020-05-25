@@ -614,3 +614,9 @@ private extension AddShiftViewController {
         continueButton.layer.cornerRadius = 15
     }
 }
+
+extension AddShiftViewController: UIViewControllerTransitioningDelegate {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return CustomAnimationViewController(animationDuration: 0.3, animationType: .present)
+    }
+}

@@ -123,6 +123,8 @@
 		C198B8F123B0CB4C00FBD3C6 /* Coordinator+Tabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C198B8F023B0CB4C00FBD3C6 /* Coordinator+Tabbar.swift */; };
 		C198B8F423B0CFC100FBD3C6 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C198B8F323B0CFC100FBD3C6 /* CustomTabBarController.swift */; };
 		C198B8F623B0D57C00FBD3C6 /* UnpauseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C198B8F523B0D57C00FBD3C6 /* UnpauseError.swift */; };
+		C19BDDD3247AE59D006265D9 /* CustomAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19BDDD2247AE59D006265D9 /* CustomAnimationViewController.swift */; };
+		C19BDDD6247AF28E006265D9 /* AnimationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19BDDD5247AF28E006265D9 /* AnimationType.swift */; };
 		C1B0B2B323B0BF9700CE5D05 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B0B2B223B0BF9700CE5D05 /* SessionManager.swift */; };
 		C1B131FA23F581E7009C3C59 /* ShiftTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B131F923F581E7009C3C59 /* ShiftTableViewCell.swift */; };
 		C1B131FC23F59150009C3C59 /* ShitfsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B131FB23F59150009C3C59 /* ShitfsResponse.swift */; };
@@ -295,6 +297,8 @@
 		C198B8F023B0CB4C00FBD3C6 /* Coordinator+Tabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinator+Tabbar.swift"; sourceTree = "<group>"; };
 		C198B8F323B0CFC100FBD3C6 /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		C198B8F523B0D57C00FBD3C6 /* UnpauseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnpauseError.swift; sourceTree = "<group>"; };
+		C19BDDD2247AE59D006265D9 /* CustomAnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnimationViewController.swift; sourceTree = "<group>"; };
+		C19BDDD5247AF28E006265D9 /* AnimationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationType.swift; sourceTree = "<group>"; };
 		C1B0B2B223B0BF9700CE5D05 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		C1B131F923F581E7009C3C59 /* ShiftTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftTableViewCell.swift; sourceTree = "<group>"; };
 		C1B131FB23F59150009C3C59 /* ShitfsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShitfsResponse.swift; sourceTree = "<group>"; };
@@ -375,6 +379,7 @@
 		C102D7BD23ACFE5C000B9E80 /* CustomUIElements */ = {
 			isa = PBXGroup;
 			children = (
+				C19BDDD1247AE57E006265D9 /* UIViewController */,
 				C1BE0D2224215EC200480224 /* UITabBarControllers */,
 				C13D4C80241F772500170AF0 /* UIActivityIndicatorViews */,
 				C1D568FC241C0762004C8A89 /* UITextFields */,
@@ -632,6 +637,7 @@
 		C146992823A117C400A84818 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C19BDDD4247AF274006265D9 /* Animation */,
 				C1C21ACD24754A2600FE5739 /* Settings */,
 				C14104B52473E56A00CAAE26 /* Purchase */,
 				C1FC657D2422EEF200E64AE4 /* User */,
@@ -831,6 +837,22 @@
 				C1BE0D1724212B6E00480224 /* DotsUIBarButtonItem.swift */,
 			);
 			path = UIButtons;
+			sourceTree = "<group>";
+		};
+		C19BDDD1247AE57E006265D9 /* UIViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C19BDDD2247AE59D006265D9 /* CustomAnimationViewController.swift */,
+			);
+			path = UIViewController;
+			sourceTree = "<group>";
+		};
+		C19BDDD4247AF274006265D9 /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				C19BDDD5247AF28E006265D9 /* AnimationType.swift */,
+			);
+			path = Animation;
 			sourceTree = "<group>";
 		};
 		C1BE0D1924215B7300480224 /* Managers */ = {
@@ -1320,6 +1342,7 @@
 				C14104B72473E58F00CAAE26 /* PurchaseResponse.swift in Sources */,
 				C1C1D2DE2437381F000BC698 /* LoginViewModelMock.swift in Sources */,
 				C14466C82417AD2A00CD52B6 /* ForgotPasswordViewModel.swift in Sources */,
+				C19BDDD3247AE59D006265D9 /* CustomAnimationViewController.swift in Sources */,
 				C10F78DB23A3D79200783476 /* UILabel+Extension.swift in Sources */,
 				C12F7A45240FE3E30074362F /* Company.swift in Sources */,
 				C138C38824111F9A00FAB84E /* UserResponse.swift in Sources */,
@@ -1414,6 +1437,7 @@
 				C12CDDB523FA8AC5002A19C8 /* EmptyTableViewCell.swift in Sources */,
 				C1FF2A8A23C4B0E500ACCF29 /* UpdatePersonalInfoViewController.swift in Sources */,
 				C198B8F123B0CB4C00FBD3C6 /* Coordinator+Tabbar.swift in Sources */,
+				C19BDDD6247AF28E006265D9 /* AnimationType.swift in Sources */,
 				C10F78E223A3D79200783476 /* UIScreen+Extension.swift in Sources */,
 				C198B8F423B0CFC100FBD3C6 /* CustomTabBarController.swift in Sources */,
 				C1C1D2E024373A57000BC698 /* CompanyNetworkingMock.swift in Sources */,

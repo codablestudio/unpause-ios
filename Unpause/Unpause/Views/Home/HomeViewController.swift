@@ -106,6 +106,7 @@ class HomeViewController: UIViewController {
                     self.displayFreshLastCheckInTime()
                     NotificationManager.shared.notificationCenter.removePendingNotificationRequests(withIdentifiers: ["notifyOnEntry"])
                     NotificationManager.shared.scheduleExitNotification()
+                    NotificationManager.shared.scheduleTwelveHourDelayNotification()
                     ActivityViewModel.forceRefresh.onNext(())
                 case .error(let error):
                     self.showOneOptionAlert(title: "Error", message: "\(error.errorMessage)", actionTitle: "OK")

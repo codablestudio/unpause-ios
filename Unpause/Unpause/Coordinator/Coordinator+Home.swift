@@ -26,6 +26,7 @@ extension Coordinator {
                                                             navigationFromCustomShift: false)
         addShiftViewController.cellToEdit = shiftData
         let navigationController = UINavigationController(rootViewController: addShiftViewController)
+        navigationController.transitioningDelegate = viewController as? UIViewControllerTransitioningDelegate
         viewController.present(navigationController, animated: true)
     }
 }

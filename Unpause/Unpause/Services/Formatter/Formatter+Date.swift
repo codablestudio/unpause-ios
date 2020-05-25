@@ -77,6 +77,14 @@ extension Formatter {
         return date
     }
     
+    func getTimeTwelveHoursFromCurrentTime() -> DateComponents? {
+        guard let timeTwelveHoursFromNow = Calendar.current.date(byAdding: .hour, value: 12, to: Date()) else {
+            return nil
+        }
+        let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: timeTwelveHoursFromNow)
+        return dateComponents
+    }
+    
     func getDateOneMontBeforeTodaysDate() -> Date {
         let calendar = Calendar.current
         var dateComponents = DateComponents()
