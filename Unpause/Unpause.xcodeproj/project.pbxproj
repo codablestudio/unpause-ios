@@ -123,8 +123,7 @@
 		C198B8F123B0CB4C00FBD3C6 /* Coordinator+Tabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C198B8F023B0CB4C00FBD3C6 /* Coordinator+Tabbar.swift */; };
 		C198B8F423B0CFC100FBD3C6 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C198B8F323B0CFC100FBD3C6 /* CustomTabBarController.swift */; };
 		C198B8F623B0D57C00FBD3C6 /* UnpauseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C198B8F523B0D57C00FBD3C6 /* UnpauseError.swift */; };
-		C19BDDD3247AE59D006265D9 /* CustomAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19BDDD2247AE59D006265D9 /* CustomAnimationViewController.swift */; };
-		C19BDDD6247AF28E006265D9 /* AnimationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19BDDD5247AF28E006265D9 /* AnimationType.swift */; };
+		C19BDDD3247AE59D006265D9 /* Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19BDDD2247AE59D006265D9 /* Animator.swift */; };
 		C1B0B2B323B0BF9700CE5D05 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B0B2B223B0BF9700CE5D05 /* SessionManager.swift */; };
 		C1B131FA23F581E7009C3C59 /* ShiftTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B131F923F581E7009C3C59 /* ShiftTableViewCell.swift */; };
 		C1B131FC23F59150009C3C59 /* ShitfsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B131FB23F59150009C3C59 /* ShitfsResponse.swift */; };
@@ -145,6 +144,7 @@
 		C1CE0D28245830110025FB06 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1CE0D27245830110025FB06 /* StoreKit.framework */; };
 		C1D0CA0B23F6AC9600A20D6F /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D0CA0A23F6AC9600A20D6F /* DataSource.swift */; };
 		C1D568FE241C0793004C8A89 /* PaddedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D568FD241C0793004C8A89 /* PaddedTextField.swift */; };
+		C1EAB8F8247BBD59004EDDF0 /* PresentationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EAB8F7247BBD59004EDDF0 /* PresentationType.swift */; };
 		C1F1BCC5243C7E10002B7452 /* ChangePasswordViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F1BCC4243C7E10002B7452 /* ChangePasswordViewModelTest.swift */; };
 		C1F1BCC7243C7E86002B7452 /* ChangePasswordNetworkingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F1BCC6243C7E86002B7452 /* ChangePasswordNetworkingMock.swift */; };
 		C1F1BCCA243C831A002B7452 /* ChangePasswordViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F1BCC9243C831A002B7452 /* ChangePasswordViewControllerTest.swift */; };
@@ -297,8 +297,7 @@
 		C198B8F023B0CB4C00FBD3C6 /* Coordinator+Tabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinator+Tabbar.swift"; sourceTree = "<group>"; };
 		C198B8F323B0CFC100FBD3C6 /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		C198B8F523B0D57C00FBD3C6 /* UnpauseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnpauseError.swift; sourceTree = "<group>"; };
-		C19BDDD2247AE59D006265D9 /* CustomAnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnimationViewController.swift; sourceTree = "<group>"; };
-		C19BDDD5247AF28E006265D9 /* AnimationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationType.swift; sourceTree = "<group>"; };
+		C19BDDD2247AE59D006265D9 /* Animator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animator.swift; sourceTree = "<group>"; };
 		C1B0B2B223B0BF9700CE5D05 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		C1B131F923F581E7009C3C59 /* ShiftTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftTableViewCell.swift; sourceTree = "<group>"; };
 		C1B131FB23F59150009C3C59 /* ShitfsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShitfsResponse.swift; sourceTree = "<group>"; };
@@ -322,6 +321,7 @@
 		C1CE0D27245830110025FB06 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C1D0CA0A23F6AC9600A20D6F /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		C1D568FD241C0793004C8A89 /* PaddedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedTextField.swift; sourceTree = "<group>"; };
+		C1EAB8F7247BBD59004EDDF0 /* PresentationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationType.swift; sourceTree = "<group>"; };
 		C1F1BCC4243C7E10002B7452 /* ChangePasswordViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewModelTest.swift; sourceTree = "<group>"; };
 		C1F1BCC6243C7E86002B7452 /* ChangePasswordNetworkingMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordNetworkingMock.swift; sourceTree = "<group>"; };
 		C1F1BCC9243C831A002B7452 /* ChangePasswordViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewControllerTest.swift; sourceTree = "<group>"; };
@@ -379,7 +379,7 @@
 		C102D7BD23ACFE5C000B9E80 /* CustomUIElements */ = {
 			isa = PBXGroup;
 			children = (
-				C19BDDD1247AE57E006265D9 /* UIViewController */,
+				C19BDDD1247AE57E006265D9 /* Animator */,
 				C1BE0D2224215EC200480224 /* UITabBarControllers */,
 				C13D4C80241F772500170AF0 /* UIActivityIndicatorViews */,
 				C1D568FC241C0762004C8A89 /* UITextFields */,
@@ -839,18 +839,18 @@
 			path = UIButtons;
 			sourceTree = "<group>";
 		};
-		C19BDDD1247AE57E006265D9 /* UIViewController */ = {
+		C19BDDD1247AE57E006265D9 /* Animator */ = {
 			isa = PBXGroup;
 			children = (
-				C19BDDD2247AE59D006265D9 /* CustomAnimationViewController.swift */,
+				C19BDDD2247AE59D006265D9 /* Animator.swift */,
 			);
-			path = UIViewController;
+			path = Animator;
 			sourceTree = "<group>";
 		};
 		C19BDDD4247AF274006265D9 /* Animation */ = {
 			isa = PBXGroup;
 			children = (
-				C19BDDD5247AF28E006265D9 /* AnimationType.swift */,
+				C1EAB8F7247BBD59004EDDF0 /* PresentationType.swift */,
 			);
 			path = Animation;
 			sourceTree = "<group>";
@@ -1342,7 +1342,7 @@
 				C14104B72473E58F00CAAE26 /* PurchaseResponse.swift in Sources */,
 				C1C1D2DE2437381F000BC698 /* LoginViewModelMock.swift in Sources */,
 				C14466C82417AD2A00CD52B6 /* ForgotPasswordViewModel.swift in Sources */,
-				C19BDDD3247AE59D006265D9 /* CustomAnimationViewController.swift in Sources */,
+				C19BDDD3247AE59D006265D9 /* Animator.swift in Sources */,
 				C10F78DB23A3D79200783476 /* UILabel+Extension.swift in Sources */,
 				C12F7A45240FE3E30074362F /* Company.swift in Sources */,
 				C138C38824111F9A00FAB84E /* UserResponse.swift in Sources */,
@@ -1407,6 +1407,7 @@
 				C1C21ACC247541AF00FE5739 /* SettingsTableViewCell.swift in Sources */,
 				C1707B2023F190AE002E1A10 /* DescriptionViewController.swift in Sources */,
 				C1FC657C2422D8B500E64AE4 /* GoogleUserSavingResponse.swift in Sources */,
+				C1EAB8F8247BBD59004EDDF0 /* PresentationType.swift in Sources */,
 				C12A2C182465AC0300BA9D51 /* UpgradeToProViewController.swift in Sources */,
 				C12F7A49241001040074362F /* CompanyNetworking.swift in Sources */,
 				C14334EC2407F4BD00C49E16 /* DataMakingResponse.swift in Sources */,
@@ -1437,7 +1438,6 @@
 				C12CDDB523FA8AC5002A19C8 /* EmptyTableViewCell.swift in Sources */,
 				C1FF2A8A23C4B0E500ACCF29 /* UpdatePersonalInfoViewController.swift in Sources */,
 				C198B8F123B0CB4C00FBD3C6 /* Coordinator+Tabbar.swift in Sources */,
-				C19BDDD6247AF28E006265D9 /* AnimationType.swift in Sources */,
 				C10F78E223A3D79200783476 /* UIScreen+Extension.swift in Sources */,
 				C198B8F423B0CFC100FBD3C6 /* CustomTabBarController.swift in Sources */,
 				C1C1D2E024373A57000BC698 /* CompanyNetworkingMock.swift in Sources */,
