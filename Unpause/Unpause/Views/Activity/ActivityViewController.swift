@@ -242,16 +242,17 @@ class ActivityViewController: UIViewController {
     private func showActionSheet() {
         let alert = UIAlertController(title: "Please select an option", message: nil, preferredStyle: .actionSheet)
         
-        alert.addAction(UIAlertAction(title: "Add custom shift", style: .default , handler:{ _ in
+        alert.addAction(UIAlertAction(title: "Add custom shift", style: .default , handler:{ [weak self] _ in
+            guard let `self` = self else { return }
             Coordinator.shared.presentAddShiftViewController(from: self, navigationFromCustomShift: true)
         }))
         
-        alert.addAction(UIAlertAction(title: "Send as email", style: .default, handler:{ [weak self] _ in
-            self?.handleSendAsEmailTapped()
+        alert.addAction(UIAlertAction(title: "Send as email", style: .default, handler:{ _ in
+            self.handleSendAsEmailTapped()
         }))
         
-        alert.addAction(UIAlertAction(title: "Open CSV", style: .default, handler:{ [weak self] _ in
-            self?.handleOpenCSVTapped()
+        alert.addAction(UIAlertAction(title: "Open CSV", style: .default, handler:{ _ in
+            self.handleOpenCSVTapped()
         }))
         
         alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
@@ -301,7 +302,10 @@ private extension ActivityViewController {
             let messsage = "It looks like you didn‘t add your company. Would you like too add it?"
             self.showTwoOptionsAlert(title: "Alert", message: messsage, firstActionTitle: "Cancel", secondActionTitle: "Add")
         } else if let user = SessionManager.shared.currentUser {
-            user.checkIfUserHasValidSubscription(onCompleted: { hasValidSubscription in
+            UnpauseActivityIndicatorView.shared.show(on: self.view)
+            user.checkIfUserHasValidSubscription(onCompleted: { [weak self] hasValidSubscription in
+                guard let `self` = self else { return }
+                UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
                 if hasValidSubscription {
                     self.sendEmailWithExcelSheetToCompany()
                 } else {
@@ -319,7 +323,10 @@ private extension ActivityViewController {
         let fileURL = self.activityViewModel.makeNewCSVFileWithShiftsData(shiftsData: self.dataSource)
         switch fileURL {
         case .success(let url):
-            user.checkIfUserHasValidSubscription { hasValidSubscription in
+            UnpauseActivityIndicatorView.shared.show(on: self.view)
+            user.checkIfUserHasValidSubscription { [weak self] hasValidSubscription in
+                guard let `self` = self else { return }
+                UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
                 if hasValidSubscription {
                     self.documentController.url = url
                     self.documentController.presentPreview(animated: true)

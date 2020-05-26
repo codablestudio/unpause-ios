@@ -16,11 +16,10 @@ import GoogleSignIn
 
 protocol RegisterNetworkingProtocol {
     func registerUserWith(firstName: String, lastName: String, email: String, password: String) -> Observable<FirebaseResponseObject>
-    func signInGoogleUser(googleUser: GIDGoogleUser) -> Observable<GoogleUserSavingResponse>
+    func signInGoogleUser(googleUser: GIDGoogleUser) -> Observable<FirebaseResponseObject>
     func saveUserInfoOnServer(email: String, firstName: String, lastName: String) -> Observable<Response>
-    
-    func checkIfUserIsAlreadyInDatabase(email: String) -> Observable<FirebaseDocumentResponseObject>
-    func signnInGoogleUser(googleUser: GIDGoogleUser) -> Observable<FirebaseResponseObject>
+    func checkIfUserIsAlreadyInDatabase(email: String) -> Observable<GoogleUserResponse>
+    func saveUserOnServerAndReturnUserDocument(email: String, firstName: String, lastName: String) -> Observable<FirebaseDocumentResponseObject>
 }
 
 class RegisterNetworking: RegisterNetworkingProtocol {
@@ -54,34 +53,7 @@ class RegisterNetworking: RegisterNetworkingProtocol {
         }
     }
     
-    func signInGoogleUser(googleUser: GIDGoogleUser) -> Observable<GoogleUserSavingResponse> {
-        guard let idToken = googleUser.authentication.idToken,
-            let accessToken = googleUser.authentication.accessToken else {
-                return Observable.just(GoogleUserSavingResponse.error(.emptyError))
-        }
-        let credentials = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
-        return Auth.auth().rx.signInAndRetrieveData(with: credentials)
-            .flatMapLatest({ [weak self] authDataResult -> Observable<Response> in
-                guard let `self` = self else { return Observable.empty() }
-                guard let userEmail = authDataResult.user.email,
-                    let userFirstName = googleUser.profile.givenName,
-                    let userLastName = googleUser.profile.familyName else {
-                        return Observable.just(Response.error(UnpauseError.emptyError))
-                }
-                return self.saveUserInfoOnServer(email: userEmail, firstName: userFirstName, lastName: userLastName)
-            })
-            .flatMapLatest ({ response -> Observable<GoogleUserSavingResponse> in
-                switch response {
-                case .success:
-                    return Observable.just(GoogleUserSavingResponse.success(googleUser))
-                case .error(let error):
-                    return Observable.just(GoogleUserSavingResponse.error(.otherError(error)))
-                }
-            })
-    }
-    
-    // NOVOOO
-    func signnInGoogleUser(googleUser: GIDGoogleUser) -> Observable<FirebaseResponseObject> {
+    func signInGoogleUser(googleUser: GIDGoogleUser) -> Observable<FirebaseResponseObject> {
         guard let idToken = googleUser.authentication.idToken,
             let accessToken = googleUser.authentication.accessToken else {
                 return Observable.just(FirebaseResponseObject.error(.emptyError))
@@ -96,15 +68,48 @@ class RegisterNetworking: RegisterNetworkingProtocol {
             })
     }
     
-    // NOVOOO
-    func checkIfUserIsAlreadyInDatabase(email: String) -> Observable<FirebaseDocumentResponseObject> {
+    func checkIfUserIsAlreadyInDatabase(email: String) -> Observable<GoogleUserResponse> {
         return dataBaseReference
             .collection("users")
             .document("\(email)")
             .rx
             .getDocument()
-            .flatMapLatest { documentSnapshot -> Observable<FirebaseDocumentResponseObject> in
-                return Observable.just(FirebaseDocumentResponseObject.success(documentSnapshot))
+            .flatMapLatest ({ documentSnapshot -> Observable<GoogleUserResponse> in
+                if documentSnapshot.exists {
+                    return Observable.just(GoogleUserResponse.exsistingUser(documentSnapshot))
+                } else {
+                    return Observable.just(GoogleUserResponse.notExistingUser)
+                }
+            })
+            .catchError ({ error -> Observable<GoogleUserResponse> in
+                if error.localizedDescription == "The operation couldn’t be completed. (FIRFirestoreErrorDomain error 5.)" {
+                    return Observable.just(GoogleUserResponse.notExistingUser)
+                } else {
+                    return Observable.just(GoogleUserResponse.error(.otherError(error)))
+                }
+            })
+    }
+    
+    func saveUserOnServerAndReturnUserDocument(email: String, firstName: String, lastName: String) -> Observable<FirebaseDocumentResponseObject> {
+        return saveUserInfoOnServer(email: email, firstName: firstName, lastName: lastName)
+            .flatMapLatest { [weak self] response -> Observable<FirebaseDocumentResponseObject> in
+                guard let `self` = self else { return Observable.empty() }
+                switch response {
+                case .success:
+                    return self.checkIfUserIsAlreadyInDatabase(email: email)
+                        .flatMapLatest { googleUserResponse -> Observable<FirebaseDocumentResponseObject> in
+                            switch googleUserResponse {
+                            case .exsistingUser(let documentSnapshot):
+                                return Observable.just(FirebaseDocumentResponseObject.success(documentSnapshot))
+                            case .notExistingUser:
+                                return Observable.just(FirebaseDocumentResponseObject.error(.googleUserSignInError))
+                            case .error(let error):
+                                return Observable.just(FirebaseDocumentResponseObject.error(error))
+                            }
+                    }
+                case .error(let error):
+                    return Observable.just(FirebaseDocumentResponseObject.error(error))
+                }
         }
         .catchError { error -> Observable<FirebaseDocumentResponseObject> in
             return Observable.just(FirebaseDocumentResponseObject.error(.otherError(error)))

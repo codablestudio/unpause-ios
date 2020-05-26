@@ -153,6 +153,7 @@
 		C1F1BCD0243CBD6C002B7452 /* HomeViewModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F1BCCF243CBD6C002B7452 /* HomeViewModelMock.swift */; };
 		C1F1BCD2243CC05E002B7452 /* HomeNetworkingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F1BCD1243CC05E002B7452 /* HomeNetworkingMock.swift */; };
 		C1F1BCD4243CC24C002B7452 /* ShiftNetworkingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F1BCD3243CC24C002B7452 /* ShiftNetworkingMock.swift */; };
+		C1F26C3F247CFD08007EAE7C /* GoogleUserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F26C3E247CFD08007EAE7C /* GoogleUserResponse.swift */; };
 		C1F2CD1F23F2E6D600BD23DC /* LastCheckInResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F2CD1E23F2E6D600BD23DC /* LastCheckInResponse.swift */; };
 		C1FBC46D23AA51E100579913 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBC46C23AA51E100579913 /* HomeViewController.swift */; };
 		C1FBC46F23AA521C00579913 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FBC46E23AA521C00579913 /* HomeViewModel.swift */; };
@@ -330,6 +331,7 @@
 		C1F1BCCF243CBD6C002B7452 /* HomeViewModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModelMock.swift; sourceTree = "<group>"; };
 		C1F1BCD1243CC05E002B7452 /* HomeNetworkingMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNetworkingMock.swift; sourceTree = "<group>"; };
 		C1F1BCD3243CC24C002B7452 /* ShiftNetworkingMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftNetworkingMock.swift; sourceTree = "<group>"; };
+		C1F26C3E247CFD08007EAE7C /* GoogleUserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleUserResponse.swift; sourceTree = "<group>"; };
 		C1F2CD1E23F2E6D600BD23DC /* LastCheckInResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastCheckInResponse.swift; sourceTree = "<group>"; };
 		C1FBC46C23AA51E100579913 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		C1FBC46E23AA521C00579913 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -900,6 +902,7 @@
 				C13B4B1123BF8A62006E1E0E /* FirebaseDocumentResponeObject.swift */,
 				C147314424169EAB00477ECA /* DocumentReferenceFetchingResponse.swift */,
 				C1FC657B2422D8B500E64AE4 /* GoogleUserSavingResponse.swift */,
+				C1F26C3E247CFD08007EAE7C /* GoogleUserResponse.swift */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
@@ -1430,6 +1433,7 @@
 				C13EFBA423FECC5D0081ACF0 /* Formatter+Date.swift in Sources */,
 				C1707B2223F19129002E1A10 /* DescriptionViewModel.swift in Sources */,
 				C10F78DC23A3D79200783476 /* Thread+Extension.swift in Sources */,
+				C1F26C3F247CFD08007EAE7C /* GoogleUserResponse.swift in Sources */,
 				C1C18E482413E8880066EB5F /* CompaniesFetchingResponse.swift in Sources */,
 				C10F78E623A3D79200783476 /* CGSize+Extension.swift in Sources */,
 				C1707B1A23F17605002E1A10 /* Formatter+String.swift in Sources */,

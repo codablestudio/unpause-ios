@@ -11,12 +11,20 @@ import RxSwift
 import GoogleSignIn
 
 class RegisterNetworkingMock: RegisterNetworkingProtocol {
-    func registerUserWith(firstName: String, lastName: String, email: String, password: String) -> Observable<FirebaseResponseObject> {
-        return Observable.just(FirebaseResponseObject.error(.registrationError))
+    func signInGoogleUser(googleUser: GIDGoogleUser) -> Observable<FirebaseResponseObject> {
+        return Observable.just(FirebaseResponseObject.error(.defaultError))
     }
     
-    func signInGoogleUser(googleUser: GIDGoogleUser) -> Observable<GoogleUserSavingResponse> {
-        return Observable.just(GoogleUserSavingResponse.error(.googleUserSignInError))
+    func checkIfUserIsAlreadyInDatabase(email: String) -> Observable<GoogleUserResponse> {
+        return Observable.just(GoogleUserResponse.error(.defaultError))
+    }
+    
+    func saveUserOnServerAndReturnUserDocument(email: String, firstName: String, lastName: String) -> Observable<FirebaseDocumentResponseObject> {
+        return Observable.just(FirebaseDocumentResponseObject.error(.defaultError))
+    }
+    
+    func registerUserWith(firstName: String, lastName: String, email: String, password: String) -> Observable<FirebaseResponseObject> {
+        return Observable.just(FirebaseResponseObject.error(.registrationError))
     }
     
     func saveUserInfoOnServer(email: String, firstName: String, lastName: String) -> Observable<Response> {

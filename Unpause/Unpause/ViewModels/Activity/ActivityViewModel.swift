@@ -117,10 +117,13 @@ extension ActivityViewModel {
             
             totalWorkingHours += workingHours
             let workingHoursInStringFormat = String(workingHours)
+            let descriptionTextWithoutNewLines = description.replacingOccurrences(of: "\n", with: " ",
+                                                                                  options: .literal,
+                                                                                  range: nil)
             
             let firstPartOfString = "\(arrivalDateAndTimeInStringFormat),"
             let secondPartOfString = "\(leavingDateAndTimeInStringFormat),"
-            let thirdPartOfString = "\(description),"
+            let thirdPartOfString = "\(descriptionTextWithoutNewLines),"
             let lastPartOfString = "\(workingHoursInStringFormat)\n"
             
             csvString = csvString.appending("\(firstPartOfString)\(secondPartOfString)\(thirdPartOfString)\(lastPartOfString)")

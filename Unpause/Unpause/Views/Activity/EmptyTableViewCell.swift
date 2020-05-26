@@ -62,5 +62,6 @@ private extension EmptyTableViewCell {
         }
         noShiftsLabel.text = "No shifts for selected dates."
         noShiftsLabel.numberOfLines = 0
+        noShiftsLabel.font = .systemFont(ofSize: 13, weight: .light)
     }
 }

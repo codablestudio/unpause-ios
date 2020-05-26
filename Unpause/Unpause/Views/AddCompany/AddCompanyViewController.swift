@@ -31,6 +31,7 @@ class AddCompanyViewController: UIViewController {
     private let closeButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: nil)
     
     var navigationFromRegisterViewController: Bool
+    var navigationFromSettingsViewController = false
     var isPresentedViewController = false
     
     init(addCompanyViewModel: AddCompanyViewModelProtocol, navigationFromRegisterViewController: Bool) {
@@ -96,10 +97,14 @@ class AddCompanyViewController: UIViewController {
                 switch response {
                 case .success:
                     UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
-                    self.dismiss(animated: true) {
-                        if self.navigationFromRegisterViewController {
+                    if self.navigationFromSettingsViewController {
+                        self.navigationController?.popViewController(animated: true)
+                    } else if self.navigationFromRegisterViewController {
+                        self.dismiss(animated: true) {
                             Coordinator.shared.navigateToHomeViewController()
                         }
+                    } else if self.isPresentedViewController {
+                        self.dismiss(animated: true)
                     }
                 case .error(let error):
                     UnpauseActivityIndicatorView.shared.dissmis(from: self.view)

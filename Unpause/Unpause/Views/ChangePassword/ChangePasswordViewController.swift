@@ -74,7 +74,7 @@ class ChangePasswordViewController: UIViewController {
                 switch response {
                 case .success:
                     UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
-                    self.dismiss(animated: true)
+                    self.navigationController?.popViewController(animated: true)
                 case .error(let error):
                     self.showOneOptionAlert(title: "Error", message: "\(error.errorMessage)", actionTitle: "OK")
                     UnpauseActivityIndicatorView.shared.dissmis(from: self.view)

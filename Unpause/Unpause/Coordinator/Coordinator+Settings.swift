@@ -41,6 +41,7 @@ extension Coordinator {
                                                       registeredUserEmail: SessionManager.shared.currentUser?.email)
         let addCompanyViewController = AddCompanyViewController(addCompanyViewModel: addCompanyViewModel,
                                                                 navigationFromRegisterViewController: false)
+        addCompanyViewController.navigationFromSettingsViewController = true
         viewController.navigationController?.pushViewController(addCompanyViewController, animated: true)
     }
 }

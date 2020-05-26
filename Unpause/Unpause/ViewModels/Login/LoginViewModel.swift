@@ -25,6 +25,10 @@ class LoginViewModel: LoginViewModelProtocol {
     private var textInPasswordTextField: String?
     private var privateUser: User?
     
+    private var googleUserEmail: String?
+    private var googleUserFirstName: String?
+    private var googleUserLastName: String?
+    
     var textInEmailTextFieldChanges = PublishSubject<String?>()
     var textInPasswordTextFieldChanges = PublishSubject<String?>()
     var logInButtonTapped = PublishSubject<Void>()
@@ -110,38 +114,86 @@ class LoginViewModel: LoginViewModelProtocol {
             self?.textInPasswordTextField = newValue
         }).disposed(by: disposeBag)
         
+        googleUserSignInResponse.subscribe(onNext: { [weak self] googleUser in
+            guard let `self` = self else { return }
+            self.googleUserEmail = googleUser.profile.email
+            self.googleUserFirstName = googleUser.profile.givenName
+            self.googleUserLastName = googleUser.profile.familyName
+        }).disposed(by: disposeBag)
+        
         googleUserSavingResponse = googleUserSignInResponse
-            .flatMapLatest({ [weak self] googleUser -> Observable<GoogleUserSavingResponse> in
-                guard let `self` = self else { return Observable.empty() }
+            .flatMapLatest({ googleUser -> Observable<FirebaseResponseObject> in
                 return self.registerNetworking.signInGoogleUser(googleUser: googleUser)
-                .trackActivity(self._isInsideGoogleSignInFlow)
+                    .trackActivity(self._isInsideGoogleSignInFlow)
             })
-            .flatMapLatest({ googleUserSavingResponse -> Observable<UnpauseResponse> in
-                switch googleUserSavingResponse {
-                case .success(let googleUser):
-                    let newUser = UserFactory.createUser(from: googleUser)
-                    SessionManager.shared.logIn(newUser)
-                    return Observable.just(UnpauseResponse.success)
+            .flatMapLatest({ [weak self] firebaseResponseObject -> Observable<GoogleUserResponse> in
+                guard let `self` = self,
+                    let email = self.googleUserEmail else {
+                        return Observable.just(GoogleUserResponse.error(.googleUserSignInError))
+                }
+                switch firebaseResponseObject {
+                case .success(_):
+                    return self.registerNetworking.checkIfUserIsAlreadyInDatabase(email: email)
                 case .error(let error):
-                    return Observable.just(UnpauseResponse.error(error))
+                    return Observable.just(GoogleUserResponse.error(error))
                 }
             })
-            .flatMapLatest({ unpauseResponse -> Observable<CompanyFetchingResponse> in
-                switch unpauseResponse {
-                case .success:
+            .flatMapLatest({ [weak self] googleUserResponse -> Observable<FirebaseDocumentResponseObject> in
+                guard let `self` = self,
+                    let email = self.googleUserEmail,
+                    let firstName = self.googleUserFirstName,
+                    let lastName = self.googleUserLastName else {
+                        return Observable.just(FirebaseDocumentResponseObject.error(.emptyError))
+                }
+                switch googleUserResponse {
+                case .exsistingUser(let documentSnapshot):
+                    return Observable.just(FirebaseDocumentResponseObject.success(documentSnapshot))
+                case .notExistingUser:
+                    return self.registerNetworking.saveUserOnServerAndReturnUserDocument(email: email, firstName: firstName, lastName: lastName)
+                case .error(let error):
+                    return Observable.just(FirebaseDocumentResponseObject.error(error))
+                }
+            })
+            .flatMapLatest({ firebaseDocumentResponseObject -> Observable<FirebaseDocumentResponseObject> in
+                switch firebaseDocumentResponseObject {
+                case .success(let documentSnapshot):
+                    return Observable.just(FirebaseDocumentResponseObject.success(documentSnapshot))
+                case .error(let unpauseError):
+                    return Observable.just(FirebaseDocumentResponseObject.error(unpauseError))
+                }
+            })
+            .map({ firebaseResponse -> UserResponse in
+                switch firebaseResponse {
+                case .success(let document):
+                    do {
+                        let newUser = try UserFactory.createUser(from: document)
+                        SessionManager.shared.logIn(newUser)
+                        return UserResponse.success(newUser)
+                    } catch (let error) {
+                        return UserResponse.error(.otherError(error))
+                    }
+                case .error(let error):
+                    return UserResponse.error(error)
+                }
+            })
+            .flatMapLatest({ [weak self] userResponse -> Observable<CompanyFetchingResponse> in
+                guard let `self` = self else { return Observable.empty() }
+                switch userResponse {
+                case .success(let user):
+                    self.privateUser = user
                     return self.companyNetworking.fetchCompany()
                 case .error(let error):
                     return Observable.just(CompanyFetchingResponse.error(error))
                 }
             })
-            .flatMapLatest({ companyFetchingResponse -> Observable<UnpauseResponse> in
+            .map({ companyFetchingResponse -> UnpauseResponse in
                 switch companyFetchingResponse {
                 case .success(let company):
                     SessionManager.shared.currentUser?.company = company
                     SessionManager.shared.saveCurrentUserToUserDefaults()
-                    return Observable.just(UnpauseResponse.success)
+                    return UnpauseResponse.success
                 case .error(let error):
-                    return Observable.just(UnpauseResponse.error(error))
+                    return UnpauseResponse.error(error)
                 }
             })
     }
