@@ -82,7 +82,8 @@ class RegisterNetworking: RegisterNetworkingProtocol {
                 }
             })
             .catchError ({ error -> Observable<GoogleUserResponse> in
-                if error.localizedDescription == "The operation couldn’t be completed. (FIRFirestoreErrorDomain error 5.)" {
+                let firebaseError = error as NSError
+                if  firebaseError.code == 5 {
                     return Observable.just(GoogleUserResponse.notExistingUser)
                 } else {
                     return Observable.just(GoogleUserResponse.error(.otherError(error)))
