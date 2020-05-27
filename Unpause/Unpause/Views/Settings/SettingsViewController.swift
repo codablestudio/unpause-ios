@@ -146,7 +146,8 @@ extension SettingsViewController: UITableViewDataSource {
         case .changeCompany:
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SettingsTableViewCell.self),
                                                      for: indexPath) as! SettingsTableViewCell
-            cell.configure(name: "Change company", thumbnailImageName: "company_30x30_black")
+            let cellTitle = makeProperTitleForCompanyTableViewCell()
+            cell.configure(name: cellTitle, thumbnailImageName: "company_30x30_black")
             return cell
         case .logOut:
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SettingsTableViewCell.self),
@@ -154,5 +155,13 @@ extension SettingsViewController: UITableViewDataSource {
             cell.configure(name: "Log out", thumbnailImageName: "logOut_30x30_black")
             return cell
         }
+    }
+    
+    func makeProperTitleForCompanyTableViewCell() -> String {
+        var cellTitle = "Connect company"
+        if SessionManager.shared.currentUserHasConnectedCompany() {
+            cellTitle = "Change company"
+        }
+        return cellTitle
     }
 }

@@ -143,13 +143,15 @@ class AddCompanyViewController: UIViewController {
     private func configureBackbuttonVisibility() {
         if navigationFromRegisterViewController {
             hideBackButton()
-        } else {
-            
         }
     }
 
     private func showTitleInNavigationBar() {
-        self.title = "Connect company"
+        if SessionManager.shared.currentUserHasConnectedCompany() {
+            self.title = "Change company"
+        } else {
+            self.title = "Connect company"
+        }
         navigationItem.largeTitleDisplayMode = .never
     }
     

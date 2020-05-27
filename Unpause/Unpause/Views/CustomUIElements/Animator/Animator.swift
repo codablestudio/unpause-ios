@@ -46,14 +46,14 @@ extension Animator: UIViewControllerAnimatedTransitioning {
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        let containerView = transitionContext.containerView
+        let transitionContainerView = transitionContext.containerView
         
         guard let toView = secondViewController.view
             else {
                 transitionContext.completeTransition(false)
                 return
         }
-        containerView.addSubview(toView)
+        transitionContainerView.addSubview(toView)
         
         guard let selectedCell = activityViewController.selectedCell,
             let window = firstViewController.view.window ?? secondViewController.view.window,
@@ -67,12 +67,12 @@ extension Animator: UIViewControllerAnimatedTransitioning {
         let isPresenting = type.isPresenting
         
         let backgroundView: UIView
-        let fadeView = UIView(frame: containerView.bounds)
+        let fadeView = UIView(frame: transitionContainerView.bounds)
         fadeView.backgroundColor = secondViewController.view.backgroundColor
         
         if isPresenting {
             selectedCellContainerView = cellContainerView
-            backgroundView = UIView(frame: containerView.bounds)
+            backgroundView = UIView(frame: transitionContainerView.bounds)
             backgroundView.addSubview(fadeView)
             fadeView.alpha = 0
         } else {
@@ -81,15 +81,15 @@ extension Animator: UIViewControllerAnimatedTransitioning {
         }
         toView.alpha = 0
         
-        [backgroundView, selectedCellContainerView, addShiftViewControllerView].forEach { containerView.addSubview($0) }
-        let controllerImageViewRect = addShiftViewController.view.convert((addShiftViewController.view.bounds), to: window)
+        [backgroundView, selectedCellContainerView, addShiftViewControllerView].forEach { transitionContainerView.addSubview($0) }
+        let addShiftViewControllerViewRect = addShiftViewController.view.convert((addShiftViewController.view.bounds), to: window)
         
         [selectedCellContainerView, addShiftViewControllerView].forEach {
-            $0.frame = isPresenting ? cellImageViewRect : controllerImageViewRect
+            $0.frame = isPresenting ? cellImageViewRect : addShiftViewControllerViewRect
         }
         
         [selectedCellContainerView, addShiftViewControllerView].forEach {
-            $0.frame = isPresenting ? cellImageViewRect : controllerImageViewRect
+            $0.frame = isPresenting ? cellImageViewRect : addShiftViewControllerViewRect
             $0.layer.cornerRadius = isPresenting ? 12 : 0
             $0.layer.masksToBounds = true
         }
@@ -99,9 +99,8 @@ extension Animator: UIViewControllerAnimatedTransitioning {
         
         UIView.animateKeyframes(withDuration: Self.duration, delay: 0, options: .calculationModeCubic, animations: {
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1) {
-                self.selectedCellContainerView.frame = isPresenting ? controllerImageViewRect : self.cellImageViewRect
-                addShiftViewControllerView.frame = isPresenting ? controllerImageViewRect : self.cellImageViewRect
-                fadeView.alpha = isPresenting ? 1 : 0
+                self.selectedCellContainerView.frame = isPresenting ? addShiftViewControllerViewRect : self.cellImageViewRect
+                addShiftViewControllerView.frame = isPresenting ? addShiftViewControllerViewRect : self.cellImageViewRect
             }
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1) {
                 self.selectedCellContainerView.alpha = isPresenting ? 0 : 1
@@ -110,6 +109,7 @@ extension Animator: UIViewControllerAnimatedTransitioning {
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1) {
                 [addShiftViewControllerView, self.selectedCellContainerView].forEach {
                     $0.layer.cornerRadius = isPresenting ? 0 : 12
+                    fadeView.alpha = isPresenting ? 1 : 0
                 }
             }
         }, completion: { _ in

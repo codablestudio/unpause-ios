@@ -49,4 +49,11 @@ extension SessionManager {
         let data = NSKeyedArchiver.archivedData(withRootObject: currentUser as Any)
         userDefaults.set(data, forKey: currentUserKey)
     }
+    
+    func currentUserHasConnectedCompany() -> Bool {
+        guard let _ = SessionManager.shared.currentUser?.company else {
+            return false
+        }
+        return true
+    }
 }
