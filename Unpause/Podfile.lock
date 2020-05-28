@@ -169,6 +169,9 @@ PODS:
   - BoringSSL-GRPC/Implementation (0.0.3):
     - BoringSSL-GRPC/Interface (= 0.0.3)
   - BoringSSL-GRPC/Interface (0.0.3)
+  - Charts (3.5.0):
+    - Charts/Core (= 3.5.0)
+  - Charts/Core (3.5.0)
   - DifferenceKit (1.1.5):
     - DifferenceKit/Core (= 1.1.5)
     - DifferenceKit/UIKitExtension (= 1.1.5)
@@ -383,6 +386,7 @@ PODS:
   - SwiftyStoreKit (0.15.0)
 
 DEPENDENCIES:
+  - Charts
   - DifferenceKit
   - Firebase/Analytics
   - Firebase/Auth
@@ -409,6 +413,7 @@ SPEC REPOS:
     - abseil
     - AppAuth
     - BoringSSL-GRPC
+    - Charts
     - DifferenceKit
     - Firebase
     - FirebaseABTesting
@@ -460,6 +465,7 @@ SPEC CHECKSUMS:
   abseil: 18063d773f5366ff8736a050fe035a28f635fd27
   AppAuth: 73574f3013a1e65b9601a3ddc8b3158cce68c09d
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
+  Charts: 40a08591df1f8ad5c223ddedfb1a06da92f24f7c
   DifferenceKit: 516f12e336ed65a3a0665847b5c3cb5cad4bd4ea
   Firebase: 0490eca762a72e4f1582319539153897f1508dee
   FirebaseABTesting: 0d10f3cdc3fa00f3f175b5b56c1003c8e888299f
@@ -507,6 +513,6 @@ SPEC CHECKSUMS:
   SwiftyBeaver: a1f5691458561414bcfab51874b2b7445451602b
   SwiftyStoreKit: 033d06b6f87955405d3f844a18a7687c2438592a
 
-PODFILE CHECKSUM: d12d2464dee20f25c78167fa4f90bb98574da2db
+PODFILE CHECKSUM: ec9a1893e7bcf9496b9da36e2bd94034328299c2
 
 COCOAPODS: 1.8.4

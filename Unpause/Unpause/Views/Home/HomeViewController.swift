@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import SwiftyStoreKit
+import Charts
 
 class HomeViewController: UIViewController {
     
@@ -31,6 +32,9 @@ class HomeViewController: UIViewController {
     let checkInButton = UIButton()
     
     private let lastCheckInTimeLabel = UILabel()
+    
+    private let chartContainerView = UIView()
+    private let barChartView = BarChartView()
     
     var userChecksIn = PublishSubject<Bool>()
     
@@ -63,6 +67,7 @@ class HomeViewController: UIViewController {
         renderCompanySeparator()
         renderCheckInButton()
         renderLastCheckInTimeLabel()
+        renderChartContainerView()
     }
     
     func setUpObservables() {
@@ -269,10 +274,47 @@ private extension HomeViewController {
         lastCheckInTimeLabel.snp.makeConstraints { make in
             make.top.equalTo(checkInButton.snp.bottom).offset(30)
             make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview()
         }
         lastCheckInTimeLabel.font = .systemFont(ofSize: 13, weight: .light)
         displayFreshLastCheckInTime()
+    }
+    
+    func renderChartContainerView() {
+        containerView.addSubview(barChartView)
+        barChartView.snp.makeConstraints { make in
+            make.top.equalTo(lastCheckInTimeLabel.snp.bottom).offset(10)
+            make.left.equalToSuperview().offset(15)
+            make.right.equalToSuperview().inset(15)
+            make.height.equalTo(220)
+            make.bottom.equalToSuperview()
+        }
+        barChartView.noDataText = "No data to provide"
+        
+        let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+        let workingHoursForCurrentWeek = [20.0, 4.0, 6.0, 3.0, 12.0, 16.0, 4.0]
+        setChart(days: days, workingTime: workingHoursForCurrentWeek)
+        
+    }
+    
+    private func setChart(days: [String], workingTime: [Double]) {
+        var dataEntries: [BarChartDataEntry] = []
+        for i in 0 ..< days.count {
+            let dataEntry = BarChartDataEntry(x: Double(i), y: workingTime[i])
+            dataEntries.append(dataEntry)
+        }
+        let chartDataSet = BarChartDataSet(entries: dataEntries, label: "Working hours")
+        chartDataSet.valueFont = .systemFont(ofSize: 10)
+        chartDataSet.setColor(UIColor.unpauseOrange, alpha: 1)
+        let chartData = BarChartData(dataSet: chartDataSet)
+        barChartView.data = chartData
+        barChartView.xAxis.labelPosition = .bottom
+        barChartView.xAxis.drawGridLinesEnabled = false
+        barChartView.rightAxis.enabled = false
+        barChartView.leftAxis.enabled = false
+        barChartView.isUserInteractionEnabled = false
+        barChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: days)
+        barChartView.extraBottomOffset = 7
+        barChartView.animate(yAxisDuration: 0.6, easingOption: .linear)
     }
 }
 
