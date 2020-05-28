@@ -118,6 +118,7 @@ class AddCompanyViewController: UIViewController {
                 mailViewController.mailComposeDelegate = self
                 mailViewController.setToRecipients(["info@codable.studio"])
                 mailViewController.setSubject("Company info")
+                mailViewController.setPreferredSendingEmailAddress(SessionManager.shared.getCurrentUserEmail())
                 self.present(mailViewController, animated: true)
             } else {
                 self.showOneOptionAlert(title: "Alert", message: "Can not send email.", actionTitle: "OK")

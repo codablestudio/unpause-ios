@@ -56,4 +56,11 @@ extension SessionManager {
         }
         return true
     }
+    
+    func getCurrentUserEmail() -> String {
+        guard let email = SessionManager.shared.currentUser?.email else {
+            return ""
+        }
+        return email
+    }
 }
