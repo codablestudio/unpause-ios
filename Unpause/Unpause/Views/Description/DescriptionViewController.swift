@@ -36,7 +36,7 @@ class DescriptionViewController: UIViewController {
     private let cancelButton = OrangeButton(title: "Cancle")
     private let saveButton = OrangeButton(title: "Save")
     
-    var shiftToEdit = PublishSubject<ShiftsTableViewItem>()
+    var cellToEdit: ShiftsTableViewItem?
     
     let navigationFromTableView: Bool
     
@@ -55,7 +55,7 @@ class DescriptionViewController: UIViewController {
         render()
         setUpObservables()
         addGestureRecognizer()
-        setUpFirstResponder()
+        addDescriptionToTextViewAndSetUpFirstResponder()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -203,7 +203,12 @@ class DescriptionViewController: UIViewController {
         }).disposed(by: disposeBag)
     }
     
-    private func setUpFirstResponder() {
+    private func addDescriptionToTextViewAndSetUpFirstResponder() {
+        guard let description = cellToEdit?.shift?.description else {
+            descriptionTextView.becomeFirstResponder()
+            return
+        }
+        descriptionTextView.text.append(contentsOf: description)
         descriptionTextView.becomeFirstResponder()
     }
     

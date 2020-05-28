@@ -211,6 +211,9 @@ private extension AddCompanyViewController {
             make.height.equalTo(50)
         }
         addCompanyButton.layer.cornerRadius = 25
+        if SessionManager.shared.currentUserHasConnectedCompany() {
+            addCompanyButton.setTitle("Change company", for: .normal)
+        }
     }
     
     func configureEmailLabelAppearance() {
