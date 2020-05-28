@@ -267,6 +267,7 @@ class ActivityViewController: UIViewController {
         if MFMailComposeViewController.canSendMail() {
             let mail = MFMailComposeViewController()
             mail.mailComposeDelegate = self
+            mail.setPreferredSendingEmailAddress(SessionManager.shared.getCurrentUserEmail())
             mail.setToRecipients(["\(companyEmail)"])
             mail.setSubject("Working hours")
             mail.setMessageBody("<b>Hello,<br>Here are my working hours,<br>Cheers :)</b>", isHTML: true)
