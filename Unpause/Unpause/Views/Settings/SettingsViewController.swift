@@ -33,7 +33,6 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         render()
-        setUpObservables()
         showTitleInNavigationBar()
         setUpTableView()
     }
@@ -41,10 +40,6 @@ class SettingsViewController: UIViewController {
     private func render() {
         configureContainerView()
         configureTableView()
-    }
-    
-    private func setUpObservables() {
-        
     }
     
     private func showTitleInNavigationBar() {
@@ -79,7 +74,6 @@ private extension SettingsViewController {
         view.backgroundColor = UIColor.unpauseWhite
         
         view.addSubview(containerView)
-        
         containerView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.left.right.equalToSuperview()
@@ -117,7 +111,7 @@ extension SettingsViewController: UITableViewDelegate {
         case .changePassword:
             Coordinator.shared.navigateToChangePasswordViewController(from: self)
         case .changeCompany:
-            Coordinator.shared.navigateToAdCompanyViewController(from: self)
+            Coordinator.shared.navigateToUserTypeViewController(from: self)
         case .logOut:
             self.showTwoOptionAlert(title: "Log out", message: "Are you sure you want to log out?", actionTitle1: "Cancel", actionTitle2: "Log out")
         }
@@ -146,8 +140,7 @@ extension SettingsViewController: UITableViewDataSource {
         case .changeCompany:
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SettingsTableViewCell.self),
                                                      for: indexPath) as! SettingsTableViewCell
-            let cellTitle = makeProperTitleForCompanyTableViewCell()
-            cell.configure(name: cellTitle, thumbnailImageName: "company_30x30_black")
+            cell.configure(name: "Company location", thumbnailImageName: "company_30x30_black")
             return cell
         case .logOut:
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SettingsTableViewCell.self),
@@ -155,13 +148,5 @@ extension SettingsViewController: UITableViewDataSource {
             cell.configure(name: "Log out", thumbnailImageName: "logOut_30x30_black")
             return cell
         }
-    }
-    
-    func makeProperTitleForCompanyTableViewCell() -> String {
-        var cellTitle = "Connect company"
-        if SessionManager.shared.currentUserHasConnectedCompany() {
-            cellTitle = "Change company"
-        }
-        return cellTitle
     }
 }

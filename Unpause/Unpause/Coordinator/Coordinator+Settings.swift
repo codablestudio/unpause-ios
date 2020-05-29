@@ -35,13 +35,9 @@ extension Coordinator {
         viewController.navigationController?.pushViewController(changePasswordViewController, animated: true)
     }
     
-    func navigateToAdCompanyViewController(from viewController: UIViewController) {
-        let companyNetworking = CompanyNetworking()
-        let addCompanyViewModel = AddCompanyViewModel(companyNetworking: companyNetworking,
-                                                      registeredUserEmail: SessionManager.shared.currentUser?.email)
-        let addCompanyViewController = AddCompanyViewController(addCompanyViewModel: addCompanyViewModel,
-                                                                navigationFromRegisterViewController: false)
-        addCompanyViewController.navigationFromSettingsViewController = true
-        viewController.navigationController?.pushViewController(addCompanyViewController, animated: true)
+    func navigateToUserTypeViewController(from viewController: UIViewController) {
+        let userTypeViewModel = UserTypeViewModel()
+        let userTypeViewController = UserTypeViewController(userTypeViewModel: userTypeViewModel)
+        viewController.navigationController?.pushViewController(userTypeViewController, animated: true)
     }
 }
