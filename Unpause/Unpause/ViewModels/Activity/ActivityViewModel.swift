@@ -26,7 +26,7 @@ class ActivityViewModel: ActivityViewModelProtocol {
     private var dateInFromDatePicker: Date?
     private var dateInToDatePicker: Date?
     
-    static var forceRefresh = PublishSubject<()>()
+    static var forceRefresh = PublishSubject<(Void)>()
     
     init(shiftNetworking: ShiftNetworkingProtocol,
          companyNetworking: CompanyNetworkingProtocol) {

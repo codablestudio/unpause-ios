@@ -112,7 +112,6 @@ class HomeViewController: UIViewController {
                     NotificationManager.shared.notificationCenter.removePendingNotificationRequests(withIdentifiers: ["notifyOnEntry"])
                     NotificationManager.shared.scheduleExitNotification()
                     NotificationManager.shared.scheduleTwelveHourDelayNotification()
-                    ActivityViewModel.forceRefresh.onNext(())
                 case .error(let error):
                     self.showOneOptionAlert(title: "Error", message: "\(error.errorMessage)", actionTitle: "OK")
                 }
@@ -138,6 +137,18 @@ class HomeViewController: UIViewController {
                     print("\(error)")
                 }
             }).disposed(by: disposeBag)
+        
+        homeViewModel.lastWeekWorkingTimeFetchingResponse
+            .subscribe(onNext: { [weak self] shiftsResponse in
+                guard let `self` = self else { return }
+                switch shiftsResponse {
+                case .succes(let workingTimesFromThisWeek):
+                    SessionManager.shared.currentUser?.workingTimeFromThisWeek = workingTimesFromThisWeek
+                    self.setChart(workingTime: workingTimesFromThisWeek)
+                case .error(let error):
+                    self.showOneOptionAlert(title: "Error", message: "\(error.errorMessage)", actionTitle: "OK")
+                }
+            }).disposed(by: disposeBag)
     }
     
     private func showTitleInNavigationBar() {
@@ -147,6 +158,7 @@ class HomeViewController: UIViewController {
     private func displayFreshUserData() {
         displayFreshUsernameData()
         displayFreshCompanyData()
+        displayFreshChartData()
     }
     
     private func displayFreshUsernameData() {
@@ -160,6 +172,13 @@ class HomeViewController: UIViewController {
     
     private func displayFreshCompanyData() {
         companyNameLabel.text = SessionManager.shared.currentUser?.company?.name ?? "No company"
+    }
+    
+    private func displayFreshChartData() {
+        guard let workingTimesFromThisWeek = SessionManager.shared.currentUser?.workingTimeFromThisWeek else {
+            return
+        }
+        setChart(workingTime: workingTimesFromThisWeek)
     }
     
     private func displayFreshLastCheckInTime() {
@@ -288,15 +307,11 @@ private extension HomeViewController {
             make.height.equalTo(220)
             make.bottom.equalToSuperview()
         }
-        barChartView.noDataText = "No data to provide"
-        
-        let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-        let workingHoursForCurrentWeek = [20.0, 4.0, 6.0, 3.0, 12.0, 16.0, 4.0]
-        setChart(days: days, workingTime: workingHoursForCurrentWeek)
-        
+        barChartView.noDataText = "Loading chart data..."
     }
     
-    private func setChart(days: [String], workingTime: [Double]) {
+    private func setChart(workingTime: [Double]) {
+        let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
         var dataEntries: [BarChartDataEntry] = []
         for i in 0 ..< days.count {
             let dataEntry = BarChartDataEntry(x: Double(i), y: workingTime[i])
