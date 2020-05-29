@@ -68,8 +68,10 @@ class HomeViewModel: HomeViewModelProtocol {
                 }
             })
         
-        lastWeekWorkingTimeFetchingResponse = Observable.combineLatest(HomeViewModel.forceRefresh, ActivityViewModel.forceRefresh)
-        .startWith(((), ()))
+//        lastWeekWorkingTimeFetchingResponse = Observable.combineLatest(HomeViewModel.forceRefresh, ActivityViewModel.forceRefresh)
+//            .startWith(((), ()))
+        lastWeekWorkingTimeFetchingResponse = Observable.merge([HomeViewModel.forceRefresh, ActivityViewModel.forceRefresh])
+        .startWith(())
             .flatMapLatest({ [weak self] _ -> Observable<ShiftsResponse> in
                 guard let `self` = self else { return Observable.empty() }
                 return self.shiftNetworking.fetchShifts()

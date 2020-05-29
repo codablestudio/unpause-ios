@@ -62,10 +62,6 @@ class DescriptionViewController: UIViewController {
         showNavigationBar()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        HomeViewModel.forceRefresh.onNext(())
-    }
-    
     private func render() {
         configureScrollViewAndContainerView()
         renderWhatDidYouWorkOnLabel()
@@ -93,6 +89,7 @@ class DescriptionViewController: UIViewController {
                     NotificationManager.shared.scheduleEntranceNotification()
                     UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
                     ActivityViewModel.forceRefresh.onNext(())
+                    HomeViewModel.forceRefresh.onNext(())
                     self.dismiss(animated: true)
                 case .error(let error):
                     UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
