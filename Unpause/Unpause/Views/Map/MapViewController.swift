@@ -55,17 +55,12 @@ class MapViewController: UIViewController {
             }
         }).disposed(by: disposeBag)
     }
-    
-    private func hideTabBar() {
-        tabBarController?.tabBar.isHidden = true
-    }
 }
 
 // MARK: - UI rendering
 private extension MapViewController {
     func renderMapView() {
         view.addSubview(mapView)
-        
         mapView.snp.makeConstraints { make in
             make.top.left.right.bottom.equalToSuperview()
         }
@@ -73,9 +68,8 @@ private extension MapViewController {
     
     func renderSegmentedControl() {
         view.addSubview(segmentedControl)
-        
         segmentedControl.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
+            make.top.equalToSuperview().offset(50)
             make.centerX.equalToSuperview()
         }
         segmentedControl.insertSegment(withTitle: "Map", at: 0, animated: true)

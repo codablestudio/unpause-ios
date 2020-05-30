@@ -15,7 +15,7 @@ class UserTypeViewController: UIViewController {
     private let disposeBag = DisposeBag()
     
     private let containerView = UIView()
-    private let collectionView = UICollectionView()
+    private let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewLayout.init())
     
     private let dataSource: [UserTypeCollectionViewItem] = [.privateUser, .businessUser]
 
@@ -35,8 +35,15 @@ class UserTypeViewController: UIViewController {
         setUpCollectionView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        hideTabBar()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        showTabBar()
+    }
+    
     private func render() {
-        configureContainerView()
         configureCollectionView()
     }
     
@@ -54,33 +61,25 @@ class UserTypeViewController: UIViewController {
     }
     
     private func setUpCollectionView() {
-        collectionView.dataSource = self
+        setUpCollectionViewItemSize()
         collectionView.register(UserTypeCollectionViewCell.self, forCellWithReuseIdentifier: "UserTypeCollectionViewCell")
+        collectionView.dataSource = self
         collectionView.contentInsetAdjustmentBehavior = .never
     }
-
 }
 
 // MARK: - UI rendering
 private extension UserTypeViewController {
-    func configureContainerView() {
+    func configureCollectionView() {
         view.backgroundColor = UIColor.unpauseWhite
         
-        view.addSubview(containerView)
-        containerView.snp.makeConstraints { make in
+        view.addSubview(collectionView)
+        collectionView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.left.right.equalToSuperview()
             make.bottomMargin.equalToSuperview()
         }
-    }
-    
-    func configureCollectionView() {
-        containerView.addSubview(collectionView)
-        collectionView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.left.right.equalToSuperview()
-            make.bottom.equalToSuperview()
-        }
+        collectionView.backgroundColor = .unpauseWhite
     }
 }
 
@@ -92,17 +91,31 @@ extension UserTypeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch dataSource[indexPath.row] {
         case .privateUser:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: UserTypeCollectionViewCell.self),
-                                                     for: indexPath) as! UserTypeCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UserTypeCollectionViewCell",
+                                                          for: indexPath) as! UserTypeCollectionViewCell
             cell.configure(name: "Private user", cellImageName: "privateUser_100x100_black")
             return cell
         case .businessUser:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: UserTypeCollectionViewCell.self),
-                                                     for: indexPath) as! UserTypeCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UserTypeCollectionViewCell",
+                                                          for: indexPath) as! UserTypeCollectionViewCell
             cell.configure(name: "Business user", cellImageName: "businessUser_100x100_black")
             return cell
         }
     }
     
-    
+    func setUpCollectionViewItemSize() {
+        let numberOfItemsPerRow: CGFloat = 2
+        let lineSpacing: CGFloat = 10
+        let interItemSpacing: CGFloat = 10
+        collectionView.frame = view.frame
+        let itemWidth = (collectionView.frame.width - ((numberOfItemsPerRow - 1) * interItemSpacing)) / numberOfItemsPerRow
+        let itemHeight = itemWidth
+        let collectionViewFlowLayout = UICollectionViewFlowLayout.init()
+        collectionViewFlowLayout.itemSize = CGSize(width: itemWidth, height: itemHeight)
+        collectionViewFlowLayout.scrollDirection = .vertical
+        collectionViewFlowLayout.minimumLineSpacing = lineSpacing
+        collectionViewFlowLayout.minimumInteritemSpacing = interItemSpacing
+        collectionView.setCollectionViewLayout(collectionViewFlowLayout, animated: true)
+        collectionView.allowsSelection = true
+    }
 }

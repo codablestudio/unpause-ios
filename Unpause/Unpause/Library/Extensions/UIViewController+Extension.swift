@@ -78,4 +78,12 @@ extension UIViewController {
         alert.addAction(UIAlertAction(title: actionTitle, style: .default, handler: nil))
         self.present(alert, animated: true)
     }
+    
+    func hideTabBar() {
+        self.tabBarController?.tabBar.isHidden = true
+    }
+    
+    func showTabBar() {
+        self.tabBarController?.tabBar.isHidden = false
+    }
 }
