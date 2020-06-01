@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxGesture
+import RxKeyboard
 
 class AddShiftViewController: UIViewController {
     
@@ -74,6 +75,7 @@ class AddShiftViewController: UIViewController {
         setUpObservables()
         setUpArrivalAndLeavingDateAndTimePickerInitalValue()
         addGestureRecognizer()
+        setUpKeyboard()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -426,6 +428,17 @@ class AddShiftViewController: UIViewController {
         }).disposed(by: disposeBag)
     }
     
+    private func setUpKeyboard() {
+        RxKeyboard.instance.visibleHeight.drive(onNext: { [weak self] keyboardVisibleHeight in
+            guard let `self` = self else { return }
+            var bottomInset: CGFloat = 15
+            bottomInset += keyboardVisibleHeight
+            let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: bottomInset, right: 0)
+            self.scrollView.contentInset = contentInsets
+            self.scrollView.scrollIndicatorInsets = contentInsets
+        }).disposed(by: disposeBag)
+    }
+    
     private func showFreshWorkingHoursAndMinutesLabel() {
         if navigationFromTableView {
             showFreshWorkingHoursAndMinutesLabelWhenEditing()
@@ -601,7 +614,7 @@ private extension AddShiftViewController {
             make.left.equalToSuperview().offset(15)
             make.right.equalToSuperview().inset(15)
             make.height.equalTo(60)
-            make.bottom.equalToSuperview()
+            make.bottom.equalToSuperview().inset(15)
         }
         stackView.addArrangedSubview(cancleButton)
         stackView.addArrangedSubview(continueButton)

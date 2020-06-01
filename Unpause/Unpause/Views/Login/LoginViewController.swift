@@ -20,7 +20,6 @@ class LoginViewController: UIViewController {
     
     private let scrollView = UIScrollView()
     private let containerView = UIView()
-    private let scrollViewContainer = UIView()
     
     private let titleStackView = UIStackView()
     private let welcomeToTitleLabel = UILabel()
@@ -66,6 +65,7 @@ class LoginViewController: UIViewController {
     
     private func render() {
         configureScrollViewAndContainerView()
+        renderLogo()
         renderEmailTextFieldAndEmailSeparator()
         renderPasswordTextFieldAndPasswordSeparator()
         renderForgotPasswordButtonAndLoginButton()
@@ -185,36 +185,28 @@ class LoginViewController: UIViewController {
 
 // MARK: - UI rendering
 private extension LoginViewController {
-    
     func configureScrollViewAndContainerView() {
         view.backgroundColor = UIColor.unpauseWhite
         
-        view.addSubview(containerView)
-        
-        containerView.snp.makeConstraints { make in
-            make.top.left.right.bottom.equalToSuperview()
-        }
-        
-        renderLogo()
-        
-        containerView.addSubview(scrollView)
+        view.addSubview(scrollView)
         scrollView.snp.makeConstraints { make in
-            make.top.equalTo(titleDesriptionLabel.snp.bottom)
+            make.topMargin.equalToSuperview()
             make.left.right.equalToSuperview()
             make.bottom.equalToSuperview()
         }
         scrollView.alwaysBounceVertical = true
         
-        scrollView.addSubview(scrollViewContainer)
-        scrollViewContainer.snp.makeConstraints { make in
-            make.top.left.right.bottom.equalToSuperview()
+        scrollView.addSubview(containerView)
+        containerView.snp.makeConstraints { make in
+            make.top.left.right.equalToSuperview()
+            make.bottom.equalToSuperview().inset(15)
             make.width.equalTo(UIScreen.main.bounds.width)
         }
     }
     
     func renderLogo() {
         containerView.addSubview(titleStackView)
-        titleStackView.snp.makeConstraints { (make) in
+        titleStackView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(UIScreen.main.bounds.height / 8)
             make.centerX.equalToSuperview()
         }
@@ -233,7 +225,7 @@ private extension LoginViewController {
         unpauseTitleLabel.textColor = UIColor.unpauseOrange
         
         containerView.addSubview(titleDesriptionLabel)
-        titleDesriptionLabel.snp.makeConstraints { (make) in
+        titleDesriptionLabel.snp.makeConstraints { make in
             make.top.equalTo(titleStackView.snp.bottom).offset(5)
             make.centerX.equalToSuperview()
         }
@@ -243,8 +235,8 @@ private extension LoginViewController {
     }
     
     func renderEmailTextFieldAndEmailSeparator() {
-        scrollViewContainer.addSubview(emailTextField)
-        emailTextField.snp.makeConstraints { (make) in
+        containerView.addSubview(emailTextField)
+        emailTextField.snp.makeConstraints { make in
             make.top.equalTo(titleDesriptionLabel.snp.bottom).offset(85)
             make.left.equalToSuperview().offset(65)
             make.right.equalToSuperview().inset(65)
@@ -256,8 +248,8 @@ private extension LoginViewController {
         emailTextField.keyboardType = .emailAddress
         emailTextField.textContentType = .emailAddress
         
-        scrollViewContainer.addSubview(emailSeparator)
-        emailSeparator.snp.makeConstraints { (make) in
+        containerView.addSubview(emailSeparator)
+        emailSeparator.snp.makeConstraints { make in
             make.height.equalTo(1)
             make.top.equalTo(emailTextField.snp.bottom).offset(7)
             make.left.equalToSuperview().offset(55)
@@ -267,8 +259,8 @@ private extension LoginViewController {
     }
     
     func renderPasswordTextFieldAndPasswordSeparator() {
-        scrollViewContainer.addSubview(passwordTextField)
-        passwordTextField.snp.makeConstraints { (make) in
+        containerView.addSubview(passwordTextField)
+        passwordTextField.snp.makeConstraints { make in
             make.top.equalTo(emailSeparator.snp.bottom).offset(50)
             make.left.equalToSuperview().offset(65)
             make.right.equalToSuperview().inset(65)
@@ -280,8 +272,8 @@ private extension LoginViewController {
         passwordTextField.returnKeyType = .done
         passwordTextField.textContentType = .password
         
-        scrollViewContainer.addSubview(passwordSeparator)
-        passwordSeparator.snp.makeConstraints { (make) in
+        containerView.addSubview(passwordSeparator)
+        passwordSeparator.snp.makeConstraints { make in
             make.height.equalTo(1)
             make.top.equalTo(passwordTextField.snp.bottom).offset(7)
             make.left.equalToSuperview().offset(55)
@@ -291,8 +283,8 @@ private extension LoginViewController {
     }
     
     func renderForgotPasswordButtonAndLoginButton() {
-        scrollViewContainer.addSubview(forgotPasswordButton)
-        forgotPasswordButton.snp.makeConstraints { (make) in
+        containerView.addSubview(forgotPasswordButton)
+        forgotPasswordButton.snp.makeConstraints { make in
             make.height.equalTo(20)
             make.top.equalTo(passwordSeparator.snp.bottom).offset(10)
             make.left.equalToSuperview().offset(62)
@@ -301,8 +293,8 @@ private extension LoginViewController {
         forgotPasswordButton.titleLabel?.font = forgotPasswordButton.titleLabel?.font.withSize(13)
         forgotPasswordButton.setTitleColor(UIColor.unpauseOrange, for: .normal)
         
-        scrollViewContainer.addSubview(loginButton)
-        loginButton.snp.makeConstraints { (make) in
+        containerView.addSubview(loginButton)
+        loginButton.snp.makeConstraints { make in
             make.top.equalTo(forgotPasswordButton.snp.bottom).offset(25)
             make.left.equalToSuperview().offset(55)
             make.right.equalToSuperview().inset(55)
@@ -314,8 +306,8 @@ private extension LoginViewController {
     }
     
     func renderSignInWithGoogleButtonAndNewHereLabel() {
-        scrollViewContainer.addSubview(signInWithGoogleButton)
-        signInWithGoogleButton.snp.makeConstraints { (make) in
+        containerView.addSubview(signInWithGoogleButton)
+        signInWithGoogleButton.snp.makeConstraints { make in
             make.top.equalTo(loginButton.snp.bottom).offset(50)
             make.left.equalToSuperview().offset(85)
             make.right.equalToSuperview().inset(85)
@@ -327,7 +319,7 @@ private extension LoginViewController {
         signInWithGoogleButton.layer.cornerRadius = 15
         signInWithGoogleButton.titleEdgeInsets = UIEdgeInsets(top: 4, left: 7, bottom: 4, right: 7)
         
-        scrollViewContainer.addSubview(newHereLabel)
+        containerView.addSubview(newHereLabel)
         newHereLabel.snp.makeConstraints { (make) in
             make.top.equalTo(signInWithGoogleButton.snp.bottom).offset(32)
             make.centerX.equalToSuperview()
@@ -338,8 +330,8 @@ private extension LoginViewController {
     }
     
     func renderRegisterButton() {
-        scrollViewContainer.addSubview(registerButton)
-        registerButton.snp.makeConstraints { (make) in
+        containerView.addSubview(registerButton)
+        registerButton.snp.makeConstraints { make in
             make.top.equalTo(newHereLabel.snp.bottom).offset(2)
             make.centerX.equalToSuperview()
             make.bottom.equalToSuperview()

@@ -347,7 +347,7 @@ private extension HomeViewController {
             make.left.equalToSuperview().offset(15)
             make.right.equalToSuperview().inset(15)
             make.height.equalTo(220)
-            make.bottom.equalToSuperview()
+            make.bottom.equalToSuperview().inset(15)
         }
         barChartView.noDataText = "Loading chart data..."
     }

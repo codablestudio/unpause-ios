@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import RxKeyboard
 
 class DescriptionViewController: UIViewController {
     
@@ -55,6 +56,7 @@ class DescriptionViewController: UIViewController {
         render()
         setUpObservables()
         addGestureRecognizer()
+        setUpKeyboard()
         addDescriptionToTextViewAndSetUpFirstResponder()
     }
     
@@ -197,6 +199,17 @@ class DescriptionViewController: UIViewController {
         view.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] _ in
             guard let `self` = self else { return }
             self.view.endEditing(true)
+        }).disposed(by: disposeBag)
+    }
+    
+    private func setUpKeyboard() {
+        RxKeyboard.instance.visibleHeight.drive(onNext: { [weak self] keyboardVisibleHeight in
+            guard let `self` = self else { return }
+            var bottomInset: CGFloat = 15
+            bottomInset += keyboardVisibleHeight
+            let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: bottomInset, right: 0)
+            self.scrollView.contentInset = contentInsets
+            self.scrollView.scrollIndicatorInsets = contentInsets
         }).disposed(by: disposeBag)
     }
     
