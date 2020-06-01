@@ -48,6 +48,8 @@ class AddShiftViewController: UIViewController {
     private let leavingDatePicker = UIDatePicker()
     private let leavingTimePicker = UIDatePicker()
     
+    private let closeButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: nil)
+    
     private var workingHours = PublishSubject<String>()
     private var workingMinutes = PublishSubject<String>()
     
@@ -74,8 +76,9 @@ class AddShiftViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         render()
-        anableOrDisableArrivalDatePicker()
+        enableOrDisableArrivalDatePicker()
         createPickers()
+        addBarButtonItem()
         setUpObservables()
         setUpArrivalAndLeavingDateAndTimePickerInitalValue()
         addGestureRecognizer()
@@ -164,7 +167,7 @@ class AddShiftViewController: UIViewController {
         renderCancleAndContinueButton()
     }
     
-    private func anableOrDisableArrivalDatePicker() {
+    private func enableOrDisableArrivalDatePicker() {
         if navigationFromTableView || navigationFromCustomShift {
             arrivalDatePicker.isEnabled = true
         } else {
@@ -217,6 +220,10 @@ class AddShiftViewController: UIViewController {
             } else {
                 self.handleContinueButtonWhenAddingShift()
             }
+        }).disposed(by: disposeBag)
+        
+        closeButton.rx.tap.subscribe(onNext: { _ in
+            self.dismiss(animated: true)
         }).disposed(by: disposeBag)
         
         arrivalDateTextFieldImageView.rx.tapGesture()
@@ -425,6 +432,10 @@ class AddShiftViewController: UIViewController {
         createTimePickerAndBarForPicker(for: arrivalTimeTextField, with: arrivalTimePicker)
         createDatePickerAndBarForPicker(for: leavingDateTextField, with: leavingDatePicker)
         createTimePickerAndBarForPicker(for: leavingTimeTextField, with: leavingTimePicker)
+    }
+    
+    private func addBarButtonItem() {
+        navigationItem.leftBarButtonItem = closeButton
     }
     
     private func createDatePickerAndBarForPicker(for textField: UITextField, with picker: UIDatePicker) {
