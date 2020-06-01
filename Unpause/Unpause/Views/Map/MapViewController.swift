@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 import RxSwift
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, UIGestureRecognizerDelegate {
     
     private let mapViewModel: MapViewModelProtocol
     private let disposeBag = DisposeBag()
@@ -30,6 +30,7 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
         render()
         setUpObservables()
+        addGestureRecognizer()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,6 +43,19 @@ class MapViewController: UIViewController {
     
     private func setUpObservables() {
         
+    }
+    
+    private func addGestureRecognizer() {
+        mapView.rx.tapGesture().when(.recognized)
+            .subscribe(onNext: { [weak self] tapGesture in
+                guard let `self` = self else { return }
+                let location = tapGesture.location(in: self.mapView)
+                let coordinate = self.mapView.convert(location, toCoordinateFrom: self.mapView)
+                
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = coordinate
+                self.mapView.addAnnotation(annotation)
+            }).disposed(by: disposeBag)
     }
 }
 
