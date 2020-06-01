@@ -16,7 +16,6 @@ class MapViewController: UIViewController {
     private let disposeBag = DisposeBag()
     
     private let mapView = MKMapView()
-    private let segmentedControl = UISegmentedControl()
     
     init(mapViewModel: MapViewModelProtocol) {
         self.mapViewModel = mapViewModel
@@ -39,21 +38,10 @@ class MapViewController: UIViewController {
     
     private func render() {
         renderMapView()
-        renderSegmentedControl()
     }
     
     private func setUpObservables() {
-        segmentedControl.rx.selectedSegmentIndex
-        .subscribe(onNext: { [weak self] selectedIndex in
-            guard let `self` = self else { return }
-            if selectedIndex == 0 {
-                self.mapView.mapType = .standard
-            } else if selectedIndex == 1 {
-                self.mapView.mapType = .mutedStandard
-            } else if selectedIndex == 2 {
-                self.mapView.mapType = .satellite
-            }
-        }).disposed(by: disposeBag)
+        
     }
 }
 
@@ -64,17 +52,5 @@ private extension MapViewController {
         mapView.snp.makeConstraints { make in
             make.top.left.right.bottom.equalToSuperview()
         }
-    }
-    
-    func renderSegmentedControl() {
-        view.addSubview(segmentedControl)
-        segmentedControl.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(50)
-            make.centerX.equalToSuperview()
-        }
-        segmentedControl.insertSegment(withTitle: "Map", at: 0, animated: true)
-        segmentedControl.insertSegment(withTitle: "Transit", at: 1, animated: true)
-        segmentedControl.insertSegment(withTitle: "Satellite", at: 2, animated: true)
-        segmentedControl.selectedSegmentIndex = 0
     }
 }

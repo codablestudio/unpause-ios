@@ -49,7 +49,7 @@ class AddShiftViewController: UIViewController {
     private var arrivalDateAndTime: Date?
     private var leavingDateAndTime: Date?
     
-    var cellToEdit: ShiftsTableViewItem?
+    var shiftToEdit: ShiftsTableViewItem?
     
     var arrivalDatePickerEnabled = false
     var navigationFromTableView: Bool
@@ -124,8 +124,8 @@ class AddShiftViewController: UIViewController {
     }
     
     private func setUpArrivalAndLeavingDateAndTimepickerInitialValueOnEditinigShift() {
-        let checkInDateAndTime = Formatter.shared.convertTimeStampIntoDate(timeStamp: cellToEdit?.shift?.arrivalTime)
-        let checkOutDateAndTime = Formatter.shared.convertTimeStampIntoDate(timeStamp: cellToEdit?.shift?.exitTime)
+        let checkInDateAndTime = Formatter.shared.convertTimeStampIntoDate(timeStamp: shiftToEdit?.shift?.arrivalTime)
+        let checkOutDateAndTime = Formatter.shared.convertTimeStampIntoDate(timeStamp: shiftToEdit?.shift?.exitTime)
         
         guard let checkInDateAndTimeInDateFormat = checkInDateAndTime,
             let checkOutDateAndTimeInDateFormat = checkOutDateAndTime else { return }
@@ -346,7 +346,7 @@ class AddShiftViewController: UIViewController {
         SessionManager.shared.currentUser?.lastCheckOutDateAndTime = exitDateAndTimeInDateFormat
         
         if arrivalDateAndTimeInDateFormat <= exitDateAndTimeInDateFormat {
-            Coordinator.shared.navigateToDecriptionViewController(from: self,
+            Coordinator.shared.navigateToDescriptionViewController(from: self,
                                                                   arrivalTime: arrivalDateAndTimeInDateFormat,
                                                                   leavingTime: exitDateAndTimeInDateFormat,
                                                                   navigationFromCustomShift: navigationFromCustomShift)
@@ -363,7 +363,7 @@ class AddShiftViewController: UIViewController {
         
         guard let arrivalDateAndTimeInDateFormat = arrivalDateAndTime,
             let leavingDateAndTimeInDateFormat = leavingDateAndTime,
-            let shiftData = cellToEdit else { return }
+            let shiftData = shiftToEdit else { return }
         if arrivalDateAndTimeInDateFormat <= leavingDateAndTimeInDateFormat {
             Coordinator.shared.navigateToDecriptionViewController(from: self,
                                                                   arrivalTime: arrivalDateAndTimeInDateFormat,
@@ -457,8 +457,8 @@ class AddShiftViewController: UIViewController {
     }
     
     private func showFreshWorkingHoursAndMinutesLabelWhenEditing() {
-        let arrivalDateAndTime = Formatter.shared.convertTimeStampIntoDate(timeStamp: cellToEdit?.shift?.arrivalTime)
-        let leavingDateAndTime = Formatter.shared.convertTimeStampIntoDate(timeStamp: cellToEdit?.shift?.exitTime)
+        let arrivalDateAndTime = Formatter.shared.convertTimeStampIntoDate(timeStamp: shiftToEdit?.shift?.arrivalTime)
+        let leavingDateAndTime = Formatter.shared.convertTimeStampIntoDate(timeStamp: shiftToEdit?.shift?.exitTime)
         
         guard let arrivalDateAndTimeInDateFormat = arrivalDateAndTime,
             let leavingDateAndTimeInDateFormat = leavingDateAndTime else { return }

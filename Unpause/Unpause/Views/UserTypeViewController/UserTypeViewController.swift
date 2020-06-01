@@ -37,6 +37,7 @@ class UserTypeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         hideTabBar()
+        showTitleInNavigationBar()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -66,6 +67,10 @@ class UserTypeViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.contentInsetAdjustmentBehavior = .never
     }
+    
+    private func showTitleInNavigationBar() {
+        self.title = "User type"
+    }
 }
 
 // MARK: - UI rendering
@@ -80,6 +85,7 @@ private extension UserTypeViewController {
             make.bottomMargin.equalToSuperview()
         }
         collectionView.backgroundColor = .unpauseWhite
+        collectionView.alwaysBounceVertical = true
     }
 }
 

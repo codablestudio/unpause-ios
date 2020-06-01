@@ -10,12 +10,12 @@ import Foundation
 
 class AddShiftViewModel: AddShiftViewModelProtocol {
     
-    var cellToEdit: ShiftsTableViewItem?
+    var shiftToEdit: ShiftsTableViewItem?
     
     init() {}
     
-    init(cellToEdit: ShiftsTableViewItem) {
-        self.cellToEdit = cellToEdit
+    init(shiftToEdit: ShiftsTableViewItem) {
+        self.shiftToEdit = shiftToEdit
     }
     
     func makeNewDateAndTimeWithCheckInDateAnd(timeInDateFormat: Date) -> Date? {

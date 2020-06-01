@@ -177,10 +177,6 @@ class LoginViewController: UIViewController {
     private func setUpGoogleDelegate() {
         GIDSignIn.sharedInstance().delegate = self
     }
-    
-    private func hideNavigationBar() {
-        navigationController?.setNavigationBarHidden(true, animated: true)
-    }
 }
 
 // MARK: - UI rendering

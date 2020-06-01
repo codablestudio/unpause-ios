@@ -36,7 +36,7 @@ class DescriptionViewController: UIViewController {
     private let cancelButton = OrangeButton(title: "Cancle")
     private let saveButton = OrangeButton(title: "Save")
     
-    var cellToEdit: ShiftsTableViewItem?
+    var shiftToEdit: ShiftsTableViewItem?
     
     let navigationFromTableView: Bool
     
@@ -201,16 +201,12 @@ class DescriptionViewController: UIViewController {
     }
     
     private func addDescriptionToTextViewAndSetUpFirstResponder() {
-        guard let description = cellToEdit?.shift?.description else {
+        guard let description = shiftToEdit?.shift?.description else {
             descriptionTextView.becomeFirstResponder()
             return
         }
         descriptionTextView.text.append(contentsOf: description)
         descriptionTextView.becomeFirstResponder()
-    }
-    
-    private func showNavigationBar() {
-        navigationController?.setNavigationBarHidden(false, animated: true)
     }
 }
 

@@ -19,7 +19,7 @@ class DescriptionViewModel: DescriptionViewModelProtocol {
     
     private var textInDescriptionTextView: String?
     
-    var cellToEdit: ShiftsTableViewItem?
+    var shiftToEdit: ShiftsTableViewItem?
     
     var textInEmailTextFieldChanges = PublishSubject<String?>()
     var saveButtonTapped = PublishSubject<Void>()
@@ -40,11 +40,11 @@ class DescriptionViewModel: DescriptionViewModelProtocol {
         setUpObservables()
     }
     
-    init(shiftNetworking: ShiftNetworkingProtocol, arrivalDateAndTime: Date?, leavingDateAndTime: Date?, cellToEdit: ShiftsTableViewItem) {
+    init(shiftNetworking: ShiftNetworkingProtocol, arrivalDateAndTime: Date?, leavingDateAndTime: Date?, shiftToEdit: ShiftsTableViewItem) {
         self.shiftNetworking = shiftNetworking
         self.arrivalDateAndTime = arrivalDateAndTime
         self.leavingDateAndTime = leavingDateAndTime
-        self.cellToEdit = cellToEdit
+        self.shiftToEdit = shiftToEdit
         
         setUpObservables()
     }
@@ -85,7 +85,7 @@ class DescriptionViewModel: DescriptionViewModelProtocol {
             })
             .flatMapLatest({ [weak self] shiftResponse -> Observable<ShiftsResponse> in
                 guard let `self` = self,
-                    let shiftToEdit = self.cellToEdit?.shift else {
+                    let shiftToEdit = self.shiftToEdit?.shift else {
                         return Observable.just(ShiftsResponse.error(UnpauseError.emptyError))
                 }
                 

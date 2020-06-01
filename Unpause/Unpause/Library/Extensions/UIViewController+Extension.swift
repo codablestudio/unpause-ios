@@ -86,4 +86,12 @@ extension UIViewController {
     func showTabBar() {
         self.tabBarController?.tabBar.isHidden = false
     }
+    
+    func showNavigationBar() {
+        self.navigationController?.navigationBar.isHidden = false
+    }
+    
+    func hideNavigationBar() {
+        self.navigationController?.navigationBar.isHidden = true
+    }
 }

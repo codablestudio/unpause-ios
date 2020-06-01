@@ -20,11 +20,11 @@ extension Coordinator {
     }
     
     func presentAddShiftViewController(from viewController: ActivityViewController, with shiftData: ShiftsTableViewItem) {
-        let addShiftViewModel = AddShiftViewModel(cellToEdit: shiftData)
+        let addShiftViewModel = AddShiftViewModel(shiftToEdit: shiftData)
         let addShiftViewController = AddShiftViewController(addShiftViewModel: addShiftViewModel,
                                                             navigationFromTableView: true,
                                                             navigationFromCustomShift: false)
-        addShiftViewController.cellToEdit = shiftData
+        addShiftViewController.shiftToEdit = shiftData
         let navigationController = UINavigationController(rootViewController: addShiftViewController)
         navigationController.modalPresentationStyle = .fullScreen
         navigationController.transitioningDelegate = viewController
