@@ -52,7 +52,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         render()
-        setupObservables()
+        setUpObservables()
         addGestureRecognizer()
         setUpTextFields()
         setUpKeyboard()
@@ -73,7 +73,7 @@ class LoginViewController: UIViewController {
         renderRegisterButton()
     }
     
-    private func setupObservables() {
+    private func setUpObservables() {
         emailTextField.rx.text
             .bind(to: loginViewModel.textInEmailTextFieldChanges)
             .disposed(by: disposeBag)
