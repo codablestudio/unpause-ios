@@ -23,20 +23,24 @@ class AddShiftViewController: UIViewController {
     private let arriveImageView = UIImageView()
     
     private let arrivalDateTextField = UITextField()
+    private let arrivalDateTextFieldImageView = UIImageView()
     private let arrivalTimeTextField = UITextField()
+    private let arrivalTimeTextFieldImageView = UIImageView()
     
     private let youAreLeavingAtLabel = UILabel()
     private let leavingImageView = UIImageView()
     
     private let leavingDateTextField = UITextField()
+    private let leavingDateTextFieldImageView = UIImageView()
     private let leavingTimeTextField = UITextField()
+    private let leavingTimeTextFieldImageView = UIImageView()
     
     private let separator = UIView()
     private let descriptionLabel = UILabel()
     
     private let stackView = UIStackView()
     
-    private let cancleButton = OrangeButton(title: "Cancel")
+    private let cancelButton = OrangeButton(title: "Cancel")
     private let continueButton = OrangeButton(title: "Continue")
     
     private let arrivalDatePicker = UIDatePicker()
@@ -152,8 +156,10 @@ class AddShiftViewController: UIViewController {
         configureScrollViewAndContainerView()
         renderArrivedAtLabelAndArriveImageView()
         renderArrivalPickersAndLabelsForDateAndTime()
+        renderArrivalDateAndTimePickerImageView()
         renderLeavingAtLabelAndLeavingImageView()
         renderLeavingPickersAndLabelsForDateAndTime()
+        renderLeavingDateAndTimePickerImageView()
         renderSeparatorAndDescription()
         renderCancleAndContinueButton()
     }
@@ -167,7 +173,7 @@ class AddShiftViewController: UIViewController {
     }
     
     private func setUpObservables() {
-        cancleButton.rx.tap.subscribe(onNext: { _ in
+        cancelButton.rx.tap.subscribe(onNext: { _ in
             self.dismiss(animated: true)
         }).disposed(by: disposeBag)
         
@@ -212,6 +218,34 @@ class AddShiftViewController: UIViewController {
                 self.handleContinueButtonWhenAddingShift()
             }
         }).disposed(by: disposeBag)
+        
+        arrivalDateTextFieldImageView.rx.tapGesture()
+            .skip(1)
+            .subscribe(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                self.arrivalDateTextField.becomeFirstResponder()
+            }).disposed(by: disposeBag)
+        
+        arrivalTimeTextFieldImageView.rx.tapGesture()
+            .skip(1)
+            .subscribe(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                self.arrivalTimeTextField.becomeFirstResponder()
+            }).disposed(by: disposeBag)
+        
+        leavingDateTextFieldImageView.rx.tapGesture()
+            .skip(1)
+            .subscribe(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                self.leavingDateTextField.becomeFirstResponder()
+            }).disposed(by: disposeBag)
+        
+        leavingTimeTextFieldImageView.rx.tapGesture()
+            .skip(1)
+            .subscribe(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                self.leavingTimeTextField.becomeFirstResponder()
+            }).disposed(by: disposeBag)
     }
     
     func handleArrivalFieldsWhenAddingShift(arrivalDate: Date, arrivalTime: Date) {
@@ -348,7 +382,7 @@ class AddShiftViewController: UIViewController {
         SessionManager.shared.currentUser?.lastCheckOutDateAndTime = exitDateAndTimeInDateFormat
         
         if arrivalDateAndTimeInDateFormat <= exitDateAndTimeInDateFormat {
-            Coordinator.shared.navigateToDecriptionViewController(from: self,
+            Coordinator.shared.navigateToDescriptionViewController(from: self,
                                                                   arrivalTime: arrivalDateAndTimeInDateFormat,
                                                                   leavingTime: exitDateAndTimeInDateFormat,
                                                                   navigationFromCustomShift: navigationFromCustomShift)
@@ -367,7 +401,7 @@ class AddShiftViewController: UIViewController {
             let leavingDateAndTimeInDateFormat = leavingDateAndTime,
             let shiftData = cellToEdit else { return }
         if arrivalDateAndTimeInDateFormat <= leavingDateAndTimeInDateFormat {
-            Coordinator.shared.navigateToDecriptionViewController(from: self,
+            Coordinator.shared.navigateToDescriptionViewController(from: self,
                                                                   arrivalTime: arrivalDateAndTimeInDateFormat,
                                                                   leavingTime: leavingDateAndTimeInDateFormat,
                                                                   with: shiftData)
@@ -551,6 +585,24 @@ private extension AddShiftViewController {
         arrivalTimeTextField.tintColor = .clear
     }
     
+    func renderArrivalDateAndTimePickerImageView() {
+        containerView.addSubview(arrivalDateTextFieldImageView)
+        arrivalDateTextFieldImageView.snp.makeConstraints { make in
+            make.left.equalTo(arrivalDateTextField.snp.right).offset(5)
+            make.centerY.equalTo(arrivalDateTextField.snp.centerY)
+            make.height.width.equalTo(16)
+        }
+        arrivalDateTextFieldImageView.image = UIImage(named: "click_arrow_30x30")
+        
+        containerView.addSubview(arrivalTimeTextFieldImageView)
+        arrivalTimeTextFieldImageView.snp.makeConstraints { make in
+            make.left.equalTo(arrivalTimeTextField.snp.right).offset(5)
+            make.centerY.equalTo(arrivalTimeTextField.snp.centerY)
+            make.height.width.equalTo(16)
+        }
+        arrivalTimeTextFieldImageView.image = UIImage(named: "click_arrow_30x30")
+    }
+    
     func renderLeavingAtLabelAndLeavingImageView() {
         containerView.addSubview(youAreLeavingAtLabel)
         youAreLeavingAtLabel.snp.makeConstraints { (make) in
@@ -587,6 +639,24 @@ private extension AddShiftViewController {
         leavingTimeTextField.tintColor = .clear
     }
     
+    func renderLeavingDateAndTimePickerImageView() {
+        containerView.addSubview(leavingDateTextFieldImageView)
+        leavingDateTextFieldImageView.snp.makeConstraints { make in
+            make.left.equalTo(leavingDateTextField.snp.right).offset(5)
+            make.centerY.equalTo(leavingDateTextField.snp.centerY)
+            make.height.width.equalTo(16)
+        }
+        leavingDateTextFieldImageView.image = UIImage(named: "click_arrow_30x30")
+        
+        containerView.addSubview(leavingTimeTextFieldImageView)
+        leavingTimeTextFieldImageView.snp.makeConstraints { make in
+            make.left.equalTo(leavingTimeTextField.snp.right).offset(5)
+            make.centerY.equalTo(leavingTimeTextField.snp.centerY)
+            make.height.width.equalTo(16)
+        }
+        leavingTimeTextFieldImageView.image = UIImage(named: "click_arrow_30x30")
+    }
+    
     func renderSeparatorAndDescription() {
         containerView.addSubview(separator)
         separator.snp.makeConstraints { (make) in
@@ -616,14 +686,14 @@ private extension AddShiftViewController {
             make.height.equalTo(60)
             make.bottom.equalToSuperview().inset(15)
         }
-        stackView.addArrangedSubview(cancleButton)
+        stackView.addArrangedSubview(cancelButton)
         stackView.addArrangedSubview(continueButton)
         stackView.axis = .horizontal
         stackView.alignment = .center
         stackView.distribution = .fillEqually
         stackView.spacing = 10
         
-        cancleButton.layer.cornerRadius = 15
+        cancelButton.layer.cornerRadius = 15
         continueButton.layer.cornerRadius = 15
     }
 }

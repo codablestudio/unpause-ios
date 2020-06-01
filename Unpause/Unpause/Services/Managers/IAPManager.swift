@@ -29,7 +29,6 @@ class IAPManager {
                 onCompleted()
             })
         })
-        
     }
     
     private func updateOneMonthAutoRenewingSubscriptionValidationDate(onCompleted: @escaping () -> Void) {

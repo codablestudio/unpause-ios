@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 extension Coordinator {
-    func navigateToDecriptionViewController(from viewController: UIViewController,
+    func navigateToDescriptionViewController(from viewController: UIViewController,
                                             arrivalTime: Date?,
                                             leavingTime: Date?,
                                             navigationFromCustomShift: Bool) {
@@ -24,7 +24,7 @@ extension Coordinator {
         viewController.navigationController?.pushViewController(descriptionViewController, animated: true)
     }
     
-    func navigateToDecriptionViewController(from viewController: UIViewController, arrivalTime: Date?, leavingTime: Date?, with shiftData: ShiftsTableViewItem) {
+    func navigateToDescriptionViewController(from viewController: UIViewController, arrivalTime: Date?, leavingTime: Date?, with shiftData: ShiftsTableViewItem) {
         let shiftNetworking = ShiftNetworking()
         let descriptionViewModel = DescriptionViewModel(shiftNetworking: shiftNetworking,
                                                         arrivalDateAndTime: arrivalTime,

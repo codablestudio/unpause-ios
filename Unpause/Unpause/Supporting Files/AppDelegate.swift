@@ -27,7 +27,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.makeKeyAndVisible()
         
         setupApplication()
-        
         Coordinator.shared.start(newWindow)
         return true
     }
@@ -37,6 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         
         LocationManager.shared.configure()
+        SwiftyStoreKit.completeTransactions { _ in }
         setupLogger()
     }
     

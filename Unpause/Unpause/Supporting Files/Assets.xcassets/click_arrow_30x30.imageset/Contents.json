@@ -1,23 +1,23 @@
 {
   "images" : [
     {
-      "filename" : "click_arrow_30x30_white.png",
-      "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
       "filename" : "click_arrow_30x30_black.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "click_arrow_60x60_white.png",
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "click_arrow_30x30_white.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "click_arrow_60x60_black.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -28,12 +28,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "click_arrow_60x60_black.png",
+      "filename" : "click_arrow_60x60_white.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "click_arrow_90x90_white.png",
+      "filename" : "click_arrow_90x90_black.png",
       "idiom" : "universal",
       "scale" : "3x"
     },
@@ -44,7 +44,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "click_arrow_90x90_black.png",
+      "filename" : "click_arrow_90x90_white.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
