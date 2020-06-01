@@ -25,8 +25,6 @@ class UpdatePersonalInfoViewController: UIViewController {
     
     let updateInfoButton = OrangeButton(title: "Update info")
     
-    private let closeButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: nil)
-    
     init(updatePersonalInfoViewModel: UpdatePersonalInfoViewModelProtocol) {
         self.updatePersonalInfoViewModel = updatePersonalInfoViewModel
         super.init(nibName: nil, bundle: nil)
@@ -42,7 +40,6 @@ class UpdatePersonalInfoViewController: UIViewController {
         setUpObservables()
         setUpTextFields()
         addGestureRecognizer()
-        addBarButtonItem()
         setUpViewControllerTitle()
     }
     
@@ -53,12 +50,7 @@ class UpdatePersonalInfoViewController: UIViewController {
         renderUpdateInfoButton()
     }
     
-    private func setUpObservables() {
-        closeButton.rx.tap.subscribe(onNext: { [weak self] _ in
-            guard let `self` = self else { return }
-            self.dismiss(animated: true)
-        }).disposed(by: disposeBag)
-        
+    private func setUpObservables() {        
         newFirstNameTextField.rx.text
             .startWith(newFirstNameTextField.text)
             .bind(to: updatePersonalInfoViewModel.textInNewFirstNameTextFieldChanges)
@@ -84,7 +76,7 @@ class UpdatePersonalInfoViewController: UIViewController {
                 switch response {
                 case .success:
                     UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
-                    self.dismiss(animated: true)
+                    self.navigationController?.popViewController(animated: true)
                 case .error(let error):
                     self.showOneOptionAlert(title: "Error", message: "\(error.errorMessage)", actionTitle: "OK")
                     UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
@@ -103,12 +95,9 @@ class UpdatePersonalInfoViewController: UIViewController {
         }).disposed(by: disposeBag)
     }
     
-    private func addBarButtonItem() {
-        navigationItem.leftBarButtonItem = closeButton
-    }
-    
     private func setUpViewControllerTitle() {
         self.title = "Change personal info"
+        navigationItem.largeTitleDisplayMode = .never
     }
 }
 

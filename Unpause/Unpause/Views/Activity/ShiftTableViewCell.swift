@@ -10,7 +10,7 @@ import UIKit
 
 class ShiftTableViewCell: UITableViewCell {
     
-    private let containerView = UIView()
+    let containerView = UIView()
     
     private let stackView = UIStackView()
     

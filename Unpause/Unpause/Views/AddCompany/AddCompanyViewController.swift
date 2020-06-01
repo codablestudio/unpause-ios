@@ -31,6 +31,8 @@ class AddCompanyViewController: UIViewController {
     private let closeButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: nil)
     
     var navigationFromRegisterViewController: Bool
+    var navigationFromSettingsViewController = false
+    var isPresentedViewController = false
     
     init(addCompanyViewModel: AddCompanyViewModelProtocol, navigationFromRegisterViewController: Bool) {
         self.addCompanyViewModel = addCompanyViewModel
@@ -52,7 +54,6 @@ class AddCompanyViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         showTitleInNavigationBar()
-        hideBackButton()
         configureBackbuttonVisibility()
     }
     
@@ -96,10 +97,14 @@ class AddCompanyViewController: UIViewController {
                 switch response {
                 case .success:
                     UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
-                    self.dismiss(animated: true) {
-                        if self.navigationFromRegisterViewController {
+                    if self.navigationFromSettingsViewController {
+                        self.navigationController?.popViewController(animated: true)
+                    } else if self.navigationFromRegisterViewController {
+                        self.dismiss(animated: true) {
                             Coordinator.shared.navigateToHomeViewController()
                         }
+                    } else if self.isPresentedViewController {
+                        self.dismiss(animated: true)
                     }
                 case .error(let error):
                     UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
@@ -113,6 +118,7 @@ class AddCompanyViewController: UIViewController {
                 mailViewController.mailComposeDelegate = self
                 mailViewController.setToRecipients(["info@codable.studio"])
                 mailViewController.setSubject("Company info")
+                mailViewController.setPreferredSendingEmailAddress(SessionManager.shared.getCurrentUserEmail())
                 self.present(mailViewController, animated: true)
             } else {
                 self.showOneOptionAlert(title: "Alert", message: "Can not send email.", actionTitle: "OK")
@@ -123,7 +129,7 @@ class AddCompanyViewController: UIViewController {
     private func addBarButtonItem() {
         if navigationFromRegisterViewController {
             navigationItem.rightBarButtonItem = skipButton
-        } else {
+        } else if isPresentedViewController {
             navigationItem.leftBarButtonItem = closeButton
         }
     }
@@ -142,7 +148,12 @@ class AddCompanyViewController: UIViewController {
     }
 
     private func showTitleInNavigationBar() {
-        self.title = "Connect company"
+        if SessionManager.shared.currentUserHasConnectedCompany() {
+            self.title = "Change company"
+        } else {
+            self.title = "Connect company"
+        }
+        navigationItem.largeTitleDisplayMode = .never
     }
     
     private func hideBackButton() {
@@ -201,6 +212,9 @@ private extension AddCompanyViewController {
             make.height.equalTo(50)
         }
         addCompanyButton.layer.cornerRadius = 25
+        if SessionManager.shared.currentUserHasConnectedCompany() {
+            addCompanyButton.setTitle("Change company", for: .normal)
+        }
     }
     
     func configureEmailLabelAppearance() {

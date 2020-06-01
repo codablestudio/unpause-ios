@@ -45,7 +45,6 @@ class EmptyTableViewCell: UITableViewCell {
 private extension EmptyTableViewCell {
     func renderNoShiftsImageView() {
         contentView.addSubview(noShiftImageView)
-        
         noShiftImageView.snp.makeConstraints { (make) in
             make.top.equalToSuperview().offset(70)
             make.centerX.equalToSuperview()
@@ -56,12 +55,13 @@ private extension EmptyTableViewCell {
     
     func renderNoShiftsLabel() {
         contentView.addSubview(noShiftsLabel)
-        
         noShiftsLabel.snp.makeConstraints { (make) in
             make.top.equalTo(noShiftImageView.snp.bottom).offset(20)
             make.centerX.equalToSuperview()
             make.bottom.equalToSuperview().inset(20)
         }
-        noShiftsLabel.text = "There are no shifts"
+        noShiftsLabel.text = "No shifts for selected dates."
+        noShiftsLabel.numberOfLines = 0
+        noShiftsLabel.font = .systemFont(ofSize: 13, weight: .light)
     }
 }

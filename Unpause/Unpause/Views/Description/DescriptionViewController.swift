@@ -36,7 +36,7 @@ class DescriptionViewController: UIViewController {
     private let cancelButton = OrangeButton(title: "Cancle")
     private let saveButton = OrangeButton(title: "Save")
     
-    var shiftToEdit = PublishSubject<ShiftsTableViewItem>()
+    var cellToEdit: ShiftsTableViewItem?
     
     let navigationFromTableView: Bool
     
@@ -55,15 +55,11 @@ class DescriptionViewController: UIViewController {
         render()
         setUpObservables()
         addGestureRecognizer()
-        setUpFirstResponder()
+        addDescriptionToTextViewAndSetUpFirstResponder()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         showNavigationBar()
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        HomeViewModel.forceRefresh.onNext(())
     }
     
     private func render() {
@@ -93,10 +89,11 @@ class DescriptionViewController: UIViewController {
                     NotificationManager.shared.scheduleEntranceNotification()
                     UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
                     ActivityViewModel.forceRefresh.onNext(())
+                    HomeViewModel.forceRefresh.onNext(())
                     self.dismiss(animated: true)
                 case .error(let error):
                     UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
-                    self.showOneOptionAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
+                    self.showOneOptionAlert(title: "Error", message: "\(error.errorMessage)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)
         
@@ -110,7 +107,7 @@ class DescriptionViewController: UIViewController {
                     self.dismiss(animated: true)
                 case .error(let error):
                     UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
-                    self.showOneOptionAlert(title: "Error", message: "\(error.localizedDescription)", actionTitle: "OK")
+                    self.showOneOptionAlert(title: "Error", message: "\(error.errorMessage)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)
         
@@ -203,7 +200,12 @@ class DescriptionViewController: UIViewController {
         }).disposed(by: disposeBag)
     }
     
-    private func setUpFirstResponder() {
+    private func addDescriptionToTextViewAndSetUpFirstResponder() {
+        guard let description = cellToEdit?.shift?.description else {
+            descriptionTextView.becomeFirstResponder()
+            return
+        }
+        descriptionTextView.text.append(contentsOf: description)
         descriptionTextView.becomeFirstResponder()
     }
     

@@ -25,8 +25,6 @@ class ChangePasswordViewController: UIViewController {
     
     private let changePasswordButton = OrangeButton(title: "Change password")
     
-    let closeButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: nil)
-    
     init(changePasswordViewModel: ChangePasswordViewModelProtocol) {
         self.changePasswordViewModel = changePasswordViewModel
         super.init(nibName: nil, bundle: nil)
@@ -42,7 +40,6 @@ class ChangePasswordViewController: UIViewController {
         setUpObservables()
         setUpTextFields()
         addGestureRecognizer()
-        addBarButtonItem()
         setUpViewControllerTitle()
     }
     
@@ -54,11 +51,6 @@ class ChangePasswordViewController: UIViewController {
     }
     
     private func setUpObservables() {
-        closeButton.rx.tap.subscribe(onNext: { [weak self] _ in
-            guard let `self` = self else { return }
-            self.dismiss(animated: true)
-        }).disposed(by: disposeBag)
-        
         currentPasswordTextField.rx.text
             .bind(to: changePasswordViewModel.textInCurrentPasswordTextFieldChanges)
             .disposed(by: disposeBag)
@@ -82,7 +74,7 @@ class ChangePasswordViewController: UIViewController {
                 switch response {
                 case .success:
                     UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
-                    self.dismiss(animated: true)
+                    self.navigationController?.popViewController(animated: true)
                 case .error(let error):
                     self.showOneOptionAlert(title: "Error", message: "\(error.errorMessage)", actionTitle: "OK")
                     UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
@@ -101,13 +93,10 @@ class ChangePasswordViewController: UIViewController {
             self?.view.endEditing(true)
         }).disposed(by: disposeBag)
     }
-    
-    private func addBarButtonItem() {
-        navigationItem.leftBarButtonItem = closeButton
-    }
-    
+
     private func setUpViewControllerTitle() {
         self.title = "Change password"
+        navigationItem.largeTitleDisplayMode = .never
     }
 }
 

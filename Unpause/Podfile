@@ -25,6 +25,8 @@ target 'Unpause' do
     pod 'DifferenceKit'
     pod 'SwiftyStoreKit'
     pod 'SwiftyBeaver'
+    pod 'Charts'
+    
     
     target 'UnpauseTests' do
         inherit! :search_paths

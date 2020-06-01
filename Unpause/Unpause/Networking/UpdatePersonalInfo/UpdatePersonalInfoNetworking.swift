@@ -34,14 +34,22 @@ class UpdatePersonalInfoNetworking: UpdatePersonalInfoNetworkingProtocol {
             ])
         
         return response
-            .flatMapLatest { _ -> Observable<Response> in
-                let userWithNewData = User(firstName: newFirstName, lastName: newLastName, email: currentUserEmail)
-                userWithNewData.company = SessionManager.shared.currentUser?.company
-                SessionManager.shared.logIn(userWithNewData)
+            .flatMapLatest { [weak self] _ -> Observable<Response> in
+                guard let `self` = self else { return Observable.empty() }
+                guard let currentUser = SessionManager.shared.currentUser else {
+                    return Observable.just(Response.error(.userCreatingError))
+                }
+                self.changeCurrentUserFirstNameAndLastName(newFirstName: newFirstName, newLastName: newLastName)
+                SessionManager.shared.logIn(currentUser)
                 return Observable.just(Response.success)
         }
         .catchError { error -> Observable<Response> in
             return Observable.just(Response.error(.otherError(error)))
         }
+    }
+    
+    private func changeCurrentUserFirstNameAndLastName(newFirstName: String, newLastName: String) {
+        SessionManager.shared.currentUser?.firstName = newFirstName
+        SessionManager.shared.currentUser?.lastName = newLastName
     }
 }

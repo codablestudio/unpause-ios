@@ -32,6 +32,7 @@ extension Coordinator {
                                                         cellToEdit: shiftData)
         let descriptionViewController = DescriptionViewController(descriptionViewModel: descriptionViewModel,
                                                                   navigationFromTableView: true)
+        descriptionViewController.cellToEdit = shiftData
         viewController.navigationController?.pushViewController(descriptionViewController, animated: true)
     }
 }

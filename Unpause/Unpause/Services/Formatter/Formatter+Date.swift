@@ -77,6 +77,14 @@ extension Formatter {
         return date
     }
     
+    func getTimeTwelveHoursFromCurrentTime() -> DateComponents? {
+        guard let timeTwelveHoursFromNow = Calendar.current.date(byAdding: .hour, value: 12, to: Date()) else {
+            return nil
+        }
+        let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: timeTwelveHoursFromNow)
+        return dateComponents
+    }
+    
     func getDateOneMontBeforeTodaysDate() -> Date {
         let calendar = Calendar.current
         var dateComponents = DateComponents()
@@ -187,5 +195,36 @@ extension Formatter {
         let timeDifferenceInSeconds = secondDate.timeIntervalSince1970 - firstDate.timeIntervalSince1970
         let hours = round((timeDifferenceInSeconds / 3600)*100)/100
         return hours
+    }
+    
+    func dateIsDayInCurrentWeek(date: Date) -> Bool {
+        let currentComponents = Calendar.current.dateComponents([.weekOfYear], from: Date())
+        let dateComponents = Calendar.current.dateComponents([.weekOfYear], from: date)
+        guard let currentWeekOfYear = currentComponents.weekOfYear,
+            let dateWeekOfYear = dateComponents.weekOfYear else {
+                return false
+        }
+        return currentWeekOfYear == dateWeekOfYear
+    }
+    
+    func getDayOfWeek(from date: Date) -> DayOfWeek? {
+        let day = Calendar.current.component(.weekday, from: date)
+        if day == 1 {
+            return DayOfWeek.Sunday
+        } else if day == 2 {
+            return DayOfWeek.Monday
+        } else if day == 3 {
+            return DayOfWeek.Tuesday
+        } else if day == 4 {
+            return DayOfWeek.Wednesday
+        } else if day == 5 {
+            return DayOfWeek.Thursday
+        } else if day == 6 {
+            return DayOfWeek.Friday
+        } else if day == 7 {
+            return DayOfWeek.Saturday
+        } else {
+            return nil
+        }
     }
 }
