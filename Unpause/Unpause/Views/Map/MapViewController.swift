@@ -16,8 +16,9 @@ class MapViewController: UIViewController {
     private let disposeBag = DisposeBag()
     
     private let mapView = MKMapView()
-    
     private let centerPin = UILabel()
+    
+    private let addCompanyLocationButton = UIButton()
     
     init(mapViewModel: MapViewModelProtocol) {
         self.mapViewModel = mapViewModel
@@ -42,6 +43,7 @@ class MapViewController: UIViewController {
     private func render() {
         renderMapView()
         renderCenterPin()
+        renderAddCompanyLocationButton()
     }
     
     private func setUpObservables() {
@@ -75,5 +77,19 @@ private extension MapViewController {
             make.centerX.equalToSuperview()
             make.bottom.equalTo(mapView.snp.centerY)
         }
+    }
+    
+    func renderAddCompanyLocationButton() {
+        view.addSubview(addCompanyLocationButton)
+        addCompanyLocationButton.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(60)
+            make.right.equalToSuperview().inset(60)
+            make.bottom.equalToSuperview().inset(40)
+            make.height.equalTo(50)
+        }
+        addCompanyLocationButton.setTitle("Add company location", for: .normal)
+        addCompanyLocationButton.titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
+        addCompanyLocationButton.layer.cornerRadius = 22
+        addCompanyLocationButton.backgroundColor = .unpauseGreen
     }
 }
