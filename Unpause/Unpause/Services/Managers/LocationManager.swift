@@ -13,10 +13,14 @@ class LocationManager {
     
     static var shared = LocationManager()
     
-    let locationManager = CLLocationManager()
+    private let locationManager = CLLocationManager()
     
     private init() {
         locationManager.delegate = self as? CLLocationManagerDelegate
+    }
+    
+    func getLocationManager() -> CLLocationManager {
+        return locationManager
     }
     
     func configure() {
