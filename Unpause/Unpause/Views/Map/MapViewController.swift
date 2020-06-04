@@ -16,7 +16,7 @@ class MapViewController: UIViewController {
     private let disposeBag = DisposeBag()
     
     private let mapView = MKMapView()
-    private let centerPin = UILabel()
+    private let centerPinImageView = UIImageView()
     
     private let addCompanyLocationButton = UIButton()
     
@@ -42,7 +42,7 @@ class MapViewController: UIViewController {
     
     private func render() {
         renderMapView()
-        renderCenterPin()
+        renderCenterPinImageView()
         renderAddCompanyLocationButton()
     }
     
@@ -70,13 +70,14 @@ private extension MapViewController {
         }
     }
     
-    func renderCenterPin() {
-        mapView.addSubview(centerPin)
-        centerPin.text = "📍"
-        centerPin.snp.makeConstraints { make in
+    func renderCenterPinImageView() {
+        mapView.addSubview(centerPinImageView)
+        centerPinImageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.bottom.equalTo(mapView.snp.centerY)
+            make.height.width.equalTo(40)
         }
+        centerPinImageView.image = UIImage(named: "pin_40x40")
     }
     
     func renderAddCompanyLocationButton() {
