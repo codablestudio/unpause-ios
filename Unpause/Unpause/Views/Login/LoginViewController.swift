@@ -200,7 +200,7 @@ private extension LoginViewController {
         containerView.snp.makeConstraints { make in
             make.top.left.right.equalToSuperview()
             make.bottom.equalToSuperview().inset(15)
-            make.width.equalTo(UIScreen.main.bounds.width)
+            make.width.equalToSuperview()
         }
     }
     

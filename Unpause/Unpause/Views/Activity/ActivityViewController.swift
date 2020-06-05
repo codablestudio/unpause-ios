@@ -264,7 +264,7 @@ class ActivityViewController: UIViewController {
     private func sendEmailWithExcelSheetToCompany() {
         guard let companyEmail = SessionManager.shared.currentUser?.company?.email,
             let currentUserFirstName = SessionManager.shared.currentUser?.firstName,
-            let currentuserLastName = SessionManager.shared.currentUser?.lastName else { return }
+            let currentUserLastName = SessionManager.shared.currentUser?.lastName else { return }
         
         if MFMailComposeViewController.canSendMail() {
             let mail = MFMailComposeViewController()
@@ -278,7 +278,7 @@ class ActivityViewController: UIViewController {
             let data = activityViewModel.makeDataFrom(csvMakingResponse: csvMakingResponse)
             switch data {
             case .success(let data):
-                mail.addAttachmentData(data, mimeType: "text/csv", fileName: "\(currentUserFirstName) \(currentuserLastName)")
+                mail.addAttachmentData(data, mimeType: "text/csv", fileName: "\(currentUserFirstName) \(currentUserLastName)")
             case .error(let error):
                 self.showOneOptionAlert(title: "Alert", message: error.errorMessage, actionTitle: "OK")
             }
@@ -302,8 +302,8 @@ class ActivityViewController: UIViewController {
 private extension ActivityViewController {
     func handleSendAsEmailTapped() {
         if SessionManager.shared.currentUser?.company?.email == nil {
-            let messsage = "It looks like you didn‘t add your company. Would you like too add it?"
-            self.showTwoOptionsAlert(title: "Alert", message: messsage, firstActionTitle: "Cancel", secondActionTitle: "Add")
+            let message = "It looks like you didn‘t add your company. Would you like to add it?"
+            self.showTwoOptionsAlert(title: "Alert", message: message, firstActionTitle: "Cancel", secondActionTitle: "Add")
         } else if let user = SessionManager.shared.currentUser {
             UnpauseActivityIndicatorView.shared.show(on: self.view)
             user.checkIfUserHasValidSubscription(onCompleted: { [weak self] hasValidSubscription in

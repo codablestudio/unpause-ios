@@ -80,8 +80,8 @@ class AddShiftViewController: UIViewController {
         createPickers()
         addBarButtonItem()
         setUpObservables()
-        setUpArrivalAndLeavingDateAndTimePickerInitalValue()
-        addGestureRecognizer()
+        setUpArrivalAndLeavingDateAndTimePickerInitialValue()
+        addGestureRecogniser()
         setUpKeyboard()
     }
     
@@ -89,15 +89,15 @@ class AddShiftViewController: UIViewController {
         setUpViewControllerTitle()
     }
     
-    private func setUpArrivalAndLeavingDateAndTimePickerInitalValue() {
+    private func setUpArrivalAndLeavingDateAndTimePickerInitialValue() {
         if navigationFromTableView {
-            setUpArrivalAndLeavingDateAndTimepickerInitialValueOnEditinigShift()
+            setUpArrivalAndLeavingDateAndTimePickerInitialValueOnEditingShift()
         } else {
-            setUpArrivalAndLeavingDateAndTimePickerInitalValueOnAddingNewShift()
+            setUpArrivalAndLeavingDateAndTimePickerInitialValueOnAddingNewShift()
         }
     }
     
-    private func setUpArrivalAndLeavingDateAndTimePickerInitalValueOnAddingNewShift() {
+    private func setUpArrivalAndLeavingDateAndTimePickerInitialValueOnAddingNewShift() {
         if navigationFromCustomShift {
             arrivalTimePicker.rx.value.onNext(Date())
             refreshTextFieldWithNewTime(textField: arrivalTimeTextField, newTime: Date())
@@ -132,7 +132,7 @@ class AddShiftViewController: UIViewController {
         }
     }
     
-    private func setUpArrivalAndLeavingDateAndTimepickerInitialValueOnEditinigShift() {
+    private func setUpArrivalAndLeavingDateAndTimePickerInitialValueOnEditingShift() {
         let checkInDateAndTime = Formatter.shared.convertTimeStampIntoDate(timeStamp: cellToEdit?.shift?.arrivalTime)
         let checkOutDateAndTime = Formatter.shared.convertTimeStampIntoDate(timeStamp: cellToEdit?.shift?.exitTime)
         
@@ -164,7 +164,7 @@ class AddShiftViewController: UIViewController {
         renderLeavingPickersAndLabelsForDateAndTime()
         renderLeavingDateAndTimePickerImageView()
         renderSeparatorAndDescription()
-        renderCancleAndContinueButton()
+        renderCancelAndContinueButton()
     }
     
     private func enableOrDisableArrivalDatePicker() {
@@ -467,7 +467,7 @@ class AddShiftViewController: UIViewController {
         }).disposed(by: disposeBag)
     }
     
-    private func addGestureRecognizer() {
+    private func addGestureRecogniser() {
         view.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] (tapGesture) in
             self?.view.endEditing(true)
         }).disposed(by: disposeBag)
@@ -554,15 +554,15 @@ private extension AddShiftViewController {
         scrollView.alwaysBounceVertical = true
         
         scrollView.addSubview(containerView)
-        containerView.snp.makeConstraints { (make) in
+        containerView.snp.makeConstraints { make in
             make.top.left.right.bottom.equalToSuperview()
-            make.width.equalTo(UIScreen.main.bounds.width)
+            make.width.equalToSuperview()
         }
     }
     
     func renderArrivedAtLabelAndArriveImageView() {
         containerView.addSubview(youArrivedAtLabel)
-        youArrivedAtLabel.snp.makeConstraints { (make) in
+        youArrivedAtLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(30)
             make.left.equalToSuperview().offset(15)
         }
@@ -688,7 +688,7 @@ private extension AddShiftViewController {
         descriptionLabel.textAlignment = .center
     }
     
-    func renderCancleAndContinueButton() {
+    func renderCancelAndContinueButton() {
         containerView.addSubview(stackView)
         stackView.snp.makeConstraints { (make) in
             make.top.equalTo(descriptionLabel.snp.bottom).offset(20)

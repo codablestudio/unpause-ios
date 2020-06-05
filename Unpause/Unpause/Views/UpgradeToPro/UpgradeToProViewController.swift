@@ -143,7 +143,7 @@ private extension UpgradeToProViewController {
         scrollView.addSubview(containerView)
         containerView.snp.makeConstraints { (make) in
             make.top.left.right.bottom.equalToSuperview()
-            make.width.equalTo(UIScreen.main.bounds.width)
+            make.width.equalToSuperview()
         }
     }
     
