@@ -36,8 +36,18 @@ extension Coordinator {
     }
     
     func navigateToMapViewController(from viewController: UIViewController) {
-        let mapViewModel = MapViewModel()
+        let locationNetworking = LocationNetworking()
+        let mapViewModel = MapViewModel(locationNetworking: locationNetworking)
         let mapViewController = MapViewController(mapViewModel: mapViewModel)
         viewController.navigationController?.pushViewController(mapViewController, animated: true)
+    }
+    
+    func navigateToAddCompanyViewController(from viewController: UIViewController) {
+        let companyNetworking = CompanyNetworking()
+        let addCompanyViewModel = AddCompanyViewModel(companyNetworking: companyNetworking,
+                                                      registeredUserEmail: SessionManager.shared.currentUser?.email)
+        let addCompanyViewController = AddCompanyViewController(addCompanyViewModel: addCompanyViewModel,
+                                                                navigationFromRegisterViewController: false)
+        viewController.navigationController?.pushViewController(addCompanyViewController, animated: true)
     }
 }

@@ -16,10 +16,14 @@ class MapViewController: UIViewController {
     private let disposeBag = DisposeBag()
     
     private let mapView = MKMapView()
+    
     private let centerPinImageView = UIImageView()
+    private let centerPinTextField = PaddedTextField()
     
     private let addCompanyLocationContainerView = UIView()
     private let addCompanyLocationButton = UIButton()
+    
+    var currentPinMapLocationChanges = PublishSubject<CLLocationCoordinate2D?>()
     
     init(mapViewModel: MapViewModelProtocol) {
         self.mapViewModel = mapViewModel
@@ -49,11 +53,49 @@ class MapViewController: UIViewController {
         renderAddCompanyLocationButtonContainerView()
         renderMapView()
         renderCenterPinImageView()
+        renderCenterPinTextField()
         renderAddCompanyLocationButton()
     }
     
     private func setUpObservables() {
+        Observable.combineLatest(mapView.rx.panGesture(), mapView.rx.pinchGesture(), mapView.rx.tapGesture())
+            .subscribe(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                self.currentPinMapLocationChanges.onNext(self.mapView.centerCoordinate)
+            }).disposed(by: disposeBag)
         
+        currentPinMapLocationChanges
+            .bind(to: mapViewModel.currentPinMapLocationChanges)
+            .disposed(by: disposeBag)
+        
+        centerPinTextField.rx.text
+            .bind(to: mapViewModel.textInCenterPinTextFieldChanges)
+            .disposed(by: disposeBag)
+        
+        mapView.rx.tapGesture().subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else { return }
+            self.dismissKeyboard()
+        }).disposed(by: disposeBag)
+        
+        addCompanyLocationButton.rx.tap
+            .do(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                UnpauseActivityIndicatorView.shared.show(on: self.view)
+            })
+            .bind(to: mapViewModel.addCompanyLocationButtonTapped)
+            .disposed(by: disposeBag)
+        
+        mapViewModel.newUserLocationSavingResponse
+            .subscribe(onNext: { [weak self] response in
+                guard let `self` = self else { return }
+                switch response {
+                case .success:
+                    UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
+                case .error(let error):
+                    UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
+                    self.showOneOptionAlert(title: "Location saving error", message: "\(error.errorMessage)", actionTitle: "OK")
+                }
+            }).disposed(by: disposeBag)
     }
     
     private func zoomInToCurrentUserPosition() {
@@ -95,6 +137,25 @@ private extension MapViewController {
             make.height.width.equalTo(40)
         }
         centerPinImageView.image = UIImage(named: "pin_40x40")
+    }
+    
+    func renderCenterPinTextField() {
+        mapView.addSubview(centerPinTextField)
+        centerPinTextField.snp.makeConstraints { make in
+            make.bottom.equalTo(centerPinImageView.snp.top).offset(-3)
+            make.centerX.equalTo(centerPinImageView.snp.centerX)
+            make.height.equalTo(20)
+        }
+        centerPinTextField.textInsets = UIEdgeInsets(top: 1, left: 2, bottom: 2, right: 2)
+        centerPinTextField.backgroundColor = .unpauseBlack
+        centerPinTextField.textColor = .unpauseWhite
+        centerPinTextField.font = .systemFont(ofSize: 12, weight: .light)
+        centerPinTextField.layer.cornerRadius = 6
+        centerPinTextField.attributedPlaceholder = NSAttributedString(string: "Location name",
+                                                                      attributes: [NSAttributedString.Key.foregroundColor: UIColor.unpauseLightGray])
+        centerPinTextField.autocorrectionType = .no
+        centerPinTextField.autocapitalizationType = .sentences
+        centerPinTextField.minimumFontSize = 12
     }
     
     func renderAddCompanyLocationButton() {

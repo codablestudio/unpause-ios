@@ -100,6 +100,9 @@
 		C16A2EF523A7853800CBA43F /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16A2EF423A7853800CBA43F /* RegisterViewModel.swift */; };
 		C16FBC6A2472C6E1006D24EC /* SubscriptionsFetchingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16FBC692472C6E1006D24EC /* SubscriptionsFetchingResponse.swift */; };
 		C1704B63248A1EFE00D4DB31 /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1704B62248A1EFE00D4DB31 /* UIAlertController+Extension.swift */; };
+		C1704B68248A646200D4DB31 /* LocationNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1704B67248A646200D4DB31 /* LocationNetworking.swift */; };
+		C1704B6A248A6B9100D4DB31 /* LocationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1704B69248A6B9100D4DB31 /* LocationFactory.swift */; };
+		C1704B6D248A847A00D4DB31 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1704B6C248A847A00D4DB31 /* Location.swift */; };
 		C1707B1A23F17605002E1A10 /* Formatter+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1707B1923F17605002E1A10 /* Formatter+String.swift */; };
 		C1707B1C23F18AE3002E1A10 /* HomeNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1707B1B23F18AE3002E1A10 /* HomeNetworking.swift */; };
 		C1707B1E23F19022002E1A10 /* Coordinator+AddShift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1707B1D23F19022002E1A10 /* Coordinator+AddShift.swift */; };
@@ -279,6 +282,9 @@
 		C16A2EF423A7853800CBA43F /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		C16FBC692472C6E1006D24EC /* SubscriptionsFetchingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionsFetchingResponse.swift; sourceTree = "<group>"; };
 		C1704B62248A1EFE00D4DB31 /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
+		C1704B67248A646200D4DB31 /* LocationNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationNetworking.swift; sourceTree = "<group>"; };
+		C1704B69248A6B9100D4DB31 /* LocationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationFactory.swift; sourceTree = "<group>"; };
+		C1704B6C248A847A00D4DB31 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		C1707B1923F17605002E1A10 /* Formatter+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Formatter+String.swift"; sourceTree = "<group>"; };
 		C1707B1B23F18AE3002E1A10 /* HomeNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNetworking.swift; sourceTree = "<group>"; };
 		C1707B1D23F19022002E1A10 /* Coordinator+AddShift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinator+AddShift.swift"; sourceTree = "<group>"; };
@@ -526,6 +532,7 @@
 				C138411123C5C58100A347F9 /* UserFactory.swift */,
 				C1437B4023F3EF43007BD7DA /* ShiftFactory.swift */,
 				C12F7A4A241003980074362F /* CompanyFactory.swift */,
+				C1704B69248A6B9100D4DB31 /* LocationFactory.swift */,
 			);
 			path = Factories;
 			sourceTree = "<group>";
@@ -676,6 +683,7 @@
 		C146992823A117C400A84818 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C1704B6B248A846400D4DB31 /* Location */,
 				C1CCCB242481406C001A5FC6 /* UserType */,
 				C10B9EF1248010D000C324E6 /* Day */,
 				C19BDDD4247AF274006265D9 /* Animation */,
@@ -709,6 +717,7 @@
 		C146992A23A1181300A84818 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				C1704B66248A643C00D4DB31 /* Location */,
 				C17E89172434DA3C00575A7F /* Login */,
 				C17E891D2434DDD500575A7F /* Register */,
 				C17E892B2434E66800575A7F /* Shift */,
@@ -718,6 +727,22 @@
 				C17E891A2434DC4100575A7F /* Company */,
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		C1704B66248A643C00D4DB31 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				C1704B67248A646200D4DB31 /* LocationNetworking.swift */,
+			);
+			path = Location;
+			sourceTree = "<group>";
+		};
+		C1704B6B248A846400D4DB31 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				C1704B6C248A847A00D4DB31 /* Location.swift */,
+			);
+			path = Location;
 			sourceTree = "<group>";
 		};
 		C17369CE243B193000F304C1 /* ViewModelTests */ = {
@@ -1388,6 +1413,7 @@
 				C111932323CF6008007E2866 /* AddShiftViewModel.swift in Sources */,
 				C12A2C1E2465ACC700BA9D51 /* UpgradeToProViewModelProtocol.swift in Sources */,
 				C14731432416982000477ECA /* CompaniesValidationDataResponse.swift in Sources */,
+				C1704B6A248A6B9100D4DB31 /* LocationFactory.swift in Sources */,
 				C1FF2A8E23C4B3EA00ACCF29 /* Coordinator+Settings.swift in Sources */,
 				C14104B72473E58F00CAAE26 /* PurchaseResponse.swift in Sources */,
 				C1C1D2DE2437381F000BC698 /* LoginViewModelMock.swift in Sources */,
@@ -1439,6 +1465,7 @@
 				C1707B1C23F18AE3002E1A10 /* HomeNetworking.swift in Sources */,
 				C1419F6E24125414001B5817 /* AddCompanyViewModel.swift in Sources */,
 				C133DE5423C89F2A0096F5B2 /* Response.swift in Sources */,
+				C1704B6D248A847A00D4DB31 /* Location.swift in Sources */,
 				C13D4C82241FDBE500170AF0 /* UnpauseResponse.swift in Sources */,
 				C10F78DD23A3D79200783476 /* UIButton+Extension.swift in Sources */,
 				C1B131FC23F59150009C3C59 /* ShitfsResponse.swift in Sources */,
@@ -1472,6 +1499,7 @@
 				C16FBC6A2472C6E1006D24EC /* SubscriptionsFetchingResponse.swift in Sources */,
 				C13105E723B0ADF200A509D9 /* User.swift in Sources */,
 				C17E89382434EE8F00575A7F /* AddShiftViewModelProtocol.swift in Sources */,
+				C1704B68248A646200D4DB31 /* LocationNetworking.swift in Sources */,
 				C12F7A3F240F9D590074362F /* LocationManager.swift in Sources */,
 				C146992E23A11DBE00A84818 /* LoginViewModel.swift in Sources */,
 				C12614E1248129BA004B014D /* MapViewModel.swift in Sources */,
