@@ -87,12 +87,12 @@ class DescriptionViewController: UIViewController {
                 case .success:
                     NotificationManager.shared.notificationCenter.removePendingNotificationRequests(withIdentifiers: ["notifyOnExit"])
                     NotificationManager.shared.scheduleEntranceNotification()
-                    UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
+                    UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
                     ActivityViewModel.forceRefresh.onNext(())
                     HomeViewModel.forceRefresh.onNext(())
                     self.dismiss(animated: true)
                 case .error(let error):
-                    UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
+                    UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
                     self.showOneOptionAlert(title: "Error", message: "\(error.errorMessage)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)
@@ -102,11 +102,11 @@ class DescriptionViewController: UIViewController {
                 guard let `self` = self else { return }
                 switch response {
                 case .success:
-                    UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
+                    UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
                     ActivityViewModel.forceRefresh.onNext(())
                     self.dismiss(animated: true)
                 case .error(let error):
-                    UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
+                    UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
                     self.showOneOptionAlert(title: "Error", message: "\(error.errorMessage)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)

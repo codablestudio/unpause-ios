@@ -95,10 +95,10 @@ class RegisterViewController: UIViewController {
                 guard let `self` = self else { return }
                 switch firebaseResponseObject {
                 case .success(let authDataResult):
-                    UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
+                    UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
                     Coordinator.shared.navigateToAddCompanyViewController(from: self, registeredUserEmail: authDataResult.user.email)
                 case .error(let error):
-                    UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
+                    UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
                     self.showOneOptionAlert(title: "Error", message: "\(error.errorMessage)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)

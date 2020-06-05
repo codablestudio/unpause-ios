@@ -365,12 +365,12 @@ extension UpgradeToProViewController: SKPaymentTransactionObserver {
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         for transaction in transactions {
             if transaction.transactionState == .purchased {
-                UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
+                UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
                 SKPaymentQueue.default().finishTransaction(transaction)
                 self.dismiss(animated: true)
             } else if transaction.transactionState == .failed {
                 guard let error = transaction.error else { return }
-                UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
+                UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
                 self.showOneOptionAlert(title: "The purchase was not successful", message: "\(error.localizedDescription)", actionTitle: "OK")
                 SKPaymentQueue.default().finishTransaction(transaction)
             }

@@ -153,7 +153,7 @@ class ActivityViewController: UIViewController {
         activityViewModel.deleteRequest
             .subscribe(onNext: { [weak self] shiftDeletionsResponse in
                 guard let `self` = self else { return }
-                UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
+                UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
                 
                 switch shiftDeletionsResponse {
                 case .success(let deletedShift):
@@ -256,13 +256,14 @@ class ActivityViewController: UIViewController {
         }))
         
         alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+        alert.pruneNegativeWidthConstraints()
         self.present(alert, animated: true)
     }
     
     private func sendEmailWithExcelSheetToCompany() {
         guard let companyEmail = SessionManager.shared.currentUser?.company?.email,
             let currentUserFirstName = SessionManager.shared.currentUser?.firstName,
-            let currentuserLastName = SessionManager.shared.currentUser?.lastName else { return }
+            let currentUserLastName = SessionManager.shared.currentUser?.lastName else { return }
         
         if MFMailComposeViewController.canSendMail() {
             let mail = MFMailComposeViewController()
@@ -276,7 +277,7 @@ class ActivityViewController: UIViewController {
             let data = activityViewModel.makeDataFrom(csvMakingResponse: csvMakingResponse)
             switch data {
             case .success(let data):
-                mail.addAttachmentData(data, mimeType: "text/csv", fileName: "\(currentUserFirstName) \(currentuserLastName)")
+                mail.addAttachmentData(data, mimeType: "text/csv", fileName: "\(currentUserFirstName) \(currentUserLastName)")
             case .error(let error):
                 self.showOneOptionAlert(title: "Alert", message: error.errorMessage, actionTitle: "OK")
             }
@@ -300,13 +301,13 @@ class ActivityViewController: UIViewController {
 private extension ActivityViewController {
     func handleSendAsEmailTapped() {
         if SessionManager.shared.currentUser?.company?.email == nil {
-            let messsage = "It looks like you didn‘t add your company. Would you like too add it?"
-            self.showTwoOptionsAlert(title: "Alert", message: messsage, firstActionTitle: "Cancel", secondActionTitle: "Add")
+            let message = "It looks like you didn‘t add your company. Would you like to add it?"
+            self.showTwoOptionsAlert(title: "Alert", message: message, firstActionTitle: "Cancel", secondActionTitle: "Add")
         } else if let user = SessionManager.shared.currentUser {
             UnpauseActivityIndicatorView.shared.show(on: self.view)
             user.checkIfUserHasValidSubscription(onCompleted: { [weak self] hasValidSubscription in
                 guard let `self` = self else { return }
-                UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
+                UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
                 if hasValidSubscription {
                     self.sendEmailWithExcelSheetToCompany()
                 } else {
@@ -327,7 +328,7 @@ private extension ActivityViewController {
             UnpauseActivityIndicatorView.shared.show(on: self.view)
             user.checkIfUserHasValidSubscription { [weak self] hasValidSubscription in
                 guard let `self` = self else { return }
-                UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
+                UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
                 if hasValidSubscription {
                     self.documentController.url = url
                     self.documentController.presentPreview(animated: true)
@@ -351,7 +352,7 @@ private extension ActivityViewController {
         containerView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.left.right.equalToSuperview()
-            make.bottomMargin.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
     }
     
@@ -443,13 +444,13 @@ private extension ActivityViewController {
     }
     
     func configureTableView() {
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 15, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
         
         containerView.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.top.equalTo(datesContainer.snp.bottom)
             make.left.right.equalToSuperview()
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.bottom.equalToSuperview()
         }
     }
 }
@@ -468,7 +469,7 @@ extension ActivityViewController: UITableViewDelegate {
         case .shift(let shift):
             shiftToDelete.onNext(shift)
         default:
-            UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
+            UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
         }
     }
 }
@@ -517,10 +518,10 @@ extension ActivityViewController: MFMailComposeViewControllerDelegate {
             print("Cancelled")
             
         case MFMailComposeResult.saved.rawValue:
-            UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
+            UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
             
         case MFMailComposeResult.sent.rawValue:
-            UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
+            UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
             
         case MFMailComposeResult.failed.rawValue:
             showOneOptionAlert(title: "Alert", message: error!.localizedDescription, actionTitle: "OK")
