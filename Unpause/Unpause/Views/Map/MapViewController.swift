@@ -18,6 +18,7 @@ class MapViewController: UIViewController {
     private let mapView = MKMapView()
     private let centerPinImageView = UIImageView()
     
+    private let addCompanyLocationContainerView = UIView()
     private let addCompanyLocationButton = UIButton()
     
     init(mapViewModel: MapViewModelProtocol) {
@@ -40,7 +41,12 @@ class MapViewController: UIViewController {
         hideTabBar()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        showTabBar()
+    }
+    
     private func render() {
+        renderAddCompanyLocationButtonContainerView()
         renderMapView()
         renderCenterPinImageView()
         renderAddCompanyLocationButton()
@@ -63,10 +69,21 @@ class MapViewController: UIViewController {
 
 // MARK: - UI rendering
 private extension MapViewController {
+    func renderAddCompanyLocationButtonContainerView() {
+        view.addSubview(addCompanyLocationContainerView)
+        addCompanyLocationContainerView.snp.makeConstraints { make in
+            make.bottom.equalToSuperview()
+            make.left.right.equalToSuperview()
+            make.height.equalTo(100)
+        }
+        addCompanyLocationContainerView.backgroundColor = .unpauseWhite
+    }
+    
     func renderMapView() {
         view.addSubview(mapView)
         mapView.snp.makeConstraints { make in
-            make.top.left.right.bottom.equalToSuperview()
+            make.top.left.right.equalToSuperview()
+            make.bottom.equalTo(addCompanyLocationContainerView.snp.top)
         }
     }
     
@@ -81,16 +98,16 @@ private extension MapViewController {
     }
     
     func renderAddCompanyLocationButton() {
-        view.addSubview(addCompanyLocationButton)
+        addCompanyLocationContainerView.addSubview(addCompanyLocationButton)
         addCompanyLocationButton.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(60)
-            make.right.equalToSuperview().inset(60)
-            make.bottom.equalToSuperview().inset(40)
-            make.height.equalTo(50)
+            make.top.equalToSuperview().offset(15)
+            make.left.equalToSuperview().offset(30)
+            make.right.equalToSuperview().inset(30)
+            make.bottom.equalToSuperview().inset(30)
         }
         addCompanyLocationButton.setTitle("Add company location", for: .normal)
         addCompanyLocationButton.titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
-        addCompanyLocationButton.layer.cornerRadius = 22
+        addCompanyLocationButton.layer.cornerRadius = 25
         addCompanyLocationButton.backgroundColor = .unpauseGreen
     }
 }

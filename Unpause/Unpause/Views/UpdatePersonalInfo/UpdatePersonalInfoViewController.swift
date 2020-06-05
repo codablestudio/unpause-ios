@@ -43,6 +43,14 @@ class UpdatePersonalInfoViewController: UIViewController {
         setUpViewControllerTitle()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        hideTabBar()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        showTabBar()
+    }
+    
     private func render() {
         configureScrollViewAndContainerView()
         renderNewFirstNameTextFieldAndNewFirstNameSeparator()

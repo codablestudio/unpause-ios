@@ -10,12 +10,6 @@ import Foundation
 import UIKit
 
 extension Coordinator {
-    func navigateToMapViewController(from viewController: UIViewController) {
-        let mapViewModel = MapViewModel()
-        let mapViewController = MapViewController(mapViewModel: mapViewModel)
-        viewController.navigationController?.pushViewController(mapViewController, animated: true)
-    }
-    
     func navigateToAddCompanyViewController(from viewController: UIViewController) {
         let companyNetworking = CompanyNetworking()
         let addCompanyViewModel = AddCompanyViewModel(companyNetworking: companyNetworking,

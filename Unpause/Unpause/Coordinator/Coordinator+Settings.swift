@@ -35,9 +35,9 @@ extension Coordinator {
         viewController.navigationController?.pushViewController(changePasswordViewController, animated: true)
     }
     
-    func navigateToUserTypeViewController(from viewController: UIViewController) {
-        let userTypeViewModel = UserTypeViewModel()
-        let userTypeViewController = UserTypeViewController(userTypeViewModel: userTypeViewModel)
-        viewController.navigationController?.pushViewController(userTypeViewController, animated: true)
+    func navigateToMapViewController(from viewController: UIViewController) {
+        let mapViewModel = MapViewModel()
+        let mapViewController = MapViewController(mapViewModel: mapViewModel)
+        viewController.navigationController?.pushViewController(mapViewController, animated: true)
     }
 }

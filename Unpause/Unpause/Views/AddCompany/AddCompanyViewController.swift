@@ -58,6 +58,10 @@ class AddCompanyViewController: UIViewController {
         hideTabBar()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        showTabBar()
+    }
+    
     private func render() {
         configureScrollViewAndContainerView()
         renderCompanyPasscodeTextFieldAndSeparator()

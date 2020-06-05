@@ -19,7 +19,7 @@ class SettingsViewController: UIViewController {
     
     private let tableView = UITableView()
     
-    private let dataSource: [SettingTableViewItem] = [.changePersonalInfo, .changePassword, .changeCompany, .logOut]
+    private var dataSource: [SettingTableViewItem] = [.changePersonalInfo, .changePassword, .changeCompany, .addLocation, .logOut]
     
     init(settingsViewModel: SettingsViewModelProtocol) {
         self.settingsViewModel = settingsViewModel
@@ -53,6 +53,7 @@ class SettingsViewController: UIViewController {
         tableView.register(SettingsTableViewCell.self, forCellReuseIdentifier: "SettingsTableViewCell")
         tableView.contentInsetAdjustmentBehavior = .never
         tableView.separatorStyle = .none
+        removeLocationCellIfNeeded()
     }
     
     private func showTwoOptionAlert(title: String, message: String, actionTitle1: String, actionTitle2: String) {
@@ -65,6 +66,21 @@ class SettingsViewController: UIViewController {
             Coordinator.shared.logOut()
         }))
         self.present(alert, animated: true)
+    }
+    
+    private func removeLocationCellIfNeeded() {
+        if SessionManager.shared.currentUserHasConnectedCompany() {
+            var newDataSource: [SettingTableViewItem] = []
+            for cell in dataSource {
+                switch cell {
+                case .addLocation:
+                    print("Add location cell.")
+                default:
+                    newDataSource.append(cell)
+                }
+            }
+            dataSource = newDataSource
+        }
     }
 }
 
@@ -111,7 +127,9 @@ extension SettingsViewController: UITableViewDelegate {
         case .changePassword:
             Coordinator.shared.navigateToChangePasswordViewController(from: self)
         case .changeCompany:
-            Coordinator.shared.navigateToUserTypeViewController(from: self)
+            Coordinator.shared.navigateToAddCompanyViewController(from: self)
+        case .addLocation:
+            Coordinator.shared.navigateToMapViewController(from: self)
         case .logOut:
             self.showTwoOptionAlert(title: "Log out", message: "Are you sure you want to log out?", actionTitle1: "Cancel", actionTitle2: "Log out")
         }
@@ -140,13 +158,27 @@ extension SettingsViewController: UITableViewDataSource {
         case .changeCompany:
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SettingsTableViewCell.self),
                                                      for: indexPath) as! SettingsTableViewCell
-            cell.configure(name: "Company location", thumbnailImageName: "company_30x30_black")
+            let cellTitle = makeTitleForCompanyCell()
+            cell.configure(name: cellTitle, thumbnailImageName: "company_30x30_black")
+            return cell
+        case .addLocation:
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SettingsTableViewCell.self),
+            for: indexPath) as! SettingsTableViewCell
+            cell.configure(name: "Manage locations", thumbnailImageName: "location_30_30_black")
             return cell
         case .logOut:
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SettingsTableViewCell.self),
                                                      for: indexPath) as! SettingsTableViewCell
             cell.configure(name: "Log out", thumbnailImageName: "logOut_30x30_black")
             return cell
+        }
+    }
+    
+    private func makeTitleForCompanyCell() -> String {
+        if SessionManager.shared.currentUserHasConnectedCompany() {
+            return "Change company"
+        } else {
+            return "Add company"
         }
     }
 }

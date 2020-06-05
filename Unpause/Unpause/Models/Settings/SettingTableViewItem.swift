@@ -12,5 +12,6 @@ enum SettingTableViewItem {
     case changePersonalInfo
     case changePassword
     case changeCompany
+    case addLocation
     case logOut
 }
