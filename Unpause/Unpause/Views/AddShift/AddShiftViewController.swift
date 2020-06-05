@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxGesture
+import RxKeyboard
 
 class AddShiftViewController: UIViewController {
     
@@ -22,20 +23,24 @@ class AddShiftViewController: UIViewController {
     private let arriveImageView = UIImageView()
     
     private let arrivalDateTextField = UITextField()
+    private let arrivalDateTextFieldImageView = UIImageView()
     private let arrivalTimeTextField = UITextField()
+    private let arrivalTimeTextFieldImageView = UIImageView()
     
     private let youAreLeavingAtLabel = UILabel()
     private let leavingImageView = UIImageView()
     
     private let leavingDateTextField = UITextField()
+    private let leavingDateTextFieldImageView = UIImageView()
     private let leavingTimeTextField = UITextField()
+    private let leavingTimeTextFieldImageView = UIImageView()
     
     private let separator = UIView()
     private let descriptionLabel = UILabel()
     
     private let stackView = UIStackView()
     
-    private let cancleButton = OrangeButton(title: "Cancel")
+    private let cancelButton = OrangeButton(title: "Cancel")
     private let continueButton = OrangeButton(title: "Continue")
     
     private let arrivalDatePicker = UIDatePicker()
@@ -77,6 +82,7 @@ class AddShiftViewController: UIViewController {
         setUpObservables()
         setUpArrivalAndLeavingDateAndTimePickerInitalValue()
         addGestureRecognizer()
+        setUpKeyboard()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -153,10 +159,12 @@ class AddShiftViewController: UIViewController {
         configureScrollViewAndContainerView()
         renderArrivedAtLabelAndArriveImageView()
         renderArrivalPickersAndLabelsForDateAndTime()
+        renderArrivalDateAndTimePickerImageView()
         renderLeavingAtLabelAndLeavingImageView()
         renderLeavingPickersAndLabelsForDateAndTime()
+        renderLeavingDateAndTimePickerImageView()
         renderSeparatorAndDescription()
-        renderCancleAndContinueButton()
+        renderCancelAndContinueButton()
     }
     
     private func anableOrDisableArrivalDatePicker() {
@@ -168,7 +176,7 @@ class AddShiftViewController: UIViewController {
     }
     
     private func setUpObservables() {
-        cancleButton.rx.tap.subscribe(onNext: { _ in
+        cancelButton.rx.tap.subscribe(onNext: { _ in
             self.dismiss(animated: true)
         }).disposed(by: disposeBag)
         
@@ -213,6 +221,38 @@ class AddShiftViewController: UIViewController {
                 self.handleContinueButtonWhenAddingShift()
             }
         }).disposed(by: disposeBag)
+        
+        closeButton.rx.tap.subscribe(onNext: { _ in
+            self.dismiss(animated: true)
+        }).disposed(by: disposeBag)
+        
+        arrivalDateTextFieldImageView.rx.tapGesture()
+            .skip(1)
+            .subscribe(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                self.arrivalDateTextField.becomeFirstResponder()
+            }).disposed(by: disposeBag)
+        
+        arrivalTimeTextFieldImageView.rx.tapGesture()
+            .skip(1)
+            .subscribe(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                self.arrivalTimeTextField.becomeFirstResponder()
+            }).disposed(by: disposeBag)
+        
+        leavingDateTextFieldImageView.rx.tapGesture()
+            .skip(1)
+            .subscribe(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                self.leavingDateTextField.becomeFirstResponder()
+            }).disposed(by: disposeBag)
+        
+        leavingTimeTextFieldImageView.rx.tapGesture()
+            .skip(1)
+            .subscribe(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                self.leavingTimeTextField.becomeFirstResponder()
+            }).disposed(by: disposeBag)
     }
     
     func handleArrivalFieldsWhenAddingShift(arrivalDate: Date, arrivalTime: Date) {
@@ -433,6 +473,17 @@ class AddShiftViewController: UIViewController {
         }).disposed(by: disposeBag)
     }
     
+    private func setUpKeyboard() {
+        RxKeyboard.instance.visibleHeight.drive(onNext: { [weak self] keyboardVisibleHeight in
+            guard let `self` = self else { return }
+            var bottomInset: CGFloat = 15
+            bottomInset += keyboardVisibleHeight
+            let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: bottomInset, right: 0)
+            self.scrollView.contentInset = contentInsets
+            self.scrollView.scrollIndicatorInsets = contentInsets
+        }).disposed(by: disposeBag)
+    }
+    
     private func showFreshWorkingHoursAndMinutesLabel() {
         if navigationFromTableView {
             showFreshWorkingHoursAndMinutesLabelWhenEditing()
@@ -545,6 +596,24 @@ private extension AddShiftViewController {
         arrivalTimeTextField.tintColor = .clear
     }
     
+    func renderArrivalDateAndTimePickerImageView() {
+        containerView.addSubview(arrivalDateTextFieldImageView)
+        arrivalDateTextFieldImageView.snp.makeConstraints { make in
+            make.left.equalTo(arrivalDateTextField.snp.right).offset(5)
+            make.centerY.equalTo(arrivalDateTextField.snp.centerY)
+            make.height.width.equalTo(16)
+        }
+        arrivalDateTextFieldImageView.image = UIImage(named: "click_arrow_30x30")
+        
+        containerView.addSubview(arrivalTimeTextFieldImageView)
+        arrivalTimeTextFieldImageView.snp.makeConstraints { make in
+            make.left.equalTo(arrivalTimeTextField.snp.right).offset(5)
+            make.centerY.equalTo(arrivalTimeTextField.snp.centerY)
+            make.height.width.equalTo(16)
+        }
+        arrivalTimeTextFieldImageView.image = UIImage(named: "click_arrow_30x30")
+    }
+    
     func renderLeavingAtLabelAndLeavingImageView() {
         containerView.addSubview(youAreLeavingAtLabel)
         youAreLeavingAtLabel.snp.makeConstraints { (make) in
@@ -581,6 +650,24 @@ private extension AddShiftViewController {
         leavingTimeTextField.tintColor = .clear
     }
     
+    func renderLeavingDateAndTimePickerImageView() {
+        containerView.addSubview(leavingDateTextFieldImageView)
+        leavingDateTextFieldImageView.snp.makeConstraints { make in
+            make.left.equalTo(leavingDateTextField.snp.right).offset(5)
+            make.centerY.equalTo(leavingDateTextField.snp.centerY)
+            make.height.width.equalTo(16)
+        }
+        leavingDateTextFieldImageView.image = UIImage(named: "click_arrow_30x30")
+        
+        containerView.addSubview(leavingTimeTextFieldImageView)
+        leavingTimeTextFieldImageView.snp.makeConstraints { make in
+            make.left.equalTo(leavingTimeTextField.snp.right).offset(5)
+            make.centerY.equalTo(leavingTimeTextField.snp.centerY)
+            make.height.width.equalTo(16)
+        }
+        leavingTimeTextFieldImageView.image = UIImage(named: "click_arrow_30x30")
+    }
+    
     func renderSeparatorAndDescription() {
         containerView.addSubview(separator)
         separator.snp.makeConstraints { (make) in
@@ -601,7 +688,7 @@ private extension AddShiftViewController {
         descriptionLabel.textAlignment = .center
     }
     
-    func renderCancleAndContinueButton() {
+    func renderCancelAndContinueButton() {
         containerView.addSubview(stackView)
         stackView.snp.makeConstraints { (make) in
             make.top.equalTo(descriptionLabel.snp.bottom).offset(20)
@@ -610,14 +697,14 @@ private extension AddShiftViewController {
             make.height.equalTo(60)
             make.bottom.equalToSuperview()
         }
-        stackView.addArrangedSubview(cancleButton)
+        stackView.addArrangedSubview(cancelButton)
         stackView.addArrangedSubview(continueButton)
         stackView.axis = .horizontal
         stackView.alignment = .center
         stackView.distribution = .fillEqually
         stackView.spacing = 10
         
-        cancleButton.layer.cornerRadius = 15
+        cancelButton.layer.cornerRadius = 15
         continueButton.layer.cornerRadius = 15
     }
 }

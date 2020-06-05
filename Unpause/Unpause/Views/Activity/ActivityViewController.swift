@@ -257,6 +257,7 @@ class ActivityViewController: UIViewController {
         
         alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
         alert.pruneNegativeWidthConstraints()
+        alert.popoverPresentationController?.barButtonItem = dotsButton
         self.present(alert, animated: true)
     }
     
