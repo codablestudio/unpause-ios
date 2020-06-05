@@ -28,7 +28,7 @@ class DescriptionViewController: UIViewController {
     private let sixthSuggestionButton = OrangeButton(title: "Bills")
     private let seventhSuggestionButton = OrangeButton(title: "Calls")
     private let eighthSuggestionButton = OrangeButton(title: "Meetings")
-    private let ninethSuggestionButton = OrangeButton(title: "Cleaning")
+    private let ninthSuggestionButton = OrangeButton(title: "Cleaning")
     
     private let descriptionTextView = UITextView()
     
@@ -164,9 +164,9 @@ class DescriptionViewController: UIViewController {
             self.descriptionTextView.text.append(contentsOf: stringToAppend)
         }).disposed(by: disposeBag)
         
-        ninethSuggestionButton.rx.tap.subscribe(onNext: { [weak self] _ in
+        ninthSuggestionButton.rx.tap.subscribe(onNext: { [weak self] _ in
             guard let `self` = self else { return }
-            guard let stringToAppend = self.ninethSuggestionButton.titleLabel?.text else { return }
+            guard let stringToAppend = self.ninthSuggestionButton.titleLabel?.text else { return }
             self.descriptionTextView.text.append(contentsOf: stringToAppend)
         }).disposed(by: disposeBag)
     }
@@ -227,7 +227,7 @@ private extension DescriptionViewController {
         scrollView.addSubview(containerView)
         containerView.snp.makeConstraints { (make) in
             make.top.left.right.bottom.equalToSuperview()
-            make.width.equalTo(UIScreen.main.bounds.width)
+            make.width.equalToSuperview()
         }
     }
     
@@ -249,7 +249,7 @@ private extension DescriptionViewController {
         firstSuggestionButton.snp.makeConstraints { make in
             make.top.equalTo(whatDidYouWorkOnLabel.snp.bottom).offset(15)
             make.left.equalToSuperview().offset(10)
-            make.width.equalTo((UIScreen.main.bounds.width - 6 * 10) / 5)
+            make.width.equalTo(((navigationController?.view.bounds.width)! - 6 * 10) / 5)
             make.height.equalTo(25)
         }
         firstSuggestionButton.titleLabel?.font = .systemFont(ofSize: 12)
@@ -260,7 +260,7 @@ private extension DescriptionViewController {
         secondSuggestionButton.snp.makeConstraints { make in
             make.top.equalTo(whatDidYouWorkOnLabel.snp.bottom).offset(15)
             make.left.equalTo(firstSuggestionButton.snp.right).offset(10)
-            make.width.equalTo((UIScreen.main.bounds.width - 6 * 10) / 5)
+            make.width.equalTo(((navigationController?.view.bounds.width)! - 6 * 10) / 5)
             make.height.equalTo(25)
         }
         secondSuggestionButton.titleLabel?.font = .systemFont(ofSize: 12)
@@ -271,7 +271,7 @@ private extension DescriptionViewController {
         thirdSuggestionButton.snp.makeConstraints { make in
             make.top.equalTo(whatDidYouWorkOnLabel.snp.bottom).offset(15)
             make.left.equalTo(secondSuggestionButton.snp.right).offset(10)
-            make.width.equalTo((UIScreen.main.bounds.width - 6 * 10) / 5)
+            make.width.equalTo(((navigationController?.view.bounds.width)! - 6 * 10) / 5)
             make.height.equalTo(25)
         }
         thirdSuggestionButton.titleLabel?.font = .systemFont(ofSize: 12)
@@ -282,7 +282,7 @@ private extension DescriptionViewController {
         fourthSuggestionButton.snp.makeConstraints { make in
             make.top.equalTo(whatDidYouWorkOnLabel.snp.bottom).offset(15)
             make.left.equalTo(thirdSuggestionButton.snp.right).offset(10)
-            make.width.equalTo((UIScreen.main.bounds.width - 6 * 10) / 5)
+            make.width.equalTo(((navigationController?.view.bounds.width)! - 6 * 10) / 5)
             make.height.equalTo(25)
         }
         fourthSuggestionButton.titleLabel?.font = .systemFont(ofSize: 12)
@@ -294,7 +294,7 @@ private extension DescriptionViewController {
             make.top.equalTo(whatDidYouWorkOnLabel.snp.bottom).offset(15)
             make.left.equalTo(fourthSuggestionButton.snp.right).offset(10)
             make.right.equalToSuperview().inset(10)
-            make.width.equalTo((UIScreen.main.bounds.width - 6 * 10) / 5)
+            make.width.equalTo(((navigationController?.view.bounds.width)! - 6 * 10) / 5)
             make.height.equalTo(25)
         }
         fifthSuggestionButton.titleLabel?.font = .systemFont(ofSize: 12)
@@ -307,7 +307,7 @@ private extension DescriptionViewController {
         sixthSuggestionButton.snp.makeConstraints { make in
             make.top.equalTo(firstSuggestionButton.snp.bottom).offset(15)
             make.centerX.equalTo(firstSuggestionButton.snp.right).offset(5)
-            make.width.equalTo((UIScreen.main.bounds.width - 6 * 10) / 5)
+            make.width.equalTo(((navigationController?.view.bounds.width)! - 6 * 10) / 5)
             make.height.equalTo(25)
         }
         sixthSuggestionButton.titleLabel?.font = .systemFont(ofSize: 12)
@@ -318,7 +318,7 @@ private extension DescriptionViewController {
         seventhSuggestionButton.snp.makeConstraints { make in
             make.top.equalTo(firstSuggestionButton.snp.bottom).offset(15)
             make.centerX.equalTo(secondSuggestionButton.snp.right).offset(5)
-            make.width.equalTo((UIScreen.main.bounds.width - 6 * 10) / 5)
+            make.width.equalTo(((navigationController?.view.bounds.width)! - 6 * 10) / 5)
             make.height.equalTo(25)
         }
         seventhSuggestionButton.titleLabel?.font = .systemFont(ofSize: 12)
@@ -329,22 +329,22 @@ private extension DescriptionViewController {
         eighthSuggestionButton.snp.makeConstraints { make in
             make.top.equalTo(firstSuggestionButton.snp.bottom).offset(15)
             make.centerX.equalTo(thirdSuggestionButton.snp.right).offset(5)
-            make.width.equalTo((UIScreen.main.bounds.width - 6 * 10) / 5)
+            make.width.equalTo(((navigationController?.view.bounds.width)! - 6 * 10) / 5)
             make.height.equalTo(25)
         }
         eighthSuggestionButton.titleLabel?.font = .systemFont(ofSize: 12)
         eighthSuggestionButton.layer.cornerRadius = 12.5
         
-        containerView.addSubview(ninethSuggestionButton)
+        containerView.addSubview(ninthSuggestionButton)
         
-        ninethSuggestionButton.snp.makeConstraints { make in
+        ninthSuggestionButton.snp.makeConstraints { make in
             make.top.equalTo(firstSuggestionButton.snp.bottom).offset(15)
             make.centerX.equalTo(fourthSuggestionButton.snp.right).offset(5)
-            make.width.equalTo((UIScreen.main.bounds.width - 6 * 10) / 5)
+            make.width.equalTo(((navigationController?.view.bounds.width)! - 6 * 10) / 5)
             make.height.equalTo(25)
         }
-        ninethSuggestionButton.titleLabel?.font = .systemFont(ofSize: 12)
-        ninethSuggestionButton.layer.cornerRadius = 12.5
+        ninthSuggestionButton.titleLabel?.font = .systemFont(ofSize: 12)
+        ninthSuggestionButton.layer.cornerRadius = 12.5
     }
     
     func renderTextView() {

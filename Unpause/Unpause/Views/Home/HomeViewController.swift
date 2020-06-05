@@ -32,6 +32,7 @@ class HomeViewController: UIViewController {
     let checkInButton = UIButton()
     
     private let lastCheckInTimeLabel = UILabel()
+    private let workingHoursLabel = UILabel()
     
     private let chartContainerView = UIView()
     private let barChartView = BarChartView()
@@ -67,6 +68,7 @@ class HomeViewController: UIViewController {
         renderCompanySeparator()
         renderCheckInButton()
         renderLastCheckInTimeLabel()
+        renderWorkingHoursLabel()
         renderChartContainerView()
     }
     
@@ -109,6 +111,7 @@ class HomeViewController: UIViewController {
                 switch response {
                 case .success:
                     self.displayFreshLastCheckInTime()
+                    self.displayFreshWorkingHoursData()
                     NotificationManager.shared.notificationCenter.removePendingNotificationRequests(withIdentifiers: ["notifyOnEntry"])
                     NotificationManager.shared.scheduleExitNotification()
                     NotificationManager.shared.scheduleTwelveHourDelayNotification()
@@ -124,6 +127,7 @@ class HomeViewController: UIViewController {
                 case .success(let lastCheckInDate):
                     SessionManager.shared.currentUser?.lastCheckInDateAndTime = lastCheckInDate
                     self.displayFreshLastCheckInTime()
+                    self.displayFreshWorkingHoursData()
                     if lastCheckInDate != nil {
                         NotificationManager.shared.notificationCenter.removePendingNotificationRequests(withIdentifiers: ["notifyOnEntry"])
                         NotificationManager.shared.scheduleExitNotification()
@@ -148,6 +152,11 @@ class HomeViewController: UIViewController {
                 case .error(let error):
                     self.showOneOptionAlert(title: "Error", message: "\(error.errorMessage)", actionTitle: "OK")
                 }
+            }).disposed(by: disposeBag)
+        
+        Observable<Int>.timer(0, period: 1, scheduler: MainScheduler.instance)
+            .subscribe(onNext: { _ in
+                self.displayFreshWorkingHoursData()
             }).disposed(by: disposeBag)
     }
     
@@ -190,6 +199,29 @@ class HomeViewController: UIViewController {
         let lastCheckInTimeInStringFormat = Formatter.shared.convertDateIntoStringWithTime(from: lastCheckInTime)
         lastCheckInTimeLabel.text = "Last check in time: \(lastCheckInTimeInStringFormat)"
     }
+    
+    private func displayFreshWorkingHoursData() {
+        guard let lastCheckInTime = SessionManager.shared.currentUser?.lastCheckInDateAndTime else {
+            fadeOut(viewToAnimate: workingHoursLabel, withDuration: 0.4)
+            return
+        }
+        fadeIn(viewToAnimate: workingHoursLabel, withDuration: 0.4)
+        let timeNowWithZeroSeconds = Formatter.shared.getDateAndTimeWithZeroSeconds(from: Date())
+        let lastCheckInTimeWithZeroSeconds = Formatter.shared.getDateAndTimeWithZeroSeconds(from: lastCheckInTime)
+        let workingTime = Formatter.shared.findTimeDifference(firstDate: lastCheckInTimeWithZeroSeconds,
+                                                              secondDate: timeNowWithZeroSeconds)
+        workingHoursLabel.text = "Working time: \(workingTime.0) h \(workingTime.1) min"
+        makeWorkingHoursAndMinutesPartOfStringOrangeAndBold(workingTime: workingTime)
+    }
+    
+    private func makeWorkingHoursAndMinutesPartOfStringOrangeAndBold(workingTime: (String, String)) {
+        let orangeString = "\(workingTime.0) h \(workingTime.1) min"
+        let range = ((workingHoursLabel.text)! as NSString).range(of: orangeString)
+        
+        let attributedText = NSMutableAttributedString.init(string: (workingHoursLabel.text)!)
+        attributedText.addAttributes([NSAttributedString.Key.foregroundColor : UIColor.unpauseOrange, NSAttributedString.Key.font : UIFont.systemFont(ofSize: 13, weight: .bold)], range: range)
+        workingHoursLabel.attributedText = attributedText
+    }
 }
 
 // MARK: - UI rendering
@@ -209,7 +241,7 @@ private extension HomeViewController {
         scrollView.addSubview(containerView)
         containerView.snp.makeConstraints { (make) in
             make.top.left.right.bottom.equalToSuperview()
-            make.width.equalTo(UIScreen.main.bounds.width)
+            make.width.equalToSuperview()
         }
     }
     
@@ -298,10 +330,20 @@ private extension HomeViewController {
         displayFreshLastCheckInTime()
     }
     
+    func renderWorkingHoursLabel() {
+        containerView.addSubview(workingHoursLabel)
+        workingHoursLabel.snp.makeConstraints { make in
+            make.top.equalTo(lastCheckInTimeLabel.snp.bottom).offset(5)
+            make.centerX.equalToSuperview()
+        }
+        workingHoursLabel.font = .systemFont(ofSize: 13, weight: .light)
+        displayFreshWorkingHoursData()
+    }
+    
     func renderChartContainerView() {
         containerView.addSubview(barChartView)
         barChartView.snp.makeConstraints { make in
-            make.top.equalTo(lastCheckInTimeLabel.snp.bottom).offset(10)
+            make.top.equalTo(workingHoursLabel.snp.bottom).offset(8)
             make.left.equalToSuperview().offset(15)
             make.right.equalToSuperview().inset(15)
             make.height.equalTo(220)

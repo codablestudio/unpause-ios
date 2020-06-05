@@ -43,6 +43,8 @@ class AddShiftViewController: UIViewController {
     private let leavingDatePicker = UIDatePicker()
     private let leavingTimePicker = UIDatePicker()
     
+    private let closeButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: nil)
+    
     private var workingHours = PublishSubject<String>()
     private var workingMinutes = PublishSubject<String>()
     
@@ -71,6 +73,7 @@ class AddShiftViewController: UIViewController {
         render()
         anableOrDisableArrivalDatePicker()
         createPickers()
+        addBarButtonItem()
         setUpObservables()
         setUpArrivalAndLeavingDateAndTimePickerInitalValue()
         addGestureRecognizer()
@@ -420,6 +423,10 @@ class AddShiftViewController: UIViewController {
         }).disposed(by: disposeBag)
     }
     
+    private func addBarButtonItem() {
+        navigationItem.leftBarButtonItem = closeButton
+    }
+    
     private func addGestureRecognizer() {
         view.rx.tapGesture().when(.recognized).subscribe(onNext: { [weak self] (tapGesture) in
             self?.view.endEditing(true)
@@ -498,7 +505,7 @@ private extension AddShiftViewController {
         scrollView.addSubview(containerView)
         containerView.snp.makeConstraints { (make) in
             make.top.left.right.bottom.equalToSuperview()
-            make.width.equalTo(UIScreen.main.bounds.width)
+            make.width.equalToSuperview()
         }
     }
     
