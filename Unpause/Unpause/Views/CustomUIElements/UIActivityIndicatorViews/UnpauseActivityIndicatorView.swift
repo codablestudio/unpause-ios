@@ -49,7 +49,7 @@ class UnpauseActivityIndicatorView: UIActivityIndicatorView {
         UIApplication.shared.beginIgnoringInteractionEvents()
     }
     
-    func dissmis(from view: UIView) {
+    func dismiss(from view: UIView) {
         loadingView.removeFromSuperview()
         view.window?.removeBlurEffect()
         UIApplication.shared.endIgnoringInteractionEvents()

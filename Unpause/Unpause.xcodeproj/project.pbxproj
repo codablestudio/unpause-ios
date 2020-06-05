@@ -97,6 +97,7 @@
 		C16A2EF323A784A700CBA43F /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16A2EF223A784A700CBA43F /* RegisterViewController.swift */; };
 		C16A2EF523A7853800CBA43F /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16A2EF423A7853800CBA43F /* RegisterViewModel.swift */; };
 		C16FBC6A2472C6E1006D24EC /* SubscriptionsFetchingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16FBC692472C6E1006D24EC /* SubscriptionsFetchingResponse.swift */; };
+		C1704B65248A209000D4DB31 /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1704B64248A209000D4DB31 /* UIAlertController+Extension.swift */; };
 		C1707B1A23F17605002E1A10 /* Formatter+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1707B1923F17605002E1A10 /* Formatter+String.swift */; };
 		C1707B1C23F18AE3002E1A10 /* HomeNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1707B1B23F18AE3002E1A10 /* HomeNetworking.swift */; };
 		C1707B1E23F19022002E1A10 /* Coordinator+AddShift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1707B1D23F19022002E1A10 /* Coordinator+AddShift.swift */; };
@@ -272,6 +273,7 @@
 		C16A2EF223A784A700CBA43F /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		C16A2EF423A7853800CBA43F /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		C16FBC692472C6E1006D24EC /* SubscriptionsFetchingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionsFetchingResponse.swift; sourceTree = "<group>"; };
+		C1704B64248A209000D4DB31 /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
 		C1707B1923F17605002E1A10 /* Formatter+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Formatter+String.swift"; sourceTree = "<group>"; };
 		C1707B1B23F18AE3002E1A10 /* HomeNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNetworking.swift; sourceTree = "<group>"; };
 		C1707B1D23F19022002E1A10 /* Coordinator+AddShift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinator+AddShift.swift"; sourceTree = "<group>"; };
@@ -439,6 +441,7 @@
 				C10F78D323A3D79200783476 /* Rx */,
 				C10F78D523A3D79200783476 /* CGFloat+Extension.swift */,
 				C10F78D623A3D79200783476 /* Array+Extension.swift */,
+				C1704B64248A209000D4DB31 /* UIAlertController+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1344,6 +1347,7 @@
 			files = (
 				C198B8F623B0D57C00FBD3C6 /* UnpauseError.swift in Sources */,
 				C10F78E023A3D79200783476 /* UIImage+Extension.swift in Sources */,
+				C1704B65248A209000D4DB31 /* UIAlertController+Extension.swift in Sources */,
 				C110AE2823C34E420066C394 /* ChangePasswordViewController.swift in Sources */,
 				C1437B4123F3EF43007BD7DA /* ShiftFactory.swift in Sources */,
 				C137F48223B8B6AC00358E30 /* RegisterNetworking.swift in Sources */,

@@ -75,11 +75,11 @@ class UpdatePersonalInfoViewController: UIViewController {
                 guard let `self` = self else { return }
                 switch response {
                 case .success:
-                    UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
+                    UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
                     self.navigationController?.popViewController(animated: true)
                 case .error(let error):
                     self.showOneOptionAlert(title: "Error", message: "\(error.errorMessage)", actionTitle: "OK")
-                    UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
+                    UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
                 }
             }).disposed(by: disposeBag)
     }

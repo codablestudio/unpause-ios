@@ -29,7 +29,7 @@ class DescriptionViewController: UIViewController {
     private let sixthSuggestionButton = OrangeButton(title: "Bills")
     private let seventhSuggestionButton = OrangeButton(title: "Calls")
     private let eighthSuggestionButton = OrangeButton(title: "Meetings")
-    private let ninethSuggestionButton = OrangeButton(title: "Cleaning")
+    private let ninthSuggestionButton = OrangeButton(title: "Cleaning")
     
     private let descriptionTextView = UITextView()
     
@@ -89,12 +89,12 @@ class DescriptionViewController: UIViewController {
                 case .success:
                     NotificationManager.shared.notificationCenter.removePendingNotificationRequests(withIdentifiers: ["notifyOnExit"])
                     NotificationManager.shared.scheduleEntranceNotification()
-                    UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
+                    UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
                     ActivityViewModel.forceRefresh.onNext(())
                     HomeViewModel.forceRefresh.onNext(())
                     self.dismiss(animated: true)
                 case .error(let error):
-                    UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
+                    UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
                     self.showOneOptionAlert(title: "Error", message: "\(error.errorMessage)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)
@@ -104,11 +104,11 @@ class DescriptionViewController: UIViewController {
                 guard let `self` = self else { return }
                 switch response {
                 case .success:
-                    UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
+                    UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
                     ActivityViewModel.forceRefresh.onNext(())
                     self.dismiss(animated: true)
                 case .error(let error):
-                    UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
+                    UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
                     self.showOneOptionAlert(title: "Error", message: "\(error.errorMessage)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)
@@ -166,9 +166,9 @@ class DescriptionViewController: UIViewController {
             self.descriptionTextView.text.append(contentsOf: stringToAppend)
         }).disposed(by: disposeBag)
         
-        ninethSuggestionButton.rx.tap.subscribe(onNext: { [weak self] _ in
+        ninthSuggestionButton.rx.tap.subscribe(onNext: { [weak self] _ in
             guard let `self` = self else { return }
-            guard let stringToAppend = self.ninethSuggestionButton.titleLabel?.text else { return }
+            guard let stringToAppend = self.ninthSuggestionButton.titleLabel?.text else { return }
             self.descriptionTextView.text.append(contentsOf: stringToAppend)
         }).disposed(by: disposeBag)
     }
@@ -352,16 +352,16 @@ private extension DescriptionViewController {
         eighthSuggestionButton.titleLabel?.font = .systemFont(ofSize: 12)
         eighthSuggestionButton.layer.cornerRadius = 12.5
         
-        containerView.addSubview(ninethSuggestionButton)
+        containerView.addSubview(ninthSuggestionButton)
         
-        ninethSuggestionButton.snp.makeConstraints { make in
+        ninthSuggestionButton.snp.makeConstraints { make in
             make.top.equalTo(firstSuggestionButton.snp.bottom).offset(15)
             make.centerX.equalTo(fourthSuggestionButton.snp.right).offset(5)
             make.width.equalTo((UIScreen.main.bounds.width - 6 * 10) / 5)
             make.height.equalTo(25)
         }
-        ninethSuggestionButton.titleLabel?.font = .systemFont(ofSize: 12)
-        ninethSuggestionButton.layer.cornerRadius = 12.5
+        ninthSuggestionButton.titleLabel?.font = .systemFont(ofSize: 12)
+        ninthSuggestionButton.layer.cornerRadius = 12.5
     }
     
     func renderTextView() {

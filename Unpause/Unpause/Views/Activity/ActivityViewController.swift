@@ -153,7 +153,7 @@ class ActivityViewController: UIViewController {
         activityViewModel.deleteRequest
             .subscribe(onNext: { [weak self] shiftDeletionsResponse in
                 guard let `self` = self else { return }
-                UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
+                UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
                 
                 switch shiftDeletionsResponse {
                 case .success(let deletedShift):
@@ -256,6 +256,8 @@ class ActivityViewController: UIViewController {
         }))
         
         alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+        alert.pruneNegativeWidthConstraints()
+        alert.popoverPresentationController?.barButtonItem = dotsButton
         self.present(alert, animated: true)
     }
     
@@ -306,7 +308,7 @@ private extension ActivityViewController {
             UnpauseActivityIndicatorView.shared.show(on: self.view)
             user.checkIfUserHasValidSubscription(onCompleted: { [weak self] hasValidSubscription in
                 guard let `self` = self else { return }
-                UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
+                UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
                 if hasValidSubscription {
                     self.sendEmailWithExcelSheetToCompany()
                 } else {
@@ -327,7 +329,7 @@ private extension ActivityViewController {
             UnpauseActivityIndicatorView.shared.show(on: self.view)
             user.checkIfUserHasValidSubscription { [weak self] hasValidSubscription in
                 guard let `self` = self else { return }
-                UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
+                UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
                 if hasValidSubscription {
                     self.documentController.url = url
                     self.documentController.presentPreview(animated: true)
@@ -468,7 +470,7 @@ extension ActivityViewController: UITableViewDelegate {
         case .shift(let shift):
             shiftToDelete.onNext(shift)
         default:
-            UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
+            UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
         }
     }
 }
@@ -517,10 +519,10 @@ extension ActivityViewController: MFMailComposeViewControllerDelegate {
             print("Cancelled")
             
         case MFMailComposeResult.saved.rawValue:
-            UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
+            UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
             
         case MFMailComposeResult.sent.rawValue:
-            UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
+            UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
             
         case MFMailComposeResult.failed.rawValue:
             showOneOptionAlert(title: "Alert", message: error!.localizedDescription, actionTitle: "OK")

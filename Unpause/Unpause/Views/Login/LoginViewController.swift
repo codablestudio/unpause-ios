@@ -106,15 +106,15 @@ class LoginViewController: UIViewController {
                 guard let `self` = self else { return }
                 switch response {
                 case .success:
-                    UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
+                    UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
                     Coordinator.shared.navigateToHomeViewController()
                 case .error(let error):
                     switch error {
                     case .noCompany:
-                        UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
+                        UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
                         Coordinator.shared.navigateToHomeViewController()
                     default:
-                        UnpauseActivityIndicatorView.shared.dissmis(from: self.view)
+                        UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
                         self.showOneOptionAlert(title: "Error", message: "\(error.errorMessage)", actionTitle: "OK")
                     }
                 }
