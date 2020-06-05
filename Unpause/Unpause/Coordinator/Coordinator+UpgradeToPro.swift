@@ -1,5 +1,5 @@
 //
-//  Coordinator+UpradeToPro.swift
+//  Coordinator+UpgradeToPro.swift
 //  Unpause
 //
 //  Created by Krešimir Baković on 08/05/2020.
