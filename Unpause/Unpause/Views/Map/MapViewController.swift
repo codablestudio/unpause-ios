@@ -90,7 +90,7 @@ class MapViewController: UIViewController {
                 guard let `self` = self else { return }
                 switch response {
                 case .success:
-                    UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
+                    UnpauseActivityIndicatorView.shared.showSuccessMessageAndDismiss(from: self.view, successMessage: "Location successfully added.", successMessageDurationTime: 1.4)
                 case .error(let error):
                     UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
                     self.showOneOptionAlert(title: "Location saving error", message: "\(error.errorMessage)", actionTitle: "OK")

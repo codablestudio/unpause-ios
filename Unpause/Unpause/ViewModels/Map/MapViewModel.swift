@@ -51,7 +51,8 @@ class MapViewModel: MapViewModelProtocol {
             .flatMapLatest({ [weak self] _ -> Observable<Response> in
                 guard let `self` = self,
                     let locationCoordinate = self.currentPinMapLocation,
-                    let locationName = self.textInCenterPinTextField else {
+                    let locationName = self.textInCenterPinTextField,
+                    !locationName.isEmpty else {
                         return Observable.just(Response.error(.locationMakingError))
                 }
                 let newUserLocation = Location(locationCoordinate: locationCoordinate, name: locationName)

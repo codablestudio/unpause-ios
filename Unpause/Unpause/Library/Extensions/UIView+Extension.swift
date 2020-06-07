@@ -359,3 +359,20 @@ extension UIView {
         }
     }
 }
+
+// MARK: - FadeIn and FadeOut animations
+extension UIView {
+    func fadeIn(viewToAnimate: UIView, withDuration duration: Double, completion: () -> Void) {
+        UIView.animate(withDuration: duration, animations: {
+            viewToAnimate.alpha = 1.0
+        })
+        completion()
+    }
+
+    func fadeOut(viewToAnimate: UIView, withDuration duration: Double, completion: () -> Void) {
+        UIView.animate(withDuration: duration, animations: {
+            viewToAnimate.alpha = 0.0
+        })
+        completion()
+    }
+}
