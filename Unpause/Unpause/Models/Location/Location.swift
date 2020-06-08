@@ -11,11 +11,11 @@ import MapKit
 
 class Location: NSObject, NSCoding {
     
-    var locationCoordinate: CLLocationCoordinate2D!
+    var coordinate: CLLocationCoordinate2D!
     var name: String
     
-    init(locationCoordinate: CLLocationCoordinate2D, name: String) {
-        self.locationCoordinate = locationCoordinate
+    init(coordinate: CLLocationCoordinate2D, name: String) {
+        self.coordinate = coordinate
         self.name = name
     }
     
@@ -33,13 +33,13 @@ class Location: NSObject, NSCoding {
 
 private extension Location {
     func decodeLocation(coder: NSCoder) {
-        let locationLatitude = coder.decodeObject(forKey: "locationCoordinateLatitude") as? CLLocationDegrees ?? 0
-        let locationLongitude = coder.decodeObject(forKey: "locationCoordinateLongitude") as? CLLocationDegrees ?? 0
-        self.locationCoordinate = CLLocationCoordinate2D(latitude: locationLatitude, longitude: locationLongitude)
+        let locationLatitude = coder.decodeDouble(forKey: "locationLatitude")
+        let locationLongitude = coder.decodeDouble(forKey: "locationLongitude")
+        self.coordinate = CLLocationCoordinate2D(latitude: locationLatitude, longitude: locationLongitude)
     }
     
     func encodeLocation(with coder: NSCoder) {
-        coder.encode(locationCoordinate.latitude, forKey: "locationCoordinateLatitude")
-        coder.encode(locationCoordinate.longitude, forKey: "locationCoordinateLongitude")
+        coder.encode(Double(coordinate.latitude), forKey: "locationLatitude")
+        coder.encode(Double(coordinate.longitude), forKey: "locationLongitude")
     }
 }

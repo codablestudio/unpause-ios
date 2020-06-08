@@ -24,6 +24,8 @@ class MapViewController: UIViewController {
     
     var currentPinMapLocationChanges = PublishSubject<CLLocationCoordinate2D?>()
     
+    private var selectedAnnotation: MKAnnotation?
+    
     init(mapViewModel: MapViewModelProtocol) {
         self.mapViewModel = mapViewModel
         super.init(nibName: nil, bundle: nil)
@@ -37,11 +39,13 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
         render()
         setUpObservables()
+        setUpMapViewDelegate()
         zoomInToCurrentUserPosition()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         hideTabBar()
+        showExistingLocationsOnMap()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -68,6 +72,15 @@ class MapViewController: UIViewController {
                 self.currentPinMapLocationChanges.onNext(self.mapView.centerCoordinate)
             }).disposed(by: disposeBag)
         
+        mapView.rx.tapGesture()
+            .subscribe(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                self.dismissKeyboard()
+                self.addCompanyLocationButton.backgroundColor = .unpauseGreen
+                self.addCompanyLocationButton.setTitle("Add company location", for: .normal)
+                self.selectedAnnotation = nil
+            }).disposed(by: disposeBag)
+        
         currentPinMapLocationChanges
             .bind(to: mapViewModel.currentPinMapLocationChanges)
             .disposed(by: disposeBag)
@@ -75,11 +88,6 @@ class MapViewController: UIViewController {
         centerPinTextField.rx.text
             .bind(to: mapViewModel.textInCenterPinTextFieldChanges)
             .disposed(by: disposeBag)
-        
-        mapView.rx.tapGesture().subscribe(onNext: { [weak self] _ in
-            guard let `self` = self else { return }
-            self.dismissKeyboard()
-        }).disposed(by: disposeBag)
         
         addCompanyLocationButton.rx.tap
             .do(onNext: { [weak self] _ in
@@ -95,12 +103,17 @@ class MapViewController: UIViewController {
                 switch response {
                 case .success:
                     UnpauseActivityIndicatorView.shared.showSuccessMessageAndDismissWithDelay(from: self.view, successMessage: "Location successfully added.", delay: 1.4)
+                    self.saveNewLocationLocallyAndUpdateMapView()
                     self.clearTextInCenterPinTextField()
                 case .error(let error):
                     UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
                     self.showOneOptionAlert(title: "Location saving error", message: "\(error.errorMessage)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)
+    }
+    
+    private func setUpMapViewDelegate() {
+        mapView.delegate = self
     }
     
     private func zoomInToCurrentUserPosition() {
@@ -118,6 +131,33 @@ class MapViewController: UIViewController {
         centerPinTextField.text?.removeAll()
         centerPinTextField.resignFirstResponder()
     }
+    
+    private func showExistingLocationsOnMap() {
+        guard let allUserLocations = SessionManager.shared.currentUser?.privateUserLocations else {
+            return
+        }
+        for location in allUserLocations {
+            addAnnotationToMap(location: location)
+        }
+    }
+    
+    private func saveNewLocationLocallyAndUpdateMapView() {
+        let locationCoordinate = mapView.centerCoordinate
+        guard let locationName = centerPinTextField.text else {
+            return
+        }
+        let newLocation = Location(coordinate: locationCoordinate, name: locationName)
+        SessionManager.shared.currentUser?.privateUserLocations.append(newLocation)
+        SessionManager.shared.saveCurrentUserToUserDefaults()
+        addAnnotationToMap(location: newLocation)
+    }
+    
+    private func addAnnotationToMap(location: Location) {
+        let annotation = MKPointAnnotation()
+        annotation.title = location.name
+        annotation.coordinate = location.coordinate
+        mapView.addAnnotation(annotation)
+    }
 }
 
 // MARK: - UI rendering
@@ -133,8 +173,8 @@ private extension MapViewController {
         mapView.addSubview(centerPinImageView)
         centerPinImageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.bottom.equalTo(mapView.snp.centerY)
             make.height.width.equalTo(40)
+            make.bottom.equalTo(mapView.snp.centerY).offset(40)
         }
         centerPinImageView.image = UIImage(named: "pin_40x40")
     }
@@ -170,5 +210,14 @@ private extension MapViewController {
         addCompanyLocationButton.titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
         addCompanyLocationButton.layer.cornerRadius = 25
         addCompanyLocationButton.backgroundColor = .unpauseGreen
+    }
+}
+
+// MARK: - MKMapViewDelegate
+extension MapViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        addCompanyLocationButton.setTitle("Remove location", for: .normal)
+        addCompanyLocationButton.backgroundColor = .unpauseOrange
+        selectedAnnotation = view.annotation
     }
 }

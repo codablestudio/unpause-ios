@@ -55,7 +55,7 @@ class MapViewModel: MapViewModelProtocol {
                     !locationName.isEmpty else {
                         return Observable.just(Response.error(.locationNameError))
                 }
-                let newUserLocation = Location(locationCoordinate: locationCoordinate, name: locationName)
+                let newUserLocation = Location(coordinate: locationCoordinate, name: locationName)
                 return self.locationNetworking.saveNewUsersLocationToDataBase(location: newUserLocation)
             })
     }

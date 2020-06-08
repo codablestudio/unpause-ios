@@ -13,8 +13,8 @@ import MapKit
 class LocationFactory {
     static func createLocationData(from location: Location) -> [String: Any] {
         var locationData = [String: Any]()
-        let geoPoint = GeoPoint(latitude: location.locationCoordinate.latitude,
-                                longitude: location.locationCoordinate.longitude)
+        let geoPoint = GeoPoint(latitude: location.coordinate.latitude,
+                                longitude: location.coordinate.longitude)
         locationData["name"] = location.name
         locationData["geopoint"] = geoPoint
         return locationData
@@ -35,9 +35,9 @@ class LocationFactory {
         let name = locationData["name"] as? String
         guard let geoPointCoordinate = geoPoint,
         let locationName = name else {
-            return Location(locationCoordinate: CLLocationCoordinate2D(), name: "No name")
+            return Location(coordinate: CLLocationCoordinate2D(), name: "No name")
         }
         let locationCoordinate = Formatter.shared.convertGeoPointToCLLocationCoordinateTwoD(geoPoint: geoPointCoordinate)
-        return Location(locationCoordinate: locationCoordinate, name: locationName)
+        return Location(coordinate: locationCoordinate, name: locationName)
     }
 }
