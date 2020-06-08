@@ -78,7 +78,7 @@ class UnpauseActivityIndicatorView: UIActivityIndicatorView {
         }
         successLabel.text = successMessage
         successLabel.font = .systemFont(ofSize: 18, weight: .regular)
-        fadeIn(viewToAnimate: successView, withDuration: 0.5) {
+        successView.fadeIn(withDuration: 0.5) {
             DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
                 guard let `self` = self else { return }
                 self.successView.removeFromSuperview()

@@ -59,8 +59,14 @@ class MapViewController: UIViewController {
     
     private func setUpObservables() {
         Observable.combineLatest(mapView.rx.panGesture(), mapView.rx.pinchGesture(), mapView.rx.tapGesture())
-            .subscribe(onNext: { [weak self] _ in
+            .subscribe(onNext: { [weak self] gesture in
                 guard let `self` = self else { return }
+                if gesture.0.state == .began || gesture.1.state == .began || gesture.2.state == .began {
+                    self.centerPinTextField.fadeOut(withDuration: 0.3, completion: nil)
+                }
+                if gesture.0.state == .ended || gesture.1.state == .ended || gesture.2.state == .ended {
+                    self.centerPinTextField.fadeIn(withDuration: 0.3, completion: nil)
+                }
                 self.currentPinMapLocationChanges.onNext(self.mapView.centerCoordinate)
             }).disposed(by: disposeBag)
         
