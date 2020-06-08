@@ -98,7 +98,6 @@ class MapViewController: UIViewController {
                 case .success:
                     UnpauseActivityIndicatorView.shared.showSuccessMessageAndDismissWithDelay(from: self.view, successMessage: "Location successfully added.", delay: 1.4)
                     self.clearTextInCenterPinTextField()
-                    self.dismissKeyboard()
                 case .error(let error):
                     UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
                     self.showOneOptionAlert(title: "Location saving error", message: "\(error.errorMessage)", actionTitle: "OK")
@@ -117,7 +116,8 @@ class MapViewController: UIViewController {
     }
     
     private func clearTextInCenterPinTextField() {
-        centerPinTextField.text = ""
+        centerPinTextField.becomeFirstResponder()
+        centerPinTextField.text?.removeAll()
         centerPinTextField.resignFirstResponder()
     }
 }

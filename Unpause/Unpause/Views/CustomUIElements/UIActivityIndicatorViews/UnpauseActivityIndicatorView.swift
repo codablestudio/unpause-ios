@@ -72,7 +72,7 @@ class UnpauseActivityIndicatorView: UIActivityIndicatorView {
         
         successView.addSubview(successLabel)
         successLabel.snp.makeConstraints { make in
-            make.top.equalTo(successImageView.snp.bottom).offset(3)
+            make.top.equalTo(successImageView.snp.bottom).offset(10)
             make.centerX.equalTo(successImageView.snp.centerX)
             make.bottom.equalToSuperview()
         }
