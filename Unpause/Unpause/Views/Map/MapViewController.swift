@@ -18,7 +18,7 @@ class MapViewController: UIViewController {
     private let mapView = MKMapView()
     
     private let centerPinImageView = UIImageView()
-    private let centerPinTextField = PaddedTextField()
+    private let centerPinTextField = PaddedTextFieldWithCursor()
     
     private let addCompanyLocationContainerView = UIView()
     private let addCompanyLocationButton = UIButton()
@@ -90,7 +90,9 @@ class MapViewController: UIViewController {
                 guard let `self` = self else { return }
                 switch response {
                 case .success:
-                    UnpauseActivityIndicatorView.shared.showSuccessMessageAndDismiss(from: self.view, successMessage: "Location successfully added.", successMessageDurationTime: 1.4)
+                    UnpauseActivityIndicatorView.shared.showSuccessMessageAndDismissWithDelay(from: self.view, successMessage: "Location successfully added.", delay: 1.4)
+                    self.clearTextInCenterPinTextField()
+                    self.dismissKeyboard()
                 case .error(let error):
                     UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
                     self.showOneOptionAlert(title: "Location saving error", message: "\(error.errorMessage)", actionTitle: "OK")
@@ -106,6 +108,11 @@ class MapViewController: UIViewController {
                                                   longitude: currentUserLocation.longitude)
         let region = MKCoordinateRegion(center: regionCenter, latitudinalMeters: 1000, longitudinalMeters: 1000)
         mapView.setRegion(region, animated: true)
+    }
+    
+    private func clearTextInCenterPinTextField() {
+        centerPinTextField.text = ""
+        centerPinTextField.resignFirstResponder()
     }
 }
 
@@ -149,8 +156,9 @@ private extension MapViewController {
         centerPinTextField.textInsets = UIEdgeInsets(top: 1, left: 2, bottom: 2, right: 2)
         centerPinTextField.backgroundColor = .unpauseBlack
         centerPinTextField.textColor = .unpauseWhite
-        centerPinTextField.font = .systemFont(ofSize: 12, weight: .light)
+        centerPinTextField.font = .systemFont(ofSize: 12, weight: .regular)
         centerPinTextField.layer.cornerRadius = 6
+        centerPinTextField.textAlignment = .center
         centerPinTextField.attributedPlaceholder = NSAttributedString(string: "Location name",
                                                                       attributes: [NSAttributedString.Key.foregroundColor: UIColor.unpauseLightGray])
         centerPinTextField.autocorrectionType = .no

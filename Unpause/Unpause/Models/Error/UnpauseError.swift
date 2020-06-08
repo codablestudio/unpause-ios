@@ -31,7 +31,7 @@ enum UnpauseError: Error, Equatable {
     case wrongCompanyPasscodeError
     case noShiftsCSVError
     case dateConversionError
-    case locationMakingError
+    case locationNameError
     case otherError(Error)
     
     var errorMessage: String {
@@ -72,8 +72,8 @@ enum UnpauseError: Error, Equatable {
             return "Unable to make CSV file from empty table view list."
         case .dateConversionError:
             return "Unable to make conversion accros different date formats."
-        case .locationMakingError:
-            return "Unable to make new location from given data."
+        case .locationNameError:
+            return "Please add location name."
         case .otherError(let error):
             return "\(error.localizedDescription)"
         }

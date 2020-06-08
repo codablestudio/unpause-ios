@@ -71,6 +71,7 @@
 		C13C412623ABBC7000B674E9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C412523ABBC7000B674E9 /* SettingsViewController.swift */; };
 		C13C412823ABBC8900B674E9 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13C412723ABBC8900B674E9 /* SettingsViewModel.swift */; };
 		C13D4C82241FDBE500170AF0 /* UnpauseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13D4C81241FDBE500170AF0 /* UnpauseResponse.swift */; };
+		C13D8DD9248E2815001B7676 /* PaddedTextFieldWithCursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13D8DD8248E2815001B7676 /* PaddedTextFieldWithCursor.swift */; };
 		C13DDCEB23F36D050043E242 /* Shift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13DDCEA23F36D050043E242 /* Shift.swift */; };
 		C13EFBA423FECC5D0081ACF0 /* Formatter+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13EFBA323FECC5D0081ACF0 /* Formatter+Date.swift */; };
 		C13F6B35244B2370009EA1B9 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C13F6B34244B2370009EA1B9 /* AuthenticationServices.framework */; };
@@ -151,7 +152,7 @@
 		C1CCCB26248140A3001A5FC6 /* UserTypeCollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CCCB25248140A3001A5FC6 /* UserTypeCollectionViewItem.swift */; };
 		C1CE0D28245830110025FB06 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1CE0D27245830110025FB06 /* StoreKit.framework */; };
 		C1D0CA0B23F6AC9600A20D6F /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D0CA0A23F6AC9600A20D6F /* DataSource.swift */; };
-		C1D568FE241C0793004C8A89 /* PaddedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D568FD241C0793004C8A89 /* PaddedTextField.swift */; };
+		C1D568FE241C0793004C8A89 /* PaddedTextFieldWithoutCursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D568FD241C0793004C8A89 /* PaddedTextFieldWithoutCursor.swift */; };
 		C1EAB8F8247BBD59004EDDF0 /* PresentationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1EAB8F7247BBD59004EDDF0 /* PresentationType.swift */; };
 		C1F1BCC5243C7E10002B7452 /* ChangePasswordViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F1BCC4243C7E10002B7452 /* ChangePasswordViewModelTest.swift */; };
 		C1F1BCC7243C7E86002B7452 /* ChangePasswordNetworkingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F1BCC6243C7E86002B7452 /* ChangePasswordNetworkingMock.swift */; };
@@ -251,6 +252,7 @@
 		C13C412523ABBC7000B674E9 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		C13C412723ABBC8900B674E9 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		C13D4C81241FDBE500170AF0 /* UnpauseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnpauseResponse.swift; sourceTree = "<group>"; };
+		C13D8DD8248E2815001B7676 /* PaddedTextFieldWithCursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedTextFieldWithCursor.swift; sourceTree = "<group>"; };
 		C13DDCEA23F36D050043E242 /* Shift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shift.swift; sourceTree = "<group>"; };
 		C13EFBA323FECC5D0081ACF0 /* Formatter+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Formatter+Date.swift"; sourceTree = "<group>"; };
 		C13F6B33244B1B87009EA1B9 /* Unpause.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Unpause.entitlements; sourceTree = "<group>"; };
@@ -337,7 +339,7 @@
 		C1CCCB25248140A3001A5FC6 /* UserTypeCollectionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTypeCollectionViewItem.swift; sourceTree = "<group>"; };
 		C1CE0D27245830110025FB06 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C1D0CA0A23F6AC9600A20D6F /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
-		C1D568FD241C0793004C8A89 /* PaddedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedTextField.swift; sourceTree = "<group>"; };
+		C1D568FD241C0793004C8A89 /* PaddedTextFieldWithoutCursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedTextFieldWithoutCursor.swift; sourceTree = "<group>"; };
 		C1EAB8F7247BBD59004EDDF0 /* PresentationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationType.swift; sourceTree = "<group>"; };
 		C1F1BCC4243C7E10002B7452 /* ChangePasswordViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewModelTest.swift; sourceTree = "<group>"; };
 		C1F1BCC6243C7E86002B7452 /* ChangePasswordNetworkingMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordNetworkingMock.swift; sourceTree = "<group>"; };
@@ -1139,7 +1141,8 @@
 		C1D568FC241C0762004C8A89 /* UITextFields */ = {
 			isa = PBXGroup;
 			children = (
-				C1D568FD241C0793004C8A89 /* PaddedTextField.swift */,
+				C1D568FD241C0793004C8A89 /* PaddedTextFieldWithoutCursor.swift */,
+				C13D8DD8248E2815001B7676 /* PaddedTextFieldWithCursor.swift */,
 			);
 			path = UITextFields;
 			sourceTree = "<group>";
@@ -1426,6 +1429,7 @@
 				C12CDDB723FA999F002A19C8 /* LoadingTableViewCell.swift in Sources */,
 				C1419F702412543E001B5817 /* AddCompanyViewController.swift in Sources */,
 				C14466C62417AD0800CD52B6 /* ForgotPasswordViewController.swift in Sources */,
+				C13D8DD9248E2815001B7676 /* PaddedTextFieldWithCursor.swift in Sources */,
 				C17E892A2434E64500575A7F /* HomeNetworkingProtocol.swift in Sources */,
 				C1F2CD1F23F2E6D600BD23DC /* LastCheckInResponse.swift in Sources */,
 				C13B4B1223BF8A62006E1E0E /* FirebaseDocumentResponeObject.swift in Sources */,
@@ -1537,7 +1541,7 @@
 				C146991223A112F100A84818 /* AppDelegate.swift in Sources */,
 				C12A2C1B2465AC7500BA9D51 /* UpgradeToProViewModel.swift in Sources */,
 				C1FBC46F23AA521C00579913 /* HomeViewModel.swift in Sources */,
-				C1D568FE241C0793004C8A89 /* PaddedTextField.swift in Sources */,
+				C1D568FE241C0793004C8A89 /* PaddedTextFieldWithoutCursor.swift in Sources */,
 				C10F78E723A3D79200783476 /* UIButton+Rx.swift in Sources */,
 				C14731472416A4EB00477ECA /* CompanyReferenceSavingResponse.swift in Sources */,
 				C133DE5223C871A90096F5B2 /* ChangePasswordNetworking.swift in Sources */,

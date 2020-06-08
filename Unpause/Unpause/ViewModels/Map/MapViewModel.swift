@@ -53,7 +53,7 @@ class MapViewModel: MapViewModelProtocol {
                     let locationCoordinate = self.currentPinMapLocation,
                     let locationName = self.textInCenterPinTextField,
                     !locationName.isEmpty else {
-                        return Observable.just(Response.error(.locationMakingError))
+                        return Observable.just(Response.error(.locationNameError))
                 }
                 let newUserLocation = Location(locationCoordinate: locationCoordinate, name: locationName)
                 return self.locationNetworking.saveNewUsersLocationToDataBase(location: newUserLocation)

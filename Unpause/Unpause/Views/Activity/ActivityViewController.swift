@@ -26,7 +26,7 @@ class ActivityViewController: UIViewController {
     private let fromDateContainerView = UIView()
     private let fromDateLabel = UILabel()
     private let fromDateArrowImageView = UIImageView()
-    private let fromDateTextField = PaddedTextField()
+    private let fromDateTextField = PaddedTextFieldWithoutCursor()
     private let fromDateTextFieldDoneButton = UIBarButtonItem(barButtonSystemItem: .done,
                                                               target: self,
                                                               action: nil)
@@ -36,7 +36,7 @@ class ActivityViewController: UIViewController {
     private let toDateContainerView = UIView()
     private let toDateLabel = UILabel()
     private let toDateArrowImageView = UIImageView()
-    private let toDateTextField = PaddedTextField()
+    private let toDateTextField = PaddedTextFieldWithoutCursor()
     private let toDateTextFieldDoneButton = UIBarButtonItem(barButtonSystemItem: .done,
                                                             target: self,
                                                             action: nil)

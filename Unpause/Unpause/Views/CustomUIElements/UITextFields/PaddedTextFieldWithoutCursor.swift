@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PaddedTextField: UITextField {
+class PaddedTextFieldWithoutCursor: UITextField {
     public var textInsets = UIEdgeInsets.zero {
         didSet {
             setNeedsDisplay()
