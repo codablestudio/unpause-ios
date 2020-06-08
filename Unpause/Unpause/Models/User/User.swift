@@ -35,6 +35,7 @@ class User: NSObject, NSCoding {
         email = coder.decodeObject(forKey: "email") as? String
         company = coder.decodeObject(forKey: "company") as? Company
         isPromoUser = coder.decodeBool(forKey: "isPromoUser") as Bool
+        privateUserLocations = coder.decodeObject(forKey: "privateUserLocations") as? [Location] ?? []
     }
     
     init(firstName: String?, lastName: String?, email: String?) {
@@ -49,6 +50,7 @@ class User: NSObject, NSCoding {
         coder.encode(email, forKey: "email")
         coder.encode(company, forKey: "company")
         coder.encode(isPromoUser, forKey: "isPromoUser")
+        coder.encode(privateUserLocations, forKey: "privateUserLocations")
     }
 }
 

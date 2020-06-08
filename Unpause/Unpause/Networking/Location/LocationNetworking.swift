@@ -54,6 +54,7 @@ class LocationNetworking: LocationNetworkingProtocol {
             .flatMapLatest ({ querySnapshot -> Observable<UnpauseResponse> in
                 let userLocationsArray = LocationFactory.createLocations(from: querySnapshot.documents)
                 SessionManager.shared.currentUser?.privateUserLocations = userLocationsArray
+                SessionManager.shared.saveCurrentUserToUserDefaults()
                 return Observable.just(UnpauseResponse.success)
             })
             .catchError { error -> Observable<UnpauseResponse> in
