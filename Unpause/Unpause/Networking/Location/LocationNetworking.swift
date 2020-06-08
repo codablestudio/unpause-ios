@@ -15,6 +15,7 @@ import MapKit
 
 protocol LocationNetworkingProtocol {
     func saveNewUsersLocationToDataBase(location: Location) -> Observable<Response>
+    func fetchCurrentUsersLocationsAndSaveThemLocally() -> Observable<UnpauseResponse>
 }
 
 class LocationNetworking: LocationNetworkingProtocol {
@@ -37,6 +38,26 @@ class LocationNetworking: LocationNetworkingProtocol {
         }
         .catchError { error -> Observable<Response> in
             return Observable.just(Response.error(error as! UnpauseError))
+        }
+    }
+    
+    func fetchCurrentUsersLocationsAndSaveThemLocally() -> Observable<UnpauseResponse> {
+        guard let currentUserEmail = SessionManager.shared.currentUser?.email else {
+            return Observable.just(UnpauseResponse.error(.noUser))
+        }
+        return dataBaseReference
+            .collection("users")
+            .document(currentUserEmail)
+            .collection("locations")
+            .rx
+            .getDocuments()
+            .flatMapLatest ({ querySnapshot -> Observable<UnpauseResponse> in
+                let userLocationsArray = LocationFactory.createLocations(from: querySnapshot.documents)
+                SessionManager.shared.currentUser?.privateUserLocations = userLocationsArray
+                return Observable.just(UnpauseResponse.success)
+            })
+            .catchError { error -> Observable<UnpauseResponse> in
+                return Observable.just(UnpauseResponse.error(.locationsFetchingError))
         }
     }
 }

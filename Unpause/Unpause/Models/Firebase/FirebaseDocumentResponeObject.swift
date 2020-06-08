@@ -1,5 +1,5 @@
 //
-//  FirebaseDocumentResponeObject.swift
+//  FirebaseDocumentResponseObject.swift
 //  Unpause
 //
 //  Created by Krešimir Baković on 03/01/2020.

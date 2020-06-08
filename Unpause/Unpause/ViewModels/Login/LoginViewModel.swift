@@ -19,6 +19,7 @@ class LoginViewModel: LoginViewModelProtocol {
     private let loginNetworking: LoginNetworkingProtocol
     private let companyNetworking: CompanyNetworkingProtocol
     private let registerNetworking: RegisterNetworkingProtocol
+    private let locationNetworking: LocationNetworkingProtocol
     private let _isInsideGoogleSignInFlow = ActivityIndicator()
     
     private var textInEmailTextField: String?
@@ -44,10 +45,12 @@ class LoginViewModel: LoginViewModelProtocol {
     
     init(loginNetworking: LoginNetworkingProtocol,
          companyNetworking: CompanyNetworkingProtocol,
-         registerNetworking: RegisterNetworkingProtocol) {
+         registerNetworking: RegisterNetworkingProtocol,
+         locationNetworking: LocationNetworkingProtocol) {
         self.loginNetworking = loginNetworking
         self.companyNetworking = companyNetworking
         self.registerNetworking = registerNetworking
+        self.locationNetworking = locationNetworking
         
         setUpObservables()
     }
@@ -105,6 +108,10 @@ class LoginViewModel: LoginViewModelProtocol {
                     return UnpauseResponse.error(error)
                 }
             })
+            .flatMapLatest({ [weak self] unpauseResponse -> Observable<UnpauseResponse> in
+                guard let `self` = self else { return Observable.empty() }
+                return self.locationNetworking.fetchCurrentUsersLocationsAndSaveThemLocally()
+            })
         
         textInEmailTextFieldChanges.subscribe(onNext: { [weak self] (newValue) in
             self?.textInEmailTextField = newValue
@@ -146,7 +153,7 @@ class LoginViewModel: LoginViewModelProtocol {
                         return Observable.just(FirebaseDocumentResponseObject.error(.emptyError))
                 }
                 switch googleUserResponse {
-                case .exsistingUser(let documentSnapshot):
+                case .existingUser(let documentSnapshot):
                     return Observable.just(FirebaseDocumentResponseObject.success(documentSnapshot))
                 case .notExistingUser:
                     return self.registerNetworking.saveUserOnServerAndReturnUserDocument(email: email, firstName: firstName, lastName: lastName)
@@ -195,6 +202,10 @@ class LoginViewModel: LoginViewModelProtocol {
                 case .error(let error):
                     return UnpauseResponse.error(error)
                 }
+            })
+            .flatMapLatest({ [weak self] unpauseResponse -> Observable<UnpauseResponse> in
+                guard let `self` = self else { return Observable.empty() }
+                return self.locationNetworking.fetchCurrentUsersLocationsAndSaveThemLocally()
             })
     }
 }

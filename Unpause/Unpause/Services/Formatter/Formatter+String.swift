@@ -21,8 +21,8 @@ class Formatter {
 
         let hour = calendar.component(.hour, from: timeInDateFormat)
         let minutes = calendar.component(.minute, from: timeInDateFormat)
-        let twoDigitsHour = convertOneDigitiToTwoDigitis(oneDigitTime: hour)
-        let twoDigitMinutes = convertOneDigitiToTwoDigitis(oneDigitTime: minutes)
+        let twoDigitsHour = convertOneDigitToTwoDigits(oneDigitTime: hour)
+        let twoDigitMinutes = convertOneDigitToTwoDigits(oneDigitTime: minutes)
         let timeInStringFormat = "\(twoDigitsHour):\(twoDigitMinutes)"
         return timeInStringFormat
     }
@@ -87,7 +87,7 @@ class Formatter {
         return timeStamp
     }
     
-    private func convertOneDigitiToTwoDigitis(oneDigitTime: Int) -> String {
+    private func convertOneDigitToTwoDigits(oneDigitTime: Int) -> String {
         let oneDigitTimeAsString = String(oneDigitTime)
         if oneDigitTimeAsString.count == 1 {
             return "0" + oneDigitTimeAsString

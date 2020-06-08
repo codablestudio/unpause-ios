@@ -32,6 +32,7 @@ enum UnpauseError: Error, Equatable {
     case noShiftsCSVError
     case dateConversionError
     case locationNameError
+    case locationsFetchingError
     case otherError(Error)
     
     var errorMessage: String {
@@ -74,6 +75,8 @@ enum UnpauseError: Error, Equatable {
             return "Unable to make conversion accros different date formats."
         case .locationNameError:
             return "Please add location name."
+        case .locationsFetchingError:
+            return "Locations fetching error."
         case .otherError(let error):
             return "\(error.localizedDescription)"
         }

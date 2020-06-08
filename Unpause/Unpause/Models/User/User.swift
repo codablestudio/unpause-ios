@@ -27,6 +27,8 @@ class User: NSObject, NSCoding {
     
     var workingTimeFromThisWeek: [Double]?
     
+    var privateUserLocations: [Location] = []
+    
     required init?(coder: NSCoder) {
         firstName = coder.decodeObject(forKey: "firstName") as? String
         lastName = coder.decodeObject(forKey: "lastName") as? String

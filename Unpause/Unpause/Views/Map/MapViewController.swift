@@ -19,8 +19,7 @@ class MapViewController: UIViewController {
     
     private let centerPinImageView = UIImageView()
     private let centerPinTextField = PaddedTextFieldWithCursor()
-    
-    private let addCompanyLocationContainerView = UIView()
+
     private let addCompanyLocationButton = UIButton()
     
     var currentPinMapLocationChanges = PublishSubject<CLLocationCoordinate2D?>()
@@ -50,7 +49,6 @@ class MapViewController: UIViewController {
     }
     
     private func render() {
-        renderAddCompanyLocationButtonContainerView()
         renderMapView()
         renderCenterPinImageView()
         renderCenterPinTextField()
@@ -124,21 +122,10 @@ class MapViewController: UIViewController {
 
 // MARK: - UI rendering
 private extension MapViewController {
-    func renderAddCompanyLocationButtonContainerView() {
-        view.addSubview(addCompanyLocationContainerView)
-        addCompanyLocationContainerView.snp.makeConstraints { make in
-            make.bottom.equalToSuperview()
-            make.left.right.equalToSuperview()
-            make.height.equalTo(100)
-        }
-        addCompanyLocationContainerView.backgroundColor = .unpauseWhite
-    }
-    
     func renderMapView() {
         view.addSubview(mapView)
         mapView.snp.makeConstraints { make in
-            make.top.left.right.equalToSuperview()
-            make.bottom.equalTo(addCompanyLocationContainerView.snp.top)
+            make.top.left.right.bottom.equalToSuperview()
         }
     }
     
@@ -155,15 +142,14 @@ private extension MapViewController {
     func renderCenterPinTextField() {
         mapView.addSubview(centerPinTextField)
         centerPinTextField.snp.makeConstraints { make in
-            make.bottom.equalTo(centerPinImageView.snp.top).offset(-3)
+            make.bottom.equalTo(centerPinImageView.snp.top).offset(-5)
             make.centerX.equalTo(centerPinImageView.snp.centerX)
-            make.height.equalTo(20)
         }
-        centerPinTextField.textInsets = UIEdgeInsets(top: 1, left: 2, bottom: 2, right: 2)
+        centerPinTextField.textInsets = UIEdgeInsets(top: 5, left: 8, bottom: 5, right: 8)
         centerPinTextField.backgroundColor = .unpauseBlack
         centerPinTextField.textColor = .unpauseWhite
         centerPinTextField.font = .systemFont(ofSize: 12, weight: .regular)
-        centerPinTextField.layer.cornerRadius = 6
+        centerPinTextField.layer.cornerRadius = 10
         centerPinTextField.textAlignment = .center
         centerPinTextField.attributedPlaceholder = NSAttributedString(string: "Location name",
                                                                       attributes: [NSAttributedString.Key.foregroundColor: UIColor.unpauseLightGray])
@@ -173,12 +159,12 @@ private extension MapViewController {
     }
     
     func renderAddCompanyLocationButton() {
-        addCompanyLocationContainerView.addSubview(addCompanyLocationButton)
+        mapView.addSubview(addCompanyLocationButton)
         addCompanyLocationButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(15)
             make.left.equalToSuperview().offset(30)
             make.right.equalToSuperview().inset(30)
-            make.bottom.equalToSuperview().inset(30)
+            make.bottom.equalToSuperview().inset(60)
+            make.height.equalTo(55)
         }
         addCompanyLocationButton.setTitle("Add company location", for: .normal)
         addCompanyLocationButton.titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)

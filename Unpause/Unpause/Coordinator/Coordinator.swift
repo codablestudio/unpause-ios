@@ -35,9 +35,11 @@ class Coordinator {
         let loginNetworking = LoginNetworking()
         let companyNetworking = CompanyNetworking()
         let registerNetworking = RegisterNetworking()
+        let locationNetworking = LocationNetworking()
         let loginViewModel = LoginViewModel(loginNetworking: loginNetworking,
                                             companyNetworking: companyNetworking,
-                                            registerNetworking: registerNetworking)
+                                            registerNetworking: registerNetworking,
+                                            locationNetworking: locationNetworking)
         let loginViewController = LoginViewController(loginViewModel: loginViewModel)
         let navigationController = UINavigationController(rootViewController: loginViewController)
         window.rootViewController = navigationController

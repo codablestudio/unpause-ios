@@ -10,7 +10,7 @@ import Foundation
 import FirebaseFirestore
 
 enum GoogleUserResponse {
-    case exsistingUser(DocumentSnapshot)
+    case existingUser(DocumentSnapshot)
     case notExistingUser
     case error(UnpauseError)
 }

@@ -76,7 +76,7 @@ class RegisterNetworking: RegisterNetworkingProtocol {
             .getDocument()
             .flatMapLatest ({ documentSnapshot -> Observable<GoogleUserResponse> in
                 if documentSnapshot.exists {
-                    return Observable.just(GoogleUserResponse.exsistingUser(documentSnapshot))
+                    return Observable.just(GoogleUserResponse.existingUser(documentSnapshot))
                 } else {
                     return Observable.just(GoogleUserResponse.notExistingUser)
                 }
@@ -100,7 +100,7 @@ class RegisterNetworking: RegisterNetworkingProtocol {
                     return self.checkIfUserIsAlreadyInDatabase(email: email)
                         .flatMapLatest { googleUserResponse -> Observable<FirebaseDocumentResponseObject> in
                             switch googleUserResponse {
-                            case .exsistingUser(let documentSnapshot):
+                            case .existingUser(let documentSnapshot):
                                 return Observable.just(FirebaseDocumentResponseObject.success(documentSnapshot))
                             case .notExistingUser:
                                 return Observable.just(FirebaseDocumentResponseObject.error(.googleUserSignInError))
