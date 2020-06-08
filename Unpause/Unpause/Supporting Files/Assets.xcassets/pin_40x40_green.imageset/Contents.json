@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "pin_40x40.png",
+      "filename" : "pin_40x40_green.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "pin_80x80.png",
+      "filename" : "pin_80x80_green.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "pin_120x120.png",
+      "filename" : "pin_120x120_green.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

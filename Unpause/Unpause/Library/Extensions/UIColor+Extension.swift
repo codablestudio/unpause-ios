@@ -18,6 +18,10 @@ extension UIColor {
         return UIColor(named: "unpauseBlack") ?? UIColor.fallbackColor("unpauseBlack")
     }
     
+    static var unpauseRed: UIColor {
+        return UIColor(named: "unpauseRed") ?? UIColor.fallbackColor("unpauseRed")
+    }
+    
     static var unpauseOrange: UIColor {
         return UIColor(named: "unpauseOrange") ?? UIColor.fallbackColor("unpauseOrange")
     }

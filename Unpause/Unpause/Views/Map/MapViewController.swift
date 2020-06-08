@@ -176,7 +176,7 @@ private extension MapViewController {
             make.height.width.equalTo(40)
             make.bottom.equalTo(mapView.snp.centerY).offset(40)
         }
-        centerPinImageView.image = UIImage(named: "pin_40x40")
+        centerPinImageView.image = UIImage(named: "pin_40x40_red")
     }
     
     func renderCenterPinTextField() {
@@ -217,7 +217,25 @@ private extension MapViewController {
 extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         addCompanyLocationButton.setTitle("Remove location", for: .normal)
-        addCompanyLocationButton.backgroundColor = .unpauseOrange
+        addCompanyLocationButton.backgroundColor = .unpauseRed
         selectedAnnotation = view.annotation
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKAnnotationView { return nil }
+        else {
+            let greenPinIdentifier = "greenPin"
+            var pinView: MKAnnotationView?
+            if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: greenPinIdentifier) {
+                dequeuedView.annotation = annotation
+                pinView = dequeuedView
+            }
+            else {
+                pinView = MKAnnotationView(annotation: annotation, reuseIdentifier: greenPinIdentifier)
+                pinView?.image = UIImage(named: "pin_40x40_green")
+                pinView?.canShowCallout = true
+            }
+            return pinView
+        }
     }
 }
