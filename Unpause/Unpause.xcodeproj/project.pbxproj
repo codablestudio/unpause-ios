@@ -10,6 +10,7 @@
 		4B005F101E034FA83A58D384 /* Pods_UnpauseTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE4303FF8A698CEC13347652 /* Pods_UnpauseTests.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		C102D7BA23ACCFB4000B9E80 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C102D7B923ACCFB4000B9E80 /* Colors.xcassets */; };
 		C102D7BF23AD0063000B9E80 /* OrangeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C102D7BE23AD0063000B9E80 /* OrangeButton.swift */; };
+		C1047FCD2490256500E6F578 /* LocationButtonTouchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1047FCC2490256500E6F578 /* LocationButtonTouchResponse.swift */; };
 		C10B9EF3248010EF00C324E6 /* DayOfWeek.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10B9EF2248010EF00C324E6 /* DayOfWeek.swift */; };
 		C10F78D723A3D79200783476 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10F78C223A3D79200783476 /* ActivityIndicator.swift */; };
 		C10F78D823A3D79200783476 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10F78C423A3D79200783476 /* UIImageView+Extension.swift */; };
@@ -86,6 +87,7 @@
 		C1437B4323F40B0A007BD7DA /* ShiftNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1437B4223F40B0A007BD7DA /* ShiftNetworking.swift */; };
 		C14466C62417AD0800CD52B6 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14466C52417AD0800CD52B6 /* ForgotPasswordViewController.swift */; };
 		C14466C82417AD2A00CD52B6 /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14466C72417AD2A00CD52B6 /* ForgotPasswordViewModel.swift */; };
+		C14526102490FFEA00C77FFD /* NewLocationSavingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C145260F2490FFEA00C77FFD /* NewLocationSavingResponse.swift */; };
 		C14557C5243B29320068518C /* MockUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14557C4243B29320068518C /* MockUser.swift */; };
 		C146991223A112F100A84818 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C146991123A112F100A84818 /* AppDelegate.swift */; };
 		C146991B23A112F200A84818 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C146991A23A112F200A84818 /* Assets.xcassets */; };
@@ -189,6 +191,7 @@
 		AE4303FF8A698CEC13347652 /* Pods_UnpauseTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnpauseTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C102D7B923ACCFB4000B9E80 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		C102D7BE23AD0063000B9E80 /* OrangeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrangeButton.swift; sourceTree = "<group>"; };
+		C1047FCC2490256500E6F578 /* LocationButtonTouchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationButtonTouchResponse.swift; sourceTree = "<group>"; };
 		C10B9EF2248010EF00C324E6 /* DayOfWeek.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayOfWeek.swift; sourceTree = "<group>"; };
 		C10F78C223A3D79200783476 /* ActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		C10F78C423A3D79200783476 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
@@ -269,6 +272,7 @@
 		C1437B4223F40B0A007BD7DA /* ShiftNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftNetworking.swift; sourceTree = "<group>"; };
 		C14466C52417AD0800CD52B6 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		C14466C72417AD2A00CD52B6 /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
+		C145260F2490FFEA00C77FFD /* NewLocationSavingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLocationSavingResponse.swift; sourceTree = "<group>"; };
 		C14557C4243B29320068518C /* MockUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUser.swift; sourceTree = "<group>"; };
 		C146990E23A112F100A84818 /* Unpause.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Unpause.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C146991123A112F100A84818 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -745,6 +749,8 @@
 			isa = PBXGroup;
 			children = (
 				C1704B6C248A847A00D4DB31 /* Location.swift */,
+				C1047FCC2490256500E6F578 /* LocationButtonTouchResponse.swift */,
+				C145260F2490FFEA00C77FFD /* NewLocationSavingResponse.swift */,
 			);
 			path = Location;
 			sourceTree = "<group>";
@@ -1445,6 +1451,7 @@
 				C12D289823A536BC004BC57A /* LoginNetworking.swift in Sources */,
 				C17E89232434E4FB00575A7F /* UpdatePersonalInfoNetworkingProtocol.swift in Sources */,
 				C1FBC46D23AA51E100579913 /* HomeViewController.swift in Sources */,
+				C14526102490FFEA00C77FFD /* NewLocationSavingResponse.swift in Sources */,
 				C1B131FA23F581E7009C3C59 /* ShiftTableViewCell.swift in Sources */,
 				C13B7738240E489E004DD8FB /* NotificationManager.swift in Sources */,
 				C1C21ACF24754A6000FE5739 /* SettingTableViewItem.swift in Sources */,
@@ -1464,6 +1471,7 @@
 				C10F78D923A3D79200783476 /* UIFont+Extension.swift in Sources */,
 				C111931F23CF523D007E2866 /* Coordinator+Home.swift in Sources */,
 				C10F78E823A3D79200783476 /* CGFloat+Extension.swift in Sources */,
+				C1047FCD2490256500E6F578 /* LocationButtonTouchResponse.swift in Sources */,
 				C17E89362434ED7600575A7F /* DescriptionViewModelProtocol.swift in Sources */,
 				C1FF2A8C23C4B14200ACCF29 /* UpdatePersonalInfoViewModel.swift in Sources */,
 				C17E89142434D61E00575A7F /* RegisterViewModelProtocol.swift in Sources */,

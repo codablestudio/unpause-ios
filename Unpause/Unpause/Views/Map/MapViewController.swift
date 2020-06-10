@@ -20,11 +20,13 @@ class MapViewController: UIViewController {
     private let centerPinImageView = UIImageView()
     private let centerPinTextField = PaddedTextFieldWithCursor()
 
-    private let addCompanyLocationButton = UIButton()
+    private let addNewCompanyLocationButton = UIButton()
+    private let removeSelectedLocationButton = UIButton()
     
     var currentPinMapLocationChanges = PublishSubject<CLLocationCoordinate2D?>()
+    var selectedLocation = PublishSubject<Location?>()
     
-    private var selectedAnnotation: MKAnnotation?
+    private var selectedAnnotationView: MKAnnotationView?
     
     init(mapViewModel: MapViewModelProtocol) {
         self.mapViewModel = mapViewModel
@@ -57,6 +59,7 @@ class MapViewController: UIViewController {
         renderCenterPinImageView()
         renderCenterPinTextField()
         renderAddCompanyLocationButton()
+        renderRemoveSelectedLocationButton()
     }
     
     private func setUpObservables() {
@@ -76,9 +79,10 @@ class MapViewController: UIViewController {
             .subscribe(onNext: { [weak self] _ in
                 guard let `self` = self else { return }
                 self.dismissKeyboard()
-                self.addCompanyLocationButton.backgroundColor = .unpauseGreen
-                self.addCompanyLocationButton.setTitle("Add company location", for: .normal)
-                self.selectedAnnotation = nil
+                self.selectedAnnotationView?.image = UIImage(named: "pin_40x40_orange")
+                self.selectedAnnotationView = nil
+                self.removeSelectedLocationButton.isHidden = true
+                self.selectedLocation.onNext(nil)
             }).disposed(by: disposeBag)
         
         currentPinMapLocationChanges
@@ -89,7 +93,7 @@ class MapViewController: UIViewController {
             .bind(to: mapViewModel.textInCenterPinTextFieldChanges)
             .disposed(by: disposeBag)
         
-        addCompanyLocationButton.rx.tap
+        addNewCompanyLocationButton.rx.tap
             .do(onNext: { [weak self] _ in
                 guard let `self` = self else { return }
                 UnpauseActivityIndicatorView.shared.show(on: self.view)
@@ -97,19 +101,47 @@ class MapViewController: UIViewController {
             .bind(to: mapViewModel.addCompanyLocationButtonTapped)
             .disposed(by: disposeBag)
         
-        mapViewModel.newUserLocationSavingResponse
-            .subscribe(onNext: { [weak self] response in
+        removeSelectedLocationButton.rx.tap
+            .do(onNext: { [weak self] _ in
                 guard let `self` = self else { return }
-                switch response {
-                case .success:
+                UnpauseActivityIndicatorView.shared.show(on: self.view)
+            })
+            .bind(to: mapViewModel.removeSelectedLocationButtonTapped)
+            .disposed(by: disposeBag)
+        
+        mapViewModel.newUserLocationSavingResponse
+            .subscribe(onNext: { [weak self] newLocationSavingResponse in
+                guard let `self` = self else { return }
+                switch newLocationSavingResponse {
+                case .success(let uid):
                     UnpauseActivityIndicatorView.shared.showSuccessMessageAndDismissWithDelay(from: self.view, successMessage: "Location successfully added.", delay: 1.4)
-                    self.saveNewLocationLocallyAndUpdateMapView()
+                    self.saveNewLocationWithUidLocallyAndUpdateMapView(uid: uid)
                     self.clearTextInCenterPinTextField()
                 case .error(let error):
                     UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
                     self.showOneOptionAlert(title: "Location saving error", message: "\(error.errorMessage)", actionTitle: "OK")
                 }
             }).disposed(by: disposeBag)
+        
+        mapViewModel.selectedLocationDeletionResponse
+            .subscribe(onNext: {  [weak self] deletionResponse in
+                guard let `self` = self else { return }
+                switch deletionResponse {
+                case .success:
+                    self.mapViewModel.removeDeletedLocationFromCurrentUserLocations()
+                    self.removeDeletedLocationFromMap()
+                    self.selectedAnnotationView = nil
+                    self.selectedLocation.onNext(nil)
+                    self.removeSelectedLocationButton.isHidden = true
+                    UnpauseActivityIndicatorView.shared.showSuccessMessageAndDismissWithDelay(from: self.view, successMessage: "Location successfully removed.", delay: 1.4)
+                case .error(let error):
+                    UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
+                    self.showOneOptionAlert(title: "Location deletion error", message: "\(error.errorMessage)", actionTitle: "OK")
+                }
+            }).disposed(by: disposeBag)
+        
+        selectedLocation.bind(to: mapViewModel.userSelectedLocation)
+            .disposed(by: disposeBag)
     }
     
     private func setUpMapViewDelegate() {
@@ -141,15 +173,23 @@ class MapViewController: UIViewController {
         }
     }
     
-    private func saveNewLocationLocallyAndUpdateMapView() {
+    private func saveNewLocationWithUidLocallyAndUpdateMapView(uid: String) {
         let locationCoordinate = mapView.centerCoordinate
         guard let locationName = centerPinTextField.text else {
             return
         }
         let newLocation = Location(coordinate: locationCoordinate, name: locationName)
+        newLocation.uid = uid
         SessionManager.shared.currentUser?.privateUserLocations.append(newLocation)
         SessionManager.shared.saveCurrentUserToUserDefaults()
         addAnnotationToMap(location: newLocation)
+    }
+    
+    private func removeDeletedLocationFromMap() {
+        guard let annotationToRemove = selectedAnnotationView?.annotation else {
+            return
+        }
+        mapView.removeAnnotation(annotationToRemove)
     }
     
     private func addAnnotationToMap(location: Location) {
@@ -176,7 +216,7 @@ private extension MapViewController {
             make.height.width.equalTo(40)
             make.bottom.equalTo(mapView.snp.centerY).offset(40)
         }
-        centerPinImageView.image = UIImage(named: "pin_40x40_red")
+        centerPinImageView.image = UIImage(named: "pin_40x40_green")
     }
     
     func renderCenterPinTextField() {
@@ -199,26 +239,41 @@ private extension MapViewController {
     }
     
     func renderAddCompanyLocationButton() {
-        mapView.addSubview(addCompanyLocationButton)
-        addCompanyLocationButton.snp.makeConstraints { make in
+        mapView.addSubview(addNewCompanyLocationButton)
+        addNewCompanyLocationButton.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(30)
             make.right.equalToSuperview().inset(30)
             make.bottom.equalToSuperview().inset(60)
             make.height.equalTo(55)
         }
-        addCompanyLocationButton.setTitle("Add company location", for: .normal)
-        addCompanyLocationButton.titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
-        addCompanyLocationButton.layer.cornerRadius = 25
-        addCompanyLocationButton.backgroundColor = .unpauseGreen
+        addNewCompanyLocationButton.setTitle("Add company location", for: .normal)
+        addNewCompanyLocationButton.titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
+        addNewCompanyLocationButton.layer.cornerRadius = 25
+        addNewCompanyLocationButton.backgroundColor = .unpauseGreen
+    }
+    
+    func renderRemoveSelectedLocationButton() {
+        mapView.addSubview(removeSelectedLocationButton)
+        removeSelectedLocationButton.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(30)
+            make.right.equalToSuperview().inset(30)
+            make.bottom.equalToSuperview().inset(60)
+            make.height.equalTo(55)
+        }
+        removeSelectedLocationButton.setTitle("Remove location", for: .normal)
+        removeSelectedLocationButton.titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
+        removeSelectedLocationButton.layer.cornerRadius = 25
+        removeSelectedLocationButton.backgroundColor = .unpauseRed
+        removeSelectedLocationButton.isHidden = true
     }
 }
 
 // MARK: - MKMapViewDelegate
 extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        addCompanyLocationButton.setTitle("Remove location", for: .normal)
-        addCompanyLocationButton.backgroundColor = .unpauseRed
-        selectedAnnotation = view.annotation
+        setSelectedLocation(with: view)
+        removeSelectedLocationButton.isHidden = false
+        view.image = UIImage(named: "pin_40x40_red")
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -232,10 +287,35 @@ extension MapViewController: MKMapViewDelegate {
             }
             else {
                 pinView = MKAnnotationView(annotation: annotation, reuseIdentifier: greenPinIdentifier)
-                pinView?.image = UIImage(named: "pin_40x40_green")
+                pinView?.image = UIImage(named: "pin_40x40_orange")
                 pinView?.canShowCallout = true
             }
             return pinView
         }
+    }
+    
+    func setSelectedLocation(with annotationView: MKAnnotationView) {
+        selectedAnnotationView = annotationView
+        guard let annotationTitle = annotationView.annotation?.title,
+            let annotationCoordinate = annotationView.annotation?.coordinate else {
+                return
+        }
+        let location = Location(coordinate: annotationCoordinate, name: annotationTitle!)
+        let uid = findUIDForSelectedLocation(selectedLocation: location)
+        location.uid = uid
+        selectedLocation.onNext(location)
+    }
+    
+    func findUIDForSelectedLocation(selectedLocation: Location) -> String? {
+        var uid: String?
+        guard let currentUserLocations = SessionManager.shared.currentUser?.privateUserLocations else {
+            return ""
+        }
+        for location in currentUserLocations {
+            if location.name == selectedLocation.name && location.coordinate.latitude == selectedLocation.coordinate.latitude && selectedLocation.coordinate.longitude == location.coordinate.longitude {
+                uid = location.uid
+            }
+        }
+        return uid
     }
 }

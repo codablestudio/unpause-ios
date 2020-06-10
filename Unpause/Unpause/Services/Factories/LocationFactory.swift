@@ -31,6 +31,7 @@ class LocationFactory {
     
     static func createLocation(from queryDocumentSnapshot: QueryDocumentSnapshot) -> Location {
         let locationData = queryDocumentSnapshot.data()
+        let locationID = queryDocumentSnapshot.documentID.description
         let geoPoint = locationData["geopoint"] as? GeoPoint
         let name = locationData["name"] as? String
         guard let geoPointCoordinate = geoPoint,
@@ -38,6 +39,8 @@ class LocationFactory {
             return Location(coordinate: CLLocationCoordinate2D(), name: "No name")
         }
         let locationCoordinate = Formatter.shared.convertGeoPointToCLLocationCoordinateTwoD(geoPoint: geoPointCoordinate)
-        return Location(coordinate: locationCoordinate, name: locationName)
+        let newLocation = Location(coordinate: locationCoordinate, name: locationName)
+        newLocation.uid = locationID
+        return newLocation
     }
 }

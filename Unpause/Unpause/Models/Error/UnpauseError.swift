@@ -33,6 +33,8 @@ enum UnpauseError: Error, Equatable {
     case dateConversionError
     case locationNameError
     case locationsFetchingError
+    case selectedLocationError
+    case deletionError
     case otherError(Error)
     
     var errorMessage: String {
@@ -50,11 +52,11 @@ enum UnpauseError: Error, Equatable {
         case .serverSavingError:
             return "Data is not successfully saved on server."
         case .fetchingCompanyReferenceError:
-            return "Unable to fetch compnay reference from server."
+            return "Unable to fetch company reference from server."
         case .companyMakingError:
             return "Could not make company from given data."
         case .fetchingUserInfoError:
-            return "Could not fetch user ifo from server."
+            return "Could not fetch user info from server."
         case .userCreatingError:
             return "Unable to create user."
         case .companyFetchingError:
@@ -68,15 +70,19 @@ enum UnpauseError: Error, Equatable {
         case .noCompaniesError:
             return "There are no companies to fetch."
         case .wrongCompanyPasscodeError:
-            return "There is no commpany for that passcode. Please check your passcode and try again."
+            return "There is no company for that passcode. Please check your passcode and try again."
         case .noShiftsCSVError:
             return "Unable to make CSV file from empty table view list."
         case .dateConversionError:
-            return "Unable to make conversion accros different date formats."
+            return "Unable to make conversion across different date formats."
         case .locationNameError:
             return "Please add location name."
         case .locationsFetchingError:
             return "Locations fetching error."
+        case .selectedLocationError:
+            return "Unable to delete location because no location is selected."
+        case .deletionError:
+            return "Unable to delete location. Reason: Unrecognised UID."
         case .otherError(let error):
             return "\(error.localizedDescription)"
         }

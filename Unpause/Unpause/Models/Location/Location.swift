@@ -13,6 +13,7 @@ class Location: NSObject, NSCoding {
     
     var coordinate: CLLocationCoordinate2D!
     var name: String
+    var uid: String?
     
     init(coordinate: CLLocationCoordinate2D, name: String) {
         self.coordinate = coordinate
@@ -21,12 +22,14 @@ class Location: NSObject, NSCoding {
     
     required init?(coder: NSCoder) {
         name = coder.decodeObject(forKey: "name") as! String
+        uid = coder.decodeObject(forKey: "uid") as? String
         super.init()
         decodeLocation(coder: coder)
     }
     
     func encode(with coder: NSCoder) {
         coder.encode(name, forKey: "name")
+        coder.encode(uid, forKey: "uid")
         encodeLocation(with: coder)
     }
 }
