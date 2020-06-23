@@ -11,6 +11,8 @@
 		C102D7BA23ACCFB4000B9E80 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C102D7B923ACCFB4000B9E80 /* Colors.xcassets */; };
 		C102D7BF23AD0063000B9E80 /* OrangeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C102D7BE23AD0063000B9E80 /* OrangeButton.swift */; };
 		C1047FCD2490256500E6F578 /* LocationButtonTouchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1047FCC2490256500E6F578 /* LocationButtonTouchResponse.swift */; };
+		C10849C324A1FA7C00A58856 /* ShiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10849C224A1FA7C00A58856 /* ShiftViewController.swift */; };
+		C10849C524A211C000A58856 /* ShiftViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10849C424A211C000A58856 /* ShiftViewModel.swift */; };
 		C10B9EF3248010EF00C324E6 /* DayOfWeek.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10B9EF2248010EF00C324E6 /* DayOfWeek.swift */; };
 		C10F78D723A3D79200783476 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10F78C223A3D79200783476 /* ActivityIndicator.swift */; };
 		C10F78D823A3D79200783476 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10F78C423A3D79200783476 /* UIImageView+Extension.swift */; };
@@ -192,6 +194,8 @@
 		C102D7B923ACCFB4000B9E80 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		C102D7BE23AD0063000B9E80 /* OrangeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrangeButton.swift; sourceTree = "<group>"; };
 		C1047FCC2490256500E6F578 /* LocationButtonTouchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationButtonTouchResponse.swift; sourceTree = "<group>"; };
+		C10849C224A1FA7C00A58856 /* ShiftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftViewController.swift; sourceTree = "<group>"; };
+		C10849C424A211C000A58856 /* ShiftViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftViewModel.swift; sourceTree = "<group>"; };
 		C10B9EF2248010EF00C324E6 /* DayOfWeek.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayOfWeek.swift; sourceTree = "<group>"; };
 		C10F78C223A3D79200783476 /* ActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		C10F78C423A3D79200783476 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
@@ -866,6 +870,7 @@
 			children = (
 				C17E89372434EE8F00575A7F /* AddShiftViewModelProtocol.swift */,
 				C111932223CF6008007E2866 /* AddShiftViewModel.swift */,
+				C10849C424A211C000A58856 /* ShiftViewModel.swift */,
 			);
 			path = AddShift;
 			sourceTree = "<group>";
@@ -1094,6 +1099,7 @@
 			isa = PBXGroup;
 			children = (
 				C111932023CF56B7007E2866 /* AddShiftViewController.swift */,
+				C10849C224A1FA7C00A58856 /* ShiftViewController.swift */,
 			);
 			path = AddShift;
 			sourceTree = "<group>";
@@ -1439,6 +1445,7 @@
 				C1419F702412543E001B5817 /* AddCompanyViewController.swift in Sources */,
 				C14466C62417AD0800CD52B6 /* ForgotPasswordViewController.swift in Sources */,
 				C13D8DD9248E2815001B7676 /* PaddedTextFieldWithCursor.swift in Sources */,
+				C10849C324A1FA7C00A58856 /* ShiftViewController.swift in Sources */,
 				C17E892A2434E64500575A7F /* HomeNetworkingProtocol.swift in Sources */,
 				C1F2CD1F23F2E6D600BD23DC /* LastCheckInResponse.swift in Sources */,
 				C13B4B1223BF8A62006E1E0E /* FirebaseDocumentResponeObject.swift in Sources */,
@@ -1557,6 +1564,7 @@
 				C10F78E723A3D79200783476 /* UIButton+Rx.swift in Sources */,
 				C14731472416A4EB00477ECA /* CompanyReferenceSavingResponse.swift in Sources */,
 				C133DE5223C871A90096F5B2 /* ChangePasswordNetworking.swift in Sources */,
+				C10849C524A211C000A58856 /* ShiftViewModel.swift in Sources */,
 				C17E89432434F22100575A7F /* ChangePasswordViewModelProtocol.swift in Sources */,
 				C176A55A23FED4F900631E39 /* ShiftDeletionResponse.swift in Sources */,
 			);

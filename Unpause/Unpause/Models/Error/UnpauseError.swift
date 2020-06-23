@@ -35,6 +35,7 @@ enum UnpauseError: Error, Equatable {
     case locationsFetchingError
     case selectedLocationError
     case deletionError
+    case wrongDateInputError
     case otherError(Error)
     
     var errorMessage: String {
@@ -83,6 +84,8 @@ enum UnpauseError: Error, Equatable {
             return "Unable to delete location because no location is selected."
         case .deletionError:
             return "Unable to delete location. Reason: Unrecognised UID."
+        case .wrongDateInputError:
+            return "Please enter correct dates and times."
         case .otherError(let error):
             return "\(error.localizedDescription)"
         }

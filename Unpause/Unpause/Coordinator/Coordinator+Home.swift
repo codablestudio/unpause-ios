@@ -19,6 +19,14 @@ extension Coordinator {
         viewController.present(navigationController, animated: true)
     }
     
+    func presentShiftViewController(from viewController: UIViewController) {
+        let shiftNetworking = ShiftNetworking()
+        let shiftViewModel = ShiftViewModel(shiftNetworking: shiftNetworking)
+        let shiftViewController = ShiftViewController(shiftViewModel: shiftViewModel)
+        let navigationController = UINavigationController(rootViewController: shiftViewController)
+        viewController.present(navigationController, animated: true)
+    }
+    
     func presentAddShiftViewController(from viewController: ActivityViewController, with shiftData: ShiftsTableViewItem) {
         let addShiftViewModel = AddShiftViewModel(shiftToEdit: shiftData)
         let addShiftViewController = AddShiftViewController(addShiftViewModel: addShiftViewModel,

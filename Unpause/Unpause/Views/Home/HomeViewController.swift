@@ -77,7 +77,7 @@ class HomeViewController: UIViewController {
             .do(onNext: { [weak self] (userChecksIn) in
                 guard let `self` = self else { return }
                 if !userChecksIn {
-                    Coordinator.shared.presentAddShiftViewController(from: self, navigationFromCustomShift: false)
+                    Coordinator.shared.presentShiftViewController(from: self)
                 }
             })
             .bind(to: homeViewModel.userChecksIn)
