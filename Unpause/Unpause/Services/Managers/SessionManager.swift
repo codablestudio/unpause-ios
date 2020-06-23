@@ -37,6 +37,7 @@ extension SessionManager {
     
     func logOut() {
         currentUser = nil
+        NotificationManager.shared.notificationCenter.removeAllPendingNotificationRequests()
         UserDefaults.standard.removeObject(forKey: currentUserKey)
     }
     

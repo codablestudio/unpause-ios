@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum WorkingTimeFetchingRespponse {
+enum WorkingTimeFetchingResponse {
     case succes([Double])
     case error(UnpauseError)
 }

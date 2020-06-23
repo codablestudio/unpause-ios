@@ -13,7 +13,7 @@ protocol HomeViewModelProtocol {
     var usersLastCheckInTimeRequest: Observable<LastCheckInResponse>! { get }
     var checkInResponse: Observable<Response>! { get }
     var fetchingLastShift: Observable<Bool>! { get }
-    var lastWeekWorkingTimeFetchingResponse: Observable<WorkingTimeFetchingRespponse>! { get }
+    var lastWeekWorkingTimeFetchingResponse: Observable<WorkingTimeFetchingResponse>! { get }
     
     var userChecksIn: PublishSubject<Bool> { get }
 }
@@ -29,7 +29,7 @@ class HomeViewModel: HomeViewModelProtocol {
     var fetchingLastShift: Observable<Bool>! {
         return _isFetchingLastShift.asObservable()
     }
-    var lastWeekWorkingTimeFetchingResponse: Observable<WorkingTimeFetchingRespponse>!
+    var lastWeekWorkingTimeFetchingResponse: Observable<WorkingTimeFetchingResponse>!
     
     private let _isFetchingLastShift = ActivityIndicator()
     
@@ -68,22 +68,20 @@ class HomeViewModel: HomeViewModelProtocol {
                 }
             })
         
-//        lastWeekWorkingTimeFetchingResponse = Observable.combineLatest(HomeViewModel.forceRefresh, ActivityViewModel.forceRefresh)
-//            .startWith(((), ()))
         lastWeekWorkingTimeFetchingResponse = Observable.merge([HomeViewModel.forceRefresh, ActivityViewModel.forceRefresh])
         .startWith(())
             .flatMapLatest({ [weak self] _ -> Observable<ShiftsResponse> in
                 guard let `self` = self else { return Observable.empty() }
                 return self.shiftNetworking.fetchShifts()
             })
-            .map({ [weak self] shiftsResponse ->  WorkingTimeFetchingRespponse in
-                guard let `self` = self else { return WorkingTimeFetchingRespponse.error(.emptyError) }
+            .map({ [weak self] shiftsResponse ->  WorkingTimeFetchingResponse in
+                guard let `self` = self else { return WorkingTimeFetchingResponse.error(.emptyError) }
                 switch shiftsResponse {
                 case .success(let allShifs):
                     let workingTimesFromThisWeek = self.getArrayOfCurrentWeekWorkingTimes(allShifts: allShifs)
-                    return WorkingTimeFetchingRespponse.succes(workingTimesFromThisWeek)
+                    return WorkingTimeFetchingResponse.succes(workingTimesFromThisWeek)
                 case .error(let error):
-                    return WorkingTimeFetchingRespponse.error(error as! UnpauseError)
+                    return WorkingTimeFetchingResponse.error(error as! UnpauseError)
                 }
             })
     }

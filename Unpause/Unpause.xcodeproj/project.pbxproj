@@ -134,7 +134,7 @@
 		C198B8F423B0CFC100FBD3C6 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C198B8F323B0CFC100FBD3C6 /* CustomTabBarController.swift */; };
 		C198B8F623B0D57C00FBD3C6 /* UnpauseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C198B8F523B0D57C00FBD3C6 /* UnpauseError.swift */; };
 		C19BDDD3247AE59D006265D9 /* Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19BDDD2247AE59D006265D9 /* Animator.swift */; };
-		C1A0F037247FFA160094372F /* WorkingTimeFetchingRespponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A0F036247FFA160094372F /* WorkingTimeFetchingRespponse.swift */; };
+		C1A0F037247FFA160094372F /* WorkingTimeFetchingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A0F036247FFA160094372F /* WorkingTimeFetchingResponse.swift */; };
 		C1B0B2B323B0BF9700CE5D05 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B0B2B223B0BF9700CE5D05 /* SessionManager.swift */; };
 		C1B131FA23F581E7009C3C59 /* ShiftTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B131F923F581E7009C3C59 /* ShiftTableViewCell.swift */; };
 		C1B131FC23F59150009C3C59 /* ShitfsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B131FB23F59150009C3C59 /* ShitfsResponse.swift */; };
@@ -321,7 +321,7 @@
 		C198B8F323B0CFC100FBD3C6 /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		C198B8F523B0D57C00FBD3C6 /* UnpauseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnpauseError.swift; sourceTree = "<group>"; };
 		C19BDDD2247AE59D006265D9 /* Animator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animator.swift; sourceTree = "<group>"; };
-		C1A0F036247FFA160094372F /* WorkingTimeFetchingRespponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkingTimeFetchingRespponse.swift; sourceTree = "<group>"; };
+		C1A0F036247FFA160094372F /* WorkingTimeFetchingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkingTimeFetchingResponse.swift; sourceTree = "<group>"; };
 		C1B0B2B223B0BF9700CE5D05 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		C1B131F923F581E7009C3C59 /* ShiftTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftTableViewCell.swift; sourceTree = "<group>"; };
 		C1B131FB23F59150009C3C59 /* ShitfsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShitfsResponse.swift; sourceTree = "<group>"; };
@@ -965,7 +965,7 @@
 				C176A55923FED4F900631E39 /* ShiftDeletionResponse.swift */,
 				C1B131FB23F59150009C3C59 /* ShitfsResponse.swift */,
 				C1D0CA0A23F6AC9600A20D6F /* DataSource.swift */,
-				C1A0F036247FFA160094372F /* WorkingTimeFetchingRespponse.swift */,
+				C1A0F036247FFA160094372F /* WorkingTimeFetchingResponse.swift */,
 			);
 			path = Shift;
 			sourceTree = "<group>";
@@ -1463,7 +1463,7 @@
 				C14104B42473E11B00CAAE26 /* IAPManager.swift in Sources */,
 				C1D0CA0B23F6AC9600A20D6F /* DataSource.swift in Sources */,
 				C10F78E923A3D79200783476 /* Array+Extension.swift in Sources */,
-				C1A0F037247FFA160094372F /* WorkingTimeFetchingRespponse.swift in Sources */,
+				C1A0F037247FFA160094372F /* WorkingTimeFetchingResponse.swift in Sources */,
 				C10F78E323A3D79200783476 /* Bool+Extension.swift in Sources */,
 				C111932123CF56B7007E2866 /* AddShiftViewController.swift in Sources */,
 				C17E89272434E5EA00575A7F /* ChangePasswordNetworkingProtocol.swift in Sources */,

@@ -31,36 +31,34 @@ extension NotificationManager {
     func scheduleEntranceNotification() {
         notificationCenter.removeAllPendingNotificationRequests()
         
-        guard let allUsersCompanyLocations = SessionManager.shared.currentUser?.company?.locations else { return }
-        for location in allUsersCompanyLocations {
-            let latitude = location.latitude
-            let longitude = location.longitude
-            
-            let entranceRequest = makeLocationBasedNotificationRequest(notificationBody: "You entered job area.",
-                                                                       latitude: latitude,
-                                                                       longitude: longitude,
-                                                                       notifyOnEntry: true,
-                                                                       notifyOnExit: false)
-            
-            notificationCenter.add(entranceRequest, withCompletionHandler: nil)
+        if let allUsersCompanyLocations = SessionManager.shared.currentUser?.company?.locations {
+            for location in allUsersCompanyLocations {
+                makeEntranceRequestAndAddItToNotificationCenter(latitude: location.latitude,
+                                                                longitude: location.longitude)
+            }
+        } else if let allUserCustomMapLocations = SessionManager.shared.currentUser?.privateUserLocations {
+            for location in allUserCustomMapLocations {
+                makeEntranceRequestAndAddItToNotificationCenter(latitude: location.coordinate.latitude,
+                                                                longitude: location.coordinate.longitude)
+            }
         }
     }
     
     func scheduleExitNotification() {
         notificationCenter.removeAllPendingNotificationRequests()
-        guard let allUsersCompanyLocations = SessionManager.shared.currentUser?.company?.locations else { return }
-        for location in allUsersCompanyLocations {
-            let latitude = location.latitude
-            let longitude = location.longitude
-            
-            let exitRequest = makeLocationBasedNotificationRequest(notificationBody: "You left job area.",
-                                                                   latitude: latitude,
-                                                                   longitude: longitude,
-                                                                   notifyOnEntry: false,
-                                                                   notifyOnExit: true)
-            notificationCenter.add(exitRequest, withCompletionHandler: nil)
+        if let allUsersCompanyLocations = SessionManager.shared.currentUser?.company?.locations {
+            for location in allUsersCompanyLocations {
+                makeExitRequestAndAddItToNotificationCenter(latitude: location.latitude,
+                                                            longitude: location.longitude)
+            }
+        } else if let allUserCustomMapLocations = SessionManager.shared.currentUser?.privateUserLocations {
+            for location in allUserCustomMapLocations {
+                makeExitRequestAndAddItToNotificationCenter(latitude: location.coordinate.latitude,
+                                                            longitude: location.coordinate.longitude)
+            }
         }
     }
+    
     
     func makeLocationBasedNotificationRequest(notificationBody: String,
                                               latitude: CLLocationDegrees,
@@ -102,6 +100,25 @@ extension NotificationManager {
         
         notificationCenter.setNotificationCategories([entranceCategory, exitCategory])
     }
+    
+    private func makeEntranceRequestAndAddItToNotificationCenter(latitude: Double, longitude: Double) {
+        let entranceRequest = makeLocationBasedNotificationRequest(notificationBody: "You entered job area.",
+                                                                   latitude: latitude,
+                                                                   longitude: longitude,
+                                                                   notifyOnEntry: true,
+                                                                   notifyOnExit: false)
+        
+        notificationCenter.add(entranceRequest, withCompletionHandler: nil)
+    }
+    
+    private func makeExitRequestAndAddItToNotificationCenter(latitude: Double, longitude: Double) {
+        let exitRequest = makeLocationBasedNotificationRequest(notificationBody: "You left job area.",
+                                                               latitude: latitude,
+                                                               longitude: longitude,
+                                                               notifyOnEntry: false,
+                                                               notifyOnExit: true)
+        notificationCenter.add(exitRequest, withCompletionHandler: nil)
+    }
 }
 
 // MARK: - Time based notifications
@@ -124,7 +141,7 @@ extension NotificationManager {
 extension NotificationManager: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         let identifier = response.actionIdentifier
-
+        
         if identifier == "entranceAction" && SessionManager.shared.currentUser?.lastCheckInDateAndTime == nil {
             SessionManager.shared.currentUser?.lastCheckInDateAndTime = Date()
             userChecksIn.onNext(())
