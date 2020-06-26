@@ -143,7 +143,8 @@ class ActivityViewController: UIViewController {
             guard let `self` = self else { return }
             self.selectedCell = self.tableView.cellForRow(at: indexPath) as? ShiftTableViewCell
             self.selectedCellContainerViewSnapshot = self.selectedCell?.containerView.snapshotView(afterScreenUpdates: false)
-            Coordinator.shared.presentAddShiftViewController(from: self, with: self.dataSource[indexPath.row])
+            //Coordinator.shared.presentCustomShiftViewController(from: self, with: self.dataSource[indexPath.row])
+            //Coordinator.shared.presentAddShiftViewController(from: self, with: self.dataSource[indexPath.row])
         }).disposed(by: disposeBag)
         
         observeDeletions()
@@ -244,7 +245,7 @@ class ActivityViewController: UIViewController {
         
         alert.addAction(UIAlertAction(title: "Add custom shift", style: .default , handler:{ [weak self] _ in
             guard let `self` = self else { return }
-            Coordinator.shared.presentAddShiftViewController(from: self, navigationFromCustomShift: true)
+            Coordinator.shared.presentCustomShiftViewController(from: self)
         }))
         
         alert.addAction(UIAlertAction(title: "Send as email", style: .default, handler:{ _ in

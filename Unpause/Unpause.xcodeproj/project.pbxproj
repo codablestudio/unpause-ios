@@ -131,6 +131,8 @@
 		C17E89412434F15000575A7F /* AddCompanyViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E89402434F15000575A7F /* AddCompanyViewModelProtocol.swift */; };
 		C17E89432434F22100575A7F /* ChangePasswordViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E89422434F22100575A7F /* ChangePasswordViewModelProtocol.swift */; };
 		C17E89452434F2E600575A7F /* UpdatePersonalInfoViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E89442434F2E600575A7F /* UpdatePersonalInfoViewModelProtocol.swift */; };
+		C194854024A5E59900FF5454 /* CustomShiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C194853F24A5E59900FF5454 /* CustomShiftViewController.swift */; };
+		C194854224A5E63F00FF5454 /* CustomShiftViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C194854124A5E63F00FF5454 /* CustomShiftViewModel.swift */; };
 		C198B8EF23B0CACA00FBD3C6 /* Coordinator+Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C198B8EE23B0CACA00FBD3C6 /* Coordinator+Auth.swift */; };
 		C198B8F123B0CB4C00FBD3C6 /* Coordinator+Tabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C198B8F023B0CB4C00FBD3C6 /* Coordinator+Tabbar.swift */; };
 		C198B8F423B0CFC100FBD3C6 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C198B8F323B0CFC100FBD3C6 /* CustomTabBarController.swift */; };
@@ -320,6 +322,8 @@
 		C17E89422434F22100575A7F /* ChangePasswordViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewModelProtocol.swift; sourceTree = "<group>"; };
 		C17E89442434F2E600575A7F /* UpdatePersonalInfoViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePersonalInfoViewModelProtocol.swift; sourceTree = "<group>"; };
 		C18F218324488999007C9024 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		C194853F24A5E59900FF5454 /* CustomShiftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomShiftViewController.swift; sourceTree = "<group>"; };
+		C194854124A5E63F00FF5454 /* CustomShiftViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomShiftViewModel.swift; sourceTree = "<group>"; };
 		C198B8EE23B0CACA00FBD3C6 /* Coordinator+Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinator+Auth.swift"; sourceTree = "<group>"; };
 		C198B8F023B0CB4C00FBD3C6 /* Coordinator+Tabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinator+Tabbar.swift"; sourceTree = "<group>"; };
 		C198B8F323B0CFC100FBD3C6 /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
@@ -871,6 +875,7 @@
 				C17E89372434EE8F00575A7F /* AddShiftViewModelProtocol.swift */,
 				C111932223CF6008007E2866 /* AddShiftViewModel.swift */,
 				C10849C424A211C000A58856 /* ShiftViewModel.swift */,
+				C194854124A5E63F00FF5454 /* CustomShiftViewModel.swift */,
 			);
 			path = AddShift;
 			sourceTree = "<group>";
@@ -1100,6 +1105,7 @@
 			children = (
 				C111932023CF56B7007E2866 /* AddShiftViewController.swift */,
 				C10849C224A1FA7C00A58856 /* ShiftViewController.swift */,
+				C194853F24A5E59900FF5454 /* CustomShiftViewController.swift */,
 			);
 			path = AddShift;
 			sourceTree = "<group>";
@@ -1431,6 +1437,7 @@
 				C111932323CF6008007E2866 /* AddShiftViewModel.swift in Sources */,
 				C12A2C1E2465ACC700BA9D51 /* UpgradeToProViewModelProtocol.swift in Sources */,
 				C14731432416982000477ECA /* CompaniesValidationDataResponse.swift in Sources */,
+				C194854224A5E63F00FF5454 /* CustomShiftViewModel.swift in Sources */,
 				C1704B6A248A6B9100D4DB31 /* LocationFactory.swift in Sources */,
 				C1FF2A8E23C4B3EA00ACCF29 /* Coordinator+Settings.swift in Sources */,
 				C14104B72473E58F00CAAE26 /* PurchaseResponse.swift in Sources */,
@@ -1503,6 +1510,7 @@
 				C13DDCEB23F36D050043E242 /* Shift.swift in Sources */,
 				C10F78D723A3D79200783476 /* ActivityIndicator.swift in Sources */,
 				C17E893A2434EF2C00575A7F /* ActivityViewModelProtocol.swift in Sources */,
+				C194854024A5E59900FF5454 /* CustomShiftViewController.swift in Sources */,
 				C10F78DF23A3D79200783476 /* UIView+Extension.swift in Sources */,
 				C102D7BF23AD0063000B9E80 /* OrangeButton.swift in Sources */,
 				C1C21ACC247541AF00FE5739 /* SettingsTableViewCell.swift in Sources */,
