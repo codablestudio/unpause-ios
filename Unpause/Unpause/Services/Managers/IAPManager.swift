@@ -24,54 +24,34 @@ class IAPManager {
     }
     
     func updateUserSubscriptionStatus(onCompleted: @escaping () -> Void) {
-        updateOneMonthAutoRenewingSubscriptionValidationDate(onCompleted: {
-            self.updateOneYearAutoRenewingSubscriptionValidationDate(onCompleted: {
+        if let isPromoUser = SessionManager.shared.currentUser?.isPromoUser, isPromoUser {
+            onCompleted()
+        } else {
+            updateAutoRenewingSubscriptionsValidationDate {
                 onCompleted()
-            })
-        })
-        
-    }
-    
-    private func updateOneMonthAutoRenewingSubscriptionValidationDate(onCompleted: @escaping () -> Void) {
-        SwiftyStoreKit.verifyReceipt(using: self.appleValidator) { [weak self] result in
-            guard let `self` = self else { return }
-            switch result {
-            case .success(let receipt):
-                let productId = self.oneMonthSubscriptionProductID
-                let purchaseResult = SwiftyStoreKit.verifySubscription(ofType: .autoRenewable,
-                                                                       productId: productId,
-                                                                       inReceipt: receipt)
-                
-                switch purchaseResult {
-                case .purchased(let expiryDate, _), .expired(let expiryDate, _):
-                    SessionManager.shared.currentUser?.monthSubscriptionEndingDate = expiryDate
-                case .notPurchased:
-                    SessionManager.shared.currentUser?.monthSubscriptionEndingDate = nil
-                }
-                onCompleted()
-            case .error(let error):
-                print("Receipt verification failed: \(error.localizedDescription)")
             }
         }
     }
     
-    private func updateOneYearAutoRenewingSubscriptionValidationDate(onCompleted: @escaping () -> Void) {
+    private func updateAutoRenewingSubscriptionsValidationDate(onCompleted: @escaping () -> Void) {
         SwiftyStoreKit.verifyReceipt(using: self.appleValidator) { [weak self] result in
             guard let `self` = self else { return }
             switch result {
             case .success(let receipt):
-                let productId = self.oneYearSubscriptionProductID
-                let purchaseResult = SwiftyStoreKit.verifySubscription(ofType: .autoRenewable,
-                                                                       productId: productId,
-                                                                       inReceipt: receipt)
+                let oneMonthProductId = self.oneMonthSubscriptionProductID
+                let oneYearProductId = self.oneYearSubscriptionProductID
+                let purchaseResult = SwiftyStoreKit.verifySubscriptions(productIds: [oneMonthProductId, oneYearProductId],
+                                                                        inReceipt: receipt)
+                
                 switch purchaseResult {
                 case .purchased(let expiryDate, _), .expired(let expiryDate, _):
-                    SessionManager.shared.currentUser?.yearSubscriptionEndingDate = expiryDate
+                    SessionManager.shared.currentUser?.subscriptionEndingDate = expiryDate
                 case .notPurchased:
-                    SessionManager.shared.currentUser?.yearSubscriptionEndingDate = nil
+                    SessionManager.shared.currentUser?.subscriptionEndingDate = nil
                 }
                 onCompleted()
             case .error(let error):
+                onCompleted()
                 print("Receipt verification failed: \(error.localizedDescription)")
             }
         }

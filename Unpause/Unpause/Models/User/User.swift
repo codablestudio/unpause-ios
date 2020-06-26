@@ -19,8 +19,7 @@ class User: NSObject, NSCoding {
     var lastCheckInDateAndTime: Date?
     var lastCheckOutDateAndTime: Date?
     
-    var monthSubscriptionEndingDate: Date?
-    var yearSubscriptionEndingDate: Date?
+    var subscriptionEndingDate: Date?
     var isPromoUser = false
     
     var company: Company?
@@ -58,12 +57,12 @@ class User: NSObject, NSCoding {
 extension User {
     func checkIfUserHasValidSubscription(onCompleted: @escaping (Bool) -> Void ) {
         return IAPManager.shared.updateUserSubscriptionStatus(onCompleted: {
-            if let monthEndingDate = self.monthSubscriptionEndingDate, monthEndingDate > Date() {
+            if self.isPromoUser {
                 onCompleted(true)
-            } else if let yearEndingDate = self.yearSubscriptionEndingDate, yearEndingDate > Date() {
+            } else if let subscriptionEndingDate = self.subscriptionEndingDate, subscriptionEndingDate > Date() {
                 onCompleted(true)
             } else {
-                onCompleted(self.isPromoUser)
+                onCompleted(false)
             }
         })
     }

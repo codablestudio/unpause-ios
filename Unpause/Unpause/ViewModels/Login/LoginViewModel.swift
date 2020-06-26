@@ -13,6 +13,20 @@ import FirebaseAuth
 import FirebaseFirestore
 import GoogleSignIn
 
+protocol LoginViewModelProtocol {
+    var textInEmailTextFieldChanges: PublishSubject<String?> { get }
+    var textInPasswordTextFieldChanges: PublishSubject<String?> { get }
+    var logInButtonTapped: PublishSubject<Void>{ get }
+    var registerNowButtonTapped: PublishSubject<Void> { get }
+    var googleUserSignInResponse: PublishSubject<GIDGoogleUser> { get }
+    var userHasCompany: PublishSubject<Bool> { get }
+    
+    var loginRequest: Observable<FirebaseResponseObject>! { get }
+    var loginDocument: Observable<UnpauseResponse>! { get }
+    var googleUserSavingResponse: Observable<UnpauseResponse>! { get }
+    var isInsideGoogleSignInFlow: Observable<Bool>! { get }
+}
+
 class LoginViewModel: LoginViewModelProtocol {
     
     private let disposeBag = DisposeBag()
@@ -35,6 +49,7 @@ class LoginViewModel: LoginViewModelProtocol {
     var logInButtonTapped = PublishSubject<Void>()
     var registerNowButtonTapped = PublishSubject<Void>()
     var googleUserSignInResponse = PublishSubject<GIDGoogleUser>()
+    var userHasCompany = PublishSubject<Bool>()
     var isInsideGoogleSignInFlow: Observable<Bool>! {
         return _isInsideGoogleSignInFlow.asObservable()
     }
@@ -154,8 +169,10 @@ class LoginViewModel: LoginViewModelProtocol {
                 }
                 switch googleUserResponse {
                 case .existingUser(let documentSnapshot):
+                    self.userHasCompany.onNext(true)
                     return Observable.just(FirebaseDocumentResponseObject.success(documentSnapshot))
                 case .notExistingUser:
+                    self.userHasCompany.onNext(false)
                     return self.registerNetworking.saveUserOnServerAndReturnUserDocument(email: email, firstName: firstName, lastName: lastName)
                 case .error(let error):
                     return Observable.just(FirebaseDocumentResponseObject.error(error))

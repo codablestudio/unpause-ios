@@ -110,7 +110,6 @@
 		C1707B1A23F17605002E1A10 /* Formatter+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1707B1923F17605002E1A10 /* Formatter+String.swift */; };
 		C1707B1C23F18AE3002E1A10 /* HomeNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1707B1B23F18AE3002E1A10 /* HomeNetworking.swift */; };
 		C176A55A23FED4F900631E39 /* ShiftDeletionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C176A55923FED4F900631E39 /* ShiftDeletionResponse.swift */; };
-		C17E89102434D4CF00575A7F /* LoginViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E890F2434D4CF00575A7F /* LoginViewModelProtocol.swift */; };
 		C17E89142434D61E00575A7F /* RegisterViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E89132434D61E00575A7F /* RegisterViewModelProtocol.swift */; };
 		C17E89192434DA7E00575A7F /* LoginNetworkingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E89182434DA7E00575A7F /* LoginNetworkingProtocol.swift */; };
 		C17E891C2434DC8900575A7F /* CompanyNetworkingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E891B2434DC8900575A7F /* CompanyNetworkingProtocol.swift */; };
@@ -296,7 +295,6 @@
 		C1707B1923F17605002E1A10 /* Formatter+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Formatter+String.swift"; sourceTree = "<group>"; };
 		C1707B1B23F18AE3002E1A10 /* HomeNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNetworking.swift; sourceTree = "<group>"; };
 		C176A55923FED4F900631E39 /* ShiftDeletionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftDeletionResponse.swift; sourceTree = "<group>"; };
-		C17E890F2434D4CF00575A7F /* LoginViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelProtocol.swift; sourceTree = "<group>"; };
 		C17E89132434D61E00575A7F /* RegisterViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModelProtocol.swift; sourceTree = "<group>"; };
 		C17E89182434DA7E00575A7F /* LoginNetworkingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginNetworkingProtocol.swift; sourceTree = "<group>"; };
 		C17E891B2434DC8900575A7F /* CompanyNetworkingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyNetworkingProtocol.swift; sourceTree = "<group>"; };
@@ -1026,7 +1024,6 @@
 		C1BE0D2324215F3F00480224 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				C17E890F2434D4CF00575A7F /* LoginViewModelProtocol.swift */,
 				C146992D23A11DBE00A84818 /* LoginViewModel.swift */,
 			);
 			path = Login;
@@ -1432,7 +1429,6 @@
 				C1419F6C241253B4001B5817 /* Coordinator+Register.swift in Sources */,
 				C1C1D2E224373A72000BC698 /* RegisterNetworkingMock.swift in Sources */,
 				C10F78DA23A3D79200783476 /* UIColor+Extension.swift in Sources */,
-				C17E89102434D4CF00575A7F /* LoginViewModelProtocol.swift in Sources */,
 				C1C6D943242377710037378C /* UnpauseActivityIndicatorView.swift in Sources */,
 				C12D289823A536BC004BC57A /* LoginNetworking.swift in Sources */,
 				C17E89232434E4FB00575A7F /* UpdatePersonalInfoNetworkingProtocol.swift in Sources */,

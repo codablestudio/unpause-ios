@@ -23,7 +23,7 @@ class LoginViewController: UIViewController {
     private let titleStackView = UIStackView()
     private let welcomeToTitleLabel = UILabel()
     private let unpauseTitleLabel = UILabel()
-    private let titleDesriptionLabel = UILabel()
+    private let titleDescriptionLabel = UILabel()
     
     private let emailTextField = UITextField()
     private let emailSeparator = UIView()
@@ -37,6 +37,7 @@ class LoginViewController: UIViewController {
     private let registerButton = UIButton()
     
     var googleUserSignInResponse = PublishSubject<GIDGoogleUser>()
+    var userHasCompany: Bool?
     
     init(loginViewModel: LoginViewModelProtocol) {
         self.loginViewModel = loginViewModel
@@ -128,10 +129,15 @@ class LoginViewController: UIViewController {
             .disposed(by: disposeBag)
         
         loginViewModel.googleUserSavingResponse
-            .subscribe(onNext: { unpauseResponse in
+            .subscribe(onNext: { [weak self] unpauseResponse in
+                guard let `self` = self else { return }
                 switch unpauseResponse {
                 case .success:
-                    Coordinator.shared.navigateToHomeViewController()
+                    if let _ = self.userHasCompany {
+                        Coordinator.shared.navigateToAddCompanyViewController(from: self)
+                    } else {
+                        Coordinator.shared.navigateToHomeViewController()
+                    }
                     self.dismiss(animated: true)
                 case .error(let error):
                     if error == UnpauseError.noCompany {
@@ -143,11 +149,16 @@ class LoginViewController: UIViewController {
                 }
             }).disposed(by: disposeBag)
         
-        
         registerButton.rx.tap.subscribe(onNext: { [weak self] _ in
             guard let `self` = self else { return }
             Coordinator.shared.presentRegistrationViewController(from: self)
         }).disposed(by: disposeBag)
+        
+        loginViewModel.userHasCompany
+            .subscribe(onNext: { [weak self] isNewGoogleUser in
+                guard let `self` = self else { return }
+                self.userHasCompany = isNewGoogleUser
+            }).disposed(by: disposeBag)
     }
     
     private func addGestureRecognizer() {
@@ -219,20 +230,20 @@ private extension LoginViewController {
         unpauseTitleLabel.font = UIFont.boldSystemFont(ofSize: 30)
         unpauseTitleLabel.textColor = UIColor.unpauseOrange
         
-        containerView.addSubview(titleDesriptionLabel)
-        titleDesriptionLabel.snp.makeConstraints { make in
+        containerView.addSubview(titleDescriptionLabel)
+        titleDescriptionLabel.snp.makeConstraints { make in
             make.top.equalTo(titleStackView.snp.bottom).offset(5)
             make.centerX.equalToSuperview()
         }
-        titleDesriptionLabel.text = "Enjoy managing your working time"
-        titleDesriptionLabel.font = titleDesriptionLabel.font.withSize(13)
-        titleDesriptionLabel.textColor = UIColor.unpauseDarkGray
+        titleDescriptionLabel.text = "Enjoy managing your working time"
+        titleDescriptionLabel.font = titleDescriptionLabel.font.withSize(13)
+        titleDescriptionLabel.textColor = UIColor.unpauseDarkGray
     }
     
     func renderEmailTextFieldAndEmailSeparator() {
         containerView.addSubview(emailTextField)
         emailTextField.snp.makeConstraints { make in
-            make.top.equalTo(titleDesriptionLabel.snp.bottom).offset(85)
+            make.top.equalTo(titleDescriptionLabel.snp.bottom).offset(85)
             make.left.equalToSuperview().offset(65)
             make.right.equalToSuperview().inset(65)
         }

@@ -27,6 +27,7 @@ class LoginViewModelMock: LoginViewModelProtocol {
     var logInButtonTapped = PublishSubject<Void>()
     var registerNowButtonTapped = PublishSubject<Void>()
     var googleUserSignInResponse = PublishSubject<GIDGoogleUser>()
+    var userHasCompany = PublishSubject<Bool>()
     
     var loginRequest: Observable<FirebaseResponseObject>!
     var loginDocument: Observable<UnpauseResponse>!
