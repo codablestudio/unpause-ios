@@ -143,8 +143,7 @@ class ActivityViewController: UIViewController {
             guard let `self` = self else { return }
             self.selectedCell = self.tableView.cellForRow(at: indexPath) as? ShiftTableViewCell
             self.selectedCellContainerViewSnapshot = self.selectedCell?.containerView.snapshotView(afterScreenUpdates: false)
-            //Coordinator.shared.presentCustomShiftViewController(from: self, with: self.dataSource[indexPath.row])
-            //Coordinator.shared.presentAddShiftViewController(from: self, with: self.dataSource[indexPath.row])
+            Coordinator.shared.presentEditShiftViewController(from: self, shiftToEdit: self.dataSource[indexPath.row])
         }).disposed(by: disposeBag)
         
         observeDeletions()

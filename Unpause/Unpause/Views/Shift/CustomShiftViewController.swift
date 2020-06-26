@@ -1,5 +1,5 @@
 //
-//  ShiftViewController.swift
+//  CustomShiftViewController.swift
 //  Unpause
 //
 //  Created by Krešimir Baković on 23/06/2020.
@@ -10,9 +10,9 @@ import UIKit
 import RxSwift
 import RxKeyboard
 
-class ShiftViewController: UIViewController {
+class CustomShiftViewController: UIViewController {
     
-    private let shiftViewModel: ShiftViewModelProtocol
+    private let customShiftViewModel: CustomShiftViewModelProtocol
     private let disposeBag = DisposeBag()
     
     private let scrollView = UIScrollView()
@@ -76,8 +76,8 @@ class ShiftViewController: UIViewController {
     private var arrivalDateAndTimeChanges = PublishSubject<Date?>()
     private var leavingDateAndTimeChanges = PublishSubject<Date?>()
     
-    init(shiftViewModel: ShiftViewModelProtocol) {
-        self.shiftViewModel = shiftViewModel
+    init(customShiftViewModel: CustomShiftViewModelProtocol) {
+        self.customShiftViewModel = customShiftViewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -94,6 +94,10 @@ class ShiftViewController: UIViewController {
         setUpArrivalAndLeavingDateAndTimePickerInitialValue()
         addGestureRecogniser()
         setUpKeyboard()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        setUpViewControllerTitle()
     }
     
     private func render() {
@@ -167,14 +171,14 @@ class ShiftViewController: UIViewController {
                 self.leavingTimeTextField.becomeFirstResponder()
             }).disposed(by: disposeBag)
         
-        arrivalDateAndTimeChanges.bind(to: shiftViewModel.arrivalDateAndTimeChanges)
+        arrivalDateAndTimeChanges.bind(to: customShiftViewModel.arrivalDateAndTimeChanges)
             .disposed(by: disposeBag)
         
-        leavingDateAndTimeChanges.bind(to: shiftViewModel.leavingDateAndTimeChanges)
+        leavingDateAndTimeChanges.bind(to: customShiftViewModel.leavingDateAndTimeChanges)
             .disposed(by: disposeBag)
         
         jobDescriptionTextView.rx.text
-            .bind(to: shiftViewModel.textInDescriptionTextViewChanges)
+            .bind(to: customShiftViewModel.textInDescriptionTextViewChanges)
             .disposed(by: disposeBag)
         
         saveButton.rx.tap
@@ -182,16 +186,14 @@ class ShiftViewController: UIViewController {
                 guard let `self` = self else { return }
                 UnpauseActivityIndicatorView.shared.show(on: self.view)
             })
-            .bind(to: shiftViewModel.saveButtonTapped)
+            .bind(to: customShiftViewModel.saveButtonTapped)
             .disposed(by: disposeBag)
         
-        shiftViewModel.shiftSavingResponse
+        customShiftViewModel.shiftSavingResponse
             .subscribe(onNext: { [weak self] response in
                 guard let `self` = self else { return }
                 switch response {
                 case .success:
-                    NotificationManager.shared.notificationCenter.removePendingNotificationRequests(withIdentifiers: ["notifyOnExit"])
-                    NotificationManager.shared.scheduleEntranceNotification()
                     UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
                     ActivityViewModel.forceRefresh.onNext(())
                     HomeViewModel.forceRefresh.onNext(())
@@ -218,12 +220,12 @@ class ShiftViewController: UIViewController {
             leavingTimePicker.minimumDate = nil
         }
         
-        guard let newArrivalDateAndTime = shiftViewModel.makeNewDateAndTimeInDateFormat(
+        guard let newArrivalDateAndTime = Formatter.shared.makeNewDateAndTimeInDateFormat(
             dateInDateFormat: arrivalDate,
             timeInDateFormat: arrivalTime) else { return }
         
         arrivalDateAndTime = newArrivalDateAndTime
-        arrivalDateAndTimeChanges.onNext(arrivalDateAndTime)
+        arrivalDateAndTimeChanges.onNext(newArrivalDateAndTime)
         
         let arrivalDateAndTimeWithZeroSeconds = Formatter.shared.getDateAndTimeWithZeroSeconds(from: newArrivalDateAndTime)
         let leavingDateAndTimeWithZeroSeconds = Formatter.shared.getDateAndTimeWithZeroSeconds(from: leavingDateAndTime)
@@ -250,7 +252,7 @@ class ShiftViewController: UIViewController {
             leavingTimePicker.minimumDate = nil
         }
         
-        guard let newLeavingDateAndTime = shiftViewModel.makeNewDateAndTimeInDateFormat(
+        guard let newLeavingDateAndTime = Formatter.shared.makeNewDateAndTimeInDateFormat(
             dateInDateFormat: leavingDate,
             timeInDateFormat: leavingTime) else { return }
         
@@ -318,35 +320,26 @@ class ShiftViewController: UIViewController {
     }
     
     private func setUpArrivalAndLeavingDateAndTimePickerInitialValue() {
-        guard let lastCheckInDateAndTime = SessionManager.shared.currentUser?.lastCheckInDateAndTime,
-            let lastCheckOutDateAndTime = SessionManager.shared.currentUser?.lastCheckOutDateAndTime else { return }
+        arrivalTimePicker.rx.value.onNext(Date())
+        refreshTextFieldWithNewTime(textField: arrivalTimeTextField, newTime: Date())
+        arrivalDatePicker.rx.value.onNext(Date())
+        refreshTextFieldWithNewDate(textField: arrivalDateTextField, newDate: Date())
+        arrivalDateAndTime = Date()
+        arrivalDateAndTimeChanges.onNext(arrivalDateAndTime)
         
-        arrivalTimePicker.rx.value.onNext(lastCheckInDateAndTime)
-        refreshTextFieldWithNewTime(textField: arrivalTimeTextField, newTime: lastCheckInDateAndTime)
-        arrivalDatePicker.rx.value.onNext(lastCheckInDateAndTime)
-        refreshTextFieldWithNewDate(textField: arrivalDateTextField, newDate: lastCheckInDateAndTime)
-        arrivalDateAndTime = lastCheckInDateAndTime
-        arrivalDateAndTimeChanges.onNext(lastCheckInDateAndTime)
-        
-        leavingTimePicker.rx.value.onNext(lastCheckOutDateAndTime)
-        refreshTextFieldWithNewTime(textField: leavingTimeTextField, newTime: lastCheckOutDateAndTime)
-        leavingDatePicker.rx.value.onNext(lastCheckOutDateAndTime)
-        refreshTextFieldWithNewDate(textField: leavingDateTextField, newDate: lastCheckOutDateAndTime)
-        leavingDateAndTime = lastCheckOutDateAndTime
+        leavingTimePicker.rx.value.onNext(Date())
+        refreshTextFieldWithNewTime(textField: leavingTimeTextField, newTime: Date())
+        leavingDatePicker.rx.value.onNext(Date())
+        refreshTextFieldWithNewDate(textField: leavingDateTextField, newDate: Date())
+        leavingDateAndTime = Date()
         leavingDateAndTimeChanges.onNext(leavingDateAndTime)
         
         showFreshWorkingHoursAndMinutesLabel()
     }
     
     private func showFreshWorkingHoursAndMinutesLabel() {
-        guard let lastCheckInDateAndTime = SessionManager.shared.currentUser?.lastCheckInDateAndTime,
-            let lastCheckOutDateAndTime = SessionManager.shared.currentUser?.lastCheckOutDateAndTime else { return }
-        
-        let arrivalDateAndTimeWithZeroSeconds = Formatter.shared.getDateAndTimeWithZeroSeconds(from: lastCheckInDateAndTime)
-        let leavingDateAndTimeWithZeroSeconds = Formatter.shared.getDateAndTimeWithZeroSeconds(from: lastCheckOutDateAndTime)
-        
-        let timeDifference = Formatter.shared.findTimeDifference(firstDate: arrivalDateAndTimeWithZeroSeconds,
-                                                                 secondDate: leavingDateAndTimeWithZeroSeconds)
+        let timeDifference = Formatter.shared.findTimeDifference(firstDate: Date(),
+                                                                 secondDate: Date())
         
         workingHours.onNext(timeDifference.0)
         workingMinutes.onNext(timeDifference.1)
@@ -368,10 +361,14 @@ class ShiftViewController: UIViewController {
             self.scrollView.scrollIndicatorInsets = contentInsets
         }).disposed(by: disposeBag)
     }
+    
+    private func setUpViewControllerTitle() {
+        self.title = "Custom shift"
+    }
 }
 
 // MARK: - UI rendering
-private extension ShiftViewController {
+private extension CustomShiftViewController {
     func configureScrollViewAndContainerView() {
         view.backgroundColor = UIColor.unpauseWhite
         
@@ -493,6 +490,7 @@ private extension ShiftViewController {
         jobDescriptionTextView.layer.cornerRadius = 10
         jobDescriptionTextView.autocorrectionType = .no
         jobDescriptionTextView.autocapitalizationType = .sentences
+        jobDescriptionTextView.backgroundColor = .unpauseVeryLightGray
     }
     
     func renderJobDescriptionSeparator() {

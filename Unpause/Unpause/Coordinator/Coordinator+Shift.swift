@@ -1,5 +1,5 @@
 //
-//  Coordinator+Home.swift
+//  Coordinator+Shift.swift
 //  Unpause
 //
 //  Created by Krešimir Baković on 15/01/2020.
@@ -10,15 +10,6 @@ import Foundation
 import UIKit
 
 extension Coordinator {
-    func presentAddShiftViewController(from viewController: UIViewController, navigationFromCustomShift: Bool) {
-        let addShiftViewModel = AddShiftViewModel()
-        let addShiftViewController = AddShiftViewController(addShiftViewModel: addShiftViewModel,
-                                                            navigationFromTableView: false,
-                                                            navigationFromCustomShift: navigationFromCustomShift)
-        let navigationController = UINavigationController(rootViewController: addShiftViewController)
-        viewController.present(navigationController, animated: true)
-    }
-    
     func presentShiftViewController(from viewController: UIViewController) {
         let shiftNetworking = ShiftNetworking()
         let shiftViewModel = ShiftViewModel(shiftNetworking: shiftNetworking)
@@ -32,6 +23,16 @@ extension Coordinator {
         let customShiftViewModel = CustomShiftViewModel(shiftNetworking: shiftNetworking)
         let customViewController = CustomShiftViewController(customShiftViewModel: customShiftViewModel)
         let navigationController = UINavigationController(rootViewController: customViewController)
+        viewController.present(navigationController, animated: true)
+    }
+    
+    func presentEditShiftViewController(from viewController: ActivityViewController, shiftToEdit: ShiftsTableViewItem) {
+        let shiftNetworking = ShiftNetworking()
+        let editShiftViewModel = EditShiftViewModel(shiftNetworking: shiftNetworking, shiftToEdit: shiftToEdit)
+        let editShiftViewController = EditShiftViewController(editShiftViewModel: editShiftViewModel, shiftToEdit: shiftToEdit)
+        let navigationController = UINavigationController(rootViewController: editShiftViewController)
+        navigationController.modalPresentationStyle = .fullScreen
+        navigationController.transitioningDelegate = viewController
         viewController.present(navigationController, animated: true)
     }
 }

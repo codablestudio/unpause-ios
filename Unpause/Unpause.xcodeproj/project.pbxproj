@@ -35,9 +35,7 @@
 		C10F78E923A3D79200783476 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10F78D623A3D79200783476 /* Array+Extension.swift */; };
 		C110AE2823C34E420066C394 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C110AE2723C34E420066C394 /* ChangePasswordViewController.swift */; };
 		C110AE2A23C34E770066C394 /* ChangePasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C110AE2923C34E770066C394 /* ChangePasswordViewModel.swift */; };
-		C111931F23CF523D007E2866 /* Coordinator+Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = C111931E23CF523D007E2866 /* Coordinator+Home.swift */; };
-		C111932123CF56B7007E2866 /* AddShiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C111932023CF56B7007E2866 /* AddShiftViewController.swift */; };
-		C111932323CF6008007E2866 /* AddShiftViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C111932223CF6008007E2866 /* AddShiftViewModel.swift */; };
+		C111931F23CF523D007E2866 /* Coordinator+Shift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C111931E23CF523D007E2866 /* Coordinator+Shift.swift */; };
 		C116D39524055A2400A6FEC5 /* CSVMakingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C116D39424055A2400A6FEC5 /* CSVMakingResponse.swift */; };
 		C11943812459A486006BC8FE /* Pods_Unpause.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE3FC3210F1CDFC45FF7DBE1 /* Pods_Unpause.framework */; };
 		C12614E1248129BA004B014D /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12614E0248129BA004B014D /* MapViewModel.swift */; };
@@ -111,9 +109,6 @@
 		C1704B6D248A847A00D4DB31 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1704B6C248A847A00D4DB31 /* Location.swift */; };
 		C1707B1A23F17605002E1A10 /* Formatter+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1707B1923F17605002E1A10 /* Formatter+String.swift */; };
 		C1707B1C23F18AE3002E1A10 /* HomeNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1707B1B23F18AE3002E1A10 /* HomeNetworking.swift */; };
-		C1707B1E23F19022002E1A10 /* Coordinator+AddShift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1707B1D23F19022002E1A10 /* Coordinator+AddShift.swift */; };
-		C1707B2023F190AE002E1A10 /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1707B1F23F190AE002E1A10 /* DescriptionViewController.swift */; };
-		C1707B2223F19129002E1A10 /* DescriptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1707B2123F19129002E1A10 /* DescriptionViewModel.swift */; };
 		C176A55A23FED4F900631E39 /* ShiftDeletionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C176A55923FED4F900631E39 /* ShiftDeletionResponse.swift */; };
 		C17E89102434D4CF00575A7F /* LoginViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E890F2434D4CF00575A7F /* LoginViewModelProtocol.swift */; };
 		C17E89142434D61E00575A7F /* RegisterViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E89132434D61E00575A7F /* RegisterViewModelProtocol.swift */; };
@@ -124,8 +119,6 @@
 		C17E892A2434E64500575A7F /* HomeNetworkingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E89292434E64500575A7F /* HomeNetworkingProtocol.swift */; };
 		C17E892D2434E68000575A7F /* ShiftNetworkingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E892C2434E68000575A7F /* ShiftNetworkingProtocol.swift */; };
 		C17E892F2434E8F900575A7F /* ForgotPasswordViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E892E2434E8F900575A7F /* ForgotPasswordViewModelProtocol.swift */; };
-		C17E89362434ED7600575A7F /* DescriptionViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E89352434ED7600575A7F /* DescriptionViewModelProtocol.swift */; };
-		C17E89382434EE8F00575A7F /* AddShiftViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E89372434EE8F00575A7F /* AddShiftViewModelProtocol.swift */; };
 		C17E893A2434EF2C00575A7F /* ActivityViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E89392434EF2C00575A7F /* ActivityViewModelProtocol.swift */; };
 		C17E893F2434F0D100575A7F /* SettingsViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E893E2434F0D100575A7F /* SettingsViewModelProtocol.swift */; };
 		C17E89412434F15000575A7F /* AddCompanyViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E89402434F15000575A7F /* AddCompanyViewModelProtocol.swift */; };
@@ -133,6 +126,9 @@
 		C17E89452434F2E600575A7F /* UpdatePersonalInfoViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17E89442434F2E600575A7F /* UpdatePersonalInfoViewModelProtocol.swift */; };
 		C194854024A5E59900FF5454 /* CustomShiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C194853F24A5E59900FF5454 /* CustomShiftViewController.swift */; };
 		C194854224A5E63F00FF5454 /* CustomShiftViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C194854124A5E63F00FF5454 /* CustomShiftViewModel.swift */; };
+		C194854424A5F90E00FF5454 /* EditShiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C194854324A5F90E00FF5454 /* EditShiftViewController.swift */; };
+		C194854624A5F96D00FF5454 /* EditShiftViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C194854524A5F96D00FF5454 /* EditShiftViewModel.swift */; };
+		C194854824A605FB00FF5454 /* IconAndTextVerticalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C194854724A605FB00FF5454 /* IconAndTextVerticalView.swift */; };
 		C198B8EF23B0CACA00FBD3C6 /* Coordinator+Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C198B8EE23B0CACA00FBD3C6 /* Coordinator+Auth.swift */; };
 		C198B8F123B0CB4C00FBD3C6 /* Coordinator+Tabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C198B8F023B0CB4C00FBD3C6 /* Coordinator+Tabbar.swift */; };
 		C198B8F423B0CFC100FBD3C6 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C198B8F323B0CFC100FBD3C6 /* CustomTabBarController.swift */; };
@@ -220,9 +216,7 @@
 		C10F78D623A3D79200783476 /* Array+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		C110AE2723C34E420066C394 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		C110AE2923C34E770066C394 /* ChangePasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewModel.swift; sourceTree = "<group>"; };
-		C111931E23CF523D007E2866 /* Coordinator+Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinator+Home.swift"; sourceTree = "<group>"; };
-		C111932023CF56B7007E2866 /* AddShiftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddShiftViewController.swift; sourceTree = "<group>"; };
-		C111932223CF6008007E2866 /* AddShiftViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddShiftViewModel.swift; sourceTree = "<group>"; };
+		C111931E23CF523D007E2866 /* Coordinator+Shift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinator+Shift.swift"; sourceTree = "<group>"; };
 		C116D39424055A2400A6FEC5 /* CSVMakingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVMakingResponse.swift; sourceTree = "<group>"; };
 		C11943842459A6E1006BC8FE /* UnpauseRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = UnpauseRelease.entitlements; sourceTree = "<group>"; };
 		C11943852459A796006BC8FE /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
@@ -301,9 +295,6 @@
 		C1704B6C248A847A00D4DB31 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		C1707B1923F17605002E1A10 /* Formatter+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Formatter+String.swift"; sourceTree = "<group>"; };
 		C1707B1B23F18AE3002E1A10 /* HomeNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNetworking.swift; sourceTree = "<group>"; };
-		C1707B1D23F19022002E1A10 /* Coordinator+AddShift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinator+AddShift.swift"; sourceTree = "<group>"; };
-		C1707B1F23F190AE002E1A10 /* DescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
-		C1707B2123F19129002E1A10 /* DescriptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionViewModel.swift; sourceTree = "<group>"; };
 		C176A55923FED4F900631E39 /* ShiftDeletionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftDeletionResponse.swift; sourceTree = "<group>"; };
 		C17E890F2434D4CF00575A7F /* LoginViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelProtocol.swift; sourceTree = "<group>"; };
 		C17E89132434D61E00575A7F /* RegisterViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModelProtocol.swift; sourceTree = "<group>"; };
@@ -314,8 +305,6 @@
 		C17E89292434E64500575A7F /* HomeNetworkingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNetworkingProtocol.swift; sourceTree = "<group>"; };
 		C17E892C2434E68000575A7F /* ShiftNetworkingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftNetworkingProtocol.swift; sourceTree = "<group>"; };
 		C17E892E2434E8F900575A7F /* ForgotPasswordViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModelProtocol.swift; sourceTree = "<group>"; };
-		C17E89352434ED7600575A7F /* DescriptionViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionViewModelProtocol.swift; sourceTree = "<group>"; };
-		C17E89372434EE8F00575A7F /* AddShiftViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddShiftViewModelProtocol.swift; sourceTree = "<group>"; };
 		C17E89392434EF2C00575A7F /* ActivityViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewModelProtocol.swift; sourceTree = "<group>"; };
 		C17E893E2434F0D100575A7F /* SettingsViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModelProtocol.swift; sourceTree = "<group>"; };
 		C17E89402434F15000575A7F /* AddCompanyViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCompanyViewModelProtocol.swift; sourceTree = "<group>"; };
@@ -324,6 +313,9 @@
 		C18F218324488999007C9024 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		C194853F24A5E59900FF5454 /* CustomShiftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomShiftViewController.swift; sourceTree = "<group>"; };
 		C194854124A5E63F00FF5454 /* CustomShiftViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomShiftViewModel.swift; sourceTree = "<group>"; };
+		C194854324A5F90E00FF5454 /* EditShiftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditShiftViewController.swift; sourceTree = "<group>"; };
+		C194854524A5F96D00FF5454 /* EditShiftViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditShiftViewModel.swift; sourceTree = "<group>"; };
+		C194854724A605FB00FF5454 /* IconAndTextVerticalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconAndTextVerticalView.swift; sourceTree = "<group>"; };
 		C198B8EE23B0CACA00FBD3C6 /* Coordinator+Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinator+Auth.swift"; sourceTree = "<group>"; };
 		C198B8F023B0CB4C00FBD3C6 /* Coordinator+Tabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinator+Tabbar.swift"; sourceTree = "<group>"; };
 		C198B8F323B0CFC100FBD3C6 /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
@@ -664,8 +656,7 @@
 				C17E89122434D5E000575A7F /* ForgotPassword */,
 				C1BE0D2424215F5700480224 /* Home */,
 				C1BE0D2524215F7A00480224 /* Activity */,
-				C17E89322434EC9100575A7F /* AddShift */,
-				C17E89332434EC9E00575A7F /* Description */,
+				C17E89322434EC9100575A7F /* Shift */,
 				C1BE0D2624215FB400480224 /* Settings */,
 				C17E893B2434F07400575A7F /* UpdatePersonalInfo */,
 				C17E893C2434F08700575A7F /* ChangePassword */,
@@ -684,8 +675,7 @@
 				C17E89162434D7CD00575A7F /* ForgotPassword */,
 				C1BE0D1F24215E0400480224 /* Home */,
 				C1BE0D2024215E3800480224 /* Activity */,
-				C1C21AC62475403E00FE5739 /* AddShift */,
-				C1C21AC72475406000FE5739 /* Description */,
+				C1C21AC62475403E00FE5739 /* Shift */,
 				C1BE0D2124215E8400480224 /* Settings */,
 				C1C21AC82475408500FE5739 /* UpdatePersonalInfo */,
 				C1C21AC92475409B00FE5739 /* ChangePassword */,
@@ -723,8 +713,7 @@
 				C1419F6B241253B4001B5817 /* Coordinator+Register.swift */,
 				C198B8F023B0CB4C00FBD3C6 /* Coordinator+Tabbar.swift */,
 				C1FF2A8D23C4B3EA00ACCF29 /* Coordinator+Settings.swift */,
-				C111931E23CF523D007E2866 /* Coordinator+Home.swift */,
-				C1707B1D23F19022002E1A10 /* Coordinator+AddShift.swift */,
+				C111931E23CF523D007E2866 /* Coordinator+Shift.swift */,
 				C12A2C1F2465B85600BA9D51 /* Coordinator+UpgradeToPro.swift */,
 			);
 			path = Coordinator;
@@ -869,24 +858,14 @@
 			path = Shift;
 			sourceTree = "<group>";
 		};
-		C17E89322434EC9100575A7F /* AddShift */ = {
+		C17E89322434EC9100575A7F /* Shift */ = {
 			isa = PBXGroup;
 			children = (
-				C17E89372434EE8F00575A7F /* AddShiftViewModelProtocol.swift */,
-				C111932223CF6008007E2866 /* AddShiftViewModel.swift */,
 				C10849C424A211C000A58856 /* ShiftViewModel.swift */,
 				C194854124A5E63F00FF5454 /* CustomShiftViewModel.swift */,
+				C194854524A5F96D00FF5454 /* EditShiftViewModel.swift */,
 			);
-			path = AddShift;
-			sourceTree = "<group>";
-		};
-		C17E89332434EC9E00575A7F /* Description */ = {
-			isa = PBXGroup;
-			children = (
-				C17E89352434ED7600575A7F /* DescriptionViewModelProtocol.swift */,
-				C1707B2123F19129002E1A10 /* DescriptionViewModel.swift */,
-			);
-			path = Description;
+			path = Shift;
 			sourceTree = "<group>";
 		};
 		C17E893B2434F07400575A7F /* UpdatePersonalInfo */ = {
@@ -1100,22 +1079,15 @@
 			path = UnpauseTests;
 			sourceTree = "<group>";
 		};
-		C1C21AC62475403E00FE5739 /* AddShift */ = {
+		C1C21AC62475403E00FE5739 /* Shift */ = {
 			isa = PBXGroup;
 			children = (
-				C111932023CF56B7007E2866 /* AddShiftViewController.swift */,
 				C10849C224A1FA7C00A58856 /* ShiftViewController.swift */,
 				C194853F24A5E59900FF5454 /* CustomShiftViewController.swift */,
+				C194854324A5F90E00FF5454 /* EditShiftViewController.swift */,
+				C194854724A605FB00FF5454 /* IconAndTextVerticalView.swift */,
 			);
-			path = AddShift;
-			sourceTree = "<group>";
-		};
-		C1C21AC72475406000FE5739 /* Description */ = {
-			isa = PBXGroup;
-			children = (
-				C1707B1F23F190AE002E1A10 /* DescriptionViewController.swift */,
-			);
-			path = Description;
+			path = Shift;
 			sourceTree = "<group>";
 		};
 		C1C21AC82475408500FE5739 /* UpdatePersonalInfo */ = {
@@ -1434,7 +1406,6 @@
 				C137F48223B8B6AC00358E30 /* RegisterNetworking.swift in Sources */,
 				C1437B4323F40B0A007BD7DA /* ShiftNetworking.swift in Sources */,
 				C16A2EF123A77B1200CBA43F /* Coordinator.swift in Sources */,
-				C111932323CF6008007E2866 /* AddShiftViewModel.swift in Sources */,
 				C12A2C1E2465ACC700BA9D51 /* UpgradeToProViewModelProtocol.swift in Sources */,
 				C14731432416982000477ECA /* CompaniesValidationDataResponse.swift in Sources */,
 				C194854224A5E63F00FF5454 /* CustomShiftViewModel.swift in Sources */,
@@ -1454,6 +1425,7 @@
 				C13D8DD9248E2815001B7676 /* PaddedTextFieldWithCursor.swift in Sources */,
 				C10849C324A1FA7C00A58856 /* ShiftViewController.swift in Sources */,
 				C17E892A2434E64500575A7F /* HomeNetworkingProtocol.swift in Sources */,
+				C194854624A5F96D00FF5454 /* EditShiftViewModel.swift in Sources */,
 				C1F2CD1F23F2E6D600BD23DC /* LastCheckInResponse.swift in Sources */,
 				C13B4B1223BF8A62006E1E0E /* FirebaseDocumentResponeObject.swift in Sources */,
 				C13C412223ABBC4100B674E9 /* ActivityViewController.swift in Sources */,
@@ -1479,14 +1451,12 @@
 				C10F78E923A3D79200783476 /* Array+Extension.swift in Sources */,
 				C1A0F037247FFA160094372F /* WorkingTimeFetchingResponse.swift in Sources */,
 				C10F78E323A3D79200783476 /* Bool+Extension.swift in Sources */,
-				C111932123CF56B7007E2866 /* AddShiftViewController.swift in Sources */,
 				C17E89272434E5EA00575A7F /* ChangePasswordNetworkingProtocol.swift in Sources */,
 				C17E892F2434E8F900575A7F /* ForgotPasswordViewModelProtocol.swift in Sources */,
 				C10F78D923A3D79200783476 /* UIFont+Extension.swift in Sources */,
-				C111931F23CF523D007E2866 /* Coordinator+Home.swift in Sources */,
+				C111931F23CF523D007E2866 /* Coordinator+Shift.swift in Sources */,
 				C10F78E823A3D79200783476 /* CGFloat+Extension.swift in Sources */,
 				C1047FCD2490256500E6F578 /* LocationButtonTouchResponse.swift in Sources */,
-				C17E89362434ED7600575A7F /* DescriptionViewModelProtocol.swift in Sources */,
 				C1FF2A8C23C4B14200ACCF29 /* UpdatePersonalInfoViewModel.swift in Sources */,
 				C17E89142434D61E00575A7F /* RegisterViewModelProtocol.swift in Sources */,
 				C10F78E123A3D79200783476 /* UIViewController+Extension.swift in Sources */,
@@ -1506,15 +1476,14 @@
 				C10F78D823A3D79200783476 /* UIImageView+Extension.swift in Sources */,
 				C147314524169EAB00477ECA /* DocumentReferenceFetchingResponse.swift in Sources */,
 				C17E89412434F15000575A7F /* AddCompanyViewModelProtocol.swift in Sources */,
-				C1707B1E23F19022002E1A10 /* Coordinator+AddShift.swift in Sources */,
 				C13DDCEB23F36D050043E242 /* Shift.swift in Sources */,
 				C10F78D723A3D79200783476 /* ActivityIndicator.swift in Sources */,
 				C17E893A2434EF2C00575A7F /* ActivityViewModelProtocol.swift in Sources */,
 				C194854024A5E59900FF5454 /* CustomShiftViewController.swift in Sources */,
 				C10F78DF23A3D79200783476 /* UIView+Extension.swift in Sources */,
 				C102D7BF23AD0063000B9E80 /* OrangeButton.swift in Sources */,
+				C194854424A5F90E00FF5454 /* EditShiftViewController.swift in Sources */,
 				C1C21ACC247541AF00FE5739 /* SettingsTableViewCell.swift in Sources */,
-				C1707B2023F190AE002E1A10 /* DescriptionViewController.swift in Sources */,
 				C1FC657C2422D8B500E64AE4 /* GoogleUserSavingResponse.swift in Sources */,
 				C13949462484F95A00B05991 /* MapViewController.swift in Sources */,
 				C1EAB8F8247BBD59004EDDF0 /* PresentationType.swift in Sources */,
@@ -1528,7 +1497,6 @@
 				C16A2EF523A7853800CBA43F /* RegisterViewModel.swift in Sources */,
 				C16FBC6A2472C6E1006D24EC /* SubscriptionsFetchingResponse.swift in Sources */,
 				C13105E723B0ADF200A509D9 /* User.swift in Sources */,
-				C17E89382434EE8F00575A7F /* AddShiftViewModelProtocol.swift in Sources */,
 				C1704B68248A646200D4DB31 /* LocationNetworking.swift in Sources */,
 				C12F7A3F240F9D590074362F /* LocationManager.swift in Sources */,
 				C146992E23A11DBE00A84818 /* LoginViewModel.swift in Sources */,
@@ -1537,10 +1505,10 @@
 				C1BE0D1824212B6E00480224 /* DotsUIBarButtonItem.swift in Sources */,
 				C14731412416950100477ECA /* CompanyValidationDataResponse.swift in Sources */,
 				C12A2C202465B85600BA9D51 /* Coordinator+UpgradeToPro.swift in Sources */,
+				C194854824A605FB00FF5454 /* IconAndTextVerticalView.swift in Sources */,
 				C110AE2A23C34E770066C394 /* ChangePasswordViewModel.swift in Sources */,
 				C17E891C2434DC8900575A7F /* CompanyNetworkingProtocol.swift in Sources */,
 				C13EFBA423FECC5D0081ACF0 /* Formatter+Date.swift in Sources */,
-				C1707B2223F19129002E1A10 /* DescriptionViewModel.swift in Sources */,
 				C10F78DC23A3D79200783476 /* Thread+Extension.swift in Sources */,
 				C1F26C3F247CFD08007EAE7C /* GoogleUserResponse.swift in Sources */,
 				C1C18E482413E8880066EB5F /* CompaniesFetchingResponse.swift in Sources */,

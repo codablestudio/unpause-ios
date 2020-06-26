@@ -16,7 +16,7 @@ class Animator: NSObject {
     private let firstViewController: CustomTabBarController
     private let secondViewController: UINavigationController
     private let activityViewController: ActivityViewController
-    private let addShiftViewController: AddShiftViewController
+    private let editShiftViewController: EditShiftViewController
     private var selectedCellContainerView: UIView
     private let cellImageViewRect: CGRect
     
@@ -29,12 +29,12 @@ class Animator: NSObject {
         guard let window = firstViewController.view.window ?? secondViewController.view.window,
             let activityNavigationController = firstViewController.selectedViewController as? UINavigationController,
             let activityViewController = activityNavigationController.topViewController as? ActivityViewController,
-            let addShiftViewController = secondViewController.topViewController as? AddShiftViewController,
+            let editShiftViewController = secondViewController.topViewController as? EditShiftViewController,
             let selectedCell = activityViewController.selectedCell else {
                 return nil
         }
         self.activityViewController = activityViewController
-        self.addShiftViewController = addShiftViewController
+        self.editShiftViewController = editShiftViewController
         self.cellImageViewRect = selectedCell.containerView.convert(selectedCell.containerView.bounds, to: window)
     }
 }
@@ -58,7 +58,7 @@ extension Animator: UIViewControllerAnimatedTransitioning {
         guard let selectedCell = activityViewController.selectedCell,
             let window = firstViewController.view.window ?? secondViewController.view.window,
             let cellContainerView = selectedCell.containerView.snapshotView(afterScreenUpdates: true),
-            let addShiftViewControllerView = addShiftViewController.view.snapshotView(afterScreenUpdates: true)
+            let editShiftViewControllerView = editShiftViewController.view.snapshotView(afterScreenUpdates: true)
             else {
                 transitionContext.completeTransition(true)
                 return
@@ -81,40 +81,40 @@ extension Animator: UIViewControllerAnimatedTransitioning {
         }
         toView.alpha = 0
         
-        [backgroundView, selectedCellContainerView, addShiftViewControllerView].forEach { transitionContainerView.addSubview($0) }
-        let addShiftViewControllerViewRect = addShiftViewController.view.convert((addShiftViewController.view.bounds), to: window)
+        [backgroundView, selectedCellContainerView, editShiftViewControllerView].forEach { transitionContainerView.addSubview($0) }
+        let editShiftViewControllerViewRect = editShiftViewController.view.convert((editShiftViewController.view.bounds), to: window)
         
-        [selectedCellContainerView, addShiftViewControllerView].forEach {
-            $0.frame = isPresenting ? cellImageViewRect : addShiftViewControllerViewRect
+        [selectedCellContainerView, editShiftViewControllerView].forEach {
+            $0.frame = isPresenting ? cellImageViewRect : editShiftViewControllerViewRect
         }
         
-        [selectedCellContainerView, addShiftViewControllerView].forEach {
-            $0.frame = isPresenting ? cellImageViewRect : addShiftViewControllerViewRect
+        [selectedCellContainerView, editShiftViewControllerView].forEach {
+            $0.frame = isPresenting ? cellImageViewRect : editShiftViewControllerViewRect
             $0.layer.cornerRadius = isPresenting ? 12 : 0
             $0.layer.masksToBounds = true
         }
 
-        addShiftViewControllerView.alpha = isPresenting ? 0 : 1
+        editShiftViewControllerView.alpha = isPresenting ? 0 : 1
         selectedCellContainerView.alpha = isPresenting ? 1 : 0
         
         UIView.animateKeyframes(withDuration: Self.duration, delay: 0, options: .calculationModeCubic, animations: {
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1) {
-                self.selectedCellContainerView.frame = isPresenting ? addShiftViewControllerViewRect : self.cellImageViewRect
-                addShiftViewControllerView.frame = isPresenting ? addShiftViewControllerViewRect : self.cellImageViewRect
+                self.selectedCellContainerView.frame = isPresenting ? editShiftViewControllerViewRect : self.cellImageViewRect
+                editShiftViewControllerView.frame = isPresenting ? editShiftViewControllerViewRect : self.cellImageViewRect
             }
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1) {
                 self.selectedCellContainerView.alpha = isPresenting ? 0 : 1
-                addShiftViewControllerView.alpha = isPresenting ? 1 : 0
+                editShiftViewControllerView.alpha = isPresenting ? 1 : 0
             }
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1) {
-                [addShiftViewControllerView, self.selectedCellContainerView].forEach {
+                [editShiftViewControllerView, self.selectedCellContainerView].forEach {
                     $0.layer.cornerRadius = isPresenting ? 0 : 12
                     fadeView.alpha = isPresenting ? 1 : 0
                 }
             }
         }, completion: { _ in
             self.selectedCellContainerView.removeFromSuperview()
-            addShiftViewControllerView.removeFromSuperview()
+            editShiftViewControllerView.removeFromSuperview()
             backgroundView.removeFromSuperview()
             toView.alpha = 1
             transitionContext.completeTransition(true)

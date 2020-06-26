@@ -9,10 +9,7 @@
 import Foundation
 import RxSwift
 
-protocol CustomShiftViewModelProtocol {
-    func makeNewDateAndTimeWithCheckInDateAnd(timeInDateFormat: Date) -> Date?
-    func makeNewDateAndTimeInDateFormat(dateInDateFormat: Date, timeInDateFormat: Date) -> Date?
-    
+protocol CustomShiftViewModelProtocol {    
     var saveButtonTapped:  PublishSubject<Void> { get }
     var textInDescriptionTextViewChanges:  PublishSubject<String?> { get }
     var arrivalDateAndTimeChanges:  PublishSubject<Date?> { get }
@@ -80,53 +77,5 @@ class CustomShiftViewModel: CustomShiftViewModelProtocol {
                 
                 return self.shiftNetworking.saveNewShift(newShift: newShift)
             })
-    }
-    
-    func makeNewDateAndTimeWithCheckInDateAnd(timeInDateFormat: Date) -> Date? {
-        let calendar = Calendar.current
-        var dateComponents = DateComponents()
-        
-        guard let lastCheckInDateAndTime = SessionManager.shared.currentUser?.lastCheckInDateAndTime else {
-            return Date()
-        }
-        
-        let year = calendar.component(.year, from: lastCheckInDateAndTime)
-        let month = calendar.component(.month, from: lastCheckInDateAndTime)
-        let day = calendar.component(.day, from: lastCheckInDateAndTime)
-        let hour = calendar.component(.hour, from: timeInDateFormat)
-        let minute = calendar.component(.minute, from: timeInDateFormat)
-        let second = calendar.component(.second, from: timeInDateFormat)
-        
-        dateComponents.year = year
-        dateComponents.month = month
-        dateComponents.day = day
-        dateComponents.hour = hour
-        dateComponents.minute = minute
-        dateComponents.second = second
-        
-        let newDateAndTime = calendar.date(from: dateComponents)
-        return newDateAndTime
-    }
-    
-    func makeNewDateAndTimeInDateFormat(dateInDateFormat: Date, timeInDateFormat: Date) -> Date? {
-        let calendar = Calendar.current
-        var dateComponents = DateComponents()
-        
-        let year = calendar.component(.year, from: dateInDateFormat)
-        let month = calendar.component(.month, from: dateInDateFormat)
-        let day = calendar.component(.day, from: dateInDateFormat)
-        let hour = calendar.component(.hour, from: timeInDateFormat)
-        let minute = calendar.component(.minute, from: timeInDateFormat)
-        let second = calendar.component(.second, from: timeInDateFormat)
-        
-        dateComponents.year = year
-        dateComponents.month = month
-        dateComponents.day = day
-        dateComponents.hour = hour
-        dateComponents.minute = minute
-        dateComponents.second = second
-        
-        let newDateAndTime = calendar.date(from: dateComponents)
-        return newDateAndTime
     }
 }
