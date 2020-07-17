@@ -55,7 +55,6 @@ class AddCompanyViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         showTitleInNavigationBar()
         configureBackbuttonVisibility()
-        hideTabBar()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

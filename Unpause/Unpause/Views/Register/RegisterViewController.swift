@@ -94,9 +94,9 @@ class RegisterViewController: UIViewController {
             .subscribe(onNext: { [weak self] firebaseResponseObject in
                 guard let `self` = self else { return }
                 switch firebaseResponseObject {
-                case .success(let authDataResult):
+                case .success(_):
                     UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
-                    Coordinator.shared.navigateToAddCompanyViewController(from: self, registeredUserEmail: authDataResult.user.email)
+                    Coordinator.shared.navigateToHomeViewController()
                 case .error(let error):
                     UnpauseActivityIndicatorView.shared.dismiss(from: self.view)
                     self.showOneOptionAlert(title: "Error", message: "\(error.errorMessage)", actionTitle: "OK")

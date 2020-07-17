@@ -79,7 +79,6 @@
 		C13F6B35244B2370009EA1B9 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C13F6B34244B2370009EA1B9 /* AuthenticationServices.framework */; };
 		C14104B42473E11B00CAAE26 /* IAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14104B32473E11B00CAAE26 /* IAPManager.swift */; };
 		C14104B72473E58F00CAAE26 /* PurchaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14104B62473E58F00CAAE26 /* PurchaseResponse.swift */; };
-		C1419F6C241253B4001B5817 /* Coordinator+Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1419F6B241253B4001B5817 /* Coordinator+Register.swift */; };
 		C1419F6E24125414001B5817 /* AddCompanyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1419F6D24125414001B5817 /* AddCompanyViewModel.swift */; };
 		C1419F702412543E001B5817 /* AddCompanyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1419F6F2412543E001B5817 /* AddCompanyViewController.swift */; };
 		C14334EC2407F4BD00C49E16 /* DataMakingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14334EB2407F4BD00C49E16 /* DataMakingResponse.swift */; };
@@ -263,7 +262,6 @@
 		C13F6B34244B2370009EA1B9 /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
 		C14104B32473E11B00CAAE26 /* IAPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPManager.swift; sourceTree = "<group>"; };
 		C14104B62473E58F00CAAE26 /* PurchaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseResponse.swift; sourceTree = "<group>"; };
-		C1419F6B241253B4001B5817 /* Coordinator+Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinator+Register.swift"; sourceTree = "<group>"; };
 		C1419F6D24125414001B5817 /* AddCompanyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCompanyViewModel.swift; sourceTree = "<group>"; };
 		C1419F6F2412543E001B5817 /* AddCompanyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCompanyViewController.swift; sourceTree = "<group>"; };
 		C14334EB2407F4BD00C49E16 /* DataMakingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataMakingResponse.swift; sourceTree = "<group>"; };
@@ -708,7 +706,6 @@
 			children = (
 				C16A2EF023A77B1200CBA43F /* Coordinator.swift */,
 				C198B8EE23B0CACA00FBD3C6 /* Coordinator+Auth.swift */,
-				C1419F6B241253B4001B5817 /* Coordinator+Register.swift */,
 				C198B8F023B0CB4C00FBD3C6 /* Coordinator+Tabbar.swift */,
 				C1FF2A8D23C4B3EA00ACCF29 /* Coordinator+Settings.swift */,
 				C111931E23CF523D007E2866 /* Coordinator+Shift.swift */,
@@ -1426,7 +1423,6 @@
 				C1F2CD1F23F2E6D600BD23DC /* LastCheckInResponse.swift in Sources */,
 				C13B4B1223BF8A62006E1E0E /* FirebaseDocumentResponeObject.swift in Sources */,
 				C13C412223ABBC4100B674E9 /* ActivityViewController.swift in Sources */,
-				C1419F6C241253B4001B5817 /* Coordinator+Register.swift in Sources */,
 				C1C1D2E224373A72000BC698 /* RegisterNetworkingMock.swift in Sources */,
 				C10F78DA23A3D79200783476 /* UIColor+Extension.swift in Sources */,
 				C1C6D943242377710037378C /* UnpauseActivityIndicatorView.swift in Sources */,

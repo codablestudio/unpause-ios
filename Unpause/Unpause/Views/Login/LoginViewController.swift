@@ -133,12 +133,7 @@ class LoginViewController: UIViewController {
                 guard let `self` = self else { return }
                 switch unpauseResponse {
                 case .success:
-                    if let _ = self.userHasCompany {
-                        Coordinator.shared.navigateToAddCompanyViewController(from: self)
-                    } else {
-                        Coordinator.shared.navigateToHomeViewController()
-                    }
-                    self.dismiss(animated: true)
+                    Coordinator.shared.navigateToHomeViewController()
                 case .error(let error):
                     if error == UnpauseError.noCompany {
                         Coordinator.shared.navigateToHomeViewController()
