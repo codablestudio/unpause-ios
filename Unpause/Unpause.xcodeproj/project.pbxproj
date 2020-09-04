@@ -98,9 +98,12 @@
 		C14731432416982000477ECA /* CompaniesValidationDataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14731422416982000477ECA /* CompaniesValidationDataResponse.swift */; };
 		C147314524169EAB00477ECA /* DocumentReferenceFetchingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C147314424169EAB00477ECA /* DocumentReferenceFetchingResponse.swift */; };
 		C14731472416A4EB00477ECA /* CompanyReferenceSavingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C14731462416A4EB00477ECA /* CompanyReferenceSavingResponse.swift */; };
+		C157DDD52502389800E15480 /* Coordinator+Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C157DDD42502389800E15480 /* Coordinator+Calendar.swift */; };
 		C16A2EF123A77B1200CBA43F /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16A2EF023A77B1200CBA43F /* Coordinator.swift */; };
 		C16A2EF323A784A700CBA43F /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16A2EF223A784A700CBA43F /* RegisterViewController.swift */; };
 		C16A2EF523A7853800CBA43F /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16A2EF423A7853800CBA43F /* RegisterViewModel.swift */; };
+		C16D1AE725022D4600CE7CCA /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16D1AE625022D4600CE7CCA /* CalendarViewController.swift */; };
+		C16D1AE925022D9500CE7CCA /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16D1AE825022D9500CE7CCA /* CalendarViewModel.swift */; };
 		C16FBC6A2472C6E1006D24EC /* SubscriptionsFetchingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16FBC692472C6E1006D24EC /* SubscriptionsFetchingResponse.swift */; };
 		C1704B63248A1EFE00D4DB31 /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1704B62248A1EFE00D4DB31 /* UIAlertController+Extension.swift */; };
 		C1704B68248A646200D4DB31 /* LocationNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1704B67248A646200D4DB31 /* LocationNetworking.swift */; };
@@ -282,9 +285,12 @@
 		C14731422416982000477ECA /* CompaniesValidationDataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompaniesValidationDataResponse.swift; sourceTree = "<group>"; };
 		C147314424169EAB00477ECA /* DocumentReferenceFetchingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentReferenceFetchingResponse.swift; sourceTree = "<group>"; };
 		C14731462416A4EB00477ECA /* CompanyReferenceSavingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyReferenceSavingResponse.swift; sourceTree = "<group>"; };
+		C157DDD42502389800E15480 /* Coordinator+Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coordinator+Calendar.swift"; sourceTree = "<group>"; };
 		C16A2EF023A77B1200CBA43F /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		C16A2EF223A784A700CBA43F /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		C16A2EF423A7853800CBA43F /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		C16D1AE625022D4600CE7CCA /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		C16D1AE825022D9500CE7CCA /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		C16FBC692472C6E1006D24EC /* SubscriptionsFetchingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionsFetchingResponse.swift; sourceTree = "<group>"; };
 		C1704B62248A1EFE00D4DB31 /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
 		C1704B67248A646200D4DB31 /* LocationNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationNetworking.swift; sourceTree = "<group>"; };
@@ -646,6 +652,7 @@
 		C146992623A117A600A84818 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				C157DDD32502383E00E15480 /* Calendar */,
 				C12614DF248129A4004B014D /* Map */,
 				C1BE0D2324215F3F00480224 /* Login */,
 				C17E89112434D5CE00575A7F /* Register */,
@@ -665,6 +672,7 @@
 		C146992723A117B400A84818 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C157DDD22502382C00E15480 /* Calendar */,
 				C12614DC24812855004B014D /* Map */,
 				C1BE0D1E24215DDE00480224 /* Login */,
 				C17E89152434D7A100575A7F /* Register */,
@@ -710,6 +718,7 @@
 				C1FF2A8D23C4B3EA00ACCF29 /* Coordinator+Settings.swift */,
 				C111931E23CF523D007E2866 /* Coordinator+Shift.swift */,
 				C12A2C1F2465B85600BA9D51 /* Coordinator+UpgradeToPro.swift */,
+				C157DDD42502389800E15480 /* Coordinator+Calendar.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -727,6 +736,22 @@
 				C17E891A2434DC4100575A7F /* Company */,
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		C157DDD22502382C00E15480 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				C16D1AE625022D4600CE7CCA /* CalendarViewController.swift */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
+		C157DDD32502383E00E15480 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				C16D1AE825022D9500CE7CCA /* CalendarViewModel.swift */,
+			);
+			path = Calendar;
 			sourceTree = "<group>";
 		};
 		C1704B66248A643C00D4DB31 /* Location */ = {
@@ -1417,6 +1442,7 @@
 				C1419F702412543E001B5817 /* AddCompanyViewController.swift in Sources */,
 				C14466C62417AD0800CD52B6 /* ForgotPasswordViewController.swift in Sources */,
 				C13D8DD9248E2815001B7676 /* PaddedTextFieldWithCursor.swift in Sources */,
+				C16D1AE925022D9500CE7CCA /* CalendarViewModel.swift in Sources */,
 				C10849C324A1FA7C00A58856 /* ShiftViewController.swift in Sources */,
 				C17E892A2434E64500575A7F /* HomeNetworkingProtocol.swift in Sources */,
 				C194854624A5F96D00FF5454 /* EditShiftViewModel.swift in Sources */,
@@ -1436,10 +1462,12 @@
 				C17E89452434F2E600575A7F /* UpdatePersonalInfoViewModelProtocol.swift in Sources */,
 				C17E893F2434F0D100575A7F /* SettingsViewModelProtocol.swift in Sources */,
 				C13C412023AB93D600B674E9 /* FirebaseResponseObject.swift in Sources */,
+				C157DDD52502389800E15480 /* Coordinator+Calendar.swift in Sources */,
 				C1704B63248A1EFE00D4DB31 /* UIAlertController+Extension.swift in Sources */,
 				C17E89192434DA7E00575A7F /* LoginNetworkingProtocol.swift in Sources */,
 				C14104B42473E11B00CAAE26 /* IAPManager.swift in Sources */,
 				C1D0CA0B23F6AC9600A20D6F /* DataSource.swift in Sources */,
+				C16D1AE725022D4600CE7CCA /* CalendarViewController.swift in Sources */,
 				C10F78E923A3D79200783476 /* Array+Extension.swift in Sources */,
 				C1A0F037247FFA160094372F /* WorkingTimeFetchingResponse.swift in Sources */,
 				C10F78E323A3D79200783476 /* Bool+Extension.swift in Sources */,

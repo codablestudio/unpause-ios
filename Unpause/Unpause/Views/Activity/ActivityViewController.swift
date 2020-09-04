@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import DifferenceKit
 import MessageUI
+import FSCalendar
 
 class ActivityViewController: UIViewController {
     
@@ -30,6 +31,8 @@ class ActivityViewController: UIViewController {
     private let fromDateTextFieldDoneButton = UIBarButtonItem(barButtonSystemItem: .done,
                                                               target: self,
                                                               action: nil)
+    
+    private let filterButton = UIButton()
     
     private let arrowSeparator = UIImageView()
     
@@ -85,6 +88,7 @@ class ActivityViewController: UIViewController {
     private func render() {
         configureContainerView()
         configureDatesContainer()
+        renderFilterButton()
         configureTableView()
     }
     
@@ -137,6 +141,12 @@ class ActivityViewController: UIViewController {
             ActivityViewModel.forceRefresh.onNext(())
             self.view.endEditing(true)
         }).disposed(by: disposeBag)
+        
+        filterButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                Coordinator.shared.presentCalendarViewController(from: self)
+            }).disposed(by: disposeBag)
         
         tableView.rx.itemSelected
         .subscribe(onNext: { [weak self] indexPath in
@@ -444,12 +454,22 @@ private extension ActivityViewController {
         toDateTextField.textColor = .unpauseWhite
     }
     
+    func renderFilterButton() {
+        containerView.addSubview(filterButton)
+        filterButton.snp.makeConstraints { make in
+            make.top.equalTo(datesContainer.snp.bottom).offset(20)
+            make.centerX.equalToSuperview()
+            make.height.width.equalTo(100)
+        }
+        filterButton.setTitle("FILTER", for: .normal)
+    }
+    
     func configureTableView() {
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
         
         containerView.addSubview(tableView)
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(datesContainer.snp.bottom)
+            make.top.equalTo(filterButton.snp.bottom)
             make.left.right.equalToSuperview()
             make.bottom.equalToSuperview()
         }

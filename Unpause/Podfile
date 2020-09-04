@@ -27,7 +27,7 @@ target 'Unpause' do
     pod 'SwiftyBeaver'
     pod 'Charts'
     pod 'SwiftLint'
-    
+    pod 'FSCalendar'
     
     target 'UnpauseTests' do
         inherit! :search_paths

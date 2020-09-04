@@ -266,6 +266,7 @@ PODS:
     - FirebaseAuthInterop (~> 1.0)
     - FirebaseCore (~> 6.0)
     - GTMSessionFetcher/Core (~> 1.1)
+  - FSCalendar (2.8.1)
   - GoogleAppMeasurement (6.3.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
     - GoogleUtilities/MethodSwizzler (~> 6.0)
@@ -393,6 +394,7 @@ DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Firestore
+  - FSCalendar
   - GoogleSignIn
   - RxCocoa (~> 5)
   - RxFirebase/Auth
@@ -433,6 +435,7 @@ SPEC REPOS:
     - FirebaseInstanceID
     - FirebaseRemoteConfig
     - FirebaseStorage
+    - FSCalendar
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleDataTransportCCTSupport
@@ -486,6 +489,7 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: 7ee0d6777013bb952f377b41965bf132b6a075be
   FirebaseRemoteConfig: 83d34cb1fa6fed2277370029b59b1883ae4861a4
   FirebaseStorage: 6c5263796af3b1be82ed173598aade47535fe125
+  FSCalendar: 5245140456fcbcac5824c203b98bd8068bdfee1a
   GoogleAppMeasurement: 39ecba10918b21c83877d392246157f65db351cf
   GoogleDataTransport: 653963cf5be60fb59cf051e070f0836fdc305f81
   GoogleDataTransportCCTSupport: 84e4d4bbab642f2e9d83ee65d78aca2b5527d314
@@ -517,6 +521,6 @@ SPEC CHECKSUMS:
   SwiftyBeaver: a1f5691458561414bcfab51874b2b7445451602b
   SwiftyStoreKit: 033d06b6f87955405d3f844a18a7687c2438592a
 
-PODFILE CHECKSUM: 3f2a13031a1e1b831d93e8965b1639272a275a5e
+PODFILE CHECKSUM: 2fee67df77de90175b7e36b95db19d60cf871867
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.3
