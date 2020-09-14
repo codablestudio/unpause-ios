@@ -24,7 +24,11 @@ class CustomTabBarController: UITabBarController {
         
         let companyNetworking = CompanyNetworking()
         let activityViewModel = ActivityViewModel(shiftNetworking: shiftNetworking, companyNetworking: companyNetworking)
-        let activityViewController = ActivityViewController(activityViewModel: activityViewModel)
+        
+        let calendarViewModel = CalendarViewModel()
+        let calendarViewController = CalendarViewController(viewModel: calendarViewModel)
+        let activityViewController = ActivityViewController(activityViewModel: activityViewModel,
+                                                            calendarViewController: calendarViewController)
         let activityNavigationController = UINavigationController(rootViewController: activityViewController)
         
         let settingsViewController = SettingsViewController(settingsViewModel: SettingsViewModel())

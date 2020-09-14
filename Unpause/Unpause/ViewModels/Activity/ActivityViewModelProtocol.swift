@@ -14,8 +14,8 @@ protocol ActivityViewModelProtocol {
     var deleteRequest: Observable<ShiftDeletionResponse>! { get }
     
     var refreshTrigger: PublishSubject<Void> { get }
-    var dateInFromDatePickerChanges: PublishSubject<Date> { get }
-    var dateInToDatePickerChanges: PublishSubject<Date> { get }
+    var firstFilterDateChanges: PublishSubject<Date> { get }
+    var secondFilterDateChanges: PublishSubject<Date> { get }
     var activityStarted: PublishSubject<Void> { get }
     var shiftToDelete: PublishSubject<Shift> { get }
     

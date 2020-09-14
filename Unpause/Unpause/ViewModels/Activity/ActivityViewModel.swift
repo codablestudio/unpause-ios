@@ -18,13 +18,13 @@ class ActivityViewModel: ActivityViewModelProtocol {
     var deleteRequest: Observable<ShiftDeletionResponse>!
     
     var refreshTrigger = PublishSubject<Void>()
-    var dateInFromDatePickerChanges = PublishSubject<Date>()
-    var dateInToDatePickerChanges = PublishSubject<Date>()
+    var firstFilterDateChanges = PublishSubject<Date>()
+    var secondFilterDateChanges = PublishSubject<Date>()
     var activityStarted = PublishSubject<Void>()
     var shiftToDelete = PublishSubject<Shift>()
     
-    private var dateInFromDatePicker: Date?
-    private var dateInToDatePicker: Date?
+    private var firstFilterDate: Date?
+    private var secondFilterDate: Date?
     
     static var forceRefresh = PublishSubject<(Void)>()
     
@@ -37,18 +37,18 @@ class ActivityViewModel: ActivityViewModelProtocol {
     }
     
     private func setUpObservables() {
-        dateInFromDatePickerChanges
+        firstFilterDateChanges
             .subscribe(onNext: { [weak self] date in
                 guard let `self` = self else { return }
                 let dateWithZeroTime = Formatter.shared.getDateWithStartingDayTime(fromDate: date)
-                self.dateInFromDatePicker = dateWithZeroTime
+                self.firstFilterDate = dateWithZeroTime
             }).disposed(by: disposeBag)
         
-        dateInToDatePickerChanges
+        secondFilterDateChanges
             .subscribe(onNext: { [weak self] date in
                 guard let `self` = self else { return }
                 let dateWithZeroTime = Formatter.shared.getDateWithEndingDayTime(fromDate: date)
-                self.dateInToDatePicker = dateWithZeroTime
+                self.secondFilterDate = dateWithZeroTime
             }).disposed(by: disposeBag)
         
         shiftsRequest = Observable.merge(ActivityViewModel.forceRefresh, refreshTrigger)
@@ -59,8 +59,8 @@ class ActivityViewModel: ActivityViewModelProtocol {
             })
             .flatMapLatest({ [weak self] shiftsResponse -> Observable<ShiftsResponse> in
                 guard let `self` = self,
-                    let fromDate = self.dateInFromDatePicker,
-                    let toDate = self.dateInToDatePicker else {
+                    let fromDate = self.firstFilterDate,
+                    let toDate = self.secondFilterDate else {
                         return Observable.just(ShiftsResponse.error(UnpauseError.emptyError))
                 }
                 return self.shiftNetworking.filterShifts(fromDate: fromDate, toDate: toDate, allShifts: shiftsResponse)

@@ -15,43 +15,28 @@ import FSCalendar
 class ActivityViewController: UIViewController {
     
     private let activityViewModel: ActivityViewModelProtocol
-    private let disposeBag = DisposeBag()
+    private var calendarViewController: CalendarViewController
     private let shiftNetworking = ShiftNetworking()
-    
+    private let disposeBag = DisposeBag()
+
     private let refresherControl = UIRefreshControl()
     
     private let containerView = UIView()
     
     private let datesContainer = UIView()
+    private let firstFilterDateLabel = UILabel()
     
-    private let fromDateContainerView = UIView()
-    private let fromDateLabel = UILabel()
-    private let fromDateArrowImageView = UIImageView()
-    private let fromDateTextField = PaddedTextFieldWithoutCursor()
-    private let fromDateTextFieldDoneButton = UIBarButtonItem(barButtonSystemItem: .done,
-                                                              target: self,
-                                                              action: nil)
+    private let separator = UIView()
     
-    private let filterButton = UIButton()
+    private let secondFilterDateLabel = UILabel()
     
-    private let arrowSeparator = UIImageView()
-    
-    private let toDateContainerView = UIView()
-    private let toDateLabel = UILabel()
-    private let toDateArrowImageView = UIImageView()
-    private let toDateTextField = PaddedTextFieldWithoutCursor()
-    private let toDateTextFieldDoneButton = UIBarButtonItem(barButtonSystemItem: .done,
-                                                            target: self,
-                                                            action: nil)
+    private let calendarImageView = UIImageView()
     
     private let tableView = UITableView()
     
     private let dotsButton = DotsUIBarButtonItem()
     
     let documentController = UIDocumentInteractionController()
-    
-    private let fromDatePicker = UIDatePicker()
-    private let toDatePicker = UIDatePicker()
     
     private let shiftToDelete = PublishSubject<Shift>()
     private let activityStarted = PublishSubject<Void>()
@@ -63,7 +48,11 @@ class ActivityViewController: UIViewController {
     
     var animator: Animator?
     
-    init(activityViewModel: ActivityViewModelProtocol) {
+    var firstFilterDateChanges = PublishSubject<Date>()
+    var secondFilterDateChanges = PublishSubject<Date>()
+    
+    init(activityViewModel: ActivityViewModelProtocol, calendarViewController: CalendarViewController) {
+        self.calendarViewController = calendarViewController
         self.activityViewModel = activityViewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -76,19 +65,22 @@ class ActivityViewController: UIViewController {
         super.viewDidLoad()
         render()
         setUpDocumentInteractionController()
-        setFromPickerAndTextFieldInitialDate()
+        setFirstFilterDateLabelInitialDate()
         showTitleInNavigationBar()
-        createPickers()
         setUpTableView()
         setUpObservables()
-        addBarButtonItem()
+        addBarButtonItems()
         activityStarted.onNext(())
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        ActivityViewModel.forceRefresh.onNext(())
     }
     
     private func render() {
         configureContainerView()
         configureDatesContainer()
-        renderFilterButton()
         configureTableView()
     }
     
@@ -107,45 +99,39 @@ class ActivityViewController: UIViewController {
             .bind(to: activityViewModel.refreshTrigger)
             .disposed(by: disposeBag)
         
-        fromDatePicker.rx.date
-            .do(onNext: { fromDate in
-                self.fromDateTextField.text = Formatter.shared.convertDateIntoString(from: fromDate)
-                self.toDatePicker.minimumDate = fromDate
-            })
-            .bind(to: activityViewModel.dateInFromDatePickerChanges)
+        firstFilterDateChanges
+        .startWith(Formatter.shared.getDateOneMontBeforeTodaysDate())
+            .bind(to: activityViewModel.firstFilterDateChanges)
             .disposed(by: disposeBag)
         
-        toDatePicker.rx.date
-            .do(onNext: { toDate in
-                self.toDateTextField.text = Formatter.shared.convertDateIntoString(from: toDate)
-            })
-            .bind(to: activityViewModel.dateInToDatePickerChanges)
+        secondFilterDateChanges
+        .startWith(Date())
+            .bind(to: activityViewModel.secondFilterDateChanges)
             .disposed(by: disposeBag)
         
-        shiftToDelete.bind(to: activityViewModel.shiftToDelete)
+        shiftToDelete
+            .bind(to: activityViewModel.shiftToDelete)
             .disposed(by: disposeBag)
         
         activityStarted
             .bind(to: activityViewModel.activityStarted)
             .disposed(by: disposeBag)
         
-        fromDateTextFieldDoneButton.rx.tap
-            .subscribe(onNext: { [weak self] _ in
-                guard let `self` = self else { return }
+        calendarViewController.datesRangeChanges
+            .subscribe(onNext: { newDatesRange in
+                let firstFilterDate = newDatesRange.first ?? Date()
+                let secondFilterDate = newDatesRange.last ?? Date()
+                self.firstFilterDateChanges.onNext(firstFilterDate)
+                self.secondFilterDateChanges.onNext(secondFilterDate)
+                self.firstFilterDateLabel.text = Formatter.shared.convertDateIntoString(from: firstFilterDate)
+                self.secondFilterDateLabel.text = Formatter.shared.convertDateIntoString(from: secondFilterDate)
                 ActivityViewModel.forceRefresh.onNext(())
-                self.view.endEditing(true)
             }).disposed(by: disposeBag)
         
-        toDateTextFieldDoneButton.rx.tap.subscribe(onNext: { [weak self] _ in
-            guard let `self` = self else { return }
-            ActivityViewModel.forceRefresh.onNext(())
-            self.view.endEditing(true)
-        }).disposed(by: disposeBag)
-        
-        filterButton.rx.tap
+        datesContainer.rx.tapGesture().when(.recognized)
             .subscribe(onNext: { [weak self] _ in
                 guard let `self` = self else { return }
-                Coordinator.shared.presentCalendarViewController(from: self)
+                Coordinator.shared.presentCalendarViewController(from: self, calendarViewController: self.calendarViewController)
             }).disposed(by: disposeBag)
         
         tableView.rx.itemSelected
@@ -182,40 +168,6 @@ class ActivityViewController: UIViewController {
         self.title = "Activity"
     }
     
-    private func rotateViewBy(viewToRotate: UIView, by rotationAngle: Double) {
-        UIView.animate(withDuration: 0.3,
-                       delay: 0,
-                       usingSpringWithDamping: 0.6,
-                       initialSpringVelocity: 0.5,
-                       options: .curveEaseInOut,
-                       animations: {
-                        viewToRotate.transform = CGAffineTransform(rotationAngle: CGFloat(rotationAngle))
-        },
-                       completion: nil)
-    }
-    
-    private func createPickers() {
-        createDatePickerAndBarForPicker(for: fromDateTextField, with: fromDatePicker, barButton: fromDateTextFieldDoneButton)
-        createDatePickerAndBarForPicker(for: toDateTextField, with: toDatePicker, barButton: toDateTextFieldDoneButton)
-    }
-    
-    private func createDatePickerAndBarForPicker(for textField: UITextField, with picker: UIDatePicker, barButton: UIBarButtonItem) {
-        picker.datePickerMode = UIDatePicker.Mode.date
-        textField.inputView = picker
-        picker.backgroundColor = UIColor.unpauseWhite
-        addBarAndBarButtonOnTopOfPicker(for: textField, barButton: barButton)
-    }
-    
-    private func addBarAndBarButtonOnTopOfPicker(for textField: UITextField, barButton: UIBarButtonItem) {
-        let bar = UIToolbar()
-        bar.sizeToFit()
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        
-        bar.setItems([flexibleSpace, barButton], animated: false)
-        bar.isUserInteractionEnabled = true
-        textField.inputAccessoryView = bar
-    }
-    
     private func setUpTableView() {
         tableView.delegate = self
         tableView.dataSource = self
@@ -226,17 +178,16 @@ class ActivityViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.estimatedRowHeight = UITableView.automaticDimension
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.refreshControl = refresherControl
         tableView.contentInsetAdjustmentBehavior = .never
+        tableView.refreshControl = refresherControl
     }
     
-    private func setFromPickerAndTextFieldInitialDate() {
-        fromDatePicker.date = Formatter.shared.getDateOneMontBeforeTodaysDate()
+    private func setFirstFilterDateLabelInitialDate() {
         let lastMonthDate = Formatter.shared.getDateOneMontBeforeTodaysDate()
-        fromDateTextField.text = Formatter.shared.convertDateIntoString(from: lastMonthDate)
+        firstFilterDateLabel.text = Formatter.shared.convertDateIntoString(from: lastMonthDate)
     }
     
-    private func addBarButtonItem() {
+    private func addBarButtonItems() {
         navigationItem.rightBarButtonItem = dotsButton
         
         dotsButton.rx.tap.subscribe(onNext: { [weak self] _ in
@@ -369,99 +320,54 @@ private extension ActivityViewController {
     
     func configureDatesContainer() {
         containerView.addSubview(datesContainer)
-        
         datesContainer.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
+            make.top.equalToSuperview().offset(5)
+            make.left.equalToSuperview().offset(15)
+            make.right.equalToSuperview().offset(-15)
         }
-        datesContainer.backgroundColor = .unpauseOrange
-        datesContainer.layer.cornerRadius = 25
-        datesContainer.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
-        
-        renderArrowSeparatorView()
+        datesContainer.layer.borderWidth = 1.2
+        datesContainer.layer.borderColor = UIColor.unpauseLightGray.cgColor
+        datesContainer.layer.cornerRadius = 10
+
         renderFromDateContainerViewAndItsSubviews()
-        renderToDateContainerViewAndItsSubviews()
     }
-    
-    func renderArrowSeparatorView() {
-        datesContainer.addSubview(arrowSeparator)
-        arrowSeparator.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.centerX.equalToSuperview()
-            make.height.width.equalTo(15)
-        }
-        arrowSeparator.image = UIImage(named: "arrow_15x15_white")
-    }
-    
+
     func renderFromDateContainerViewAndItsSubviews() {
-        datesContainer.addSubview(fromDateContainerView)
-        fromDateContainerView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(4)
-            make.right.equalTo(arrowSeparator.snp.left).offset(-12)
-            make.bottom.equalToSuperview().inset(4)
+        datesContainer.addSubview(firstFilterDateLabel)
+        firstFilterDateLabel.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(12)
+            make.top.equalToSuperview().offset(12)
+            make.bottom.equalToSuperview().offset(-12)
         }
-        fromDateContainerView.layer.borderWidth = 1
-        fromDateContainerView.layer.cornerRadius = 10
-        fromDateContainerView.layer.borderColor = UIColor.unpauseWhite.cgColor
+        firstFilterDateLabel.text = Formatter.shared.convertDateIntoString(from: Date())
+        firstFilterDateLabel.font = .systemFont(ofSize: 14, weight: .medium)
+        firstFilterDateLabel.textColor = .unpauseDarkGray
         
-        fromDateContainerView.addSubview(fromDateArrowImageView)
-        fromDateArrowImageView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.left.equalToSuperview().offset(5)
+        datesContainer.addSubview(separator)
+        separator.snp.makeConstraints { make in
+            make.left.equalTo(firstFilterDateLabel.snp.right).offset(3)
+            make.centerY.equalTo(firstFilterDateLabel.snp.centerY)
+            make.height.equalTo(1)
+            make.width.equalTo(5)
+        }
+        separator.backgroundColor = .unpauseDarkGray
+        
+        datesContainer.addSubview(secondFilterDateLabel)
+        secondFilterDateLabel.snp.makeConstraints { make in
+            make.left.equalTo(separator.snp.right).offset(3)
+            make.centerY.equalTo(separator.snp.centerY)
+        }
+        secondFilterDateLabel.text = Formatter.shared.convertDateIntoString(from: Date())
+        secondFilterDateLabel.font = .systemFont(ofSize: 14, weight: .medium)
+        secondFilterDateLabel.textColor = .unpauseDarkGray
+        
+        datesContainer.addSubview(calendarImageView)
+        calendarImageView.snp.makeConstraints { make in
+            make.right.equalToSuperview().offset(-10)
+            make.centerY.equalTo(secondFilterDateLabel.snp.centerY)
             make.height.width.equalTo(21)
         }
-        fromDateArrowImageView.image = UIImage(named: "calendar_30x30_white")
-        fromDateArrowImageView.contentMode = .scaleAspectFit
-        
-        fromDateContainerView.addSubview(fromDateTextField)
-        fromDateTextField.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(6)
-            make.left.equalTo(fromDateArrowImageView.snp.right).offset(2)
-            make.right.equalToSuperview().inset(5)
-            make.bottom.equalToSuperview().inset(6)
-        }
-        fromDateTextField.textColor = .unpauseWhite
-    }
-    
-    func renderToDateContainerViewAndItsSubviews() {
-        datesContainer.addSubview(toDateContainerView)
-        toDateContainerView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(4)
-            make.left.equalTo(arrowSeparator.snp.right).offset(12)
-            make.bottom.equalToSuperview().inset(4)
-        }
-        toDateContainerView.layer.borderWidth = 1
-        toDateContainerView.layer.cornerRadius = 10
-        toDateContainerView.layer.borderColor = UIColor.unpauseWhite.cgColor
-        
-        toDateContainerView.addSubview(toDateArrowImageView)
-        toDateArrowImageView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.left.equalToSuperview().offset(5)
-            make.height.width.equalTo(21)
-        }
-        toDateArrowImageView.image = UIImage(named: "calendar_30x30_white")
-        toDateArrowImageView.contentMode = .scaleAspectFit
-        
-        toDateContainerView.addSubview(toDateTextField)
-        toDateTextField.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(6)
-            make.left.equalTo(toDateArrowImageView.snp.right).offset(2)
-            make.right.equalToSuperview().inset(5)
-            make.bottom.equalToSuperview().inset(6)
-        }
-        toDateTextField.textColor = .unpauseWhite
-    }
-    
-    func renderFilterButton() {
-        containerView.addSubview(filterButton)
-        filterButton.snp.makeConstraints { make in
-            make.top.equalTo(datesContainer.snp.bottom).offset(20)
-            make.centerX.equalToSuperview()
-            make.height.width.equalTo(100)
-        }
-        filterButton.setTitle("FILTER", for: .normal)
+        calendarImageView.image = UIImage(named: "calendar_30x30_grey")
     }
     
     func configureTableView() {
@@ -469,7 +375,7 @@ private extension ActivityViewController {
         
         containerView.addSubview(tableView)
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(filterButton.snp.bottom)
+            make.top.equalTo(datesContainer.snp.bottom)
             make.left.right.equalToSuperview()
             make.bottom.equalToSuperview()
         }
