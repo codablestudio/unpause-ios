@@ -79,6 +79,16 @@ class CalendarViewController: UIViewController {
         calendar.appearance.headerTitleFont = .systemFont(ofSize: 16, weight: .semibold)
         calendar.appearance.titleDefaultColor = .unpauseBlack
         calendar.appearance.weekdayTextColor = .unpauseDarkGray
+        setUpCalendarInitialDates()
+    }
+    
+    private func setUpCalendarInitialDates() {
+        let dayDurationInSeconds: TimeInterval = 60*60*24
+        for date in stride(from: Formatter.shared.getDateOneMontBeforeTodaysDate(), to: Date(), by: dayDurationInSeconds) {
+            calendar.select(date)
+        }
+        firstDate = Formatter.shared.getDateOneMontBeforeTodaysDate()
+        lastDate = Date()
     }
     
     func datesRange(from: Date, to: Date) -> [Date] {
