@@ -1,0 +1,6 @@
+framework module Pods_Unpause {
+  umbrella header "Pods-Unpause-umbrella.h"
+
+  export *
+  module * { export * }
+}
